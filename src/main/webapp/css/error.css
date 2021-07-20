@@ -1,0 +1,14 @@
+.statuscode {
+    font-size: 5em;
+    font-weight: bold;
+}
+
+.statuscode:after {
+    content: '';
+    background-color: #8B0000;
+    height: 5px;
+    width: 70px;
+
+    margin: -12px auto 12px;
+    display: block;
+}

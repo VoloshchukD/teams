@@ -1,0 +1,127 @@
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <link rel="shortcut icon" href="/images/logo.png" type="image/x-icon">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+    <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
+    <fmt:setLocale value="${local}" scope="session"/>
+    <fmt:setBundle basename="local" var="loc"/>
+</head>
+<body>
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <div class="container-xxl">
+        <div class="navbar-brand">
+            <img
+                    src="/images/logo.png"
+                    class="me-2"
+                    height="40"
+                    alt=""
+                    loading="lazy"
+            />
+            <small><fmt:message bundle="${loc}" key="local.app-name"/></small>
+        </div>
+        <div class="collapse navbar-collapse" id="navbarsExample03">
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item active">
+                    <a class="nav-link" href="?command=main"><fmt:message bundle="${loc}" key="local.home"/><br/><span
+                            class="sr-only"></span></a>
+                </li>
+                <li class="nav-item active">
+                    <a class="nav-link" href="?command=about"><fmt:message bundle="${loc}" key="local.about"/><span
+                            class="sr-only"></span></a>
+                </li>
+                <c:if test="${ not empty role }">
+                    <li class="nav-item active">
+                        <a class="nav-link"
+                           href="?command=projects&projectsPerPage=5&currentPage=1&state=in%20progress"><fmt:message
+                                bundle="${loc}"
+                                key="local.projects"/><span
+                                class="sr-only"></span></a>
+                    </li>
+                </c:if>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownLang" role="button"
+                       data-bs-toggle="dropdown" aria-expanded="false">
+                        <i class="fas fa-globe"></i>
+                    </a>
+                    <ul class="dropdown-menu text-center" style="min-width: 0px;" aria-labelledby="navbarDropdownLang">
+                        <li>
+                            <form action="?command=locale" method="post">
+                                <input type="hidden" name="local" value="en"/>
+                                <input class="btn btn-link" type="submit"
+                                       value="<fmt:message bundle="${loc}" key="local.locbutton.name.en" />"/>
+                            </form>
+                        </li>
+                        <li>
+                            <form action="?command=locale" method="post">
+                                <input type="hidden" name="local" value="ru"/>
+                                <input class="btn btn-link" type="submit"
+                                       value="<fmt:message bundle="${loc}" key="local.locbutton.name.ru" />"/>
+                            </form>
+                        </li>
+                    </ul>
+                </li>
+
+            </ul>
+        </div>
+
+        <c:if test="${ empty role }">
+        <div class="d-flex">
+            <button type="button" class="btn btn-outline-secondary me-3"
+                    onclick="window.location.href='/controller?command=authorization'">
+                <fmt:message bundle="${loc}" key="local.signin"/>
+            </button>
+            <button type="button" class="btn btn-outline-primary me-3"
+                    onclick="window.location.href='/controller?command=registration'">
+                <fmt:message bundle="${loc}" key="local.signup"/>
+            </button>
+            </c:if>
+
+            <c:if test="${ not empty role }">
+                <ul class="navbar-nav">
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
+                           data-bs-toggle="dropdown"
+                           aria-expanded="false">
+                            <img
+                                    id="user_image_header",
+                                    src="${userImg}"
+                                    class="rounded-circle"
+                                    height="22"
+                                    alt=""
+                                    loading="lazy"
+                            />
+                        </a>
+                        <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                            <li><a class="dropdown-item" href="?command=profile"><fmt:message bundle="${loc}"
+                                                                                              key="local.profile"/></a>
+                            </li>
+                            <li><a class="dropdown-item" href="?command=settings"><fmt:message bundle="${loc}"
+                                                                                               key="local.settings"/></a>
+                            </li>
+                            <li>
+                                <hr class="dropdown-divider">
+                            </li>
+                            <li><a class="dropdown-item" href="?command=logout"><fmt:message bundle="${loc}"
+                                                                                             key="local.logout"/></a>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+            </c:if>
+
+        </div>
+    </div>
+</nav>
+
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"
+        integrity="sha384-IQsoLXl5PILFhosVNubq5LC7Qb9DXgDA9i+tQ8Zj3iwWAwPtgFTxbJ8NT4GN1R8p"
+        crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.min.js"
+        integrity="sha384-cVKIPhGWiC2Al4u+LWgxfKTRIcfu0JTxR+EQDz/bgldoEyl4H0zUF0QKbrJ0EcQF"
+        crossorigin="anonymous"></script>
+</body>
+</html>
+

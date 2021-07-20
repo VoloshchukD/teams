@@ -1,0 +1,24 @@
+.main-timeline .timeline-content {
+    text-align: center;
+    width: 60%;
+    padding: 10px 15px 60px;
+    margin: 0 auto;
+}
+
+.main-timeline .timeline-year {
+    color: #00008B;
+    font-size: 30px;
+}
+
+.main-timeline .title {
+    text-transform: uppercase;
+}
+
+.main-timeline .title:after {
+    content: '';
+    background-color: #00008B;
+    height: 3px;
+    width: 60px;
+    margin: 12px auto;
+    display: block;
+}
