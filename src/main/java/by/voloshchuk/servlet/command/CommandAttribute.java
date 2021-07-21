@@ -1,8 +1,8 @@
 package by.voloshchuk.servlet.command;
 
-public final class SessionAttribute {
+public final class CommandAttribute {
 
-    private SessionAttribute() {
+    private CommandAttribute() {
     }
 
     public static final String USER_ID = "userId";
@@ -32,5 +32,13 @@ public final class SessionAttribute {
     public static final String PRIMARY_REGEX = "regexPrimary";
 
     public static final String SKILLS_REGEX = "regexSkills";
+
+    public static final String YEARS_ON_MARKET = "yearsOnMarket";
+
+    public static final String PROJECTS_PRODUCTIVITY = "projectsProductivity";
+
+    public static final String CUSTOMERS_AMOUNT = "customersAmount";
+
+    public static final String PROJECTS_AMOUNT = "projectsAmount";
 
 }

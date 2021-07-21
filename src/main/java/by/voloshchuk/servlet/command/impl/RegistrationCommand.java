@@ -8,8 +8,7 @@ import by.voloshchuk.service.impl.UserServiceImpl;
 import by.voloshchuk.servlet.command.Command;
 import by.voloshchuk.servlet.command.CommandPath;
 import by.voloshchuk.servlet.command.RequestParameter;
-import by.voloshchuk.servlet.command.SessionAttribute;
-import by.voloshchuk.util.RegexProperty;
+import by.voloshchuk.servlet.command.CommandAttribute;
 import org.apache.logging.log4j.Level;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -30,8 +29,8 @@ public class RegistrationCommand implements Command {
         User user = createUser(request);
         try {
             if (userService.addUser(user)) {
-                request.getSession().setAttribute(SessionAttribute.USER_ID, user.getId());
-                request.getSession().setAttribute(SessionAttribute.ROLE, user.getRole());
+                request.getSession().setAttribute(CommandAttribute.USER_ID, user.getId());
+                request.getSession().setAttribute(CommandAttribute.ROLE, user.getRole());
             }
         } catch (ServiceException e) {
             logger.log(Level.ERROR, e.getMessage());

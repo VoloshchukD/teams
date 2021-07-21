@@ -9,6 +9,7 @@
     <title><fmt:message bundle="${loc}" key="local.reg"/></title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css" rel="stylesheet"
           integrity="sha384-+0n0xVW2eSR5OomGNYDnhzAbDsOXxcvSN1TPprVMTNDbiYZCxYbOOl7+AMvyTG2x" crossorigin="anonymous">
+    <script type="text/javascript" src="/js/reg.js"></script>
 </head>
 <body style="background-color: #D3D3D3;">
 <div class="container-xxl">
@@ -21,7 +22,7 @@
                 <h4><fmt:message bundle="${loc}" key="local.join"/></h4>
                 <h2><fmt:message bundle="${loc}" key="local.create"/></h2>
             </div>
-            <form method="post" action="controller">
+            <form method="post" action="controller" onSubmit="return checkTextArea()" >
                 <input type="hidden" name="command" value="registrate" id="command"/>
 
                 <div class="mb-3">
@@ -107,6 +108,7 @@
                                                                      key="local.form.skills"/></label>
                         <textarea class="form-control" aria-label="With textarea" name="skills-description"
                                   id="skills-description"></textarea>
+                        <input type="hidden" name="textAreaRegex" value="${regexSkills}" id="textAreaRegex"/>
                     </div>
 
                 </div>

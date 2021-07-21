@@ -5,10 +5,13 @@ import by.voloshchuk.entity.User;
 import by.voloshchuk.exception.DaoException;
 
 import java.util.List;
+import java.util.Map;
 
 public interface UserDao {
 
     boolean addUser(User user) throws DaoException;
+
+    Map<String, Integer> findBasicData() throws DaoException;
 
     User findUserById(Long id) throws DaoException;
 

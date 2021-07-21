@@ -7,12 +7,13 @@ import by.voloshchuk.entity.User;
 import by.voloshchuk.entity.UserDetail;
 import by.voloshchuk.exception.DaoException;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.sql.*;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+
+import static by.voloshchuk.dao.impl.ConstantColumnName.BASIC_DATA_YEARS;
 
 public class UserDaoImpl implements UserDao {
 
@@ -22,6 +23,14 @@ public class UserDaoImpl implements UserDao {
     private static final String SQL_ADD_USER_TO_PROJECT = "INSERT INTO teams.user_project_maps (project_id, user_id) VALUES (?, ?);";
 
     private static final String SQL_DELETE_USER_FROM_PROJECT = "DELETE FROM teams.user_project_maps WHERE project_id = ? AND user_id = ?;";
+
+    private static final String SQL_FIND_BASIC_DATA = "SELECT TIMESTAMPDIFF(year, MIN(teams.projects.start_date), CURDATE()) " +
+            "AS years, ROUND(AVG(TIMESTAMPDIFF(month, teams.projects.start_date, teams.technical_tasks.deadline))) " +
+            "AS productivity, COUNT(DISTINCT(teams.users.user_id)) AS customers, COUNT(teams.projects.project_id) " +
+            "AS projects FROM teams.users INNER JOIN teams.technical_tasks " +
+            "ON teams.users.user_id = teams.technical_tasks.customer_id INNER JOIN teams.projects " +
+            "ON teams.technical_tasks.technical_task_id = teams.projects.technical_task_id " +
+            "WHERE teams.users.role = 'customer' AND teams.projects.state = 'finished'";
 
     private static final String SQL_FIND_USER_BY_ID = "SELECT * FROM users INNER JOIN user_details " +
             "ON users.user_detail_id = user_details.user_detail_id " +
@@ -61,6 +70,28 @@ public class UserDaoImpl implements UserDao {
             throw new DaoException(e);
         }
         return isAdded;
+    }
+
+    public Map<String, Integer> findBasicData() throws DaoException {
+        Map<String, Integer> resultData = new HashMap<>();
+        try (Connection connection = connectionPool.getConnection();
+             Statement statement = connection.createStatement()) {
+            ResultSet resultSet = statement.executeQuery(SQL_FIND_BASIC_DATA);
+            if (resultSet.next()) {
+                resultData.put(ConstantColumnName.BASIC_DATA_YEARS, resultSet.getInt(
+                        ConstantColumnName.BASIC_DATA_YEARS));
+                resultData.put(ConstantColumnName.BASIC_DATA_PRODUCTIVITY, resultSet.getInt(
+                        ConstantColumnName.BASIC_DATA_PRODUCTIVITY));
+                resultData.put(ConstantColumnName.BASIC_DATA_CUSTOMERS_AMOUNT, resultSet.getInt(
+                        ConstantColumnName.BASIC_DATA_CUSTOMERS_AMOUNT));
+                resultData.put(ConstantColumnName.BASIC_DATA_PROJECTS, resultSet.getInt(
+                        ConstantColumnName.BASIC_DATA_PROJECTS));
+
+            }
+        } catch (SQLException e) {
+            throw new DaoException(e);
+        }
+        return resultData;
     }
 
     public User findUserById(Long id) throws DaoException {

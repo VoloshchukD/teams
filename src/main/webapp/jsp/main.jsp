@@ -29,22 +29,22 @@
         <div class="row my-5">
             <div class="col-md-3 col-sm-6 bottom-margin text-center counter-section sm-margin-bottom-ten"><i
                     class="fa fa-birthday-cake medium-icon"></i> <span class="counter-number"></span> <span
-                    class="timer counter">12</span>
+                    class="timer counter">${yearsOnMarket}</span>
                 <p class="counter-title"><fmt:message bundle="${loc}" key="local.years"/></p>
             </div>
             <div class="col-md-3 col-sm-6 bottom-margin text-center counter-section sm-margin-bottom-ten"><i
-                    class="fa fa-graduation-cap medium-icon"></i> <span class="counter-number"></span> <span
-                    class="timer counter">8</span>
-                <p class="counter-title"><fmt:message bundle="${loc}" key="local.employees"/></p>
+                    class="fa fa-calendar medium-icon"></i> <span class="counter-number"></span> <span
+                    class="timer counter">${projectsProductivity}</span>
+                <p class="counter-title"><fmt:message bundle="${loc}" key="local.avg-project-duration"/></p>
             </div>
             <div class="col-md-3 col-sm-6 bottom-margin text-center counter-section sm-margin-bottom-ten"><i
                     class="fa fa-anchor medium-icon"></i> <span class="counter-number"></span> <span
-                    class="timer counter">67</span>
+                    class="timer counter">${projectsAmount}</span>
                 <p class="counter-title"><fmt:message bundle="${loc}" key="local.completed"/></p>
             </div>
             <div class="col-md-3 col-sm-6 bottom-margin text-center counter-section sm-margin-bottom-ten"><i
                     class="fa fa-user medium-icon"></i> <span class="counter-number"></span> <span
-                    class="timer counter">50</span>
+                    class="timer counter">${customersAmount}</span>
                 <p class="counter-title"><fmt:message bundle="${loc}" key="local.clients"/></p>
             </div>
         </div>

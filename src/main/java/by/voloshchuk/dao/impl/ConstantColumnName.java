@@ -1,6 +1,6 @@
 package by.voloshchuk.dao.impl;
 
-final class ConstantColumnName {
+public final class ConstantColumnName {
 
     public static final String USER_DETAIL_ID = "user_detail_id";
 
@@ -95,6 +95,14 @@ final class ConstantColumnName {
     public static final String BILL_AMOUNT_DUE = "amount_due";
 
     public static final String BILL_PROJECT_ID = "project_id";
+
+    public static final String BASIC_DATA_YEARS = "years";
+
+    public static final String BASIC_DATA_PRODUCTIVITY = "productivity";
+
+    public static final String BASIC_DATA_CUSTOMERS_AMOUNT = "customers";
+
+    public static final String BASIC_DATA_PROJECTS = "projects";
 
     private ConstantColumnName() {
     }

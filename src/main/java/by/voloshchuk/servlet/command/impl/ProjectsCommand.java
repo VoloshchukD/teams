@@ -7,7 +7,7 @@ import by.voloshchuk.service.impl.ProjectServiceImpl;
 import by.voloshchuk.servlet.command.Command;
 import by.voloshchuk.servlet.command.CommandPath;
 import by.voloshchuk.servlet.command.RequestParameter;
-import by.voloshchuk.servlet.command.SessionAttribute;
+import by.voloshchuk.servlet.command.CommandAttribute;
 import org.apache.logging.log4j.Level;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -30,7 +30,7 @@ public class ProjectsCommand implements Command {
         int currentPage = Integer.parseInt(request.getParameter(RequestParameter.CURRENT_PAGE));
         int projectsPerPage = Integer.parseInt(request.getParameter(RequestParameter.PROJECTS_PER_PAGE));
         String state = request.getParameter(RequestParameter.PROJECT_STATE);
-        Long userId = (Long) request.getSession().getAttribute(SessionAttribute.USER_ID);
+        Long userId = (Long) request.getSession().getAttribute(CommandAttribute.USER_ID);
         List<Project> projects = null;
         try {
             projects = projectService.findProjectsByUserIdAndState(userId, state);
