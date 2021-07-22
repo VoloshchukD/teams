@@ -3,6 +3,7 @@ package by.voloshchuk.servlet.command.impl.transition;
 import by.voloshchuk.servlet.command.Command;
 import by.voloshchuk.servlet.command.CommandPath;
 import by.voloshchuk.servlet.command.CommandAttribute;
+import by.voloshchuk.servlet.command.CommandRouter;
 import by.voloshchuk.util.RegexProperty;
 
 import javax.servlet.ServletException;
@@ -13,7 +14,7 @@ import java.io.IOException;
 public class ToRegistrationCommand implements Command {
 
     @Override
-    public void execute(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
+    public CommandRouter execute(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
         request.setAttribute(CommandAttribute.EMAIL_REGEX, RegexProperty.PROPERTY_EMAIL_REGEX);
         request.setAttribute(CommandAttribute.PASSWORD_REGEX, RegexProperty.PROPERTY_PASSWORD_REGEX);
         request.setAttribute(CommandAttribute.FIRST_REGEX, RegexProperty.PROPERTY_FIRST_REGEX);
@@ -24,7 +25,8 @@ public class ToRegistrationCommand implements Command {
         request.setAttribute(CommandAttribute.SALARY_REGEX, RegexProperty.PROPERTY_SALARY_REGEX);
         request.setAttribute(CommandAttribute.PRIMARY_REGEX, RegexProperty.PROPERTY_PRIMARY_REGEX);
         request.setAttribute(CommandAttribute.SKILLS_REGEX, RegexProperty.PROPERTY_SKILLS_REGEX);
-        request.getRequestDispatcher(CommandPath.REGISTRATION_JSP).forward(request, response);
+        CommandRouter router = new CommandRouter(CommandRouter.RouterType.FORWARD, CommandPath.REGISTRATION_JSP);
+        return router;
     }
 
 }

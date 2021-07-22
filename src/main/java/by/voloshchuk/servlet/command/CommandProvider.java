@@ -26,7 +26,6 @@ public class CommandProvider {
         commands.put(CommandName.AUTHORIZATION, new ToAuthorizationCommand());
         commands.put(CommandName.AUTHORIZE, new AuthorizationCommand());
         commands.put(CommandName.PROFILE, new ProfileCommand());
-        commands.put(CommandName.AVATAR, new AvatarCommand());
         commands.put(CommandName.LOGOUT, new LogoutCommand());
     }
 

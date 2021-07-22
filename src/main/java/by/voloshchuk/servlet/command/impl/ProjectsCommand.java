@@ -4,10 +4,7 @@ import by.voloshchuk.entity.Project;
 import by.voloshchuk.exception.ServiceException;
 import by.voloshchuk.service.ProjectService;
 import by.voloshchuk.service.impl.ProjectServiceImpl;
-import by.voloshchuk.servlet.command.Command;
-import by.voloshchuk.servlet.command.CommandPath;
-import by.voloshchuk.servlet.command.RequestParameter;
-import by.voloshchuk.servlet.command.CommandAttribute;
+import by.voloshchuk.servlet.command.*;
 import org.apache.logging.log4j.Level;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -26,7 +23,7 @@ public class ProjectsCommand implements Command {
     private ProjectService projectService = new ProjectServiceImpl();
 
     @Override
-    public void execute(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
+    public CommandRouter execute(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
         int currentPage = Integer.parseInt(request.getParameter(RequestParameter.CURRENT_PAGE));
         int projectsPerPage = Integer.parseInt(request.getParameter(RequestParameter.PROJECTS_PER_PAGE));
         String state = request.getParameter(RequestParameter.PROJECT_STATE);
@@ -58,7 +55,8 @@ public class ProjectsCommand implements Command {
         request.setAttribute(RequestParameter.PROJECT_STATE, state);
         request.setAttribute(RequestParameter.PROJECTS_PER_PAGE, projectsPerPage);
 
-        request.getRequestDispatcher(CommandPath.PROJECTS_JSP).forward(request, response);
+        CommandRouter router = new CommandRouter(CommandRouter.RouterType.FORWARD, CommandPath.PROJECTS_JSP);
+        return router;
     }
 
 }

@@ -2,6 +2,8 @@ package by.voloshchuk.servlet;
 
 import by.voloshchuk.servlet.command.Command;
 import by.voloshchuk.servlet.command.CommandProvider;
+import by.voloshchuk.servlet.command.CommandRouter;
+import by.voloshchuk.servlet.command.RequestParameter;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -25,9 +27,17 @@ public class Controller extends HttpServlet {
     }
 
     private void doProcess(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
-        String commandName = request.getParameter("command");
+        String commandName = request.getParameter(RequestParameter.COMMAND);
         Command command = provider.getCommand(commandName);
-        command.execute(request, response);
+        CommandRouter router = command.execute(request, response);
+        switch (router.getRouterType()) {
+            case FORWARD:
+                request.getRequestDispatcher(router.getPath()).forward(request, response);
+                break;
+            case REDIRECT:
+                response.sendRedirect(router.getPath());
+                break;
+        }
     }
 
 }

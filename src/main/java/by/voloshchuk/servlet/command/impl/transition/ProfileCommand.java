@@ -2,6 +2,7 @@ package by.voloshchuk.servlet.command.impl.transition;
 
 import by.voloshchuk.servlet.command.Command;
 import by.voloshchuk.servlet.command.CommandPath;
+import by.voloshchuk.servlet.command.CommandRouter;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -11,9 +12,10 @@ import java.io.IOException;
 public class ProfileCommand implements Command {
 
     @Override
-    public void execute(HttpServletRequest request, HttpServletResponse response)
+    public CommandRouter execute(HttpServletRequest request, HttpServletResponse response)
             throws IOException, ServletException {
-        request.getRequestDispatcher(CommandPath.PROFILE_JSP).forward(request, response);
+        CommandRouter router = new CommandRouter(CommandRouter.RouterType.FORWARD, CommandPath.PROFILE_JSP);
+        return router;
     }
 
 }

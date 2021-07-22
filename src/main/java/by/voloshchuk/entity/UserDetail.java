@@ -4,6 +4,8 @@ import java.util.Objects;
 
 public class UserDetail extends AbstractIdentifiedEntity {
 
+    private String imagePath;
+
     private String firstName;
 
     private String lastName;
@@ -21,6 +23,14 @@ public class UserDetail extends AbstractIdentifiedEntity {
     private String skillsDescription;
 
     private String status;
+
+    public String getImagePath() {
+        return imagePath;
+    }
+
+    public void setImagePath(String imagePath) {
+        this.imagePath = imagePath;
+    }
 
     public String getFirstName() {
         return firstName;

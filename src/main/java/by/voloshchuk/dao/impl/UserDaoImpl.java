@@ -109,6 +109,7 @@ public class UserDaoImpl implements UserDao {
 
                 UserDetail userDetail = new UserDetail();
                 userDetail.setId(Long.valueOf(resultSet.getString(ConstantColumnName.USER_DETAIL_ID)));
+                userDetail.setImagePath(resultSet.getString(ConstantColumnName.USER_DETAIL_IMAGE));
                 userDetail.setFirstName(resultSet.getString(ConstantColumnName.USER_DETAIL_FIRST_NAME));
                 userDetail.setLastName(resultSet.getString(ConstantColumnName.USER_DETAIL_LAST_NAME));
                 userDetail.setCompany(resultSet.getString(ConstantColumnName.USER_DETAIL_COMPANY));
@@ -141,6 +142,7 @@ public class UserDaoImpl implements UserDao {
 
                 UserDetail userDetail = new UserDetail();
                 userDetail.setId(Long.valueOf(resultSet.getString(ConstantColumnName.USER_DETAIL_ID)));
+                userDetail.setImagePath(resultSet.getString(ConstantColumnName.USER_DETAIL_IMAGE));
                 userDetail.setFirstName(resultSet.getString(ConstantColumnName.USER_DETAIL_FIRST_NAME));
                 userDetail.setLastName(resultSet.getString(ConstantColumnName.USER_DETAIL_LAST_NAME));
                 userDetail.setCompany(resultSet.getString(ConstantColumnName.USER_DETAIL_COMPANY));

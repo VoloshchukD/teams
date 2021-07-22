@@ -4,6 +4,8 @@ public final class ConstantColumnName {
 
     public static final String USER_DETAIL_ID = "user_detail_id";
 
+    public static final String USER_DETAIL_IMAGE = "user_image_path";
+
     public static final String USER_DETAIL_FIRST_NAME = "first_name";
 
     public static final String USER_DETAIL_LAST_NAME = "last_name";

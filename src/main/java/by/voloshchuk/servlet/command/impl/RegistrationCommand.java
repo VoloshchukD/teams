@@ -5,10 +5,7 @@ import by.voloshchuk.entity.UserDetail;
 import by.voloshchuk.exception.ServiceException;
 import by.voloshchuk.service.UserService;
 import by.voloshchuk.service.impl.UserServiceImpl;
-import by.voloshchuk.servlet.command.Command;
-import by.voloshchuk.servlet.command.CommandPath;
-import by.voloshchuk.servlet.command.RequestParameter;
-import by.voloshchuk.servlet.command.CommandAttribute;
+import by.voloshchuk.servlet.command.*;
 import org.apache.logging.log4j.Level;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -25,7 +22,7 @@ public class RegistrationCommand implements Command {
     private UserService userService = new UserServiceImpl();
 
     @Override
-    public void execute(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
+    public CommandRouter execute(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
         User user = createUser(request);
         try {
             if (userService.addUser(user)) {
@@ -35,7 +32,8 @@ public class RegistrationCommand implements Command {
         } catch (ServiceException e) {
             logger.log(Level.ERROR, e.getMessage());
         }
-        response.sendRedirect(CommandPath.MAIN);
+        CommandRouter router = new CommandRouter(CommandRouter.RouterType.REDIRECT, CommandPath.MAIN);
+        return router;
     }
 
     private User createUser(HttpServletRequest request) {

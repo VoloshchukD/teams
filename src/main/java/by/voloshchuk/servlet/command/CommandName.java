@@ -12,7 +12,6 @@ public enum CommandName {
     AUTHORIZATION,
     AUTHORIZE,
     PROFILE,
-    AVATAR,
     LOGOUT
 
 }
