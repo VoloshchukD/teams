@@ -26,6 +26,7 @@ public class AvatarCommand implements AsyncCommand {
 //        }
         response.getWriter().write(result);
         System.out.println("f");
+
     }
 
 }

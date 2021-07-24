@@ -1,6 +1,8 @@
 package by.voloshchuk.servlet.command;
 
 import by.voloshchuk.servlet.command.impl.async.AvatarCommand;
+import by.voloshchuk.servlet.command.impl.async.EditCommand;
+import by.voloshchuk.servlet.command.impl.async.UpdateUserDetailCommand;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -11,8 +13,14 @@ public class AsyncCommandProvider {
 
     private Map<AsyncCommandName, AsyncCommand> asyncCommands = new HashMap<>();
 
+    private static final String COMMAND_SEPARATOR = "-";
+
+    private static final String ENUM_COMMAND_SEPARATOR = "_";
+
     private AsyncCommandProvider() {
         asyncCommands.put(AsyncCommandName.AVATAR, new AvatarCommand());
+        asyncCommands.put(AsyncCommandName.EDIT, new EditCommand());
+        asyncCommands.put(AsyncCommandName.UPDATE_USER_DETAIL, new UpdateUserDetailCommand());
     }
 
     public static AsyncCommandProvider getInstance() {
@@ -20,7 +28,7 @@ public class AsyncCommandProvider {
     }
 
     public AsyncCommand getCommand(String commandName) {
-        CommandName name = CommandName.valueOf(commandName.toUpperCase());
+        AsyncCommandName name = parseCommand(commandName);
         AsyncCommand asyncCommand;
         if (name != null) {
             asyncCommand = asyncCommands.get(name);
@@ -28,6 +36,12 @@ public class AsyncCommandProvider {
             asyncCommand = asyncCommands.get(AsyncCommandName.ERROR);
         }
         return asyncCommand;
+    }
+
+    public AsyncCommandName parseCommand(String commandName) {
+        String formattedName = commandName.toUpperCase().replaceAll(COMMAND_SEPARATOR, ENUM_COMMAND_SEPARATOR);
+        AsyncCommandName asyncCommandName = AsyncCommandName.valueOf(formattedName);
+        return asyncCommandName;
     }
 
 }

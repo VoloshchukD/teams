@@ -13,7 +13,7 @@ public class UserDetailDaoImpl implements UserDetailDao {
             "last_name, company, position, experience, salary, primary_skill, skills_description, status) " +
             "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
 
-    private static final String SQL_FIND_USER_DETAIL_BY_ID = "SELECT * FROM user_details WHERE user_detail_id = ?";
+    private static final String SQL_FIND_USER_DETAIL_BY_USER_ID = "SELECT * FROM user_details INNER JOIN users ON user_details.user_detail_id = users.user_detail_id WHERE users.user_id = ?";
 
     private static final String SQL_UPDATE_USER_DETAIL = "UPDATE user_details SET first_name = ?, " +
             "last_name = ?, company = ?, position = ?, experience = ?, salary = ?, primary_skill = ?, " +
@@ -50,11 +50,11 @@ public class UserDetailDaoImpl implements UserDetailDao {
         return isAdded;
     }
 
-    public UserDetail findUserDetailById(Long id) throws DaoException {
+    public UserDetail findUserDetailByUserId(Long userId) throws DaoException {
         UserDetail userDetail = null;
         try (Connection connection = connectionPool.getConnection();
-             PreparedStatement statement = connection.prepareStatement(SQL_FIND_USER_DETAIL_BY_ID)) {
-            statement.setString(1, String.valueOf(id));
+             PreparedStatement statement = connection.prepareStatement(SQL_FIND_USER_DETAIL_BY_USER_ID)) {
+            statement.setString(1, String.valueOf(userId));
             ResultSet resultSet = statement.executeQuery();
             userDetail = new UserDetail();
             if (resultSet.next()) {

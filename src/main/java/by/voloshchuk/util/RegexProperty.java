@@ -9,9 +9,9 @@ public class RegexProperty {
 
     public static final String REGEX_PASSWORD = "regex.password";
 
-    public static final String REGEX_FIRST = "regex.first";
+    public static final String REGEX_FIRST = "regex.forename";
 
-    public static final String REGEX_LAST = "regex.last";
+    public static final String REGEX_LAST = "regex.surname";
 
     public static final String REGEX_COMPANY = "regex.company";
 

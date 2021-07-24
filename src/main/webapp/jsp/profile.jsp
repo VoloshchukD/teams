@@ -7,7 +7,6 @@
     <title><fmt:message bundle="${loc}" key="local.profile"/></title>
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.0/css/all.css"
           integrity="sha384-lZN37f5QGtY3VHgisS14W3ExzMWZxybE1SJSEsQp9S+oqd12jhcu+A56Ebc1zFSJ" crossorigin="anonymous">
-    <link rel="stylesheet" href="/css/about.css">
 
     <link rel="stylesheet" href="http://cdn.webix.com/edge/webix.css" type="text/css">
     <script src="http://cdn.webix.com/edge/webix.js" type="text/javascript"></script>
@@ -17,56 +16,60 @@
 </head>
 <body>
 <div class="container-xxl">
-    <div class="row h-auto justify-content-center mx-n5">
+    <div class="row h-auto justify-content-center mx-n5 my-3">
         <div class="col-5 my-auto px-5">
-<%--            <div class="py-4 text-center">--%>
-<%--                <p><img id="userImg" class="rounded d-block mx-auto" src="${userImg}" alt="" width="200" height="200"></p>--%>
-<%--            </div>--%>
 
-<%--            <form action="upload" enctype="multipart/form-data" method="post">--%>
-<%--                <div class="d-flex justify-content-center">--%>
-<%--                    <input class="form-control mb-3" name="fileName" id="input" type="text"/>--%>
-
-<%--                    <button class="btn btn-sm btn-primary btn-block mb-3 w-10" type="button">--%>
-<%--                        <input type="file" id="upload" name="content" hidden/>--%>
-<%--                        <label for="upload"><fmt:message bundle="${loc}" key="local.profile.attach"/></label>--%>
-<%--                    </button>--%>
-<%--                </div>--%>
-<%--                <div class="d-flex justify-content-center">--%>
-<%--                    <button class="btn btn-lg btn-primary btn-block mb-3" type="submit"><fmt:message bundle="${loc}" key="local.profile.upload"/></button>--%>
-<%--                </div>--%>
-<%--            </form>--%>
-    ${userImg}
-    <div class="row w-auto h-auto justify-content-center my-3">
-        <input type="hidden" name="uploadButtonName" value="<fmt:message bundle="${loc}" key="local.profile.upload"/>" id="uploadButtonName"/>
-        <input type="hidden" name="userImageUrl" value="${userImg}" id="userImageUrl"/>
-        <div id="box" class="justify-content-center" ></div>
-    </div>
-
-
+            ${userImg}
+            <div class="row w-auto h-auto justify-content-center">
+                <input type="hidden" name="uploadButtonName"
+                       value="<fmt:message bundle="${loc}" key="local.profile.change-photo"/>" id="uploadButtonName"/>
+                <input type="hidden" name="userImageUrl" value="${userImg}" id="userImageUrl"/>
+                <div id="box" class="justify-content-center"></div>
+            </div>
 
             <hr class="mb-4">
 
             <form method="post" action="controller">
-                <input type="hidden" name="command" value="update"/>
-
-                <div class="mb-3">
-                    <label for="email"><fmt:message bundle="${loc}" key="local.form.email"/></label>
-                    <input type="email" class="form-control" pattern="${regexEmail}" name="email" id="email"
-                           placeholder="" required>
+                <input type="hidden" name="command" value="registrate"/>
+                <select class="form-select mb-3" aria-label="Default select example">
+                    <option selected>Open this select menu</option>
+                    <option value="1">One</option>
+                    <option value="2">Two</option>
+                    <option value="3">Three</option>
+                </select>
+                <div class="d-flex justify-content-center">
+                    <button class="btn btn btn-primary btn-block" type="submit"><fmt:message bundle="${loc}"
+                                                                                                key="local.signup"/></button>
                 </div>
+            </form>
+
+            <hr class="mb-4">
+
+            <form method="post" action="controller">
+                <div class="d-flex justify-content-center">
+                    <button class="btn btn btn-danger btn-block" type="submit"><fmt:message bundle="${loc}"
+                                                                                                key="local.logout"/></button>
+                </div>
+            </form>
+
+        </div>
+
+        <div class="col-5 my-auto px-5">
+            <form method="post" action="controller">
+                <input type="hidden" name="command" value="update"/>
 
                 <div class="row">
                     <div class="col-md-6 mb-3">
-                        <label for="firstName"><fmt:message bundle="${loc}" key="local.form.first"/></label>
-                        <input type="text" class="form-control" pattern="${regexFirst}" name="firstName" id="firstName"
+                        <label for="first-name"><fmt:message bundle="${loc}" key="local.form.forename"/></label>
+                        <input type="text" class="form-control" pattern="${regexFirst}" name="first-name"
+                               id="first-name"
                                placeholder="" value=""
                                required>
 
                     </div>
                     <div class="col-md-6 mb-3">
-                        <label for="lastName"><fmt:message bundle="${loc}" key="local.form.last"/></label>
-                        <input type="text" class="form-control" pattern="${regexLast}" name="lastName" id="lastName"
+                        <label for="last-name"><fmt:message bundle="${loc}" key="local.form.last"/></label>
+                        <input type="text" class="form-control" pattern="${regexLast}" name="last-name" id="last-name"
                                placeholder="" value=""
                                required>
                     </div>
@@ -120,48 +123,35 @@
                 </div>
 
                 <div class="d-flex justify-content-center">
-                    <button class="btn btn-lg btn-primary btn-block" type="submit"><fmt:message bundle="${loc}"
-                                                                                                key="local.signup"/></button>
+                    <button class="btn btn btn-primary btn-block" type="button" onclick="submitUpdateForm()"><fmt:message bundle="${loc}"
+                                                                                                key="local.profile.update"/></button>
                 </div>
 
-            </form>
-        </div>
-
-        <div class="col-5 my-auto px-5">
-            <form method="post" action="controller">
-                <input type="hidden" name="command" value="registrate" id="command"/>
-                <div class="mb-3">
-                    <label for="password"><fmt:message bundle="${loc}" key="local.form.password"/> </label>
-                    <input type="password" class="form-control" pattern="${regexPassword}" name="password" id="password"
-                           placeholder="" required>
-                </div>
-                <div class="mb-3">
-                    <label for="password"><fmt:message bundle="${loc}" key="local.form.password"/> </label>
-                    <input type="password" class="form-control" pattern="${regexPassword}" name="password"
-                           id="password2"
-                           placeholder="" required>
-                </div>
-                <div class="d-flex justify-content-center">
-                    <button class="btn btn-lg btn-primary btn-block" type="submit"><fmt:message bundle="${loc}"
-                                                                                                key="local.signup"/></button>
-                </div>
             </form>
 
             <hr class="mb-4">
 
             <form method="post" action="controller">
-                <input type="hidden" name="command" value="registrate"/>
-                <select class="form-select mb-3" aria-label="Default select example">
-                    <option selected>Open this select menu</option>
-                    <option value="1">One</option>
-                    <option value="2">Two</option>
-                    <option value="3">Three</option>
-                </select>
+                <input type="hidden" name="command" value="password" id="command"/>
+                <div class="mb-3">
+                    <label for="new-password"><fmt:message bundle="${loc}" key="local.new-password"/> </label>
+                    <input type="password" class="form-control" pattern="${regexPassword}" name="new-password"
+                           id="new-password"
+                           placeholder="" required>
+                </div>
+                <div class="mb-3">
+                    <label for="new-password-repeat"><fmt:message bundle="${loc}"
+                                                                  key="local.new-password-repeat"/> </label>
+                    <input type="password" class="form-control" pattern="${regexPassword}" name="new-password-repeat"
+                           id="new-password-repeat"
+                           placeholder="" required>
+                </div>
                 <div class="d-flex justify-content-center">
-                    <button class="btn btn-lg btn-primary btn-block" type="submit"><fmt:message bundle="${loc}"
-                                                                                                key="local.signup"/></button>
+                    <button class="btn btn btn-primary btn-block" type="submit"><fmt:message bundle="${loc}"
+                                                                                                key="local.profile.reset-password"/></button>
                 </div>
             </form>
+
         </div>
     </div>
 </div>

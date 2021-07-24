@@ -17,9 +17,9 @@ public final class RequestParameter {
 
     public static final String ROLE = "role";
 
-    public static final String FIRST_NAME = "firstName";
+    public static final String FIRST_NAME = "forename";
 
-    public static final String LAST_NAME = "lastName";
+    public static final String LAST_NAME = "surname";
 
     public static final String COMPANY = "company";
 
@@ -29,9 +29,9 @@ public final class RequestParameter {
 
     public static final String SALARY = "salary";
 
-    public static final String PRIMARY_SKILL = "primarySkill";
+    public static final String PRIMARY_SKILL = "primary";
 
-    public static final String SKILLS_DESCRIPTION = "skillsDescription";
+    public static final String SKILLS_DESCRIPTION = "skills";
 
     public static final String STATUS = "status";
 
@@ -44,5 +44,7 @@ public final class RequestParameter {
     public static final String PROJECTS = "projects";
 
     public static final String ALL_PAGES = "allPagesNumber";
+
+    public static final String USER_ID = "user-id";
 
 }

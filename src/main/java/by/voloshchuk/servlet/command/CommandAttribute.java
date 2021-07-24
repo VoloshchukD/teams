@@ -5,7 +5,7 @@ public final class CommandAttribute {
     private CommandAttribute() {
     }
 
-    public static final String USER_ID = "userId";
+    public static final String USER_ID = "user-id";
 
     public static final String ROLE = "role";
 
@@ -17,9 +17,9 @@ public final class CommandAttribute {
 
     public static final String PASSWORD_REGEX = "regexPassword";
 
-    public static final String FIRST_REGEX = "regexFirst";
+    public static final String FIRST_REGEX = "regexForename";
 
-    public static final String LAST_REGEX = "regexLast";
+    public static final String LAST_REGEX = "regexSurname";
 
     public static final String COMPANY_REGEX = "regexCompany";
 

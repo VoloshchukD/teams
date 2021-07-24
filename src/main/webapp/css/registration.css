@@ -1,0 +1,25 @@
+.form-control.valid {
+    border-color: green;
+}
+
+.form-control.invalid {
+    border-color: red;
+}
+
+.form-control + small {
+    color: red;
+    opacity: 0;
+    height: 0;
+
+}
+
+.form-control.invalid + small {
+    opacity: 1;
+    height: auto;
+    margin-bottom: 10px;
+}
+
+.hidden-regex {
+    visibility: hidden;
+    display: none;
+}

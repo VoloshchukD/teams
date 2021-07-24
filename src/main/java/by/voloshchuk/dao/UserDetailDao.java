@@ -7,4 +7,10 @@ public interface UserDetailDao {
 
     boolean addUserDetail(UserDetail userDetail) throws DaoException;
 
+    UserDetail findUserDetailByUserId(Long userId) throws DaoException;
+
+    UserDetail updateUserDetail(UserDetail userDetail) throws DaoException;
+
+    boolean removeUserDetailById(Long id) throws DaoException;
+
 }
