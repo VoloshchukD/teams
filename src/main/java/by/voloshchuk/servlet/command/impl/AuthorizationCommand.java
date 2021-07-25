@@ -28,8 +28,9 @@ public class AuthorizationCommand implements Command {
             User currentUser = userService.checkUser(email, password);
             if (currentUser != null) {
                 request.getSession().setAttribute(CommandAttribute.USER_ID, currentUser.getId());
+                request.getSession().setAttribute(CommandAttribute.USER_DETAIL_ID, currentUser.getUserDetail().getId());
                 request.getSession().setAttribute(CommandAttribute.ROLE, currentUser.getRole());
-                request.getSession().setAttribute("userImg", "/images/logo.png");
+                request.getSession().setAttribute(CommandAttribute.USER_IMAGE, currentUser.getUserDetail().getImagePath());
             }
         } catch (ServiceException e) {
             logger.log(Level.ERROR, e.getMessage());

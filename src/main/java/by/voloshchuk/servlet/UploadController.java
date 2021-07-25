@@ -1,6 +1,13 @@
 package by.voloshchuk.servlet;
 
+import by.voloshchuk.exception.ServiceException;
+import by.voloshchuk.service.ServiceProvider;
+import by.voloshchuk.service.UserDetailService;
+import by.voloshchuk.servlet.command.CommandAttribute;
 import by.voloshchuk.servlet.command.RequestParameter;
+import org.apache.logging.log4j.Level;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.MultipartConfig;
@@ -11,40 +18,60 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.Part;
 import java.io.File;
 import java.io.IOException;
-import java.util.concurrent.TimeUnit;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 @WebServlet(urlPatterns = {"/upload"})
 @MultipartConfig(location = "/", fileSizeThreshold = 1024 * 1024,
 maxFileSize = 1024 * 1024 * 5, maxRequestSize = 1024 * 1024 * 5 * 5)
 public class UploadController extends HttpServlet {
-    private static final String UPLOAD_DIR = "uploads";
+
+    private static final Logger logger = LogManager.getLogger();
+
+    private static final String FILE_NAME_REGEX = "(.+)([.].+)";
+
+    private static final int FILE_EXTENSION_GROUP_NUMBER = 2;
+
+    private static final String UPLOAD_DIRECTORY = "uploads";
+
+    private static ServiceProvider serviceProvider = ServiceProvider.getInstance();
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         String applicationPath = req.getServletContext().getRealPath("");
-        String uploadFilePath = applicationPath + File.separator + UPLOAD_DIR;
-        System.out.println("2");
+        String uploadFilePath = applicationPath + File.separator + UPLOAD_DIRECTORY;
         File fileSaveDir = new File(uploadFilePath);
-//        if (!fileSaveDir.exists()) {
-//            fileSaveDir.mkdirs();
-//        }
+        if (!fileSaveDir.exists()) {
+            fileSaveDir.mkdirs();
+        }
 
-        String urlPath = null;
+        Long userDetailId = (Long) req.getSession().getAttribute(CommandAttribute.USER_DETAIL_ID);
+        String fileName = null;
         for (Part part : req.getParts()) {
             if (part.getSubmittedFileName() != null) {
-                part.write(uploadFilePath + File.separator + part.getSubmittedFileName());
-                System.out.println(UPLOAD_DIR + File.separator + part.getSubmittedFileName());
-                urlPath = part.getSubmittedFileName();
-//                resp.getWriter().print(part.getSubmittedFileName() + " upload successfull");
+                String fileExtension = parseFileExtension(part.getSubmittedFileName());
+                fileName = userDetailId + fileExtension;
+                part.write(uploadFilePath + File.separator + fileName);
             }
         }
-        System.out.println("upl");
-        urlPath = "/uploads/" + urlPath;
-        req.getSession().setAttribute("userUploadedImg", urlPath);
-        System.out.println(req.getSession().getAttribute("userUploadedImg"));
-        String referer = req.getHeader(RequestParameter.REFER_HEADER);
-//        resp.sendRedirect(referer);
-        System.out.println("urlPath");
+        fileName = File.separator + UPLOAD_DIRECTORY + File.separator + fileName;
+
+        UserDetailService userDetailService = serviceProvider.getUserDetailService();
+
+        String resultUserImage = null;
+        try {
+            resultUserImage = userDetailService.updateUserDetailImage(userDetailId, fileName);
+        } catch (ServiceException e) {
+            logger.log(Level.ERROR, e);
+        }
+        req.getSession().setAttribute(CommandAttribute.USER_IMAGE, resultUserImage);
+    }
+
+    private String parseFileExtension(String fileName) {
+        Pattern pattern = Pattern.compile(FILE_NAME_REGEX);
+        Matcher matcher = pattern.matcher(fileName);
+        matcher.find();
+        return matcher.group(FILE_EXTENSION_GROUP_NUMBER);
     }
 
 }

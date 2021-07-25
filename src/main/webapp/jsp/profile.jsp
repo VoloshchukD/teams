@@ -12,18 +12,16 @@
     <script src="http://cdn.webix.com/edge/webix.js" type="text/javascript"></script>
     <script src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
     <script type="text/javascript" src="/js/profile.js"></script>
-    <link rel="stylesheet" href="/css/avatar.css">
 </head>
 <body>
 <div class="container-xxl">
     <div class="row h-auto justify-content-center mx-n5 my-3">
         <div class="col-5 my-auto px-5">
 
-            ${userImg}
             <div class="row w-auto h-auto justify-content-center">
                 <input type="hidden" name="uploadButtonName"
                        value="<fmt:message bundle="${loc}" key="local.profile.change-photo"/>" id="uploadButtonName"/>
-                <input type="hidden" name="userImageUrl" value="${userImg}" id="userImageUrl"/>
+                <input type="hidden" name="userImageUrl" value="${avatar}" id="userImageUrl"/>
                 <div id="box" class="justify-content-center"></div>
             </div>
 
@@ -55,78 +53,58 @@
         </div>
 
         <div class="col-5 my-auto px-5">
-            <form method="post" action="controller">
-                <input type="hidden" name="command" value="update"/>
+            <form method="post" action="async-controller" novalidate>
+                <input type="hidden" name="async-command" value="update-user-detail"/>
 
                 <div class="row">
                     <div class="col-md-6 mb-3">
-                        <label for="first-name"><fmt:message bundle="${loc}" key="local.form.forename"/></label>
-                        <input type="text" class="form-control" pattern="${regexFirst}" name="first-name"
-                               id="first-name"
-                               placeholder="" value=""
-                               required>
+                        <label for="forename"><fmt:message bundle="${loc}" key="local.form.forename"/></label>
+                        <input type="text" class="form-control" name="forename"
+                               id="forename">
 
                     </div>
                     <div class="col-md-6 mb-3">
-                        <label for="last-name"><fmt:message bundle="${loc}" key="local.form.last"/></label>
-                        <input type="text" class="form-control" pattern="${regexLast}" name="last-name" id="last-name"
-                               placeholder="" value=""
-                               required>
+                        <label for="surname"><fmt:message bundle="${loc}" key="local.form.surname"/></label>
+                        <input type="text" class="form-control" name="surname" id="surname">
                     </div>
                 </div>
 
                 <div class="mb-3">
                     <label for="company"><fmt:message bundle="${loc}" key="local.form.company"/></label>
-                    <input type="text" class="form-control" pattern="${regexCompany}" name="company" id="company"
-                           placeholder="" required>
+                    <input type="text" class="form-control" name="company" id="company">
                 </div>
 
                 <div class="mb-3">
                     <label for="position"><fmt:message bundle="${loc}" key="local.form.position"/></label>
-                    <input type="text" class="form-control" pattern="${regexPosition}" name="position" id="position"
-                           placeholder="" required>
+                    <input type="text" class="form-control" name="position" id="position">
                 </div>
 
                 <div class="row">
                     <div class="col-md-4 mb-3">
                         <label for="experience"><fmt:message bundle="${loc}" key="local.form.experience"/></label>
-                        <input type="text" class="form-control" pattern="${regexExperience}" name="experience"
-                               id="experience" placeholder=""
-                               value="" required>
+                        <input type="text" class="form-control" name="experience" id="experience">
                     </div>
                     <div class="col-md-4 mb-3">
                         <label for="salary"><fmt:message bundle="${loc}" key="local.form.salary"/></label>
-                        <input type="text" class="form-control" pattern="${regexSalary}" name="salary" id="salary"
-                               placeholder="" value=""
-                               required>
+                        <input type="text" class="form-control" name="salary" id="salary">
                     </div>
                     <div class="col-md-4 mb-3">
-                        <label for="primary-skill"><fmt:message bundle="${loc}" key="local.form.primary"/></label>
-                        <input type="text" class="form-control" pattern="${regexPrimary}" name="primary-skill"
-                               id="primary-skill" placeholder=""
-                               value="" required>
-                        <div class="invalid-feedback">
-                            Valid last name is required.
-                        </div>
+                        <label for="primary"><fmt:message bundle="${loc}" key="local.form.primary"/></label>
+                        <input type="text" class="form-control" name="primary" id="primary">
                     </div>
                 </div>
 
                 <div class="row">
-
                     <div class="col mb-3">
-                        <label for="skills-description"><fmt:message bundle="${loc}"
-                                                                     key="local.form.skills"/></label>
-                        <textarea class="form-control" aria-label="With textarea" name="skills-description"
-                                  id="skills-description"></textarea>
+                        <label for="skills"><fmt:message bundle="${loc}" key="local.form.skills"/></label>
+                        <textarea class="form-control" aria-label="With textarea" name="skills" id="skills"></textarea>
                     </div>
-
                 </div>
 
                 <div class="d-flex justify-content-center">
-                    <button class="btn btn btn-primary btn-block" type="button" onclick="submitUpdateForm()"><fmt:message bundle="${loc}"
+                    <button class="btn btn btn-primary btn-block" type="button" onclick="submitEditForm()" ><fmt:message bundle="${loc}"
                                                                                                 key="local.profile.update"/></button>
                 </div>
-
             </form>
 
             <hr class="mb-4">
@@ -147,7 +125,7 @@
                            placeholder="" required>
                 </div>
                 <div class="d-flex justify-content-center">
-                    <button class="btn btn btn-primary btn-block" type="submit"><fmt:message bundle="${loc}"
+                    <button id="edit-user-submit" class="btn btn btn-primary btn-block" type="button"><fmt:message bundle="${loc}"
                                                                                                 key="local.profile.reset-password"/></button>
                 </div>
             </form>

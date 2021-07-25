@@ -7,6 +7,10 @@ public final class CommandAttribute {
 
     public static final String USER_ID = "user-id";
 
+    public static final String USER_DETAIL_ID = "user-detail-id";
+
+    public static final String USER_IMAGE = "avatar";
+
     public static final String ROLE = "role";
 
     public static final String LOCAL = "local";

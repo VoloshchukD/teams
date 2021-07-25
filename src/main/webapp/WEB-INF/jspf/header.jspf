@@ -87,7 +87,7 @@
                            aria-expanded="false">
                             <img
                                     id="user_image_header",
-                                    src="${userImg}"
+                                    src="${avatar}"
                                     class="rounded-circle"
                                     height="22"
                                     alt=""

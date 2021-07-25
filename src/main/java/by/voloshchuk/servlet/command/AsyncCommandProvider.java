@@ -1,6 +1,6 @@
 package by.voloshchuk.servlet.command;
 
-import by.voloshchuk.servlet.command.impl.async.AvatarCommand;
+import by.voloshchuk.servlet.command.impl.async.LoadAvatarCommand;
 import by.voloshchuk.servlet.command.impl.async.EditCommand;
 import by.voloshchuk.servlet.command.impl.async.UpdateUserDetailCommand;
 
@@ -18,7 +18,7 @@ public class AsyncCommandProvider {
     private static final String ENUM_COMMAND_SEPARATOR = "_";
 
     private AsyncCommandProvider() {
-        asyncCommands.put(AsyncCommandName.AVATAR, new AvatarCommand());
+        asyncCommands.put(AsyncCommandName.LOAD_AVATAR, new LoadAvatarCommand());
         asyncCommands.put(AsyncCommandName.EDIT, new EditCommand());
         asyncCommands.put(AsyncCommandName.UPDATE_USER_DETAIL, new UpdateUserDetailCommand());
     }

@@ -29,6 +29,7 @@ public class RegistrationCommand implements Command {
         try {
             if (userService.addUser(user)) {
                 request.getSession().setAttribute(CommandAttribute.USER_ID, user.getId());
+                request.getSession().setAttribute(CommandAttribute.USER_DETAIL_ID, user.getUserDetail().getId());
                 request.getSession().setAttribute(CommandAttribute.ROLE, user.getRole());
             }
         } catch (ServiceException e) {

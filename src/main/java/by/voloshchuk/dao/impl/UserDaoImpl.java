@@ -139,17 +139,18 @@ public class UserDaoImpl implements UserDao {
                 user.setRole(resultSet.getString(ConstantColumnName.USER_ROLE));
 
                 UserDetail userDetail = new UserDetail();
-                userDetail.setId(Long.valueOf(resultSet.getString(ConstantColumnName.USER_DETAIL_ID)));
+                userDetail.setId(resultSet.getLong(ConstantColumnName.USER_DETAIL_ID));
                 userDetail.setImagePath(resultSet.getString(ConstantColumnName.USER_DETAIL_IMAGE));
                 userDetail.setFirstName(resultSet.getString(ConstantColumnName.USER_DETAIL_FIRST_NAME));
                 userDetail.setLastName(resultSet.getString(ConstantColumnName.USER_DETAIL_LAST_NAME));
                 userDetail.setCompany(resultSet.getString(ConstantColumnName.USER_DETAIL_COMPANY));
                 userDetail.setPosition(resultSet.getString(ConstantColumnName.USER_DETAIL_POSITION));
-                userDetail.setExperience(Integer.parseInt(resultSet.getString(ConstantColumnName.USER_DETAIL_EXPERIENCE)));
-                userDetail.setSalary(Integer.parseInt(resultSet.getString(ConstantColumnName.USER_DETAIL_SALARY)));
+                userDetail.setExperience(resultSet.getInt(ConstantColumnName.USER_DETAIL_EXPERIENCE));
+                userDetail.setSalary(resultSet.getInt(ConstantColumnName.USER_DETAIL_SALARY));
                 userDetail.setPrimarySkill(resultSet.getString(ConstantColumnName.USER_DETAIL_PRIMARY_SKILL));
                 userDetail.setSkillsDescription(resultSet.getString(ConstantColumnName.USER_DETAIL_SKILLS_DESCRIPTION));
                 userDetail.setStatus(resultSet.getString(ConstantColumnName.USER_DETAIL_STATUS));
+                userDetail.setImagePath(resultSet.getString(ConstantColumnName.USER_DETAIL_IMAGE));
                 user.setUserDetail(userDetail);
             }
         } catch (SQLException e) {

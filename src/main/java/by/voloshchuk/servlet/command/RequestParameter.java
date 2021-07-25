@@ -47,4 +47,6 @@ public final class RequestParameter {
 
     public static final String USER_ID = "user-id";
 
+    public static final String USER_DETAIL_ID = "user-detail-id";
+
 }

@@ -19,6 +19,9 @@ public class UserDetailDaoImpl implements UserDetailDao {
             "last_name = ?, company = ?, position = ?, experience = ?, salary = ?, primary_skill = ?, " +
             "skills_description = ?, status = ? WHERE user_detail_id = ?";
 
+    private static final String UPDATE_USER_DETAIL_IMAGE_QUERY = "UPDATE user_details SET user_image_path = ? " +
+            "WHERE user_detail_id = ?";
+
     private static final String DELETE_USER_DETAIL_QUERY = "DELETE FROM user_details WHERE user_detail_id = ?";
 
     private CustomConnectionPool connectionPool = CustomConnectionPool.getInstance();
@@ -97,6 +100,22 @@ public class UserDetailDaoImpl implements UserDetailDao {
             throw new DaoException(e);
         }
         return resultUserDetail;
+    }
+
+    public String updateUserDetailImage(Long userDetailId, String imagePath) throws DaoException {
+        String resultImagePath = null;
+        try (Connection connection = connectionPool.getConnection();
+             PreparedStatement statement = connection.prepareStatement(UPDATE_USER_DETAIL_IMAGE_QUERY)) {
+            statement.setString(1, imagePath);
+            statement.setLong(2, userDetailId);
+            int result = statement.executeUpdate();
+            if (result == 1) {
+                resultImagePath = imagePath;
+            }
+        } catch (SQLException e) {
+            throw new DaoException(e);
+        }
+        return resultImagePath;
     }
 
     public boolean removeUserDetailById(Long id) throws DaoException {
