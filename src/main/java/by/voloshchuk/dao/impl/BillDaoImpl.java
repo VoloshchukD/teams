@@ -14,17 +14,17 @@ import java.util.List;
 
 public class BillDaoImpl implements BillDao {
 
-    private static final String SQL_ADD_BILL = "INSERT INTO teams.bills (status, information, amount_due, project_id) " +
+    private static final String ADD_BILL_QUERY = "INSERT INTO teams.bills (status, information, amount_due, project_id) " +
             "VALUES (?, ?, ?, ?);";
 
-    private static final String SQL_FIND_BILL_BY_ID = "SELECT * FROM teams.bills WHERE bill_id = ?";
+    private static final String FIND_BILL_BY_ID_QUERY = "SELECT * FROM teams.bills WHERE bill_id = ?";
 
-    private static final String SQL_UPDATE_BILL = "UPDATE teams.bills SET status = ?, information = ?, amount_due = ? " +
+    private static final String UPDATE_BILL_QUERY = "UPDATE teams.bills SET status = ?, information = ?, amount_due = ? " +
             "WHERE bill_id = ?;";
 
-    private static final String SQL_DELETE_BILL = "DELETE FROM teams.bills WHERE bill_id = ?;";
+    private static final String DELETE_BILL_QUERY = "DELETE FROM teams.bills WHERE bill_id = ?;";
 
-    private static final String SQL_FIND_BILLS_BY_USER_ID = "SELECT * FROM teams.bills INNER JOIN teams.projects " +
+    private static final String FIND_BILLS_BY_USER_ID_QUERY = "SELECT * FROM teams.bills INNER JOIN teams.projects " +
             "ON teams.projects.project_id=teams.bills.project_id INNER JOIN teams.technical_tasks " +
             "ON teams.projects.technical_task_id=teams.technical_tasks.technical_task_id " +
             "WHERE teams.technical_tasks.customer_id = ?";
@@ -34,7 +34,7 @@ public class BillDaoImpl implements BillDao {
     public boolean addBill(Bill bill) throws DaoException {
         boolean isAdded = false;
         try (Connection connection = connectionPool.getConnection();
-             PreparedStatement statement = connection.prepareStatement(SQL_ADD_BILL)) {
+             PreparedStatement statement = connection.prepareStatement(ADD_BILL_QUERY)) {
             statement.setString(1, bill.getStatus());
             statement.setString(2, bill.getInformation());
             statement.setInt(3, bill.getAmountDue());
@@ -49,7 +49,7 @@ public class BillDaoImpl implements BillDao {
     public Bill findBillById(Long id) throws DaoException {
         Bill bill = null;
         try (Connection connection = connectionPool.getConnection();
-             PreparedStatement statement = connection.prepareStatement(SQL_FIND_BILL_BY_ID)) {
+             PreparedStatement statement = connection.prepareStatement(FIND_BILL_BY_ID_QUERY)) {
             statement.setString(1, String.valueOf(id));
             ResultSet resultSet = statement.executeQuery();
             bill = new Bill();
@@ -69,7 +69,7 @@ public class BillDaoImpl implements BillDao {
     public List<Bill> findBillsByUserId(Long userId) throws DaoException {
         List<Bill> bills = new ArrayList<>();
         try (Connection connection = connectionPool.getConnection();
-             PreparedStatement statement = connection.prepareStatement(SQL_FIND_BILLS_BY_USER_ID)) {
+             PreparedStatement statement = connection.prepareStatement(FIND_BILLS_BY_USER_ID_QUERY)) {
             statement.setLong(1, userId);
             ResultSet resultSet = statement.executeQuery();
             while (resultSet.next()) {
@@ -90,7 +90,7 @@ public class BillDaoImpl implements BillDao {
     public Bill updateBill(Bill bill) throws DaoException {
         Bill resultBill = null;
         try (Connection connection = connectionPool.getConnection();
-             PreparedStatement statement = connection.prepareStatement(SQL_UPDATE_BILL)) {
+             PreparedStatement statement = connection.prepareStatement(UPDATE_BILL_QUERY)) {
             statement.setString(1, bill.getStatus());
             statement.setString(2, bill.getInformation());
             statement.setString(3, Integer.toString(bill.getAmountDue()));
@@ -108,7 +108,7 @@ public class BillDaoImpl implements BillDao {
     public boolean removeBill(Long id) throws DaoException {
         boolean isRemoved = false;
         try (Connection connection = connectionPool.getConnection();
-             PreparedStatement statement = connection.prepareStatement(SQL_DELETE_BILL)) {
+             PreparedStatement statement = connection.prepareStatement(DELETE_BILL_QUERY)) {
             statement.setString(1, Long.toString(id));
             isRemoved = statement.executeUpdate() == 1;
         } catch (SQLException e) {

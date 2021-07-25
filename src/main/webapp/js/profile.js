@@ -3,7 +3,6 @@ var ajax = webix.ajax().headers({
 })
 
 window.addEventListener("load", function (event) {
-    alert('as')
     loadEditData();
 });
 

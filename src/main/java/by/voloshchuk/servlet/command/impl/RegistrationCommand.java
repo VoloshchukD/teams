@@ -3,6 +3,7 @@ package by.voloshchuk.servlet.command.impl;
 import by.voloshchuk.entity.User;
 import by.voloshchuk.entity.UserDetail;
 import by.voloshchuk.exception.ServiceException;
+import by.voloshchuk.service.ServiceProvider;
 import by.voloshchuk.service.UserService;
 import by.voloshchuk.service.impl.UserServiceImpl;
 import by.voloshchuk.servlet.command.*;
@@ -19,11 +20,12 @@ public class RegistrationCommand implements Command {
 
     private static final Logger logger = LogManager.getLogger();
 
-    private UserService userService = new UserServiceImpl();
+    private static ServiceProvider serviceProvider = ServiceProvider.getInstance();
 
     @Override
-    public CommandRouter execute(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
+    public CommandRouter execute(HttpServletRequest request, HttpServletResponse response) throws ServletException {
         User user = createUser(request);
+        UserService userService = serviceProvider.getUserService();
         try {
             if (userService.addUser(user)) {
                 request.getSession().setAttribute(CommandAttribute.USER_ID, user.getId());

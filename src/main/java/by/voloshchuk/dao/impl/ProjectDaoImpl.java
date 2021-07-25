@@ -11,26 +11,26 @@ import java.util.List;
 
 public class ProjectDaoImpl implements ProjectDao {
 
-    private static final String SQL_ADD_PROJECT = "INSERT INTO projects (project_name, description, start_date, " +
+    private static final String ADD_PROJECT_QUERY = "INSERT INTO projects (project_name, description, start_date, " +
             "state, technical_task_id) " +
             "VALUES (?, ?, ?, ?, ?)";
 
-    private static final String SQL_FIND_PROJECT_BY_ID = "SELECT * FROM projects WHERE project_id = ?";
+    private static final String FIND_PROJECT_BY_ID_QUERY = "SELECT * FROM projects WHERE project_id = ?";
 
-    private static final String SQL_FIND_PROJECTS_BY_USER_ID_AND_STATE = "SELECT * FROM teams.projects INNER JOIN teams.user_project_maps " +
+    private static final String FIND_PROJECTS_BY_USER_ID_AND_STATE_QUERY = "SELECT * FROM teams.projects INNER JOIN teams.user_project_maps " +
             "ON teams.projects.project_id=teams.user_project_maps.project_id WHERE teams.user_project_maps.user_id = ? AND teams.projects.state = ?";
 
-    private static final String SQL_UPDATE_PROJECT = "UPDATE projects SET project_name = ?, description = ?, start_date = ?, state = ?," +
+    private static final String UPDATE_PROJECT_QUERY = "UPDATE projects SET project_name = ?, description = ?, start_date = ?, state = ?," +
             " technical_task_id = ? WHERE project_id = ?";
 
-    private static final String SQL_DELETE_PROJECT = "DELETE FROM projects WHERE project_id = ?";
+    private static final String DELETE_PROJECT_QUERY = "DELETE FROM projects WHERE project_id = ?";
 
     private CustomConnectionPool connectionPool = CustomConnectionPool.getInstance();
 
     public boolean addProject(Project project) throws DaoException {
         boolean isAdded = false;
         try (Connection connection = connectionPool.getConnection();
-             PreparedStatement statement = connection.prepareStatement(SQL_ADD_PROJECT)) {
+             PreparedStatement statement = connection.prepareStatement(ADD_PROJECT_QUERY)) {
             statement.setString(1, project.getName());
             statement.setString(2, project.getDescription());
             statement.setTimestamp(3, new Timestamp(project.getStartDate().getTime()));
@@ -46,7 +46,7 @@ public class ProjectDaoImpl implements ProjectDao {
     public Project findProjectById(Long id) throws DaoException {
         Project project = null;
         try (Connection connection = connectionPool.getConnection();
-             PreparedStatement statement = connection.prepareStatement(SQL_FIND_PROJECT_BY_ID)) {
+             PreparedStatement statement = connection.prepareStatement(FIND_PROJECT_BY_ID_QUERY)) {
             statement.setString(1, String.valueOf(id));
             ResultSet resultSet = statement.executeQuery();
             project = new Project();
@@ -68,7 +68,7 @@ public class ProjectDaoImpl implements ProjectDao {
     public List<Project> findProjectsByUserIdAndState(Long userId, String state) throws DaoException {
         List<Project> projects = new ArrayList<>();
         try (Connection connection = connectionPool.getConnection();
-             PreparedStatement statement = connection.prepareStatement(SQL_FIND_PROJECTS_BY_USER_ID_AND_STATE)) {
+             PreparedStatement statement = connection.prepareStatement(FIND_PROJECTS_BY_USER_ID_AND_STATE_QUERY)) {
             statement.setLong(1, userId);
             statement.setString(2, state);
             ResultSet resultSet = statement.executeQuery();
@@ -92,7 +92,7 @@ public class ProjectDaoImpl implements ProjectDao {
     public Project updateProject(Project project) throws DaoException {
         Project resultProject = null;
         try (Connection connection = connectionPool.getConnection();
-             PreparedStatement statement = connection.prepareStatement(SQL_UPDATE_PROJECT)) {
+             PreparedStatement statement = connection.prepareStatement(UPDATE_PROJECT_QUERY)) {
             statement.setString(1, project.getName());
             statement.setString(2, project.getDescription());
             statement.setTimestamp(3, new Timestamp(project.getStartDate().getTime()));
@@ -112,7 +112,7 @@ public class ProjectDaoImpl implements ProjectDao {
     public boolean removeProject(Long id) throws DaoException {
         boolean isRemoved = false;
         try (Connection connection = connectionPool.getConnection();
-             PreparedStatement statement = connection.prepareStatement(SQL_DELETE_PROJECT)) {
+             PreparedStatement statement = connection.prepareStatement(DELETE_PROJECT_QUERY)) {
             statement.setString(1, String.valueOf(id));
             isRemoved = statement.executeUpdate() == 1;
         } catch (SQLException e) {

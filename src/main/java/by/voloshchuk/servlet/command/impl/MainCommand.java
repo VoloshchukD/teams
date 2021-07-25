@@ -1,8 +1,8 @@
 package by.voloshchuk.servlet.command.impl;
 
 import by.voloshchuk.exception.ServiceException;
+import by.voloshchuk.service.ServiceProvider;
 import by.voloshchuk.service.UserService;
-import by.voloshchuk.service.impl.UserServiceImpl;
 import by.voloshchuk.servlet.command.Command;
 import by.voloshchuk.servlet.command.CommandAttribute;
 import by.voloshchuk.servlet.command.CommandPath;
@@ -14,18 +14,18 @@ import org.apache.logging.log4j.Logger;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.io.IOException;
 import java.util.Map;
 
 public class MainCommand implements Command {
 
     private static final Logger logger = LogManager.getLogger();
 
-    private UserService userService = new UserServiceImpl();
+    private static ServiceProvider serviceProvider = ServiceProvider.getInstance();
 
     @Override
-    public CommandRouter execute(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
+    public CommandRouter execute(HttpServletRequest request, HttpServletResponse response) throws ServletException {
         Map<String, Integer> resultData = null;
+        UserService userService = serviceProvider.getUserService();
         try {
             resultData = userService.findBasicData();
         } catch (ServiceException e) {

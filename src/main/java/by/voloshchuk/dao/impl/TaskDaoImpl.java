@@ -14,28 +14,28 @@ import java.util.List;
 
 public class TaskDaoImpl implements TaskDao {
 
-    private static final String SQL_ADD_TASK = "INSERT INTO tasks (name, " +
+    private static final String ADD_TASK_QUERY = "INSERT INTO tasks (name, " +
             "details, hours, status, project_id, developer_id) " +
             "VALUES (?, ?, ?, ?, ?, ?)";
 
-    private static final String SQL_FIND_TASK_BY_ID = "SELECT * FROM tasks WHERE task_id = ?";
+    private static final String FIND_TASK_BY_ID_QUERY = "SELECT * FROM tasks WHERE task_id = ?";
 
-    private static final String SQL_FIND_TASKS_BY_PROJECT_ID = "SELECT * FROM tasks WHERE project_id = ?";
+    private static final String FIND_TASKS_BY_PROJECT_ID_QUERY = "SELECT * FROM tasks WHERE project_id = ?";
 
-    private static final String SQL_FIND_TASKS_BY_USER_ID_AND_PROJECT_ID = "SELECT * FROM tasks WHERE project_id = ? " +
+    private static final String FIND_TASKS_BY_USER_ID_AND_PROJECT_ID_QUERY = "SELECT * FROM tasks WHERE project_id = ? " +
             "AND developer_id = ?";
 
-    private static final String SQL_UPDATE_TASK = "UPDATE tasks SET name = ?, details = ?," +
+    private static final String UPDATE_TASK_QUERY = "UPDATE tasks SET name = ?, details = ?," +
             " hours = ?, status = ?, developer_id = ? WHERE task_id = ?";
 
-    private static final String SQL_DELETE_TASK = "DELETE FROM tasks WHERE task_id = ?";
+    private static final String DELETE_TASK_QUERY = "DELETE FROM tasks WHERE task_id = ?";
 
     private CustomConnectionPool connectionPool = CustomConnectionPool.getInstance();
 
     public boolean addTask(Task task) throws DaoException {
         boolean isAdded = false;
         try (Connection connection = connectionPool.getConnection();
-             PreparedStatement statement = connection.prepareStatement(SQL_ADD_TASK)) {
+             PreparedStatement statement = connection.prepareStatement(ADD_TASK_QUERY)) {
             statement.setString(1, task.getName());
             statement.setString(2, task.getDetails());
             statement.setString(3, String.valueOf(task.getHours()));
@@ -52,7 +52,7 @@ public class TaskDaoImpl implements TaskDao {
     public Task findTaskById(Long id) throws DaoException {
         Task task = null;
         try (Connection connection = connectionPool.getConnection();
-             PreparedStatement statement = connection.prepareStatement(SQL_FIND_TASK_BY_ID)) {
+             PreparedStatement statement = connection.prepareStatement(FIND_TASK_BY_ID_QUERY)) {
             statement.setString(1, String.valueOf(id));
             ResultSet resultSet = statement.executeQuery();
             task = new Task();
@@ -72,7 +72,7 @@ public class TaskDaoImpl implements TaskDao {
     public List<Task> findTaskByProjectId(Long projectId) throws DaoException {
         List<Task> tasks = new ArrayList<>();
         try (Connection connection = connectionPool.getConnection();
-             PreparedStatement statement = connection.prepareStatement(SQL_FIND_TASKS_BY_PROJECT_ID)) {
+             PreparedStatement statement = connection.prepareStatement(FIND_TASKS_BY_PROJECT_ID_QUERY)) {
             statement.setLong(1, projectId);
             ResultSet resultSet = statement.executeQuery();
             while (resultSet.next()) {
@@ -93,7 +93,7 @@ public class TaskDaoImpl implements TaskDao {
     public List<Task> findTaskByUserIdAndProjectId(Long userId, Long projectId) throws DaoException {
         List<Task> tasks = new ArrayList<>();
         try (Connection connection = connectionPool.getConnection();
-             PreparedStatement statement = connection.prepareStatement(SQL_FIND_TASKS_BY_USER_ID_AND_PROJECT_ID)) {
+             PreparedStatement statement = connection.prepareStatement(FIND_TASKS_BY_USER_ID_AND_PROJECT_ID_QUERY)) {
             statement.setLong(1, userId);
             statement.setLong(2, projectId);
             ResultSet resultSet = statement.executeQuery();
@@ -115,7 +115,7 @@ public class TaskDaoImpl implements TaskDao {
     public Task updateTask(Task task) throws DaoException {
         Task resultTask = null;
         try (Connection connection = connectionPool.getConnection();
-             PreparedStatement statement = connection.prepareStatement(SQL_UPDATE_TASK)) {
+             PreparedStatement statement = connection.prepareStatement(UPDATE_TASK_QUERY)) {
             statement.setString(1, task.getName());
             statement.setString(2, task.getDetails());
             statement.setString(3, String.valueOf(task.getHours()));
@@ -136,7 +136,7 @@ public class TaskDaoImpl implements TaskDao {
     public boolean removeTask(Long id) throws DaoException {
         boolean isRemoved = false;
         try (Connection connection = connectionPool.getConnection();
-             PreparedStatement statement = connection.prepareStatement(SQL_DELETE_TASK)) {
+             PreparedStatement statement = connection.prepareStatement(DELETE_TASK_QUERY)) {
             statement.setString(1, String.valueOf(id));
             isRemoved = statement.executeUpdate() == 1;
         } catch (SQLException e) {

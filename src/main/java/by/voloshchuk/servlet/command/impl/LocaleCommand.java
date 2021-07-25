@@ -9,7 +9,7 @@ import java.io.IOException;
 public class LocaleCommand implements Command {
 
     @Override
-    public CommandRouter execute(HttpServletRequest request, HttpServletResponse response) throws IOException {
+    public CommandRouter execute(HttpServletRequest request, HttpServletResponse response) {
         request.getSession(true).setAttribute(CommandAttribute.LOCAL, request.getParameter(CommandAttribute.LOCAL));
         String referer = request.getHeader(RequestParameter.REFER_HEADER);
         CommandRouter router = new CommandRouter(CommandRouter.RouterType.REDIRECT, referer);

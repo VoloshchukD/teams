@@ -1,10 +1,10 @@
 package by.voloshchuk.service.impl;
 
+import by.voloshchuk.dao.DaoProvider;
 import by.voloshchuk.dao.UserDao;
 import by.voloshchuk.dao.UserDetailDao;
 import by.voloshchuk.dao.impl.ConstantColumnName;
 import by.voloshchuk.dao.impl.UserDaoImpl;
-import by.voloshchuk.dao.impl.UserDetailDaoImpl;
 import by.voloshchuk.entity.User;
 import by.voloshchuk.exception.DaoException;
 import by.voloshchuk.exception.ServiceException;
@@ -17,12 +17,12 @@ import java.util.Map;
 
 public class UserServiceImpl implements UserService {
 
-    private UserDao userDao = new UserDaoImpl();
-
-    private UserDetailDao userDetailDao = new UserDetailDaoImpl();
+    private static DaoProvider daoProvider = DaoProvider.getInstance();
 
     public boolean addUser(User user) throws ServiceException {
         boolean result = false;
+        UserDao userDao = daoProvider.getUserDao();
+        UserDetailDao userDetailDao = daoProvider.getUserDetailDao();
         try {
             userDetailDao.addUserDetail(user.getUserDetail());
             String password = user.getPassword();
@@ -37,6 +37,7 @@ public class UserServiceImpl implements UserService {
 
     public Map<String, Integer> findBasicData() throws ServiceException {
         Map<String, Integer> resultData = new HashMap<>();
+        UserDao userDao = new UserDaoImpl();
         try {
             Map<String, Integer> foundedData = userDao.findBasicData();
             resultData.put(CommandAttribute.YEARS_ON_MARKET, foundedData.get(ConstantColumnName.BASIC_DATA_YEARS));
@@ -51,6 +52,7 @@ public class UserServiceImpl implements UserService {
 
     public User checkUser(String email, String password) throws ServiceException {
         User resultUser = null;
+        UserDao userDao = new UserDaoImpl();
         try {
             User user = userDao.findUserByEmail(email);
             boolean match = BCrypt.checkpw(password, user.getPassword());

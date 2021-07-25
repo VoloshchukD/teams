@@ -3,9 +3,6 @@ package by.voloshchuk.dao.impl;
 import by.voloshchuk.dao.EmployeeRequirementDao;
 import by.voloshchuk.dao.pool.CustomConnectionPool;
 import by.voloshchuk.entity.EmployeeRequirement;
-import by.voloshchuk.entity.TechnicalTask;
-import by.voloshchuk.entity.User;
-import by.voloshchuk.entity.UserDetail;
 import by.voloshchuk.exception.DaoException;
 
 import java.sql.*;
@@ -14,16 +11,16 @@ import java.util.List;
 
 public class EmployeeRequirementDaoImpl implements EmployeeRequirementDao {
 
-    private static final String SQL_ADD_EMPLOYEE_REQUIREMENT = "INSERT INTO employee_requirements (experience, " +
+    private static final String ADD_EMPLOYEE_REQUIREMENT_QUERY = "INSERT INTO employee_requirements (experience, " +
             "salary, qualification, primary_skill, comment, technical_task_id) VALUES (?, ?, ?, ?, ?, ?)";
 
-    private static final String SQL_FIND_ALL_BY_TECHNICAL_TASK_ID = "SELECT * FROM teams.employee_requirements " +
+    private static final String FIND_ALL_BY_TECHNICAL_TASK_ID_QUERY = "SELECT * FROM teams.employee_requirements " +
             "WHERE teams.employee_requirements.technical_task_id = ?";
 
-    private static final String SQL_UPDATE_EMPLOYEE_REQUIREMENT = "UPDATE employee_requirements SET experience = ?, " +
+    private static final String UPDATE_EMPLOYEE_REQUIREMENT_QUERY = "UPDATE employee_requirements SET experience = ?, " +
             "salary = ?, qualification = ?, primary_skill = ?, comment = ? WHERE employee_requirement_id = ?";
 
-    private static final String SQL_DELETE_EMPLOYEE_REQUIREMENT = "DELETE FROM employee_requirements " +
+    private static final String DELETE_EMPLOYEE_REQUIREMENT_QUERY = "DELETE FROM employee_requirements " +
             "WHERE employee_requirement_id = ?";
 
     private CustomConnectionPool connectionPool = CustomConnectionPool.getInstance();
@@ -31,7 +28,7 @@ public class EmployeeRequirementDaoImpl implements EmployeeRequirementDao {
     public boolean addEmployeeRequirement(EmployeeRequirement requirement) throws DaoException {
         boolean isAdded = false;
         try (Connection connection = connectionPool.getConnection();
-             PreparedStatement statement = connection.prepareStatement(SQL_ADD_EMPLOYEE_REQUIREMENT)) {
+             PreparedStatement statement = connection.prepareStatement(ADD_EMPLOYEE_REQUIREMENT_QUERY)) {
             statement.setString(1, String.valueOf(requirement.getExperience()));
             statement.setString(2, String.valueOf(requirement.getSalary()));
             statement.setString(3, requirement.getQualification());
@@ -48,7 +45,7 @@ public class EmployeeRequirementDaoImpl implements EmployeeRequirementDao {
     public List<EmployeeRequirement> findAllByTechnicalTaskId(Long technicalTaskId) throws DaoException {
         List<EmployeeRequirement> requirements = new ArrayList<>();
         try (Connection connection = connectionPool.getConnection();
-             PreparedStatement statement = connection.prepareStatement(SQL_FIND_ALL_BY_TECHNICAL_TASK_ID)) {
+             PreparedStatement statement = connection.prepareStatement(FIND_ALL_BY_TECHNICAL_TASK_ID_QUERY)) {
             statement.setLong(1, technicalTaskId);
             ResultSet resultSet = statement.executeQuery();
 
@@ -71,7 +68,7 @@ public class EmployeeRequirementDaoImpl implements EmployeeRequirementDao {
     public EmployeeRequirement updateEmployeeRequirement(EmployeeRequirement requirement) throws DaoException {
         EmployeeRequirement resultRequirement = null;
         try (Connection connection = connectionPool.getConnection();
-             PreparedStatement statement = connection.prepareStatement(SQL_UPDATE_EMPLOYEE_REQUIREMENT)) {
+             PreparedStatement statement = connection.prepareStatement(UPDATE_EMPLOYEE_REQUIREMENT_QUERY)) {
             statement.setString(1, String.valueOf(requirement.getExperience()));
             statement.setString(2, String.valueOf(requirement.getSalary()));
             statement.setString(3, requirement.getQualification());
@@ -91,7 +88,7 @@ public class EmployeeRequirementDaoImpl implements EmployeeRequirementDao {
     public boolean removeUserDetailById(Long id) throws DaoException {
         boolean isRemoved = false;
         try (Connection connection = connectionPool.getConnection();
-             PreparedStatement statement = connection.prepareStatement(SQL_DELETE_EMPLOYEE_REQUIREMENT)) {
+             PreparedStatement statement = connection.prepareStatement(DELETE_EMPLOYEE_REQUIREMENT_QUERY)) {
             statement.setString(1, String.valueOf(id));
             isRemoved = statement.executeUpdate() == 1;
         } catch (SQLException e) {

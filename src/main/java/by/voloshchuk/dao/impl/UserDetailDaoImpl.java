@@ -9,24 +9,24 @@ import java.sql.*;
 
 public class UserDetailDaoImpl implements UserDetailDao {
 
-    private static final String SQL_ADD_USER_DETAIL = "INSERT INTO user_details (first_name, " +
+    private static final String ADD_USER_DETAIL_QUERY = "INSERT INTO user_details (first_name, " +
             "last_name, company, position, experience, salary, primary_skill, skills_description, status) " +
             "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
 
-    private static final String SQL_FIND_USER_DETAIL_BY_USER_ID = "SELECT * FROM user_details INNER JOIN users ON user_details.user_detail_id = users.user_detail_id WHERE users.user_id = ?";
+    private static final String FIND_USER_DETAIL_BY_USER_ID_QUERY = "SELECT * FROM user_details INNER JOIN users ON user_details.user_detail_id = users.user_detail_id WHERE users.user_id = ?";
 
-    private static final String SQL_UPDATE_USER_DETAIL = "UPDATE user_details SET first_name = ?, " +
+    private static final String UPDATE_USER_DETAIL_QUERY = "UPDATE user_details SET first_name = ?, " +
             "last_name = ?, company = ?, position = ?, experience = ?, salary = ?, primary_skill = ?, " +
             "skills_description = ?, status = ? WHERE user_detail_id = ?";
 
-    private static final String SQL_DELETE_USER_DETAIL = "DELETE FROM user_details WHERE user_detail_id = ?";
+    private static final String DELETE_USER_DETAIL_QUERY = "DELETE FROM user_details WHERE user_detail_id = ?";
 
     private CustomConnectionPool connectionPool = CustomConnectionPool.getInstance();
 
     public boolean addUserDetail(UserDetail userDetail) throws DaoException {
         boolean isAdded = false;
         try (Connection connection = connectionPool.getConnection();
-             PreparedStatement statement = connection.prepareStatement(SQL_ADD_USER_DETAIL,
+             PreparedStatement statement = connection.prepareStatement(ADD_USER_DETAIL_QUERY,
                      Statement.RETURN_GENERATED_KEYS)) {
             statement.setString(1, userDetail.getFirstName());
             statement.setString(2, userDetail.getLastName());
@@ -53,7 +53,7 @@ public class UserDetailDaoImpl implements UserDetailDao {
     public UserDetail findUserDetailByUserId(Long userId) throws DaoException {
         UserDetail userDetail = null;
         try (Connection connection = connectionPool.getConnection();
-             PreparedStatement statement = connection.prepareStatement(SQL_FIND_USER_DETAIL_BY_USER_ID)) {
+             PreparedStatement statement = connection.prepareStatement(FIND_USER_DETAIL_BY_USER_ID_QUERY)) {
             statement.setString(1, String.valueOf(userId));
             ResultSet resultSet = statement.executeQuery();
             userDetail = new UserDetail();
@@ -78,7 +78,7 @@ public class UserDetailDaoImpl implements UserDetailDao {
     public UserDetail updateUserDetail(UserDetail userDetail) throws DaoException {
         UserDetail resultUserDetail = null;
         try (Connection connection = connectionPool.getConnection();
-             PreparedStatement statement = connection.prepareStatement(SQL_UPDATE_USER_DETAIL)) {
+             PreparedStatement statement = connection.prepareStatement(UPDATE_USER_DETAIL_QUERY)) {
             statement.setString(1, userDetail.getFirstName());
             statement.setString(2, userDetail.getLastName());
             statement.setString(3, userDetail.getCompany());
@@ -102,7 +102,7 @@ public class UserDetailDaoImpl implements UserDetailDao {
     public boolean removeUserDetailById(Long id) throws DaoException {
         boolean isRemoved = false;
         try (Connection connection = connectionPool.getConnection();
-             PreparedStatement statement = connection.prepareStatement(SQL_DELETE_USER_DETAIL)) {
+             PreparedStatement statement = connection.prepareStatement(DELETE_USER_DETAIL_QUERY)) {
             statement.setLong(1, id);
             isRemoved = statement.executeUpdate() == 1;
         } catch (SQLException e) {

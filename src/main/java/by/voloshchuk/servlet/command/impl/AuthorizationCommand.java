@@ -2,8 +2,8 @@ package by.voloshchuk.servlet.command.impl;
 
 import by.voloshchuk.entity.User;
 import by.voloshchuk.exception.ServiceException;
+import by.voloshchuk.service.ServiceProvider;
 import by.voloshchuk.service.UserService;
-import by.voloshchuk.service.impl.UserServiceImpl;
 import by.voloshchuk.servlet.command.*;
 import org.apache.logging.log4j.Level;
 import org.apache.logging.log4j.LogManager;
@@ -12,18 +12,18 @@ import org.apache.logging.log4j.Logger;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.io.IOException;
 
 public class AuthorizationCommand implements Command {
 
     private static final Logger logger = LogManager.getLogger();
 
-    private UserService userService = new UserServiceImpl();
+    private static ServiceProvider serviceProvider = ServiceProvider.getInstance();
 
     @Override
-    public CommandRouter execute(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
+    public CommandRouter execute(HttpServletRequest request, HttpServletResponse response) throws ServletException {
         String email = request.getParameter(RequestParameter.EMAIL);
         String password = request.getParameter(RequestParameter.PASSWORD);
+        UserService userService = serviceProvider.getUserService();
         try {
             User currentUser = userService.checkUser(email, password);
             if (currentUser != null) {
