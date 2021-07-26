@@ -10,8 +10,9 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
           integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
     <script src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
+    <script type="text/javascript" src="/js/validation.js"></script>
     <script type="text/javascript" src="/js/registration.js"></script>
-    <link rel="stylesheet" href="/css/registration.css">
+    <link rel="stylesheet" href="/css/validation.css">
 </head>
 <body style="background-color: #D3D3D3;">
 <div class="container-xxl">
@@ -24,7 +25,7 @@
             <h2><fmt:message bundle="${loc}" key="local.create"/></h2>
         </div>
 
-        <form method="post" action="controller" onSubmit="return validateForm()" novalidate>
+        <form method="post" action="controller" onSubmit="return validateSignUpForm()" novalidate>
             <input type="hidden" class="command" name="command" value="registrate" id="command"/>
             <div class="row">
                 <div class="col-md-4">

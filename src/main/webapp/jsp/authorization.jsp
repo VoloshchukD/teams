@@ -9,6 +9,9 @@
     <title><fmt:message bundle="${loc}" key="local.auth"/></title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css" rel="stylesheet"
           integrity="sha384-+0n0xVW2eSR5OomGNYDnhzAbDsOXxcvSN1TPprVMTNDbiYZCxYbOOl7+AMvyTG2x" crossorigin="anonymous">
+    <script type="text/javascript" src="/js/validation.js"></script>
+    <script type="text/javascript" src="/js/authorization.js"></script>
+    <link rel="stylesheet" href="/css/validation.css">
 </head>
 <body style="background-color: #D3D3D3;">
 <div class="container-xxl">
@@ -21,18 +24,22 @@
                 <h4><fmt:message bundle="${loc}" key="local.hello"/></h4>
                 <h2><fmt:message bundle="${loc}" key="local.signin.welcome"/></h2>
             </div>
-            <form method="POST" action="controller">
+            <form method="POST" action="controller" onSubmit="return validateSignInForm()" novalidate>
                 <input type="hidden" name="command" value="authorize" id="command"/>
                 <div class="mb-3">
                     <label for="email"><fmt:message bundle="${loc}" key="local.form.email"/></label>
-                    <input type="email" class="form-control" pattern="${regexEmail}" name="email" id="email"
-                           placeholder="" required>
+                    <input type="email" class="form-control" name="email" id="email">
+                    <small id="email-help" class="form-text"><fmt:message bundle="${loc}"
+                                                                          key="local.form.email-help"/></small>
+                    <div id="regex-email" class="hidden-regex">${regexEmail}</div>
                 </div>
 
                 <div class="mb-3">
                     <label for="password"><fmt:message bundle="${loc}" key="local.form.password"/> </label>
-                    <input type="password" class="form-control" pattern="${regexPassword}" name="password" id="password"
-                           placeholder="">
+                    <input type="password" class="form-control" name="password" id="password">
+                    <small id="password-help" class="form-text"><fmt:message bundle="${loc}"
+                                                                             key="local.form.password-help"/></small>
+                    <div id="regex-password" class="hidden-regex">${regexPassword}</div>
                 </div>
 
                 <div class="d-flex justify-content-center">

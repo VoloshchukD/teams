@@ -13,6 +13,4 @@ public interface UserService {
 
     Map<String, Integer> findBasicData() throws ServiceException;
 
-    void resetPassword(User user);
-
 }

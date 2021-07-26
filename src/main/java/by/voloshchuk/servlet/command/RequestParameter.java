@@ -49,4 +49,8 @@ public final class RequestParameter {
 
     public static final String USER_DETAIL_ID = "user-detail-id";
 
+    public static final String NEW_PASSWORD = "password";
+
+    public static final String PASSWORD_CONFIRMATION = "confirmation";
+
 }

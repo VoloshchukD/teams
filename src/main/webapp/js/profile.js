@@ -6,24 +6,73 @@ window.addEventListener("load", function (event) {
     loadEditData();
 });
 
-function submitEditForm() {
-    let userDataToEdit = {
-        forename: document.getElementById("forename").value,
-        surname: document.getElementById("surname").value,
-        company: document.getElementById("company").value,
-        position: document.getElementById("position").value,
-        experience: document.getElementById("experience").value,
-        salary: document.getElementById("salary").value,
-        primary: document.getElementById("primary").value,
-        skills: document.getElementById("skills").value
+var editInputs;
+
+var editPatterns;
+
+window.addEventListener("load", function (event) {
+
+    const forenameRegex = new RegExp(document.getElementById('regex-forename').textContent);
+
+    const surnameRegex = new RegExp(document.getElementById('regex-surname').textContent);
+
+    const companyRegex = new RegExp(document.getElementById('regex-company').textContent);
+
+    const positionRegex = new RegExp(document.getElementById('regex-position').textContent);
+
+    const experienceRegex = new RegExp(document.getElementById('regex-experience').textContent);
+
+    const salaryRegex = new RegExp(document.getElementById('regex-salary').textContent);
+
+    const primaryRegex = new RegExp(document.getElementById('regex-primary').textContent);
+
+    const skillsRegex = new RegExp(document.getElementById('regex-skills').textContent);
+
+    editInputs = document.querySelectorAll('.form-control');
+
+    editPatterns = {
+        forename: forenameRegex,
+        surname: surnameRegex,
+        company: companyRegex,
+        position: positionRegex,
+        experience: experienceRegex,
+        salary: salaryRegex,
+        primary: primaryRegex,
+        skills: skillsRegex
     };
-    let json = JSON.stringify(userDataToEdit);
-    webix.ajax().post("http://localhost:8080/async-controller?async-command=update-user-detail", {'jsonString': json})
-        .then((response) => response.json())
-        .then((data) => {
-            webix.message({type: '"success', text: 'Данные изменены'});
-            loadEditData();
-        })
+
+    editInputs.forEach((input) => {
+        input.addEventListener('keyup', (e) => {
+            validate(e.target, editPatterns[e.target.attributes.id.value]);
+        });
+    });
+
+});
+
+function validateEditForm() {
+    return validateInputs(editInputs, editPatterns);
+}
+
+function submitEditForm() {
+    if (validateEditForm()) {
+        let userDataToEdit = {
+            forename: document.getElementById("forename").value,
+            surname: document.getElementById("surname").value,
+            company: document.getElementById("company").value,
+            position: document.getElementById("position").value,
+            experience: document.getElementById("experience").value,
+            salary: document.getElementById("salary").value,
+            primary: document.getElementById("primary").value,
+            skills: document.getElementById("skills").value
+        };
+        let json = JSON.stringify(userDataToEdit);
+        webix.ajax().post("http://localhost:8080/async-controller?async-command=update-user-detail", {'jsonString': json})
+            .then((response) => response.json())
+            .then((data) => {
+                webix.message({type: 'success', text: 'Данные изменены'});
+                loadEditData();
+            })
+    }
 }
 
 function loadEditData() {

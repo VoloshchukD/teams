@@ -65,13 +65,4 @@ public class UserServiceImpl implements UserService {
         return resultUser;
     }
 
-    public void resetPassword(User user) {
-//        Password
-        user.getPassword();
-        String password = "abcd";
-        String hash = BCrypt.hashpw(password, BCrypt.gensalt());
-//        hash
-//        BCrypt.checkpw(password, hash)
-    }
-
 }

@@ -11,7 +11,9 @@
     <link rel="stylesheet" href="http://cdn.webix.com/edge/webix.css" type="text/css">
     <script src="http://cdn.webix.com/edge/webix.js" type="text/javascript"></script>
     <script src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
+    <script type="text/javascript" src="/js/validation.js"></script>
     <script type="text/javascript" src="/js/profile.js"></script>
+    <link rel="stylesheet" href="/css/validation.css">
 </head>
 <body>
 <div class="container-xxl">
@@ -25,31 +27,6 @@
                 <div id="box" class="justify-content-center"></div>
             </div>
 
-            <hr class="mb-4">
-
-            <form method="post" action="controller">
-                <input type="hidden" name="command" value="registrate"/>
-                <select class="form-select mb-3" aria-label="Default select example">
-                    <option selected>Open this select menu</option>
-                    <option value="1">One</option>
-                    <option value="2">Two</option>
-                    <option value="3">Three</option>
-                </select>
-                <div class="d-flex justify-content-center">
-                    <button class="btn btn btn-primary btn-block" type="submit"><fmt:message bundle="${loc}"
-                                                                                                key="local.signup"/></button>
-                </div>
-            </form>
-
-            <hr class="mb-4">
-
-            <form method="post" action="controller">
-                <div class="d-flex justify-content-center">
-                    <button class="btn btn btn-danger btn-block" type="submit"><fmt:message bundle="${loc}"
-                                                                                                key="local.logout"/></button>
-                </div>
-            </form>
-
         </div>
 
         <div class="col-5 my-auto px-5">
@@ -59,38 +36,57 @@
                 <div class="row">
                     <div class="col-md-6 mb-3">
                         <label for="forename"><fmt:message bundle="${loc}" key="local.form.forename"/></label>
-                        <input type="text" class="form-control" name="forename"
-                               id="forename">
-
+                        <input type="text" class="form-control" name="forename" id="forename">
+                        <small id="forename-help" class="form-text"><fmt:message bundle="${loc}"
+                                                                                 key="local.form.forename-help"/></small>
+                        <div id="regex-forename" class="hidden-regex">${regexForename}</div>
                     </div>
                     <div class="col-md-6 mb-3">
                         <label for="surname"><fmt:message bundle="${loc}" key="local.form.surname"/></label>
                         <input type="text" class="form-control" name="surname" id="surname">
+                        <small id="surname-help" class="form-text"><fmt:message bundle="${loc}"
+                                                                                key="local.form.surname-help"/></small>
+                        <div id="regex-surname" class="hidden-regex">${regexSurname}</div>
                     </div>
                 </div>
 
                 <div class="mb-3">
                     <label for="company"><fmt:message bundle="${loc}" key="local.form.company"/></label>
                     <input type="text" class="form-control" name="company" id="company">
+                    <small id="company-help" class="form-text"><fmt:message bundle="${loc}"
+                                                                            key="local.form.company-help"/></small>
+                    <div id="regex-company" class="hidden-regex">${regexCompany}</div>
                 </div>
 
                 <div class="mb-3">
                     <label for="position"><fmt:message bundle="${loc}" key="local.form.position"/></label>
                     <input type="text" class="form-control" name="position" id="position">
+                    <small id="position-help" class="form-text"><fmt:message bundle="${loc}"
+                                                                             key="local.form.position-help"/></small>
+                    <div id="regex-position" class="hidden-regex">${regexPosition}</div>
                 </div>
 
                 <div class="row">
                     <div class="col-md-4 mb-3">
                         <label for="experience"><fmt:message bundle="${loc}" key="local.form.experience"/></label>
                         <input type="text" class="form-control" name="experience" id="experience">
+                        <small id="experience-help" class="form-text"><fmt:message bundle="${loc}"
+                                                                                   key="local.form.experience-help"/></small>
+                        <div id="regex-experience" class="hidden-regex">${regexExperience}</div>
                     </div>
                     <div class="col-md-4 mb-3">
                         <label for="salary"><fmt:message bundle="${loc}" key="local.form.salary"/></label>
                         <input type="text" class="form-control" name="salary" id="salary">
+                        <small id="salary-help" class="form-text"><fmt:message bundle="${loc}"
+                                                                               key="local.form.salary-help"/></small>
+                        <div id="regex-salary" class="hidden-regex">${regexSalary}</div>
                     </div>
                     <div class="col-md-4 mb-3">
                         <label for="primary"><fmt:message bundle="${loc}" key="local.form.primary"/></label>
                         <input type="text" class="form-control" name="primary" id="primary">
+                        <small id="primary-help" class="form-text"><fmt:message bundle="${loc}"
+                                                                                key="local.form.primary-help"/></small>
+                        <div id="regex-primary" class="hidden-regex">${regexPrimary}</div>
                     </div>
                 </div>
 
@@ -98,35 +94,16 @@
                     <div class="col mb-3">
                         <label for="skills"><fmt:message bundle="${loc}" key="local.form.skills"/></label>
                         <textarea class="form-control" aria-label="With textarea" name="skills" id="skills"></textarea>
+                        <small id="skills-description-help" class="form-text"><fmt:message bundle="${loc}"
+                                                                                           key="local.form.skills-help"/></small>
+                        <div id="regex-skills" class="hidden-regex">${regexSkills}</div>
                     </div>
                 </div>
 
                 <div class="d-flex justify-content-center">
-                    <button class="btn btn btn-primary btn-block" type="button" onclick="submitEditForm()" ><fmt:message bundle="${loc}"
-                                                                                                key="local.profile.update"/></button>
-                </div>
-            </form>
-
-            <hr class="mb-4">
-
-            <form method="post" action="controller">
-                <input type="hidden" name="command" value="password" id="command"/>
-                <div class="mb-3">
-                    <label for="new-password"><fmt:message bundle="${loc}" key="local.new-password"/> </label>
-                    <input type="password" class="form-control" pattern="${regexPassword}" name="new-password"
-                           id="new-password"
-                           placeholder="" required>
-                </div>
-                <div class="mb-3">
-                    <label for="new-password-repeat"><fmt:message bundle="${loc}"
-                                                                  key="local.new-password-repeat"/> </label>
-                    <input type="password" class="form-control" pattern="${regexPassword}" name="new-password-repeat"
-                           id="new-password-repeat"
-                           placeholder="" required>
-                </div>
-                <div class="d-flex justify-content-center">
-                    <button id="edit-user-submit" class="btn btn btn-primary btn-block" type="button"><fmt:message bundle="${loc}"
-                                                                                                key="local.profile.reset-password"/></button>
+                    <button class="btn btn btn-primary btn-block" type="button" onclick="submitEditForm()">
+                        <fmt:message bundle="${loc}" key="local.profile.update"/>
+                    </button>
                 </div>
             </form>
 

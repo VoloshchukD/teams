@@ -11,7 +11,7 @@ public final class CommandPath {
 
     public static final String ABOUT_JSP = "/jsp/about.jsp";
 
-    public static final String AUTHORIZATION_JSP = "/jsp/auth.jsp";
+    public static final String AUTHORIZATION_JSP = "/jsp/authorization.jsp";
 
     public static final String REGISTRATION_JSP = "/jsp/registration.jsp";
 
