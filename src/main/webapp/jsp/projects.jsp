@@ -13,7 +13,7 @@
 </head>
 <body>
 <div class="container-xxl">
-    <div class="title h1 text-center mt-3">Your Projects</div>
+    <div class="title h1 text-center mt-3"><fmt:message bundle="${loc}" key="local.projects.header"/></div>
     <div class="row justify-content-center mt-3">
         <div class="col-md-4">
             <ul class="nav nav-tabs justify-content-center">
@@ -21,29 +21,29 @@
                     <c:when test="${state == 'in progress'}">
                         <li class="nav-item">
                             <a class="nav-link active"
-                               href="?command=projects&projectsPerPage=5&currentPage=1&state=in%20progress">Active</a>
+                               href="?command=projects&projectsPerPage=4&currentPage=1&state=in%20progress"><fmt:message bundle="${loc}" key="local.projects.active"/></a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="?command=projects&projectsPerPage=5&currentPage=1&state=finished">Finished</a>
+                            <a class="nav-link" href="?command=projects&projectsPerPage=4&currentPage=1&state=finished"><fmt:message bundle="${loc}" key="local.projects.finished"/></a>
                         </li>
                     </c:when>
                     <c:when test="${state == 'finished'}">
                         <li class="nav-item">
                             <a class="nav-link"
-                               href="?command=projects&projectsPerPage=5&currentPage=1&state=in%20progress">Active</a>
+                               href="?command=projects&projectsPerPage=4&currentPage=1&state=in%20progress"><fmt:message bundle="${loc}" key="local.projects.active"/></a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link active"
-                               href="?command=projects&projectsPerPage=5&currentPage=1&state=finished">Finished</a>
+                               href="?command=projects&projectsPerPage=4&currentPage=1&state=finished"><fmt:message bundle="${loc}" key="local.projects.finished"/></a>
                         </li>
                     </c:when>
                 </c:choose>
             </ul>
         </div>
     </div>
+    <div class="row mt-3">
     <c:forEach items="${projects}" var="project">
-        <div class="row justify-content-center mt-3">
-            <div class="col-md-8">
+            <div class="col-6">
                 <div class="card p-3 mb-2">
                     <div class="d-flex justify-content-between">
                         <div class="d-flex flex-row align-items-center">
@@ -51,13 +51,13 @@
                         </div>
                         <c:choose>
                             <c:when test="${project.state == 'in progress'}">
-                                <div class="badge"><span class="inprogress">In Progress</span></div>
+                                <div class="badge"><span class="inprogress"><fmt:message bundle="${loc}" key="local.projects.status-in-progress"/></span></div>
                             </c:when>
                             <c:when test="${project.state == 'finished'}">
-                                <div class="badge"><span class="finished">Finished</span></div>
+                                <div class="badge"><span class="finished"><fmt:message bundle="${loc}" key="local.projects.status-finished"/></span></div>
                             </c:when>
                             <c:when test="${project.state == 'starting'}">
-                                <div class="badge"><span class="starting">Starting</span></div>
+                                <div class="badge"><span class="starting"><fmt:message bundle="${loc}" key="local.projects.status-starting"/></span></div>
                             </c:when>
                         </c:choose>
                     </div>
@@ -66,16 +66,16 @@
                         <h6 class="heading">${project.description}</h6>
                         <div class="mt-5">
                             <div class="ss">
-                                <button type="submit" class="btn btn-primary">Open</button>
+                                <button type="submit" class="btn btn-primary"><fmt:message bundle="${loc}" key="local.projects.open"/></button>
                             </div>
-                            <div class="mt-3"><span class="text1">Started at <span
+                            <div class="mt-3"><span class="text1"><fmt:message bundle="${loc}" key="local.projects.start-date"/> <span
                                     class="text2">${project.startDate}</span></span></div>
                         </div>
                     </div>
                 </div>
             </div>
-        </div>
     </c:forEach>
+    </div>
 
     <c:if test="${allPagesNumber != 1}">
         <div class="row justify-content-center mt-1">

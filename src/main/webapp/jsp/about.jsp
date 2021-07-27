@@ -123,16 +123,6 @@
             <span class="sr-only">Next</span>
         </a>
     </div>
-
-    <%--    <div class="row">--%>
-
-    <%--        <div class="col-md-12">--%>
-    <%--            <div class="main-timeline">--%>
-
-
-    <%--            </div>--%>
-    <%--        </div>--%>
-    <%--    </div>--%>
 </div>
 <%@ include file="../WEB-INF/jspf/footer.jspf" %>
 <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
