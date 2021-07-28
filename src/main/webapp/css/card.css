@@ -1,0 +1,38 @@
+body {
+    background-color: #eee;
+}
+
+.title {
+    margin-bottom: 50px;
+    text-transform: uppercase;
+}
+
+.card {
+    border: none;
+    border-radius: 10px
+}
+
+.c-details span {
+    font-weight: 300;
+    font-size: 13px
+}
+
+.badge span {
+    width: auto;
+    height: 25px;
+    padding: 3px 3px 3px;
+    border-radius: 5px;
+    display: flex;
+
+    justify-content: center;
+    align-items: center
+}
+
+.text1 {
+    font-size: 14px;
+    font-weight: 600
+}
+
+.text2 {
+    color: #a5aec0
+}

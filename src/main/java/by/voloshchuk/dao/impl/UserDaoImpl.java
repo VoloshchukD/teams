@@ -100,20 +100,20 @@ public class UserDaoImpl implements UserDao {
             ResultSet resultSet = statement.executeQuery();
             user = new User();
             if (resultSet.next()) {
-                user.setId(Long.valueOf(resultSet.getString(ConstantColumnName.USER_ID)));
+                user.setId(resultSet.getLong(ConstantColumnName.USER_ID));
                 user.setEmail(resultSet.getString(ConstantColumnName.USER_EMAIL));
                 user.setPassword(resultSet.getString(ConstantColumnName.USER_PASSWORD));
                 user.setRole(resultSet.getString(ConstantColumnName.USER_ROLE));
 
                 UserDetail userDetail = new UserDetail();
-                userDetail.setId(Long.valueOf(resultSet.getString(ConstantColumnName.USER_DETAIL_ID)));
+                userDetail.setId(resultSet.getLong(ConstantColumnName.USER_DETAIL_ID));
                 userDetail.setImagePath(resultSet.getString(ConstantColumnName.USER_DETAIL_IMAGE));
                 userDetail.setFirstName(resultSet.getString(ConstantColumnName.USER_DETAIL_FIRST_NAME));
                 userDetail.setLastName(resultSet.getString(ConstantColumnName.USER_DETAIL_LAST_NAME));
                 userDetail.setCompany(resultSet.getString(ConstantColumnName.USER_DETAIL_COMPANY));
                 userDetail.setPosition(resultSet.getString(ConstantColumnName.USER_DETAIL_POSITION));
-                userDetail.setExperience(Integer.parseInt(resultSet.getString(ConstantColumnName.USER_DETAIL_EXPERIENCE)));
-                userDetail.setSalary(Integer.parseInt(resultSet.getString(ConstantColumnName.USER_DETAIL_SALARY)));
+                userDetail.setExperience(resultSet.getInt(ConstantColumnName.USER_DETAIL_EXPERIENCE));
+                userDetail.setSalary(resultSet.getInt(ConstantColumnName.USER_DETAIL_SALARY));
                 userDetail.setPrimarySkill(resultSet.getString(ConstantColumnName.USER_DETAIL_PRIMARY_SKILL));
                 userDetail.setSkillsDescription(resultSet.getString(ConstantColumnName.USER_DETAIL_SKILLS_DESCRIPTION));
                 userDetail.setStatus(resultSet.getString(ConstantColumnName.USER_DETAIL_STATUS));
@@ -133,7 +133,7 @@ public class UserDaoImpl implements UserDao {
             ResultSet resultSet = statement.executeQuery();
             user = new User();
             if (resultSet.next()) {
-                user.setId(Long.valueOf(resultSet.getString(ConstantColumnName.USER_ID)));
+                user.setId(resultSet.getLong(ConstantColumnName.USER_ID));
                 user.setEmail(resultSet.getString(ConstantColumnName.USER_EMAIL));
                 user.setPassword(resultSet.getString(ConstantColumnName.USER_PASSWORD));
                 user.setRole(resultSet.getString(ConstantColumnName.USER_ROLE));
@@ -181,7 +181,7 @@ public class UserDaoImpl implements UserDao {
         try (Connection connection = connectionPool.getConnection();
              PreparedStatement statement = connection.prepareStatement(DELETE_USER_QUERY)) {
             User user = findUserById(id);
-            statement.setString(1, String.valueOf(id));
+            statement.setLong(1, id);
             isRemoved = statement.executeUpdate() == 1;
         } catch (SQLException e) {
             throw new DaoException(e);
@@ -193,25 +193,25 @@ public class UserDaoImpl implements UserDao {
         List<User> users = new ArrayList<>();
         try (Connection connection = connectionPool.getConnection();
              PreparedStatement statement = connection.prepareStatement(FIND_USER_BY_REQUIREMENT_QUERY)) {
-            statement.setString(1, String.valueOf(requirements.getExperience()));
-            statement.setString(2, String.valueOf(requirements.getSalary()));
-            statement.setString(3, String.valueOf(requirements.getPrimarySkill()));
+            statement.setLong(1, requirements.getExperience());
+            statement.setInt(2, requirements.getSalary());
+            statement.setString(3, requirements.getPrimarySkill());
             ResultSet resultSet = statement.executeQuery();
 
             while (resultSet.next()) {
                 User user = new User();
                 UserDetail userDetail = new UserDetail();
 
-                userDetail.setId(Long.valueOf(resultSet.getString(ConstantColumnName.USER_DETAIL_ID)));
+                userDetail.setId(resultSet.getLong(ConstantColumnName.USER_DETAIL_ID));
                 userDetail.setFirstName(resultSet.getString(ConstantColumnName.USER_DETAIL_FIRST_NAME));
                 userDetail.setLastName(resultSet.getString(ConstantColumnName.USER_DETAIL_LAST_NAME));
                 userDetail.setCompany(resultSet.getString(ConstantColumnName.USER_DETAIL_COMPANY));
                 userDetail.setPosition(resultSet.getString(ConstantColumnName.USER_DETAIL_POSITION));
-                userDetail.setExperience(Integer.parseInt(resultSet.getString(ConstantColumnName.USER_DETAIL_EXPERIENCE)));
-                userDetail.setSalary(Integer.parseInt(resultSet.getString(ConstantColumnName.USER_DETAIL_SALARY)));
+                userDetail.setExperience(resultSet.getInt(ConstantColumnName.USER_DETAIL_EXPERIENCE));
+                userDetail.setSalary(resultSet.getInt(ConstantColumnName.USER_DETAIL_SALARY));
                 userDetail.setStatus(resultSet.getString(ConstantColumnName.USER_DETAIL_STATUS));
 
-                user.setId(Long.valueOf(resultSet.getString(ConstantColumnName.USER_ID)));
+                user.setId(resultSet.getLong(ConstantColumnName.USER_ID));
                 user.setEmail(resultSet.getString(ConstantColumnName.USER_EMAIL));
                 user.setPassword(resultSet.getString(ConstantColumnName.USER_PASSWORD));
                 user.setRole(resultSet.getString(ConstantColumnName.USER_ROLE));

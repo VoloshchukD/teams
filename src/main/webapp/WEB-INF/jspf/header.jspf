@@ -8,6 +8,7 @@
     <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
     <fmt:setLocale value="${local}" scope="session"/>
     <fmt:setBundle basename="local" var="loc"/>
+    <link rel="stylesheet" href="/css/badge.css">
 </head>
 <body>
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
@@ -32,15 +33,6 @@
                     <a class="nav-link" href="?command=about"><fmt:message bundle="${loc}" key="local.about"/><span
                             class="sr-only"></span></a>
                 </li>
-                <c:if test="${ not empty role }">
-                    <li class="nav-item active">
-                        <a class="nav-link"
-                           href="?command=projects&projectsPerPage=4&currentPage=1&state=in%20progress"><fmt:message
-                                bundle="${loc}"
-                                key="local.projects"/><span
-                                class="sr-only"></span></a>
-                    </li>
-                </c:if>
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownLang" role="button"
                        data-bs-toggle="dropdown" aria-expanded="false">
@@ -63,7 +55,24 @@
                         </li>
                     </ul>
                 </li>
-
+                <c:if test="${ not empty role }">
+                    <li class="nav-item active">
+                        <a class="nav-link auth"
+                           href="?command=projects&projectsPerPage=4&currentPage=1&state=in%20progress"><fmt:message
+                                bundle="${loc}"
+                                key="local.projects"/><span
+                                class="sr-only"></span></a>
+                    </li>
+                    <c:if test="${ role != 'developer' }">
+                    <li class="nav-item active">
+                        <a class="nav-link auth"
+                           href="?command=technical-tasks&tasksPerPage=4&currentPage=1"><fmt:message
+                                bundle="${loc}"
+                                key="local.technical-tasks"/><span
+                                class="sr-only"></span></a>
+                    </li>
+                    </c:if>
+                </c:if>
             </ul>
         </div>
 

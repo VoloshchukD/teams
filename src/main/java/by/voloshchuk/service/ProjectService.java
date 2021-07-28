@@ -7,6 +7,6 @@ import java.util.List;
 
 public interface ProjectService {
 
-    public List<Project> findProjectsByUserIdAndState(Long useId, String state) throws ServiceException;
+    List<Project> findProjectsByUserIdAndState(Long useId, String state) throws ServiceException;
 
 }

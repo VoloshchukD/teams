@@ -1,17 +1,21 @@
-
-
-.inprogress {
+.editing {
     background-color: #fffbec;
     color: #fed85d;
 }
 
-.finished {
+.complited {
     background-color: #e6ffee;
     color: #008000;
 }
 
-.starting {
+.wait-project {
     background-color: #e6ecff;
     color: #0000FF;
+
+}
+
+.on-project {
+    background-color: #f5ccff;
+    color: #520066;
 }
 

@@ -61,13 +61,13 @@ public class UserDetailDaoImpl implements UserDetailDao {
             ResultSet resultSet = statement.executeQuery();
             userDetail = new UserDetail();
             if (resultSet.next()) {
-                userDetail.setId(Long.valueOf(resultSet.getString(ConstantColumnName.USER_DETAIL_ID)));
+                userDetail.setId(resultSet.getLong(ConstantColumnName.USER_DETAIL_ID));
                 userDetail.setFirstName(resultSet.getString(ConstantColumnName.USER_DETAIL_FIRST_NAME));
                 userDetail.setLastName(resultSet.getString(ConstantColumnName.USER_DETAIL_LAST_NAME));
                 userDetail.setCompany(resultSet.getString(ConstantColumnName.USER_DETAIL_COMPANY));
                 userDetail.setPosition(resultSet.getString(ConstantColumnName.USER_DETAIL_POSITION));
-                userDetail.setExperience(Integer.parseInt(resultSet.getString(ConstantColumnName.USER_DETAIL_EXPERIENCE)));
-                userDetail.setSalary(Integer.parseInt(resultSet.getString(ConstantColumnName.USER_DETAIL_SALARY)));
+                userDetail.setExperience(resultSet.getInt(ConstantColumnName.USER_DETAIL_EXPERIENCE));
+                userDetail.setSalary(resultSet.getInt(ConstantColumnName.USER_DETAIL_SALARY));
                 userDetail.setPrimarySkill(resultSet.getString(ConstantColumnName.USER_DETAIL_PRIMARY_SKILL));
                 userDetail.setSkillsDescription(resultSet.getString(ConstantColumnName.USER_DETAIL_SKILLS_DESCRIPTION));
                 userDetail.setStatus(resultSet.getString(ConstantColumnName.USER_DETAIL_STATUS));

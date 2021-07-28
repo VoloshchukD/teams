@@ -15,11 +15,16 @@ public class CommandProvider {
 
     private Map<CommandName, Command> commands = new HashMap<>();
 
+    private static final String COMMAND_SEPARATOR = "-";
+
+    private static final String ENUM_COMMAND_SEPARATOR = "_";
+
     private CommandProvider() {
         commands.put(CommandName.ERROR, new MainCommand());
         commands.put(CommandName.MAIN, new MainCommand());
         commands.put(CommandName.ABOUT, new AboutCommand());
         commands.put(CommandName.PROJECTS, new ProjectsCommand());
+        commands.put(CommandName.TECHNICAL_TASKS, new TechnicalTasksCommand());
         commands.put(CommandName.LOCALE, new LocaleCommand());
         commands.put(CommandName.REGISTRATION, new ToRegistrationCommand());
         commands.put(CommandName.REGISTRATE, new RegistrationCommand());
@@ -34,7 +39,7 @@ public class CommandProvider {
     }
 
     public Command getCommand(String commandName) {
-        CommandName name = CommandName.valueOf(commandName.toUpperCase());
+        CommandName name = parseCommand(commandName);
         Command command;
         if (name != null) {
             command = commands.get(name);
@@ -42,6 +47,12 @@ public class CommandProvider {
             command = commands.get(CommandName.ERROR);
         }
         return command;
+    }
+
+    public CommandName parseCommand(String commandName) {
+        String formattedName = commandName.toUpperCase().replaceAll(COMMAND_SEPARATOR, ENUM_COMMAND_SEPARATOR);
+        CommandName resultName = CommandName.valueOf(formattedName);
+        return resultName;
     }
 
 }

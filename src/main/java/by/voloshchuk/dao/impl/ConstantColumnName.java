@@ -64,6 +64,8 @@ public final class ConstantColumnName {
 
     public static final String TECHNICAL_TASK_ID = "technical_task_id";
 
+    public static final String TECHNICAL_TASK_NAME = "name";
+
     public static final String TECHNICAL_TASK_OVERVIEW = "overview";
 
     public static final String TECHNICAL_TASK_DEADLINE = "deadline";

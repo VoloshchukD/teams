@@ -5,6 +5,8 @@ import java.util.List;
 
 public class TechnicalTask extends AbstractIdentifiedEntity {
 
+    private String name;
+
     private String overview;
 
     private Date deadline;
@@ -16,6 +18,14 @@ public class TechnicalTask extends AbstractIdentifiedEntity {
     private User customer;
 
     private List<EmployeeRequirement> requirements;
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
 
     public String getOverview() {
         return overview;

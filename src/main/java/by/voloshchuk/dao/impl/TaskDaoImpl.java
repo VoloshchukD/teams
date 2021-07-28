@@ -38,10 +38,10 @@ public class TaskDaoImpl implements TaskDao {
              PreparedStatement statement = connection.prepareStatement(ADD_TASK_QUERY)) {
             statement.setString(1, task.getName());
             statement.setString(2, task.getDetails());
-            statement.setString(3, String.valueOf(task.getHours()));
+            statement.setInt(3, task.getHours());
             statement.setString(4, task.getStatus());
-            statement.setString(5, String.valueOf(task.getProject().getId()));
-            statement.setString(6, String.valueOf(task.getDeveloper().getId()));
+            statement.setLong(5, task.getProject().getId());
+            statement.setLong(6, task.getDeveloper().getId());
             isAdded = statement.executeUpdate() == 1;
         } catch (SQLException e) {
             throw new DaoException(e);
@@ -53,14 +53,14 @@ public class TaskDaoImpl implements TaskDao {
         Task task = null;
         try (Connection connection = connectionPool.getConnection();
              PreparedStatement statement = connection.prepareStatement(FIND_TASK_BY_ID_QUERY)) {
-            statement.setString(1, String.valueOf(id));
+            statement.setLong(1, id);
             ResultSet resultSet = statement.executeQuery();
             task = new Task();
             if (resultSet.next()) {
-                task.setId(Long.valueOf(resultSet.getString(ConstantColumnName.TASK_ID)));
+                task.setId(resultSet.getLong(ConstantColumnName.TASK_ID));
                 task.setName(resultSet.getString(ConstantColumnName.TASK_NAME));
                 task.setDetails(resultSet.getString(ConstantColumnName.TASK_DETAILS));
-                task.setHours(Integer.parseInt(resultSet.getString(ConstantColumnName.TASK_HOURS)));
+                task.setHours(resultSet.getInt(ConstantColumnName.TASK_HOURS));
                 task.setStatus(resultSet.getString(ConstantColumnName.TASK_STATUS));
             }
         } catch (SQLException e) {
@@ -118,10 +118,10 @@ public class TaskDaoImpl implements TaskDao {
              PreparedStatement statement = connection.prepareStatement(UPDATE_TASK_QUERY)) {
             statement.setString(1, task.getName());
             statement.setString(2, task.getDetails());
-            statement.setString(3, String.valueOf(task.getHours()));
+            statement.setInt(3, task.getHours());
             statement.setString(4, task.getStatus());
-            statement.setString(5, String.valueOf(task.getDeveloper().getId()));
-            statement.setString(6, String.valueOf(task.getId()));
+            statement.setLong(5, task.getDeveloper().getId());
+            statement.setLong(6, task.getId());
 
             int result = statement.executeUpdate();
             if (result == 1) {
@@ -137,7 +137,7 @@ public class TaskDaoImpl implements TaskDao {
         boolean isRemoved = false;
         try (Connection connection = connectionPool.getConnection();
              PreparedStatement statement = connection.prepareStatement(DELETE_TASK_QUERY)) {
-            statement.setString(1, String.valueOf(id));
+            statement.setLong(1, id);
             isRemoved = statement.executeUpdate() == 1;
         } catch (SQLException e) {
             throw new DaoException(e);

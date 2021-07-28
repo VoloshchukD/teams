@@ -35,7 +35,7 @@ public class ProjectDaoImpl implements ProjectDao {
             statement.setString(2, project.getDescription());
             statement.setTimestamp(3, new Timestamp(project.getStartDate().getTime()));
             statement.setString(4, project.getState());
-            statement.setString(5, String.valueOf(project.getTechnicalTask().getId()));
+            statement.setLong(5, project.getTechnicalTask().getId());
             isAdded = statement.executeUpdate() == 1;
         } catch (SQLException e) {
             throw new DaoException(e);
@@ -47,11 +47,11 @@ public class ProjectDaoImpl implements ProjectDao {
         Project project = null;
         try (Connection connection = connectionPool.getConnection();
              PreparedStatement statement = connection.prepareStatement(FIND_PROJECT_BY_ID_QUERY)) {
-            statement.setString(1, String.valueOf(id));
+            statement.setLong(1, id);
             ResultSet resultSet = statement.executeQuery();
             project = new Project();
             if (resultSet.next()) {
-                project.setId(Long.valueOf(resultSet.getString(ConstantColumnName.PROJECT_ID)));
+                project.setId(resultSet.getLong(ConstantColumnName.PROJECT_ID));
                 project.setName(resultSet.getString(ConstantColumnName.PROJECT_NAME));
                 project.setDescription(resultSet.getString(ConstantColumnName.PROJECT_DESCRIPTION));
                 Timestamp timestamp = resultSet.getTimestamp(ConstantColumnName.PROJECT_START_DATE);
@@ -74,7 +74,7 @@ public class ProjectDaoImpl implements ProjectDao {
             ResultSet resultSet = statement.executeQuery();
             while (resultSet.next()) {
                 Project project = new Project();
-                project.setId(Long.valueOf(resultSet.getString(ConstantColumnName.PROJECT_ID)));
+                project.setId(resultSet.getLong(ConstantColumnName.PROJECT_ID));
                 project.setName(resultSet.getString(ConstantColumnName.PROJECT_NAME));
                 project.setDescription(resultSet.getString(ConstantColumnName.PROJECT_DESCRIPTION));
                 Timestamp timestamp = resultSet.getTimestamp(ConstantColumnName.PROJECT_START_DATE);
@@ -97,8 +97,8 @@ public class ProjectDaoImpl implements ProjectDao {
             statement.setString(2, project.getDescription());
             statement.setTimestamp(3, new Timestamp(project.getStartDate().getTime()));
             statement.setString(4, project.getState());
-            statement.setString(5, String.valueOf(project.getTechnicalTask().getId()));
-            statement.setString(6, String.valueOf(project.getId()));
+            statement.setLong(5, project.getTechnicalTask().getId());
+            statement.setLong(6, project.getId());
             int result = statement.executeUpdate();
             if (result == 1) {
                 resultProject = project;
@@ -113,7 +113,7 @@ public class ProjectDaoImpl implements ProjectDao {
         boolean isRemoved = false;
         try (Connection connection = connectionPool.getConnection();
              PreparedStatement statement = connection.prepareStatement(DELETE_PROJECT_QUERY)) {
-            statement.setString(1, String.valueOf(id));
+            statement.setLong(1, id);
             isRemoved = statement.executeUpdate() == 1;
         } catch (SQLException e) {
             throw new DaoException(e);

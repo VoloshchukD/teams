@@ -5,7 +5,10 @@ import by.voloshchuk.dao.pool.CustomConnectionPool;
 import by.voloshchuk.entity.EmployeeRequirement;
 import by.voloshchuk.exception.DaoException;
 
-import java.sql.*;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -29,12 +32,12 @@ public class EmployeeRequirementDaoImpl implements EmployeeRequirementDao {
         boolean isAdded = false;
         try (Connection connection = connectionPool.getConnection();
              PreparedStatement statement = connection.prepareStatement(ADD_EMPLOYEE_REQUIREMENT_QUERY)) {
-            statement.setString(1, String.valueOf(requirement.getExperience()));
-            statement.setString(2, String.valueOf(requirement.getSalary()));
+            statement.setInt(1, requirement.getExperience());
+            statement.setInt(2, requirement.getSalary());
             statement.setString(3, requirement.getQualification());
             statement.setString(4, requirement.getPrimarySkill());
             statement.setString(5, requirement.getComment());
-            statement.setString(6, String.valueOf(requirement.getTechnicalTask().getId()));
+            statement.setLong(6, requirement.getTechnicalTask().getId());
             isAdded = statement.executeUpdate() == 1;
         } catch (SQLException e) {
             throw new DaoException(e);
@@ -51,9 +54,9 @@ public class EmployeeRequirementDaoImpl implements EmployeeRequirementDao {
 
             while (resultSet.next()) {
                 EmployeeRequirement requirement = new EmployeeRequirement();
-                requirement.setId(Long.valueOf(resultSet.getString(ConstantColumnName.EMPLOYEE_REQUIREMENT_ID)));
-                requirement.setExperience(Integer.valueOf(resultSet.getString(ConstantColumnName.EMPLOYEE_REQUIREMENT_EXPERIENCE)));
-                requirement.setSalary(Integer.valueOf(resultSet.getString(ConstantColumnName.EMPLOYEE_REQUIREMENT_SALARY)));
+                requirement.setId(resultSet.getLong(ConstantColumnName.EMPLOYEE_REQUIREMENT_ID));
+                requirement.setExperience(resultSet.getInt(ConstantColumnName.EMPLOYEE_REQUIREMENT_EXPERIENCE));
+                requirement.setSalary(resultSet.getInt(ConstantColumnName.EMPLOYEE_REQUIREMENT_SALARY));
                 requirement.setQualification(resultSet.getString(ConstantColumnName.EMPLOYEE_REQUIREMENT_QUALIFICATION));
                 requirement.setPrimarySkill(resultSet.getString(ConstantColumnName.EMPLOYEE_REQUIREMENT_PRIMARY_SKILL));
                 requirement.setComment(resultSet.getString(ConstantColumnName.EMPLOYEE_REQUIREMENT_COMMENT));
@@ -69,12 +72,12 @@ public class EmployeeRequirementDaoImpl implements EmployeeRequirementDao {
         EmployeeRequirement resultRequirement = null;
         try (Connection connection = connectionPool.getConnection();
              PreparedStatement statement = connection.prepareStatement(UPDATE_EMPLOYEE_REQUIREMENT_QUERY)) {
-            statement.setString(1, String.valueOf(requirement.getExperience()));
-            statement.setString(2, String.valueOf(requirement.getSalary()));
+            statement.setInt(1, requirement.getExperience());
+            statement.setInt(2, requirement.getSalary());
             statement.setString(3, requirement.getQualification());
             statement.setString(4, requirement.getPrimarySkill());
             statement.setString(5, requirement.getComment());
-            statement.setString(6, String.valueOf(requirement.getId()));
+            statement.setLong(6, requirement.getId());
             int result = statement.executeUpdate();
             if (result == 1) {
                 resultRequirement = requirement;
@@ -89,7 +92,7 @@ public class EmployeeRequirementDaoImpl implements EmployeeRequirementDao {
         boolean isRemoved = false;
         try (Connection connection = connectionPool.getConnection();
              PreparedStatement statement = connection.prepareStatement(DELETE_EMPLOYEE_REQUIREMENT_QUERY)) {
-            statement.setString(1, String.valueOf(id));
+            statement.setLong(1, id);
             isRemoved = statement.executeUpdate() == 1;
         } catch (SQLException e) {
             throw new DaoException(e);

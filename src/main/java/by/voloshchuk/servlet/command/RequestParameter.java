@@ -39,9 +39,15 @@ public final class RequestParameter {
 
     public static final String PROJECTS_PER_PAGE = "projectsPerPage";
 
+    public static final String TECHNICAL_TASKS_PER_PAGE = "tasksPerPage";
+
     public static final String PROJECT_STATE = "state";
 
+    public static final String TECHNICAL_TASKS_STATUS = "status";
+
     public static final String PROJECTS = "projects";
+
+    public static final String TECHNICAL_TASKS = "technicalTasks";
 
     public static final String ALL_PAGES = "allPagesNumber";
 

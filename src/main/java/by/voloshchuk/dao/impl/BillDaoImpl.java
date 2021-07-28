@@ -57,8 +57,8 @@ public class BillDaoImpl implements BillDao {
                 bill.setId(Long.valueOf(resultSet.getString(ConstantColumnName.BILL_ID)));
                 bill.setStatus(resultSet.getString(ConstantColumnName.BILL_STATUS));
                 bill.setInformation(resultSet.getString(ConstantColumnName.BILL_INFORMATION));
-                bill.setAmountDue(Integer.valueOf(resultSet.getString(ConstantColumnName.BILL_AMOUNT_DUE)));
-                bill.setProjectId(Long.valueOf(resultSet.getString(ConstantColumnName.BILL_PROJECT_ID)));
+                bill.setAmountDue(resultSet.getInt(ConstantColumnName.BILL_AMOUNT_DUE));
+                bill.setProjectId(resultSet.getLong(ConstantColumnName.BILL_PROJECT_ID));
             }
         } catch (SQLException e) {
             throw new DaoException(e);
@@ -93,8 +93,8 @@ public class BillDaoImpl implements BillDao {
              PreparedStatement statement = connection.prepareStatement(UPDATE_BILL_QUERY)) {
             statement.setString(1, bill.getStatus());
             statement.setString(2, bill.getInformation());
-            statement.setString(3, Integer.toString(bill.getAmountDue()));
-            statement.setString(4, Long.toString(bill.getId()));
+            statement.setInt(3, bill.getAmountDue());
+            statement.setLong(4, bill.getId());
             int result = statement.executeUpdate();
             if (result == 1) {
                 resultBill = bill;
@@ -109,7 +109,7 @@ public class BillDaoImpl implements BillDao {
         boolean isRemoved = false;
         try (Connection connection = connectionPool.getConnection();
              PreparedStatement statement = connection.prepareStatement(DELETE_BILL_QUERY)) {
-            statement.setString(1, Long.toString(id));
+            statement.setLong(1, id);
             isRemoved = statement.executeUpdate() == 1;
         } catch (SQLException e) {
             throw new DaoException(e);
