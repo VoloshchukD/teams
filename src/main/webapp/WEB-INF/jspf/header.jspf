@@ -58,7 +58,7 @@
                 <c:if test="${ not empty role }">
                     <li class="nav-item active">
                         <a class="nav-link auth"
-                           href="?command=projects&projectsPerPage=4&currentPage=1&state=in%20progress"><fmt:message
+                           href="?command=projects&state=in%20progress"><fmt:message
                                 bundle="${loc}"
                                 key="local.projects"/><span
                                 class="sr-only"></span></a>
@@ -66,7 +66,7 @@
                     <c:if test="${ role != 'developer' }">
                     <li class="nav-item active">
                         <a class="nav-link auth"
-                           href="?command=technical-tasks&tasksPerPage=4&currentPage=1"><fmt:message
+                           href="?command=technical-tasks"><fmt:message
                                 bundle="${loc}"
                                 key="local.technical-tasks"/><span
                                 class="sr-only"></span></a>

@@ -22,107 +22,81 @@
                     <c:when test="${state == 'in progress'}">
                         <li class="nav-item">
                             <a class="nav-link active"
-                               href="?command=projects&projectsPerPage=4&currentPage=1&state=in%20progress"><fmt:message bundle="${loc}" key="local.projects.active"/></a>
+                               href="?command=projects&state=in%20progress"><fmt:message
+                                    bundle="${loc}" key="local.projects.active"/></a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="?command=projects&projectsPerPage=4&currentPage=1&state=finished"><fmt:message bundle="${loc}" key="local.projects.finished"/></a>
+                            <a class="nav-link" href="?command=projects&state=finished"><fmt:message
+                                    bundle="${loc}" key="local.projects.finished"/></a>
                         </li>
                     </c:when>
                     <c:when test="${state == 'finished'}">
                         <li class="nav-item">
                             <a class="nav-link"
-                               href="?command=projects&projectsPerPage=4&currentPage=1&state=in%20progress"><fmt:message bundle="${loc}" key="local.projects.active"/></a>
+                               href="?command=projects&state=in%20progress"><fmt:message
+                                    bundle="${loc}" key="local.projects.active"/></a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link active"
-                               href="?command=projects&projectsPerPage=4&currentPage=1&state=finished"><fmt:message bundle="${loc}" key="local.projects.finished"/></a>
+                               href="?command=projects1&state=finished"><fmt:message
+                                    bundle="${loc}" key="local.projects.finished"/></a>
                         </li>
                     </c:when>
                 </c:choose>
             </ul>
         </div>
     </div>
-    <div class="row mt-3">
-    <c:forEach items="${projects}" var="project">
-            <div class="col-6">
-                <div class="card p-3 mb-2">
-                    <div class="d-flex justify-content-between">
-                        <div class="d-flex flex-row align-items-center">
-                            <h2 class="mb-0">${project.name}</h2>
-                        </div>
-                        <c:choose>
-                            <c:when test="${project.state == 'in progress'}">
-                                <div class="badge"><span class="inprogress"><fmt:message bundle="${loc}" key="local.projects.status-in-progress"/></span></div>
-                            </c:when>
-                            <c:when test="${project.state == 'finished'}">
-                                <div class="badge"><span class="finished"><fmt:message bundle="${loc}" key="local.projects.status-finished"/></span></div>
-                            </c:when>
-                            <c:when test="${project.state == 'starting'}">
-                                <div class="badge"><span class="starting"><fmt:message bundle="${loc}" key="local.projects.status-starting"/></span></div>
-                            </c:when>
-                        </c:choose>
-                    </div>
-                    <hr>
-                    <div class="mt-5">
-                        <h6 class="heading">${project.description}</h6>
-                        <div class="mt-5">
-                            <div class="ss">
-                                <button type="submit" class="btn btn-primary"><fmt:message bundle="${loc}" key="local.projects.open"/></button>
+    <div class="pagging-frame row justify-content-center">
+        <div class="row mt-3">
+            <c:forEach items="${projects}" var="project">
+                <div class="col-6">
+                    <div class="card p-3 mb-2">
+                        <div class="d-flex justify-content-between">
+                            <div class="d-flex flex-row align-items-center">
+                                <h2 class="mb-0">${project.name}</h2>
                             </div>
-                            <div class="mt-3"><span class="text1"><fmt:message bundle="${loc}" key="local.projects.start-date"/> <span
-                                    class="text2">${project.startDate}</span></span></div>
+                            <c:choose>
+                                <c:when test="${project.state == 'in progress'}">
+                                    <div class="badge"><span class="inprogress"><fmt:message bundle="${loc}"
+                                                                                             key="local.projects.status-in-progress"/></span>
+                                    </div>
+                                </c:when>
+                                <c:when test="${project.state == 'finished'}">
+                                    <div class="badge"><span class="finished"><fmt:message bundle="${loc}"
+                                                                                           key="local.projects.status-finished"/></span>
+                                    </div>
+                                </c:when>
+                                <c:when test="${project.state == 'starting'}">
+                                    <div class="badge"><span class="starting"><fmt:message bundle="${loc}"
+                                                                                           key="local.projects.status-starting"/></span>
+                                    </div>
+                                </c:when>
+                            </c:choose>
+                        </div>
+                        <hr>
+                        <div class="mt-5">
+                            <h6 class="heading">${project.description}</h6>
+                            <div class="mt-5">
+                                <div class="ss">
+                                    <button type="submit" class="btn btn-primary"><fmt:message bundle="${loc}"
+                                                                                               key="local.projects.open"/></button>
+                                </div>
+                                <div class="mt-3"><span class="text1"><fmt:message bundle="${loc}"
+                                                                                   key="local.projects.start-date"/> <span
+                                        class="text2">${project.startDate}</span></span></div>
+                            </div>
                         </div>
                     </div>
                 </div>
-            </div>
-    </c:forEach>
-    </div>
-
-    <c:if test="${allPagesNumber != 1}">
-        <div class="row justify-content-center mt-1">
-            <div class="col-md-8">
-                <ul class="pagination justify-content-center">
-                    <c:if test="${currentPage != 1}">
-                        <li class="page-item"><a class="page-link"
-                                                 href="?command=projects&projectsPerPage=${projectsPerPage}&currentPage=1&state=${state}">First</a>
-                        </li>
-                    </c:if>
-                    <c:if test="${currentPage != 1}">
-                        <li class="page-item"><a class="page-link"
-                                                 href="?command=projects&projectsPerPage=${projectsPerPage}&currentPage=${currentPage-1}&state=${state}">Previous</a>
-                        </li>
-                    </c:if>
-                    <c:forEach begin="1" end="${allPagesNumber}" var="i">
-                        <c:choose>
-                            <c:when test="${currentPage eq i}">
-                                <li class="page-item active"><a class="page-link">
-                                        ${i} <span class="sr-only">(current)</span></a>
-                                </li>
-                            </c:when>
-                            <c:otherwise>
-                                <c:if test="${(currentPage eq i - 1) || (currentPage eq i + 1)}">
-                                    <li class="page-item"><a class="page-link"
-                                                             href="?command=projects&projectsPerPage=${projectsPerPage}&currentPage=${i}&state=${state}">${i}</a>
-                                    </li>
-                                </c:if>
-                            </c:otherwise>
-                        </c:choose>
-                    </c:forEach>
-                    <c:if test="${currentPage < allPagesNumber}">
-                        <li class="page-item"><a class="page-link"
-                                                 href="?command=projects&projectsPerPage=${projectsPerPage}&currentPage=${currentPage+1}&state=${state}">Next</a>
-                        </li>
-                    </c:if>
-                    <c:if test="${currentPage != allPagesNumber}">
-                        <li class="page-item"><a class="page-link"
-                                                 href="?command=projects&projectsPerPage=${projectsPerPage}&currentPage=${allPagesNumber}&state=${state}">Last</a>
-                        </li>
-                    </c:if>
-                </ul>
-            </div>
+            </c:forEach>
         </div>
-    </c:if>
+        <a class="first col" style="text-align: center"><fmt:message bundle="${loc}" key="local.pagination.first"/></a> <a class="prev col" style="text-align: center"><fmt:message bundle="${loc}" key="local.pagination.previous"/></a> <a id="num1" class="num1 col" style="text-align: center"> </a> <a id="num2" class="num2 col" style="color:gray; text-align: center"> </a> <a id="num3" class="num3 col" style="text-align: center"> </a> <a class="next col" style="text-align: center"><fmt:message bundle="${loc}" key="local.pagination.next"/></a> <a class="last col" style="text-align: center"><fmt:message bundle="${loc}" key="local.pagination.last"/></a>
+    </div>
 </div>
 <%@ include file="../WEB-INF/jspf/footer.jspf" %>
+<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
+        integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
+        crossorigin="anonymous"></script>
+<script type="text/javascript" src="/js/pagging.js"></script>
 </body>
 </html>
