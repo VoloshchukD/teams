@@ -19,6 +19,8 @@ public final class CommandPath {
 
     public static final String TECHNICAL_TASKS_JSP = "/jsp/technical_tasks.jsp";
 
+    public static final String BILLS_JSP = "/jsp/bills.jsp";
+
     public static final String PROFILE_JSP = "/jsp/profile.jsp";
 
     public static final String MAIN = "/controller?command=main";

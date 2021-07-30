@@ -49,6 +49,8 @@ public final class RequestParameter {
 
     public static final String TECHNICAL_TASKS = "technicalTasks";
 
+    public static final String BILLS = "bills";
+
     public static final String ALL_PAGES = "allPagesNumber";
 
     public static final String USER_ID = "user-id";

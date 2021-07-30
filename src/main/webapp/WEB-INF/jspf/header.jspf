@@ -72,6 +72,15 @@
                                 class="sr-only"></span></a>
                     </li>
                     </c:if>
+                    <c:if test="${ role == 'customer' }">
+                        <li class="nav-item active">
+                            <a class="nav-link auth"
+                               href="?command=bills"><fmt:message
+                                    bundle="${loc}"
+                                    key="local.bills"/><span
+                                    class="sr-only"></span></a>
+                        </li>
+                    </c:if>
                 </c:if>
             </ul>
         </div>

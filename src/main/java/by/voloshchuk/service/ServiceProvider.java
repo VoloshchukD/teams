@@ -1,9 +1,6 @@
 package by.voloshchuk.service;
 
-import by.voloshchuk.service.impl.ProjectServiceImpl;
-import by.voloshchuk.service.impl.TechnicalTaskServiceImpl;
-import by.voloshchuk.service.impl.UserDetailServiceImpl;
-import by.voloshchuk.service.impl.UserServiceImpl;
+import by.voloshchuk.service.impl.*;
 
 public class ServiceProvider {
 
@@ -14,6 +11,8 @@ public class ServiceProvider {
     private final UserDetailService userDetailService = new UserDetailServiceImpl();
 
     private final UserService userService = new UserServiceImpl();
+
+    private final BillService billService = new BillServiceImpl();
 
     private ServiceProvider() {
     }
@@ -40,6 +39,10 @@ public class ServiceProvider {
 
     public UserService getUserService() {
         return userService;
+    }
+
+    public BillService getBillService() {
+        return billService;
     }
 
 }

@@ -1,7 +1,3 @@
-body {
-    background-color: #eee;
-}
-
 .title {
     margin-bottom: 50px;
     text-transform: uppercase;
@@ -35,4 +31,29 @@ body {
 
 .text2 {
     color: #a5aec0
+}
+
+.yellow {
+    background-color: #fffbec;
+    color: #fed85d;
+}
+
+.red {
+    background-color: #ffcccc;
+    color: #ff0000;
+}
+
+.green {
+    background-color: #e6ffee;
+    color: #008000;
+}
+
+.blue {
+    background-color: #e6ecff;
+    color: #0000FF;
+}
+
+.violet {
+    background-color: #f5ccff;
+    color: #520066;
 }

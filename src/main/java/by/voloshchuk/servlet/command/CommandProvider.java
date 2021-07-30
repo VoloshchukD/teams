@@ -25,6 +25,7 @@ public class CommandProvider {
         commands.put(CommandName.ABOUT, new AboutCommand());
         commands.put(CommandName.PROJECTS, new ProjectsCommand());
         commands.put(CommandName.TECHNICAL_TASKS, new TechnicalTasksCommand());
+        commands.put(CommandName.BILLS, new BillsCommand());
         commands.put(CommandName.LOCALE, new LocaleCommand());
         commands.put(CommandName.REGISTRATION, new ToRegistrationCommand());
         commands.put(CommandName.REGISTRATE, new RegistrationCommand());

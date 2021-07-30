@@ -9,8 +9,7 @@
     <link rel="icon" type="image/x-icon" href="assets/favicon.ico"/>
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.0/css/all.css"
           integrity="sha384-lZN37f5QGtY3VHgisS14W3ExzMWZxybE1SJSEsQp9S+oqd12jhcu+A56Ebc1zFSJ" crossorigin="anonymous">
-    <link rel="stylesheet" href="/css/card.css">
-    <link rel="stylesheet" href="/css/projects.css">
+    <link rel="stylesheet" href="/css/base.css">
 </head>
 <body>
 <div class="container-xxl">
@@ -47,9 +46,9 @@
         </div>
     </div>
     <div class="pagging-frame row justify-content-center">
-        <div class="row mt-3">
+        <div class="elements row mt-3">
             <c:forEach items="${projects}" var="project">
-                <div class="col-6">
+                <div class="element col-6">
                     <div class="card p-3 mb-2">
                         <div class="d-flex justify-content-between">
                             <div class="d-flex flex-row align-items-center">
@@ -57,17 +56,17 @@
                             </div>
                             <c:choose>
                                 <c:when test="${project.state == 'in progress'}">
-                                    <div class="badge"><span class="inprogress"><fmt:message bundle="${loc}"
+                                    <div class="badge"><span class="green"><fmt:message bundle="${loc}"
                                                                                              key="local.projects.status-in-progress"/></span>
                                     </div>
                                 </c:when>
                                 <c:when test="${project.state == 'finished'}">
-                                    <div class="badge"><span class="finished"><fmt:message bundle="${loc}"
+                                    <div class="badge"><span class="blue"><fmt:message bundle="${loc}"
                                                                                            key="local.projects.status-finished"/></span>
                                     </div>
                                 </c:when>
                                 <c:when test="${project.state == 'starting'}">
-                                    <div class="badge"><span class="starting"><fmt:message bundle="${loc}"
+                                    <div class="badge"><span class="yellow"><fmt:message bundle="${loc}"
                                                                                            key="local.projects.status-starting"/></span>
                                     </div>
                                 </c:when>

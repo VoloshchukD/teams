@@ -1,13 +1,13 @@
 
 var currentPage = 1;
 var unitPerPage = 4;
-var totalUnits = $(".row").children(".col-6").length;
+var totalUnits = $(".elements").children(".element").length;
 var totalPages = Math.ceil(totalUnits/unitPerPage);
 
 
 $('.pagging-frame').each(function () {
 
-    $(this).find('.row .col-6').slice(unitPerPage).hide();
+    $(this).find('.elements .element').slice(unitPerPage).hide();
 
     check_navigation_display($(this));
 
@@ -28,7 +28,7 @@ $('.pagging-frame').each(function () {
     });
 
     $(this).find('.first').click(function () {
-        var first = $(this).siblings('.row').children('.col-6:first');
+        var first = $(this).siblings('.elements').children('.element:first');
         first.show()
         first.nextAll().hide();
         first.nextAll(':lt('+(unitPerPage-1)+')').show();
@@ -37,7 +37,7 @@ $('.pagging-frame').each(function () {
     });
 
     $(this).find('.last').click(function () {
-        var last = $(this).siblings('.row').children('.col-6:last');
+        var last = $(this).siblings('.elements').children('.element:last');
         var index = totalUnits - unitPerPage*(totalPages-1);
         last.show();
         last.prevAll().hide();
@@ -51,7 +51,7 @@ $('.pagging-frame').each(function () {
 });
 
 function previous(el) {
-    var first = $(el).siblings('.row').children('.col-6:visible:first');
+    var first = $(el).siblings('.elements').children('.element:visible:first');
     first.prevAll(':lt('+(unitPerPage)+')').show();
     first.prev().nextAll().hide()
     currentPage = currentPage - 1;
@@ -59,7 +59,7 @@ function previous(el) {
 }
 
 function next(el) {
-    var last = $(el).siblings('.row').children('.col-6:visible:last');
+    var last = $(el).siblings('.elements').children('.element:visible:last');
     last.nextAll(':lt('+(unitPerPage)+')').show();
     last.next().prevAll().hide();
     currentPage = currentPage + 1;
@@ -87,7 +87,7 @@ function check_navigation_display(el) {
         $(el).children('.num3').show();
     }
 
-    if ($(el).find('.row').children('.col-6').first().is(':visible')) {
+    if ($(el).find('.elements').children('.element').first().is(':visible')) {
         $(el).children('.prev').hide();
         $(el).children('.first').hide();
     } else {
@@ -95,7 +95,7 @@ function check_navigation_display(el) {
         $(el).children('.first').show();
     }
 
-    if ($(el).find('.row').children('.col-6').last().is(':visible')) {
+    if ($(el).find('.elements').children('.element').last().is(':visible')) {
         $(el).children('.next').hide();
         $(el).children('.last').hide();
     } else {

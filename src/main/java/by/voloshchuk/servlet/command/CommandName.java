@@ -7,6 +7,7 @@ public enum CommandName {
     ABOUT,
     PROJECTS,
     TECHNICAL_TASKS,
+    BILLS,
     LOCALE,
     REGISTRATION,
     REGISTRATE,
