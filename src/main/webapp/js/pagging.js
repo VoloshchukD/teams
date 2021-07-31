@@ -1,9 +1,26 @@
+window.addEventListener("load", function (event){
+    preparePages();
+});
 
-var currentPage = 1;
-var unitPerPage = 4;
+var currentPage;
+var unitPerPage;
+var totalPages;
 var totalUnits = $(".elements").children(".element").length;
-var totalPages = Math.ceil(totalUnits/unitPerPage);
 
+$(document).ready(function(){
+    $('#my_radio_box').change(function(){
+        preparePages();
+    });
+});
+
+function preparePages() {
+    unitPerPage = $("input[name='inlineRadioOptions']:checked").val();
+    totalPages = Math.ceil(totalUnits/unitPerPage)
+    currentPage = 1;
+    $('.pagging-frame').find('.elements .element').slice(0).show();
+    $('.pagging-frame').find('.elements .element').slice(unitPerPage).hide();
+    check_navigation_display($('.pagging-frame'));
+}
 
 $('.pagging-frame').each(function () {
 

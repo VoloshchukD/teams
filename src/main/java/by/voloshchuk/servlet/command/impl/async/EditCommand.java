@@ -2,6 +2,7 @@ package by.voloshchuk.servlet.command.impl.async;
 
 import by.voloshchuk.entity.UserDetail;
 import by.voloshchuk.exception.ServiceException;
+import by.voloshchuk.service.ServiceProvider;
 import by.voloshchuk.service.UserDetailService;
 import by.voloshchuk.service.UserService;
 import by.voloshchuk.service.impl.UserDetailServiceImpl;
@@ -22,12 +23,13 @@ public class EditCommand implements AsyncCommand {
 
     private static final Logger logger = LogManager.getLogger();
 
-    private UserDetailService userDetailService = new UserDetailServiceImpl();
+    private static ServiceProvider serviceProvider = ServiceProvider.getInstance();
 
     @Override
     public void execute(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
         Long userId = (Long) request.getSession().getAttribute(RequestParameter.USER_ID);
         UserDetail userDetail = null;
+        UserDetailService userDetailService = serviceProvider.getUserDetailService();
         try {
             userDetail = userDetailService.findUserDetailByUserId(userId);
         } catch (ServiceException e) {

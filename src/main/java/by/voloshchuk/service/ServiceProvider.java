@@ -14,6 +14,8 @@ public class ServiceProvider {
 
     private final BillService billService = new BillServiceImpl();
 
+    private final EmployeeRequirementService employeeRequirementService = new EmployeeRequirementServiceImpl();
+
     private ServiceProvider() {
     }
 
@@ -43,6 +45,10 @@ public class ServiceProvider {
 
     public BillService getBillService() {
         return billService;
+    }
+
+    public EmployeeRequirementService getEmployeeRequirementService() {
+        return employeeRequirementService;
     }
 
 }

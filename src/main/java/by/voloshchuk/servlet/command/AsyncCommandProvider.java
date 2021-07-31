@@ -1,5 +1,6 @@
 package by.voloshchuk.servlet.command;
 
+import by.voloshchuk.servlet.command.impl.async.EmployeeRequirementsCommand;
 import by.voloshchuk.servlet.command.impl.async.LoadAvatarCommand;
 import by.voloshchuk.servlet.command.impl.async.EditCommand;
 import by.voloshchuk.servlet.command.impl.async.UpdateUserDetailCommand;
@@ -21,6 +22,7 @@ public class AsyncCommandProvider {
         asyncCommands.put(AsyncCommandName.LOAD_AVATAR, new LoadAvatarCommand());
         asyncCommands.put(AsyncCommandName.EDIT, new EditCommand());
         asyncCommands.put(AsyncCommandName.UPDATE_USER_DETAIL, new UpdateUserDetailCommand());
+        asyncCommands.put(AsyncCommandName.EMPLOYEE_REQUIREMENTS, new EmployeeRequirementsCommand());
     }
 
     public static AsyncCommandProvider getInstance() {

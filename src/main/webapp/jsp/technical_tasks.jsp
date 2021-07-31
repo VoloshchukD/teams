@@ -23,6 +23,19 @@
     <%--                <button id="view-tasks" type="button" class="btn btn-primary" onclick="showLayout()" style="display: none">Technical Tasks</button>--%>
     <%--        </div>--%>
     <%--    </div>--%>
+    <div class="d-flex justify-content-center mt-3">
+        <form id="my_radio_box">
+            <div class="form-check form-check-inline">
+                <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio1" value="4"
+                       checked>
+                <label class="form-check-label" for="inlineRadio1">4</label>
+            </div>
+            <div class="form-check form-check-inline">
+                <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio2" value="8">
+                <label class="form-check-label" for="inlineRadio2">8</label>
+            </div>
+        </form>
+    </div>
     <div class="pagging-frame row justify-content-center">
         <div class="elements row mt-3">
             <c:forEach items="${technicalTasks}" var="task">
@@ -35,50 +48,95 @@
                             <c:choose>
                                 <c:when test="${task.status == 'WAIT_PROJECT'}">
                                     <div class="badge"><span class="violet"><fmt:message bundle="${loc}"
-                                                                                               key="local.technical-tasks.wait-project"/></span>
+                                                                                         key="local.technical-tasks.wait-project"/></span>
                                     </div>
                                 </c:when>
                                 <c:when test="${task.status == 'ON_PROJECT'}">
                                     <div class="badge"><span class="blue"><fmt:message bundle="${loc}"
-                                                                                             key="local.technical-tasks.on-project"/></span>
+                                                                                       key="local.technical-tasks.on-project"/></span>
                                     </div>
                                 </c:when>
                                 <c:when test="${task.status == 'COMPLITED'}">
                                     <div class="badge"><span class="green"><fmt:message bundle="${loc}"
-                                                                                            key="local.technical-tasks.complited"/></span>
+                                                                                        key="local.technical-tasks.complited"/></span>
                                     </div>
                                 </c:when>
                                 <c:when test="${task.status == 'EDITING'}">
                                     <div class="badge"><span class="yellow"><fmt:message bundle="${loc}"
-                                                                                          key="local.technical-tasks.editing"/></span>
+                                                                                         key="local.technical-tasks.editing"/></span>
                                     </div>
                                 </c:when>
                             </c:choose>
                         </div>
+
                         <hr>
-                        <div class="mt-5">
+                        <div class="requirements mt-5 mx-3">
+                            <input type="hidden" class="identifier" value="${task.id}" />
                             <h6 class="heading">${task.overview}</h6>
-                            <div class="mt-5">
-                                <div class="ss">
-                                    <button type="submit" class="btn btn-primary"><fmt:message bundle="${loc}"
-                                                                                               key="local.technical-tasks.details"/></button>
-                                </div>
-                                <div class="mt-3"><span class="text1"><fmt:message bundle="${loc}"
-                                                                                   key="local.technical-tasks.deadline"/> <span
-                                        class="text2">${task.deadline}</span></span></div>
+
+                            <div style="display:none;" class="list">
+                                <table class="table my-5">
+                                    <thead>
+                                    <tr>
+                                        <th scope="col">№</th>
+                                        <th scope="col"><fmt:message bundle="${loc}"
+                                                                     key="local.requirement.experience"/></th>
+                                        <th scope="col"><fmt:message bundle="${loc}"
+                                                                     key="local.requirement.salary"/></th>
+                                        <th scope="col"><fmt:message bundle="${loc}"
+                                                                     key="local.requirement.qualification"/></th>
+                                        <th scope="col"><fmt:message bundle="${loc}"
+                                                                     key="local.requirement.primary"/></th>
+                                        <th scope="col"><fmt:message bundle="${loc}"
+                                                                     key="local.requirement.comment"/></th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    </tbody>
+                                </table>
                             </div>
+
+                            <div class="mt-5">
+                                <div class="d-flex justify-content-between mr-3">
+                                    <div class="d-flex flex-row align-items-center">
+                                        <button type="button" class="details btn btn-primary"><fmt:message bundle="${loc}"
+                                                                                                           key="local.technical-tasks.details"/></button>
+                                        <button style="display:none;" type="button" class="hide btn btn-primary"><fmt:message bundle="${loc}"
+                                                                                                                              key="local.technical-tasks.hide"/>
+                                            details
+                                        </button>
+                                    </div>
+                                    <button onclick="" type="button" class="btn btn-primary"><fmt:message bundle="${loc}"
+                                                                                                          key="local.technical-tasks.create"/></button>
+                                </div>
+
+                            </div>
+                            <div class="mt-3"><span class="text1"><fmt:message bundle="${loc}"
+                                                                               key="local.technical-tasks.deadline"/> <span
+                                    class="text2">${task.deadline}</span></span></div>
                         </div>
                     </div>
                 </div>
             </c:forEach>
-            </div>
-        <a class="first col" style="text-align: center"><fmt:message bundle="${loc}" key="local.pagination.first"/></a> <a class="prev col" style="text-align: center"><fmt:message bundle="${loc}" key="local.pagination.previous"/></a> <a id="num1" class="num1 col" style="text-align: center"> </a> <a id="num2" class="num2 col" style="color:gray; text-align: center"> </a> <a id="num3" class="num3 col" style="text-align: center"> </a> <a class="next col" style="text-align: center"><fmt:message bundle="${loc}" key="local.pagination.next"/></a> <a class="last col" style="text-align: center"><fmt:message bundle="${loc}" key="local.pagination.last"/></a>
+        </div>
+        <a class="first col" style="text-align: center"><fmt:message bundle="${loc}" key="local.pagination.first"/></a>
+        <a class="prev col" style="text-align: center"><fmt:message bundle="${loc}"
+                                                                    key="local.pagination.previous"/></a> <a id="num1"
+                                                                                                             class="num1 col"
+                                                                                                             style="text-align: center"> </a>
+        <a id="num2" class="num2 col" style="color:gray; text-align: center"> </a> <a id="num3" class="num3 col"
+                                                                                      style="text-align: center"> </a>
+        <a class="next col" style="text-align: center"><fmt:message bundle="${loc}" key="local.pagination.next"/></a> <a
+            class="last col" style="text-align: center"><fmt:message bundle="${loc}" key="local.pagination.last"/></a>
     </div>
 </div>
 <%@ include file="../WEB-INF/jspf/footer.jspf" %>
 <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
         integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
         crossorigin="anonymous"></script>
+<script src="http://cdn.webix.com/edge/webix.js" type="text/javascript"></script>
+<script src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
+<script type="text/javascript" src="/js/technical_task.js"></script>
 <script type="text/javascript" src="/js/pagging.js"></script>
 </body>
 </html>

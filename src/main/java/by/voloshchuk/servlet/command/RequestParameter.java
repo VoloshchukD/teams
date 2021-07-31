@@ -61,4 +61,6 @@ public final class RequestParameter {
 
     public static final String PASSWORD_CONFIRMATION = "confirmation";
 
+    public static final String TECHNICAL_TASK_ID = "technical-task-id";
+
 }
