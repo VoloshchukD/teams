@@ -43,6 +43,10 @@ public final class RequestParameter {
 
     public static final String PROJECT_STATE = "state";
 
+    public static final String PROJECT_NAME = "name";
+
+    public static final String PROJECT_DESCRIPTION = "description";
+
     public static final String TECHNICAL_TASKS_STATUS = "status";
 
     public static final String PROJECTS = "projects";
@@ -62,5 +66,9 @@ public final class RequestParameter {
     public static final String PASSWORD_CONFIRMATION = "confirmation";
 
     public static final String TECHNICAL_TASK_ID = "technical-task-id";
+
+    public static final String TECHNICAL_TASK = "technicalTask";
+
+    public static final String PROJECT_ID = "project-id";
 
 }

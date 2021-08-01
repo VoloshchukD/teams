@@ -1,10 +1,7 @@
 package by.voloshchuk.servlet.command;
 
 import by.voloshchuk.servlet.command.impl.*;
-import by.voloshchuk.servlet.command.impl.transition.AboutCommand;
-import by.voloshchuk.servlet.command.impl.transition.ProfileCommand;
-import by.voloshchuk.servlet.command.impl.transition.ToAuthorizationCommand;
-import by.voloshchuk.servlet.command.impl.transition.ToRegistrationCommand;
+import by.voloshchuk.servlet.command.impl.transition.*;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -24,7 +21,12 @@ public class CommandProvider {
         commands.put(CommandName.MAIN, new MainCommand());
         commands.put(CommandName.ABOUT, new AboutCommand());
         commands.put(CommandName.PROJECTS, new ProjectsCommand());
+        commands.put(CommandName.TO_CREATE_PROJECT, new ToCreateProjectCommand());
+        commands.put(CommandName.CREATE_PROJECT, new CreateProjectCommand());
+        commands.put(CommandName.CREATE_TECHNICAL_TASK, new CreateTechnicalTaskCommand());
+        commands.put(CommandName.TO_SEEK_EMPLOYEES, new ToSeekEmployeesCommand());
         commands.put(CommandName.TECHNICAL_TASKS, new TechnicalTasksCommand());
+        commands.put(CommandName.FIND_TECHNICAL_TASKS, new FindTechnicalTaskCommand());
         commands.put(CommandName.BILLS, new BillsCommand());
         commands.put(CommandName.LOCALE, new LocaleCommand());
         commands.put(CommandName.REGISTRATION, new ToRegistrationCommand());

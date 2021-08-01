@@ -45,4 +45,6 @@ public final class CommandAttribute {
 
     public static final String PROJECTS_AMOUNT = "projectsAmount";
 
+    public static final String EMPLOYEE_REQUIREMENTS = "requirements";
+
 }

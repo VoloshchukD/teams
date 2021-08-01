@@ -6,6 +6,8 @@ public enum AsyncCommandName {
     EDIT,
     UPDATE_USER_DETAIL,
     ERROR,
-    EMPLOYEE_REQUIREMENTS
+    EMPLOYEE_REQUIREMENTS,
+    SEEK_EMPLOYEES,
+    ADD_EMPLOYEE
 
 }

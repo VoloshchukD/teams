@@ -17,13 +17,13 @@
 <body>
 <div class="container-xxl">
     <div class="title h1 text-center mt-3"><fmt:message bundle="${loc}" key="local.technical-tasks.header"/></div>
-    <%--    <div class="row mt-3">--%>
-    <%--        <div class="col-4 justify-content-center">--%>
-    <%--                <button id="create-task" type="button" class="btn btn-primary" onclick="hideLayout()" >Create</button>--%>
-    <%--                <button id="view-tasks" type="button" class="btn btn-primary" onclick="showLayout()" style="display: none">Technical Tasks</button>--%>
-    <%--        </div>--%>
-    <%--    </div>--%>
-    <div class="d-flex justify-content-center mt-3">
+
+    <div class="d-flex justify-content-between mt-3">
+        <c:if test="${ role == 'customer' }">
+            <a href="?command=create-technical-task">
+                <button id="create-task" type="button" class="btn btn-primary" >New</button>
+            </a>
+        </c:if>
         <form id="my_radio_box">
             <div class="form-check form-check-inline">
                 <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio1" value="4"
@@ -35,6 +35,7 @@
                 <label class="form-check-label" for="inlineRadio2">8</label>
             </div>
         </form>
+        <div></div>
     </div>
     <div class="pagging-frame row justify-content-center">
         <div class="elements row mt-3">
@@ -71,7 +72,6 @@
 
                         <hr>
                         <div class="requirements mt-5 mx-3">
-                            <input type="hidden" class="identifier" value="${task.id}" />
                             <h6 class="heading">${task.overview}</h6>
 
                             <div style="display:none;" class="list">
@@ -99,15 +99,25 @@
                             <div class="mt-5">
                                 <div class="d-flex justify-content-between mr-3">
                                     <div class="d-flex flex-row align-items-center">
-                                        <button type="button" class="details btn btn-primary"><fmt:message bundle="${loc}"
-                                                                                                           key="local.technical-tasks.details"/></button>
-                                        <button style="display:none;" type="button" class="hide btn btn-primary"><fmt:message bundle="${loc}"
-                                                                                                                              key="local.technical-tasks.hide"/>
+                                        <button type="button" class="details btn btn-primary"><fmt:message
+                                                bundle="${loc}"
+                                                key="local.technical-tasks.details"/></button>
+                                        <button style="display:none;" type="button" class="hide btn btn-primary">
+                                            <fmt:message bundle="${loc}"
+                                                         key="local.technical-tasks.hide"/>
                                             details
                                         </button>
                                     </div>
-                                    <button onclick="" type="button" class="btn btn-primary"><fmt:message bundle="${loc}"
-                                                                                                          key="local.technical-tasks.create"/></button>
+                                    <form action="controller">
+                                        <input type="hidden" class="identifier" name="technical-task-id"
+                                               value="${task.id}"/>
+                                        <c:if test="${ role == 'manager' }">
+                                            <input type="hidden" class="command" name="command"
+                                                   value="to-create-project"/>
+                                            <button type="submit" class="btn btn-primary"><fmt:message bundle="${loc}"
+                                                                                                       key="local.technical-tasks.create"/></button>
+                                        </c:if>
+                                    </form>
                                 </div>
 
                             </div>

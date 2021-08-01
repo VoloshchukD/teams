@@ -23,6 +23,12 @@ public final class CommandPath {
 
     public static final String PROFILE_JSP = "/jsp/profile.jsp";
 
+    public static final String PROJECT_CREATION_JSP = "/jsp/project_creation.jsp";
+
+    public static final String SEEK_EMPLOYEES_JSP = "/jsp/seek_employees.jsp";
+
     public static final String MAIN = "/controller?command=main";
+
+    public static final String SEEK_EMPLOYEES = "/controller?command=to-seek-employees";
 
 }

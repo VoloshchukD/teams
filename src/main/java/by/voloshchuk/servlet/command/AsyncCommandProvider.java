@@ -1,9 +1,6 @@
 package by.voloshchuk.servlet.command;
 
-import by.voloshchuk.servlet.command.impl.async.EmployeeRequirementsCommand;
-import by.voloshchuk.servlet.command.impl.async.LoadAvatarCommand;
-import by.voloshchuk.servlet.command.impl.async.EditCommand;
-import by.voloshchuk.servlet.command.impl.async.UpdateUserDetailCommand;
+import by.voloshchuk.servlet.command.impl.async.*;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -23,6 +20,8 @@ public class AsyncCommandProvider {
         asyncCommands.put(AsyncCommandName.EDIT, new EditCommand());
         asyncCommands.put(AsyncCommandName.UPDATE_USER_DETAIL, new UpdateUserDetailCommand());
         asyncCommands.put(AsyncCommandName.EMPLOYEE_REQUIREMENTS, new EmployeeRequirementsCommand());
+        asyncCommands.put(AsyncCommandName.SEEK_EMPLOYEES, new SeekEmployeesCommand());
+        asyncCommands.put(AsyncCommandName.ADD_EMPLOYEE, new AddEmployeeCommand());
     }
 
     public static AsyncCommandProvider getInstance() {

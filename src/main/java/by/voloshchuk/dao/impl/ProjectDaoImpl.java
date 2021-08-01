@@ -30,13 +30,20 @@ public class ProjectDaoImpl implements ProjectDao {
     public boolean addProject(Project project) throws DaoException {
         boolean isAdded = false;
         try (Connection connection = connectionPool.getConnection();
-             PreparedStatement statement = connection.prepareStatement(ADD_PROJECT_QUERY)) {
+             PreparedStatement statement = connection.prepareStatement(ADD_PROJECT_QUERY, Statement.RETURN_GENERATED_KEYS)) {
             statement.setString(1, project.getName());
             statement.setString(2, project.getDescription());
             statement.setTimestamp(3, new Timestamp(project.getStartDate().getTime()));
             statement.setString(4, project.getState());
             statement.setLong(5, project.getTechnicalTask().getId());
-            isAdded = statement.executeUpdate() == 1;
+            isAdded = (statement.executeUpdate() == 1);
+            if (isAdded) {
+                ResultSet resultSet = statement.getGeneratedKeys();
+                resultSet.next();
+                long projectId = resultSet.getLong(1);
+                System.out.println(projectId);
+                project.setId(projectId);
+            }
         } catch (SQLException e) {
             throw new DaoException(e);
         }

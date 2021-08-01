@@ -52,7 +52,7 @@ public class UserDaoImpl implements UserDao {
     public boolean addUser(User user) throws DaoException {
         boolean isAdded = false;
         try (Connection connection = connectionPool.getConnection();
-             PreparedStatement statement = connection.prepareStatement(ADD_USER_QUERY)) {
+             PreparedStatement statement = connection.prepareStatement(ADD_USER_QUERY, Statement.RETURN_GENERATED_KEYS)) {
             statement.setString(1, user.getEmail());
             statement.setString(2, user.getPassword());
             statement.setString(3, user.getRole());
@@ -203,6 +203,7 @@ public class UserDaoImpl implements UserDao {
                 UserDetail userDetail = new UserDetail();
 
                 userDetail.setId(resultSet.getLong(ConstantColumnName.USER_DETAIL_ID));
+                userDetail.setImagePath(resultSet.getString(ConstantColumnName.USER_DETAIL_IMAGE));
                 userDetail.setFirstName(resultSet.getString(ConstantColumnName.USER_DETAIL_FIRST_NAME));
                 userDetail.setLastName(resultSet.getString(ConstantColumnName.USER_DETAIL_LAST_NAME));
                 userDetail.setCompany(resultSet.getString(ConstantColumnName.USER_DETAIL_COMPANY));
@@ -210,6 +211,8 @@ public class UserDaoImpl implements UserDao {
                 userDetail.setExperience(resultSet.getInt(ConstantColumnName.USER_DETAIL_EXPERIENCE));
                 userDetail.setSalary(resultSet.getInt(ConstantColumnName.USER_DETAIL_SALARY));
                 userDetail.setStatus(resultSet.getString(ConstantColumnName.USER_DETAIL_STATUS));
+                userDetail.setPrimarySkill(resultSet.getString(ConstantColumnName.USER_DETAIL_PRIMARY_SKILL));
+                userDetail.setSkillsDescription(resultSet.getString(ConstantColumnName.USER_DETAIL_SKILLS_DESCRIPTION));
 
                 user.setId(resultSet.getLong(ConstantColumnName.USER_ID));
                 user.setEmail(resultSet.getString(ConstantColumnName.USER_EMAIL));
@@ -225,7 +228,7 @@ public class UserDaoImpl implements UserDao {
         return users;
     }
 
-    public boolean addUserToProject(Long projectId, Long userId) throws DaoException {
+    public boolean addUserToProject(Long userId, Long projectId) throws DaoException {
         boolean isAdded = false;
 
         try (Connection connection = connectionPool.getConnection();
@@ -239,7 +242,7 @@ public class UserDaoImpl implements UserDao {
         return isAdded;
     }
 
-    public boolean removeUserFromProject(Long projectId, Long userId) throws DaoException {
+    public boolean removeUserFromProject(Long userId, Long projectId) throws DaoException {
         boolean isRemoved = false;
         try (Connection connection = connectionPool.getConnection();
              PreparedStatement statement = connection.prepareStatement(DELETE_USER_FROM_PROJECT_QUERY)) {

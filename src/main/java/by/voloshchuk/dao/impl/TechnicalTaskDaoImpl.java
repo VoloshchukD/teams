@@ -11,8 +11,8 @@ import java.util.List;
 
 public class TechnicalTaskDaoImpl implements TechnicalTaskDao {
 
-    private static final String ADD_TECHNICAL_TASK_QUERY = "INSERT INTO technical_tasks (overview, " +
-            "deadline, workers_amount, status, customer_id) " +
+    private static final String ADD_TECHNICAL_TASK_QUERY = "INSERT INTO technical_tasks (name, overview, " +
+            "deadline, status, customer_id) " +
             "VALUES (?, ?, ?, ?, ?)";
 
     private static final String FIND_TECHNICAL_TASK_BY_ID_QUERY = "SELECT * FROM technical_tasks " +
@@ -36,9 +36,9 @@ public class TechnicalTaskDaoImpl implements TechnicalTaskDao {
         boolean isAdded = false;
         try (Connection connection = connectionPool.getConnection();
              PreparedStatement statement = connection.prepareStatement(ADD_TECHNICAL_TASK_QUERY)) {
-            statement.setString(1, technicalTask.getOverview());
-            statement.setTimestamp(2, new Timestamp(technicalTask.getDeadline().getTime()));
-            statement.setInt(3, technicalTask.getWorkersAmount());
+            statement.setString(1, technicalTask.getName());
+            statement.setString(2, technicalTask.getOverview());
+            statement.setTimestamp(3, new Timestamp(technicalTask.getDeadline().getTime()));
             statement.setString(4, technicalTask.getStatus());
             statement.setLong(5, technicalTask.getCustomer().getId());
             isAdded = statement.executeUpdate() == 1;
@@ -57,6 +57,7 @@ public class TechnicalTaskDaoImpl implements TechnicalTaskDao {
             technicalTask = new TechnicalTask();
             if (resultSet.next()) {
                 technicalTask.setId(resultSet.getLong(ConstantColumnName.TECHNICAL_TASK_ID));
+                technicalTask.setName(resultSet.getString(ConstantColumnName.TECHNICAL_TASK_NAME));
                 Timestamp timestamp = resultSet.getTimestamp(ConstantColumnName.TECHNICAL_TASK_DEADLINE);
                 Date date = new Date(timestamp.getTime());
                 technicalTask.setDeadline(date);
@@ -78,6 +79,7 @@ public class TechnicalTaskDaoImpl implements TechnicalTaskDao {
             while (resultSet.next()) {
                 TechnicalTask technicalTask = new TechnicalTask();
                 technicalTask.setId(resultSet.getLong(ConstantColumnName.TECHNICAL_TASK_ID));
+                technicalTask.setName(resultSet.getString(ConstantColumnName.TECHNICAL_TASK_NAME));
                 Timestamp timestamp = resultSet.getTimestamp(ConstantColumnName.TECHNICAL_TASK_DEADLINE);
                 Date date = new Date(timestamp.getTime());
                 technicalTask.setDeadline(date);
