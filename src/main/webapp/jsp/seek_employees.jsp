@@ -3,7 +3,7 @@
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <%@ include file="../WEB-INF/jspf/header.jspf" %>
-    <title><fmt:message bundle="${loc}" key="local.technical-tasks"/></title>
+    <title><fmt:message bundle="${loc}" key="local.seek-employees"/></title>
     <%@ taglib prefix="ctg" uri="custom-tags" %>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css" rel="stylesheet"
           integrity="sha384-+0n0xVW2eSR5OomGNYDnhzAbDsOXxcvSN1TPprVMTNDbiYZCxYbOOl7+AMvyTG2x" crossorigin="anonymous">
@@ -16,21 +16,21 @@
 </head>
 <body>
 <div class="container-xxl">
-    <div class="title h1 text-center mt-3"><fmt:message bundle="${loc}" key="local.technical-tasks.header"/></div>
+    <div class="title h1 text-center mt-3"><fmt:message bundle="${loc}" key="local.employee.seek-header"/></div>
     <div class="row h-100 justify-content-center">
         <div class="col-6" id="form2">
             <div>
-                <table class="table my-5">
+                <table class="table my-2">
                     <thead>
                     <tr>
                         <th scope="col">№
                             <input type="hidden" class="identifier" value="1"/>
                         </th>
-                        <th scope="col">experience</th>
-                        <th scope="col">salary</th>
-                        <th scope="col">qualification</th>
-                        <th scope="col">primary</th>
-                        <th scope="col">comment</th>
+                        <th scope="col"><fmt:message bundle="${loc}" key="local.employee.experience"/></th>
+                        <th scope="col"><fmt:message bundle="${loc}" key="local.employee.salary"/></th>
+                        <th scope="col"><fmt:message bundle="${loc}" key="local.employee.qualification"/></th>
+                        <th scope="col"><fmt:message bundle="${loc}" key="local.employee.primary"/></th>
+                        <th scope="col"><fmt:message bundle="${loc}" key="local.employee.comment"/></th>
                         <th scope="col"></th>
                     </tr>
                     </thead>

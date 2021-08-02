@@ -8,6 +8,7 @@ public enum AsyncCommandName {
     ERROR,
     EMPLOYEE_REQUIREMENTS,
     SEEK_EMPLOYEES,
-    ADD_EMPLOYEE
+    ADD_EMPLOYEE,
+    ADD_REQUIREMENT
 
 }

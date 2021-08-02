@@ -45,7 +45,7 @@ public class EmployeeRequirementsCommand implements AsyncCommand {
             currentData.put("salary", employeeRequirement.getSalary());
             currentData.put("qualification", employeeRequirement.getQualification());
             currentData.put("primary", employeeRequirement.getPrimarySkill());
-            currentData.put("comment", employeeRequirement.getExperience());
+            currentData.put("comment", employeeRequirement.getComment());
             data.put(currentData);
         }
         response.getWriter().write(data.toString());

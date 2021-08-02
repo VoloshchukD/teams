@@ -22,6 +22,7 @@ public class AsyncCommandProvider {
         asyncCommands.put(AsyncCommandName.EMPLOYEE_REQUIREMENTS, new EmployeeRequirementsCommand());
         asyncCommands.put(AsyncCommandName.SEEK_EMPLOYEES, new SeekEmployeesCommand());
         asyncCommands.put(AsyncCommandName.ADD_EMPLOYEE, new AddEmployeeCommand());
+        asyncCommands.put(AsyncCommandName.ADD_REQUIREMENT, new AddRequirementCommand());
     }
 
     public static AsyncCommandProvider getInstance() {

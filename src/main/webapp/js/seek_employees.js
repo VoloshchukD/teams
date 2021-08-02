@@ -11,7 +11,7 @@ window.addEventListener("load", function (event){
 
     technicalTaskId = url.searchParams.get("technical-task-id");
     projectId = url.searchParams.get("project-id");
-    alert(technicalTaskId+' '+projectId)
+
 });
 
 $('.requirement').each(function () {

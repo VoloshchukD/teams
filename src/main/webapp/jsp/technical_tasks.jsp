@@ -18,12 +18,14 @@
 <div class="container-xxl">
     <div class="title h1 text-center mt-3"><fmt:message bundle="${loc}" key="local.technical-tasks.header"/></div>
 
-    <div class="d-flex justify-content-between mt-3">
+    <div class="d-flex justify-content-between mt-3 mx-5">
+        <div>
         <c:if test="${ role == 'customer' }">
-            <a href="?command=create-technical-task">
+            <a href="?command=to-create-technical-task">
                 <button id="create-task" type="button" class="btn btn-primary" >New</button>
             </a>
         </c:if>
+        </div>
         <form id="my_radio_box">
             <div class="form-check form-check-inline">
                 <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio1" value="4"

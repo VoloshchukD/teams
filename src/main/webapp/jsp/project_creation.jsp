@@ -3,7 +3,7 @@
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <%@ include file="../WEB-INF/jspf/header.jspf" %>
-    <title><fmt:message bundle="${loc}" key="local.technical-tasks"/></title>
+    <title><fmt:message bundle="${loc}" key="local.project.creation"/></title>
     <%@ taglib prefix="ctg" uri="custom-tags" %>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css" rel="stylesheet"
           integrity="sha384-+0n0xVW2eSR5OomGNYDnhzAbDsOXxcvSN1TPprVMTNDbiYZCxYbOOl7+AMvyTG2x" crossorigin="anonymous">
@@ -16,26 +16,23 @@
 </head>
 <body>
 <div class="container-xxl">
-    <div class="title h1 text-center mt-3"><fmt:message bundle="${loc}" key="local.technical-tasks.header"/></div>
-    <div class="row h-100 justify-content-center">
+    <div class="title h1 text-center mt-3"><fmt:message bundle="${loc}" key="local.project.create-header"/></div>
+    <div class="row justify-content-center">
         <div class="col-4" >
-            <h5 class="modal-title">New project</h5>
-            <hr>
             <jsp:useBean id="technicalTask" class="by.voloshchuk.entity.TechnicalTask" scope="request" />
-
             <form action="controller" >
                 <input type="hidden" class="command" name="command" value="create-project"/>
                 <input type="hidden" class="technical-task-id" name="technical-task-id" value="<jsp:getProperty name="technicalTask" property="id" />"/>
                 <div class="form-group">
-                    <label for="name" class="col-form-label">Name:</label>
+                    <label for="name" class="col-form-label"><fmt:message bundle="${loc}" key="local.project.create-name"/></label>
                     <input type="text" class="form-control" name="name" value="<jsp:getProperty name="technicalTask" property="name" />" id="name">
                 </div>
                 <div class="form-group">
-                    <label for="description" class="col-form-label">Description:</label>
+                    <label for="description" class="col-form-label"><fmt:message bundle="${loc}" key="local.project.create-description"/></label>
                     <textarea class="form-control" name="description" id="description"><jsp:getProperty name="technicalTask" property="overview" />
                     </textarea>
                 </div>
-                <button type="submit" class="btn btn-primary mt-3" id="create">Create</button>
+                <button type="submit" class="btn btn-primary mt-3" id="create"><fmt:message bundle="${loc}" key="local.project.create-button"/></button>
             </form>
         </div>
 

@@ -27,6 +27,10 @@ public final class RequestParameter {
 
     public static final String EXPERIENCE = "experience";
 
+    public static final String COMMENT = "comment";
+
+    public static final String QUALIFICATION = "qualification";
+
     public static final String SALARY = "salary";
 
     public static final String PRIMARY_SKILL = "primary";

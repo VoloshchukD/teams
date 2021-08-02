@@ -8,6 +8,8 @@ import java.util.List;
 
 public interface EmployeeRequirementService {
 
+    boolean addEmployeeRequirement(EmployeeRequirement requirement) throws ServiceException;
+
     List<EmployeeRequirement> findAllByTechnicalTaskId(Long technicalTaskId) throws ServiceException;
 
 }
