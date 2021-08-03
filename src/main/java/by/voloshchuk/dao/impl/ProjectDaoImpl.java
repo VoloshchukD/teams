@@ -41,7 +41,6 @@ public class ProjectDaoImpl implements ProjectDao {
                 ResultSet resultSet = statement.getGeneratedKeys();
                 resultSet.next();
                 long projectId = resultSet.getLong(1);
-                System.out.println(projectId);
                 project.setId(projectId);
             }
         } catch (SQLException e) {

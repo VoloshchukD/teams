@@ -85,7 +85,6 @@ $('.requirement').each(function () {
                             })
                             .then((response) => response.json())
                             .then((responseData) => {
-                                    alert(responseData.message)
                                 });
 
 

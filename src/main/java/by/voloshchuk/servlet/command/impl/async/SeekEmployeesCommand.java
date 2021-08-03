@@ -52,7 +52,6 @@ public class SeekEmployeesCommand implements AsyncCommand {
             currentData.put("description", userDetail.getSkillsDescription());
             data.put(currentData);
         }
-        System.out.println(data.toString());
         response.getWriter().write(data.toString());
     }
 

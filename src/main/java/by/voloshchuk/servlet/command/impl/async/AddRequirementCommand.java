@@ -34,7 +34,6 @@ public class AddRequirementCommand implements AsyncCommand {
         } catch (ServiceException e) {
             logger.log(Level.ERROR, e);
         }
-        System.out.println(employeeRequirement);
     }
 
     private EmployeeRequirement createEmployeeRequirement(HttpServletRequest request) {

@@ -44,14 +44,12 @@ public class CreateTechnicalTaskCommand implements Command {
         technicalTask.setOverview(request.getParameter("overview"));
 
         String deadlineAsString = request.getParameter("deadline");
-        System.out.println(deadlineAsString);
         Date deadline = null;
         try {
             deadline = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").parse(deadlineAsString);
         } catch (ParseException e) {
             e.printStackTrace();
         }
-        System.out.println(deadlineAsString+"\t"+deadline);
 
         technicalTask.setDeadline(deadline);
         technicalTask.setStatus("EDITING");
