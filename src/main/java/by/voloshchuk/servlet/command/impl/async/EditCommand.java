@@ -8,6 +8,7 @@ import by.voloshchuk.service.UserService;
 import by.voloshchuk.service.impl.UserDetailServiceImpl;
 import by.voloshchuk.service.impl.UserServiceImpl;
 import by.voloshchuk.servlet.command.AsyncCommand;
+import by.voloshchuk.servlet.command.AsyncCommandParameter;
 import by.voloshchuk.servlet.command.RequestParameter;
 import org.apache.logging.log4j.Level;
 import org.apache.logging.log4j.LogManager;
@@ -27,7 +28,7 @@ public class EditCommand implements AsyncCommand {
 
     @Override
     public void execute(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
-        Long userId = (Long) request.getSession().getAttribute(RequestParameter.USER_ID);
+        Long userId = (Long) request.getSession().getAttribute(AsyncCommandParameter.USER_ID);
         UserDetail userDetail = null;
         UserDetailService userDetailService = serviceProvider.getUserDetailService();
         try {
@@ -36,14 +37,14 @@ public class EditCommand implements AsyncCommand {
             logger.log(Level.ERROR, e);
         }
         JSONObject jsonObject = new JSONObject();
-        jsonObject.put("firstname",  userDetail.getFirstName());
-        jsonObject.put("lastname",  userDetail.getLastName());
-        jsonObject.put("company",  userDetail.getCompany());
-        jsonObject.put("position",  userDetail.getPosition());
-        jsonObject.put("experience",  userDetail.getExperience());
-        jsonObject.put("salary",  userDetail.getSalary());
-        jsonObject.put("primary",  userDetail.getPrimarySkill());
-        jsonObject.put("skills",  userDetail.getSkillsDescription());
+        jsonObject.put(AsyncCommandParameter.USER_DETAIL_FIRST_NAME,  userDetail.getFirstName());
+        jsonObject.put(AsyncCommandParameter.USER_DETAIL_LAST_NAME,  userDetail.getLastName());
+        jsonObject.put(AsyncCommandParameter.USER_DETAIL_COMPANY,  userDetail.getCompany());
+        jsonObject.put(AsyncCommandParameter.USER_DETAIL_POSITION,  userDetail.getPosition());
+        jsonObject.put(AsyncCommandParameter.USER_DETAIL_EXPERIENCE,  userDetail.getExperience());
+        jsonObject.put(AsyncCommandParameter.USER_DETAIL_SALARY,  userDetail.getSalary());
+        jsonObject.put(AsyncCommandParameter.USER_DETAIL_PRIMARY_SKILL,  userDetail.getPrimarySkill());
+        jsonObject.put(AsyncCommandParameter.USER_DETAIL_SKILLS_DESCRIPTION,  userDetail.getSkillsDescription());
         response.getWriter().write(jsonObject.toString());
     }
 

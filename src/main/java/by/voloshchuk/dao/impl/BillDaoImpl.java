@@ -35,7 +35,7 @@ public class BillDaoImpl implements BillDao {
         boolean isAdded = false;
         try (Connection connection = connectionPool.getConnection();
              PreparedStatement statement = connection.prepareStatement(ADD_BILL_QUERY)) {
-            statement.setString(1, bill.getStatus());
+            statement.setString(1, bill.getStatus().toString());
             statement.setString(2, bill.getInformation());
             statement.setInt(3, bill.getAmountDue());
             statement.setLong(4, bill.getProjectId());
@@ -55,7 +55,8 @@ public class BillDaoImpl implements BillDao {
             bill = new Bill();
             if (resultSet.next()) {
                 bill.setId(Long.valueOf(resultSet.getString(ConstantColumnName.BILL_ID)));
-                bill.setStatus(resultSet.getString(ConstantColumnName.BILL_STATUS));
+                bill.setStatus(Bill.BillStatus.valueOf(
+                        resultSet.getString(ConstantColumnName.BILL_STATUS)));
                 bill.setInformation(resultSet.getString(ConstantColumnName.BILL_INFORMATION));
                 bill.setAmountDue(resultSet.getInt(ConstantColumnName.BILL_AMOUNT_DUE));
                 bill.setProjectId(resultSet.getLong(ConstantColumnName.BILL_PROJECT_ID));
@@ -75,7 +76,7 @@ public class BillDaoImpl implements BillDao {
             while (resultSet.next()) {
                 Bill bill = new Bill();
                 bill.setId(resultSet.getLong(ConstantColumnName.BILL_ID));
-                bill.setStatus(resultSet.getString(ConstantColumnName.BILL_STATUS));
+                bill.setStatus(Bill.BillStatus.valueOf(resultSet.getString(ConstantColumnName.BILL_STATUS)));
                 bill.setInformation(resultSet.getString(ConstantColumnName.BILL_INFORMATION));
                 bill.setAmountDue(resultSet.getInt(ConstantColumnName.BILL_AMOUNT_DUE));
                 bill.setProjectId(resultSet.getLong(ConstantColumnName.BILL_PROJECT_ID));
@@ -91,7 +92,7 @@ public class BillDaoImpl implements BillDao {
         Bill resultBill = null;
         try (Connection connection = connectionPool.getConnection();
              PreparedStatement statement = connection.prepareStatement(UPDATE_BILL_QUERY)) {
-            statement.setString(1, bill.getStatus());
+            statement.setString(1, bill.getStatus().toString());
             statement.setString(2, bill.getInformation());
             statement.setInt(3, bill.getAmountDue());
             statement.setLong(4, bill.getId());

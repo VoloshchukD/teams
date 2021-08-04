@@ -38,7 +38,7 @@ public class CreateBillCommand implements Command {
         Bill bill = new Bill();
         bill.setAmountDue(Integer.parseInt(request.getParameter("amount")));
         bill.setInformation(request.getParameter("information"));
-        bill.setStatus("NOT_PAID");
+        bill.setStatus(Bill.BillStatus.NOT_PAID);
         bill.setProjectId(Long.parseLong(request.getParameter("project-id")));
         return bill;
     }

@@ -60,7 +60,7 @@ $('.requirement').each(function () {
                         '                        <div class="pb-1 px-2 d-flex justify-content-center">\n' +
                         '                            <ul class="list-inline mb-0">\n' +
                         '                                <li class="text-center">\n' +
-                        '                                    <small class="text-muted"><i class="fa fa-picture-o mr-1 text-primary"></i>' + data[i].description + '</small>\n' +
+                        '                                    <small class="text-muted"><i class="fa fa-picture-o mr-1 text-primary"></i>' + data[i].skills + '</small>\n' +
                         '                                </li>\n' +
                         '                            </ul>\n' +
                         '                        </div>\n' +
@@ -80,7 +80,7 @@ $('.requirement').each(function () {
 
                         ajax.get("http://localhost:8080/async-controller?async-command=add-employee",
                             {
-                                "user-id": data[i].id,
+                                "user-id": data[i].user-id,
                                 "project-id": projectId
                             })
                             .then((response) => response.json())
@@ -91,7 +91,7 @@ $('.requirement').each(function () {
                     });
                 }
             })
-        
+
     });
 
 

@@ -1,13 +1,10 @@
 package by.voloshchuk.servlet.command.impl.async;
 
-import by.voloshchuk.entity.Project;
-import by.voloshchuk.entity.Task;
-import by.voloshchuk.entity.User;
 import by.voloshchuk.exception.ServiceException;
 import by.voloshchuk.service.ServiceProvider;
 import by.voloshchuk.service.TaskService;
 import by.voloshchuk.servlet.command.AsyncCommand;
-import by.voloshchuk.servlet.command.RequestParameter;
+import by.voloshchuk.servlet.command.AsyncCommandParameter;
 import org.apache.logging.log4j.Level;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -25,8 +22,8 @@ public class UpdateTaskHoursCommand implements AsyncCommand {
 
     @Override
     public void execute(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
-        Long taskId = Long.parseLong(request.getParameter(RequestParameter.TASK_ID));
-        Integer hours = Integer.parseInt(request.getParameter(RequestParameter.TASK_HOURS));
+        Long taskId = Long.parseLong(request.getParameter(AsyncCommandParameter.TASK_ID));
+        Integer hours = Integer.parseInt(request.getParameter(AsyncCommandParameter.TASK_HOURS));
         TaskService taskService = serviceProvider.getTaskService();
         try {
             taskService.updateTaskHours(taskId, hours);

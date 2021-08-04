@@ -8,6 +8,7 @@ import by.voloshchuk.service.ServiceProvider;
 import by.voloshchuk.service.UserDetailService;
 import by.voloshchuk.service.impl.UserDetailServiceImpl;
 import by.voloshchuk.servlet.command.AsyncCommand;
+import by.voloshchuk.servlet.command.AsyncCommandParameter;
 import by.voloshchuk.servlet.command.RequestParameter;
 import org.apache.logging.log4j.Level;
 import org.apache.logging.log4j.LogManager;
@@ -29,7 +30,7 @@ public class EmployeeRequirementsCommand implements AsyncCommand {
 
     @Override
     public void execute(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
-        Long technicalTaskId = Long.parseLong(request.getParameter(RequestParameter.TECHNICAL_TASK_ID));
+        Long technicalTaskId = Long.parseLong(request.getParameter(AsyncCommandParameter.TECHNICAL_TASK_ID));
         List<EmployeeRequirement> employeeRequirements = null;
         EmployeeRequirementService employeeRequirementService = serviceProvider.getEmployeeRequirementService();
         try {
@@ -41,11 +42,11 @@ public class EmployeeRequirementsCommand implements AsyncCommand {
         JSONArray data = new JSONArray();
         for (EmployeeRequirement employeeRequirement : employeeRequirements){
             JSONObject currentData = new JSONObject();
-            currentData.put("experience", employeeRequirement.getExperience());
-            currentData.put("salary", employeeRequirement.getSalary());
-            currentData.put("qualification", employeeRequirement.getQualification());
-            currentData.put("primary", employeeRequirement.getPrimarySkill());
-            currentData.put("comment", employeeRequirement.getComment());
+            currentData.put(AsyncCommandParameter.REQUIREMENT_EXPERIENCE, employeeRequirement.getExperience());
+            currentData.put(AsyncCommandParameter.REQUIREMENT_SALARY, employeeRequirement.getSalary());
+            currentData.put(AsyncCommandParameter.REQUIREMENT_QUALIFICATION, employeeRequirement.getQualification());
+            currentData.put(AsyncCommandParameter.REQUIREMENT_PRIMARY_SKILL, employeeRequirement.getPrimarySkill());
+            currentData.put(AsyncCommandParameter.REQUIREMENT_COMMENT, employeeRequirement.getComment());
             data.put(currentData);
         }
         response.getWriter().write(data.toString());

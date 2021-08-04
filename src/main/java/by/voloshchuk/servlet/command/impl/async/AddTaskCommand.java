@@ -7,6 +7,7 @@ import by.voloshchuk.service.ServiceProvider;
 import by.voloshchuk.service.TaskService;
 import by.voloshchuk.service.UserDetailService;
 import by.voloshchuk.servlet.command.AsyncCommand;
+import by.voloshchuk.servlet.command.AsyncCommandParameter;
 import by.voloshchuk.servlet.command.CommandAttribute;
 import by.voloshchuk.servlet.command.RequestParameter;
 import org.apache.logging.log4j.Level;
@@ -38,17 +39,17 @@ public class AddTaskCommand implements AsyncCommand {
 
     private Task createTask(HttpServletRequest request) {
         Task task = new Task();
-        Long projectId = Long.parseLong(request.getParameter(RequestParameter.PROJECT_ID));
+        Long projectId = Long.parseLong(request.getParameter(AsyncCommandParameter.PROJECT_ID));
         User user = new User();
-        user.setId(Long.parseLong(request.getParameter(RequestParameter.USER_ID)));
+        user.setId(Long.parseLong(request.getParameter(AsyncCommandParameter.USER_ID)));
         task.setDeveloper(user);
         Project project = new Project();
         project.setId(projectId);
         task.setProject(project);
-        task.setStatus("ToDo");
-        task.setHours(Integer.parseInt(request.getParameter("hours")));
-        task.setName(request.getParameter(RequestParameter.TASK_NAME));
-        task.setDetails(request.getParameter(RequestParameter.TASK_DETAILS));
+        task.setStatus(Task.TaskStatus.TO_DO);
+        task.setHours(Integer.parseInt(request.getParameter(AsyncCommandParameter.TASK_HOURS)));
+        task.setName(request.getParameter(AsyncCommandParameter.TASK_NAME));
+        task.setDetails(request.getParameter(AsyncCommandParameter.TASK_DETAILS));
         return task;
     }
 

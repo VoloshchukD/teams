@@ -18,7 +18,7 @@
         <div class="col-md-4">
             <ul class="nav nav-tabs justify-content-center">
                 <c:choose>
-                    <c:when test="${state == 'in progress'}">
+                    <c:when test="${state == 'IN_PROGRESS'}">
                         <li class="nav-item">
                             <a class="nav-link active"
                                href="?command=projects&state=in%20progress"><fmt:message
@@ -29,7 +29,7 @@
                                     bundle="${loc}" key="local.projects.finished"/></a>
                         </li>
                     </c:when>
-                    <c:when test="${state == 'finished'}">
+                    <c:when test="${state == 'FINISHED'}">
                         <li class="nav-item">
                             <a class="nav-link"
                                href="?command=projects&state=in%20progress"><fmt:message
@@ -68,17 +68,17 @@
                                 <h2 class="mb-0">${project.name}</h2>
                             </div>
                             <c:choose>
-                                <c:when test="${project.state == 'in progress'}">
+                                <c:when test="${project.state == 'IN_PROGRESS'}">
                                     <div class="badge"><span class="green"><fmt:message bundle="${loc}"
                                                                                         key="local.projects.status-in-progress"/></span>
                                     </div>
                                 </c:when>
-                                <c:when test="${project.state == 'finished'}">
+                                <c:when test="${project.state == 'FINISHED'}">
                                     <div class="badge"><span class="blue"><fmt:message bundle="${loc}"
                                                                                        key="local.projects.status-finished"/></span>
                                     </div>
                                 </c:when>
-                                <c:when test="${project.state == 'starting'}">
+                                <c:when test="${project.state == 'STARTING'}">
                                     <div class="badge"><span class="yellow"><fmt:message bundle="${loc}"
                                                                                          key="local.projects.status-starting"/></span>
                                     </div>

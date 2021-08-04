@@ -61,7 +61,7 @@ public class UserDaoImpl implements UserDao {
              PreparedStatement statement = connection.prepareStatement(ADD_USER_QUERY, Statement.RETURN_GENERATED_KEYS)) {
             statement.setString(1, user.getEmail());
             statement.setString(2, user.getPassword());
-            statement.setString(3, user.getRole());
+            statement.setString(3, user.getRole().toString());
             statement.setString(4, String.valueOf(user.getUserDetail().getId()));
             isAdded = statement.executeUpdate() == 1;
             if (isAdded) {
@@ -109,7 +109,7 @@ public class UserDaoImpl implements UserDao {
                 user.setId(resultSet.getLong(ConstantColumnName.USER_ID));
                 user.setEmail(resultSet.getString(ConstantColumnName.USER_EMAIL));
                 user.setPassword(resultSet.getString(ConstantColumnName.USER_PASSWORD));
-                user.setRole(resultSet.getString(ConstantColumnName.USER_ROLE));
+                user.setRole(User.UserRole.valueOf(resultSet.getString(ConstantColumnName.USER_ROLE)));
 
                 UserDetail userDetail = new UserDetail();
                 userDetail.setId(resultSet.getLong(ConstantColumnName.USER_DETAIL_ID));
@@ -155,7 +155,7 @@ public class UserDaoImpl implements UserDao {
                 user.setId(resultSet.getLong(ConstantColumnName.USER_ID));
                 user.setEmail(resultSet.getString(ConstantColumnName.USER_EMAIL));
                 user.setPassword(resultSet.getString(ConstantColumnName.USER_PASSWORD));
-                user.setRole(resultSet.getString(ConstantColumnName.USER_ROLE));
+                user.setRole(User.UserRole.valueOf(resultSet.getString(ConstantColumnName.USER_ROLE)));
                 user.setUserDetail(userDetail);
 
                 users.add(user);
@@ -177,7 +177,7 @@ public class UserDaoImpl implements UserDao {
                 user.setId(resultSet.getLong(ConstantColumnName.USER_ID));
                 user.setEmail(resultSet.getString(ConstantColumnName.USER_EMAIL));
                 user.setPassword(resultSet.getString(ConstantColumnName.USER_PASSWORD));
-                user.setRole(resultSet.getString(ConstantColumnName.USER_ROLE));
+                user.setRole(User.UserRole.valueOf(resultSet.getString(ConstantColumnName.USER_ROLE)));
 
                 UserDetail userDetail = new UserDetail();
                 userDetail.setId(resultSet.getLong(ConstantColumnName.USER_DETAIL_ID));
@@ -258,7 +258,7 @@ public class UserDaoImpl implements UserDao {
                 user.setId(resultSet.getLong(ConstantColumnName.USER_ID));
                 user.setEmail(resultSet.getString(ConstantColumnName.USER_EMAIL));
                 user.setPassword(resultSet.getString(ConstantColumnName.USER_PASSWORD));
-                user.setRole(resultSet.getString(ConstantColumnName.USER_ROLE));
+                user.setRole(User.UserRole.valueOf(resultSet.getString(ConstantColumnName.USER_ROLE)));
                 user.setUserDetail(userDetail);
 
                 users.add(user);

@@ -6,6 +6,7 @@ import by.voloshchuk.service.ServiceProvider;
 import by.voloshchuk.service.UserDetailService;
 import by.voloshchuk.service.UserService;
 import by.voloshchuk.servlet.command.AsyncCommand;
+import by.voloshchuk.servlet.command.AsyncCommandParameter;
 import by.voloshchuk.servlet.command.CommandAttribute;
 import by.voloshchuk.servlet.command.RequestParameter;
 import org.apache.logging.log4j.Level;
@@ -38,7 +39,7 @@ public class AddEmployeeCommand implements AsyncCommand {
         }
 
         JSONObject jsonObject = new JSONObject();
-        jsonObject.put("message", result);
+        jsonObject.put(AsyncCommandParameter.MESSAGE, result);
 
     }
 

@@ -7,6 +7,7 @@ import by.voloshchuk.exception.ServiceException;
 import by.voloshchuk.service.ServiceProvider;
 import by.voloshchuk.service.UserService;
 import by.voloshchuk.servlet.command.AsyncCommand;
+import by.voloshchuk.servlet.command.AsyncCommandParameter;
 import by.voloshchuk.servlet.command.RequestParameter;
 import org.apache.logging.log4j.Level;
 import org.apache.logging.log4j.LogManager;
@@ -28,7 +29,7 @@ public class LoadProjectUsersCommand implements AsyncCommand {
 
     @Override
     public void execute(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
-        Long projectId = Long.parseLong(request.getParameter(RequestParameter.PROJECT_ID));
+        Long projectId = Long.parseLong(request.getParameter(AsyncCommandParameter.PROJECT_ID));
         List<User> users = null;
         UserService userService = serviceProvider.getUserService();
         try {
@@ -42,10 +43,10 @@ public class LoadProjectUsersCommand implements AsyncCommand {
         for (User user : users){
             JSONObject currentData = new JSONObject();
             UserDetail userDetail = user.getUserDetail();
-            currentData.put("id", user.getId());
-            currentData.put("forename", userDetail.getFirstName());
-            currentData.put("surname", userDetail.getLastName());
-            currentData.put("avatar", userDetail.getImagePath());
+            currentData.put(AsyncCommandParameter.USER_ID, user.getId());
+            currentData.put(AsyncCommandParameter.USER_DETAIL_FIRST_NAME, userDetail.getFirstName());
+            currentData.put(AsyncCommandParameter.USER_DETAIL_LAST_NAME, userDetail.getLastName());
+            currentData.put(AsyncCommandParameter.USER_DETAIL_AVATAR, userDetail.getImagePath());
             data.put(currentData);
         }
         response.getWriter().write(data.toString());

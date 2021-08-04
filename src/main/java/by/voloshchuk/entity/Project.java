@@ -11,7 +11,13 @@ public class Project extends AbstractIdentifiedEntity {
 
     private Date startDate;
 
-    private String state;
+    private ProjectStatus state;
+
+    public enum ProjectStatus {
+        STARTING,
+        FINISHED,
+        IN_PROGRESS
+    }
 
     private TechnicalTask technicalTask;
 
@@ -41,11 +47,11 @@ public class Project extends AbstractIdentifiedEntity {
         this.startDate = startDate;
     }
 
-    public String getState() {
+    public ProjectStatus getState() {
         return state;
     }
 
-    public void setState(String state) {
+    public void setState(ProjectStatus state) {
         this.state = state;
     }
 

@@ -43,7 +43,7 @@ public class RegistrationCommand implements Command {
         User user = new User();
         user.setEmail(request.getParameter(RequestParameter.EMAIL));
         user.setPassword(request.getParameter(RequestParameter.PASSWORD));
-        user.setRole(request.getParameter(RequestParameter.ROLE));
+        user.setRole(User.UserRole.valueOf(request.getParameter(RequestParameter.ROLE)));
         user.setUserDetail(createUserDetails(request));
         return user;
     }

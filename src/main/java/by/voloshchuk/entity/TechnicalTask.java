@@ -13,7 +13,14 @@ public class TechnicalTask extends AbstractIdentifiedEntity {
 
     private Integer workersAmount;
 
-    private String status;
+    private TechnicalTaskStatus status;
+
+    public enum TechnicalTaskStatus {
+        EDITING,
+        ON_PROJECT,
+        WAIT_PROJECT,
+        COMPLETED
+    }
 
     private User customer;
 
@@ -51,11 +58,11 @@ public class TechnicalTask extends AbstractIdentifiedEntity {
         this.workersAmount = workersAmount;
     }
 
-    public String getStatus() {
+    public TechnicalTaskStatus getStatus() {
         return status;
     }
 
-    public void setStatus(String status) {
+    public void setStatus(TechnicalTaskStatus status) {
         this.status = status;
     }
 
@@ -78,11 +85,14 @@ public class TechnicalTask extends AbstractIdentifiedEntity {
     @Override
     public String toString() {
         return "TechnicalTask{" +
-                "overview='" + overview + '\'' +
+                "name='" + name + '\'' +
+                ", overview='" + overview + '\'' +
                 ", deadline=" + deadline +
                 ", workersAmount=" + workersAmount +
+                ", status=" + status +
                 ", customer=" + customer +
-//                ", requirements=" + requirements +
+                ", requirements=" + requirements +
                 '}';
     }
+
 }

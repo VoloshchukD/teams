@@ -63,3 +63,11 @@
     margin-left: auto;
     margin-right: auto;
 }
+
+a.custom-link {
+    text-decoration: underline;
+}
+
+a.custom-link:hover {
+    text-decoration: none;
+}

@@ -5,8 +5,8 @@ import by.voloshchuk.exception.ServiceException;
 import by.voloshchuk.service.ServiceProvider;
 import by.voloshchuk.service.UserDetailService;
 import by.voloshchuk.servlet.command.AsyncCommand;
+import by.voloshchuk.servlet.command.AsyncCommandParameter;
 import by.voloshchuk.servlet.command.CommandAttribute;
-import by.voloshchuk.servlet.command.RequestParameter;
 import org.apache.logging.log4j.Level;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -24,27 +24,33 @@ public class UpdateUserDetailCommand implements AsyncCommand {
     private static ServiceProvider serviceProvider = ServiceProvider.getInstance();
 
     @Override
-    public void execute(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
-        String jsonString = request.getParameter("jsonString");
+    public void execute(HttpServletRequest request, HttpServletResponse response)
+            throws IOException, ServletException {
+        String jsonString = request.getParameter(AsyncCommandParameter.JSON_STRING);
         JSONObject jsonObject = new JSONObject(jsonString);
-        UserDetail userDetail = new UserDetail();
-        Long userDetailId = (Long) request.getSession().getAttribute(CommandAttribute.USER_DETAIL_ID);
-        userDetail.setId(userDetailId);
-        userDetail.setFirstName(jsonObject.getString(RequestParameter.FIRST_NAME));
-        userDetail.setLastName(jsonObject.getString(RequestParameter.LAST_NAME));
-        userDetail.setCompany(jsonObject.getString(RequestParameter.COMPANY));
-        userDetail.setPosition(jsonObject.getString(RequestParameter.POSITION));
-        userDetail.setExperience(jsonObject.getInt(RequestParameter.EXPERIENCE));
-        userDetail.setSalary(jsonObject.getInt(RequestParameter.SALARY));
-        userDetail.setPrimarySkill(jsonObject.getString(RequestParameter.PRIMARY_SKILL));
-        userDetail.setSkillsDescription(jsonObject.getString(RequestParameter.SKILLS_DESCRIPTION));
+        UserDetail userDetail = createUserDetail(request, jsonObject);
+
         UserDetailService userDetailService = serviceProvider.getUserDetailService();
         try {
             userDetailService.updateUserDetail(userDetail);
         } catch (ServiceException e) {
             logger.log(Level.ERROR, e);
         }
+    }
 
+    private UserDetail createUserDetail(HttpServletRequest request, JSONObject jsonObject) {
+        UserDetail userDetail = new UserDetail();
+        Long userDetailId = (Long) request.getSession().getAttribute(CommandAttribute.USER_DETAIL_ID);
+        userDetail.setId(userDetailId);
+        userDetail.setFirstName(jsonObject.getString(AsyncCommandParameter.USER_DETAIL_FIRST_NAME));
+        userDetail.setLastName(jsonObject.getString(AsyncCommandParameter.USER_DETAIL_LAST_NAME));
+        userDetail.setCompany(jsonObject.getString(AsyncCommandParameter.USER_DETAIL_COMPANY));
+        userDetail.setPosition(jsonObject.getString(AsyncCommandParameter.USER_DETAIL_POSITION));
+        userDetail.setExperience(jsonObject.getInt(AsyncCommandParameter.USER_DETAIL_EXPERIENCE));
+        userDetail.setSalary(jsonObject.getInt(AsyncCommandParameter.USER_DETAIL_SALARY));
+        userDetail.setPrimarySkill(jsonObject.getString(AsyncCommandParameter.USER_DETAIL_PRIMARY_SKILL));
+        userDetail.setSkillsDescription(jsonObject.getString(AsyncCommandParameter.USER_DETAIL_SKILLS_DESCRIPTION));
+        return userDetail;
     }
 
 }

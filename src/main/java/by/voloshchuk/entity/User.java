@@ -6,7 +6,13 @@ public class User extends AbstractIdentifiedEntity {
 
     private String password;
 
-    private String role;
+    private UserRole role;
+
+    public enum UserRole {
+        MANAGER,
+        DEVELOPER,
+        CUSTOMER
+    }
 
     private UserDetail userDetail;
 
@@ -26,11 +32,11 @@ public class User extends AbstractIdentifiedEntity {
         this.password = password;
     }
 
-    public String getRole() {
+    public UserRole getRole() {
         return role;
     }
 
-    public void setRole(String role) {
+    public void setRole(UserRole role) {
         this.role = role;
     }
 

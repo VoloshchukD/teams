@@ -79,8 +79,8 @@ function loadEditData() {
     ajax.get("http://localhost:8080/async-controller?async-command=edit")
         .then((response) => response.json())
         .then((data) => {
-            document.getElementById("forename").value = data.firstname;
-            document.getElementById("surname").value = data.lastname;
+            document.getElementById("forename").value = data.forename;
+            document.getElementById("surname").value = data.surname;
             document.getElementById("company").value = data.company;
             document.getElementById("position").value = data.position;
             document.getElementById("experience").value = data.experience;

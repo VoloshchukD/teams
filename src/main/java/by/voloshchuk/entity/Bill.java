@@ -2,7 +2,13 @@ package by.voloshchuk.entity;
 
 public class Bill extends AbstractIdentifiedEntity {
 
-    private String status;
+    private BillStatus status;
+
+    public enum BillStatus {
+        PAID,
+        NOT_PAID,
+        ACCEPTED
+    }
 
     private String information;
 
@@ -10,11 +16,11 @@ public class Bill extends AbstractIdentifiedEntity {
 
     private Long projectId;
 
-    public String getStatus() {
+    public BillStatus getStatus() {
         return status;
     }
 
-    public void setStatus(String status) {
+    public void setStatus(BillStatus status) {
         this.status = status;
     }
 

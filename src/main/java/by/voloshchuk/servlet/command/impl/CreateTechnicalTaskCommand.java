@@ -46,7 +46,7 @@ public class CreateTechnicalTaskCommand implements Command {
         String deadlineAsString = request.getParameter("deadline");
         Date deadline = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").parse(deadlineAsString);
         technicalTask.setDeadline(deadline);
-        technicalTask.setStatus("EDITING");
+        technicalTask.setStatus(TechnicalTask.TechnicalTaskStatus.EDITING);
         User user = new User();
         Long userId = (Long) request.getSession().getAttribute(CommandAttribute.USER_ID);
         user.setId(userId);

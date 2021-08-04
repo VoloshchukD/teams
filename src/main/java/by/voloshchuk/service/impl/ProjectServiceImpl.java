@@ -20,7 +20,6 @@ public class ProjectServiceImpl implements ProjectService {
         ProjectDao projectDao = daoProvider.getProjectDao();
         Date date = new Date(System.currentTimeMillis());
         project.setStartDate(new java.sql.Date(date.getTime()));
-//        TechnicalTaskDao technicalTaskDao = daoProvider.getTechnicalTaskDao();
         try {
             result = projectDao.addProject(project);
         } catch (DaoException e) {

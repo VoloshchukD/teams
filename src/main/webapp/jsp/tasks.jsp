@@ -84,7 +84,7 @@
     <div class="row justify-content-center h-auto m-3">
         <div class="col-4" id="col1">
             <c:forEach items="${tasks}" var="task">
-                <c:if test="${ task.status == 'ToDo' }">
+                <c:if test="${ task.status == 'TO_DO' }">
                     <div class="card border-dark    mb-3 mx-5">
                         <input type="hidden" class="identifier" name="identifier" value="${task.id}"/>
                         <div class="card-header bg-transparent border-dark   ">${task.name}
@@ -135,7 +135,7 @@
         </div>
         <div class="col-4" id="col2">
             <c:forEach items="${tasks}" var="task">
-                <c:if test="${ task.status == 'InProgress' }">
+                <c:if test="${ task.status == 'IN_PROGRESS' }">
                     <div class="card border-dark    mb-3 mx-5">
                         <input type="hidden" class="identifier" name="identifier" value="${task.id}"/>
                         <div class="card-header bg-transparent border-dark   ">${task.name}
@@ -186,7 +186,7 @@
         </div>
         <div class="col-4" id="col3">
             <c:forEach items="${tasks}" var="task">
-                <c:if test="${ task.status == 'Done' }">
+                <c:if test="${ task.status == 'DONE' }">
                     <div class="card border-dark    mb-3 mx-5">
                         <input type="hidden" class="identifier" name="identifier" value="${task.id}"/>
                         <div class="card-header bg-transparent border-dark   ">${task.name}

@@ -20,7 +20,7 @@
 
     <div class="d-flex justify-content-between mt-3 mx-5">
         <div>
-        <c:if test="${ role == 'customer' }">
+        <c:if test="${ role == 'CUSTOMER' }">
             <a href="?command=to-create-technical-task">
                 <button id="create-task" type="button" class="btn btn-primary" >New</button>
             </a>
@@ -59,7 +59,7 @@
                                                                                        key="local.technical-tasks.on-project"/></span>
                                     </div>
                                 </c:when>
-                                <c:when test="${task.status == 'COMPLITED'}">
+                                <c:when test="${task.status == 'COMPLETED'}">
                                     <div class="badge"><span class="green"><fmt:message bundle="${loc}"
                                                                                         key="local.technical-tasks.complited"/></span>
                                     </div>
@@ -113,7 +113,7 @@
                                     <form action="controller">
                                         <input type="hidden" class="identifier" name="technical-task-id"
                                                value="${task.id}"/>
-                                        <c:if test="${ role == 'manager' }">
+                                        <c:if test="${ role == 'MANAGER' }">
                                             <input type="hidden" class="command" name="command"
                                                    value="to-create-project"/>
                                             <button type="submit" class="btn btn-primary"><fmt:message bundle="${loc}"

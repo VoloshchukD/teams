@@ -52,7 +52,7 @@ public class TaskDaoImpl implements TaskDao {
             statement.setString(1, task.getName());
             statement.setString(2, task.getDetails());
             statement.setInt(3, task.getHours());
-            statement.setString(4, task.getStatus());
+            statement.setString(4, task.getStatus().toString());
             statement.setLong(5, task.getProject().getId());
             statement.setLong(6, task.getDeveloper().getId());
             isAdded = statement.executeUpdate() == 1;
@@ -74,7 +74,7 @@ public class TaskDaoImpl implements TaskDao {
                 task.setName(resultSet.getString(ConstantColumnName.TASK_NAME));
                 task.setDetails(resultSet.getString(ConstantColumnName.TASK_DETAILS));
                 task.setHours(resultSet.getInt(ConstantColumnName.TASK_HOURS));
-                task.setStatus(resultSet.getString(ConstantColumnName.TASK_STATUS));
+                task.setStatus(Task.TaskStatus.valueOf(resultSet.getString(ConstantColumnName.TASK_STATUS)));
             }
         } catch (SQLException e) {
             throw new DaoException(e);
@@ -94,7 +94,7 @@ public class TaskDaoImpl implements TaskDao {
                 task.setName(resultSet.getString(ConstantColumnName.TASK_NAME));
                 task.setDetails(resultSet.getString(ConstantColumnName.TASK_DETAILS));
                 task.setHours(resultSet.getInt(ConstantColumnName.TASK_HOURS));
-                task.setStatus(resultSet.getString(ConstantColumnName.TASK_STATUS));
+                task.setStatus(Task.TaskStatus.valueOf(resultSet.getString(ConstantColumnName.TASK_STATUS)));
                 User user = new User();
                 UserDetail userDetail = new UserDetail();
                 userDetail.setImagePath(resultSet.getString(ConstantColumnName.USER_DETAIL_IMAGE));
@@ -124,7 +124,7 @@ public class TaskDaoImpl implements TaskDao {
                 task.setName(resultSet.getString(ConstantColumnName.TASK_NAME));
                 task.setDetails(resultSet.getString(ConstantColumnName.TASK_DETAILS));
                 task.setHours(resultSet.getInt(ConstantColumnName.TASK_HOURS));
-                task.setStatus(resultSet.getString(ConstantColumnName.TASK_STATUS));
+                task.setStatus(Task.TaskStatus.valueOf(resultSet.getString(ConstantColumnName.TASK_STATUS)));
                 User user = new User();
                 UserDetail userDetail = new UserDetail();
                 userDetail.setSalary(resultSet.getInt(ConstantColumnName.USER_DETAIL_SALARY));
@@ -141,7 +141,8 @@ public class TaskDaoImpl implements TaskDao {
     public List<Task> findTaskByUserIdAndProjectId(Long userId, Long projectId) throws DaoException {
         List<Task> tasks = new ArrayList<>();
         try (Connection connection = connectionPool.getConnection();
-             PreparedStatement statement = connection.prepareStatement(FIND_TASKS_BY_USER_ID_AND_PROJECT_ID_QUERY)) {
+             PreparedStatement statement = connection.prepareStatement(
+                     FIND_TASKS_BY_USER_ID_AND_PROJECT_ID_QUERY)) {
             statement.setLong(1, userId);
             statement.setLong(2, projectId);
             ResultSet resultSet = statement.executeQuery();
@@ -151,7 +152,8 @@ public class TaskDaoImpl implements TaskDao {
                 task.setName(resultSet.getString(ConstantColumnName.TASK_NAME));
                 task.setDetails(resultSet.getString(ConstantColumnName.TASK_DETAILS));
                 task.setHours(resultSet.getInt(ConstantColumnName.TASK_HOURS));
-                task.setStatus(resultSet.getString(ConstantColumnName.TASK_STATUS));
+                task.setStatus(
+                        Task.TaskStatus.valueOf(resultSet.getString(ConstantColumnName.TASK_STATUS)));
                 tasks.add(task);
             }
         } catch (SQLException e) {
@@ -167,7 +169,7 @@ public class TaskDaoImpl implements TaskDao {
             statement.setString(1, task.getName());
             statement.setString(2, task.getDetails());
             statement.setInt(3, task.getHours());
-            statement.setString(4, task.getStatus());
+            statement.setString(4, task.getStatus().toString());
             statement.setLong(5, task.getDeveloper().getId());
             statement.setLong(6, task.getId());
 

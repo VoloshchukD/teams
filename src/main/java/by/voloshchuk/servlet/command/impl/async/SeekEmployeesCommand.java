@@ -8,6 +8,7 @@ import by.voloshchuk.service.EmployeeRequirementService;
 import by.voloshchuk.service.ServiceProvider;
 import by.voloshchuk.service.UserService;
 import by.voloshchuk.servlet.command.AsyncCommand;
+import by.voloshchuk.servlet.command.AsyncCommandParameter;
 import by.voloshchuk.servlet.command.RequestParameter;
 import org.apache.logging.log4j.Level;
 import org.apache.logging.log4j.LogManager;
@@ -42,14 +43,15 @@ public class SeekEmployeesCommand implements AsyncCommand {
         for (User user : candidates){
             JSONObject currentData = new JSONObject();
             UserDetail userDetail = user.getUserDetail();
-            currentData.put("id", user.getId());
-            currentData.put("forename", userDetail.getFirstName());
-            currentData.put("surname", userDetail.getLastName());
-            currentData.put("avatar", userDetail.getImagePath());
-            currentData.put("experience", userDetail.getExperience());
-            currentData.put("salary", userDetail.getSalary());
-            currentData.put("primary", userDetail.getPrimarySkill());
-            currentData.put("description", userDetail.getSkillsDescription());
+            currentData.put(AsyncCommandParameter.USER_ID, user.getId());
+            currentData.put(AsyncCommandParameter.USER_DETAIL_FIRST_NAME, userDetail.getFirstName());
+            currentData.put(AsyncCommandParameter.USER_DETAIL_LAST_NAME, userDetail.getLastName());
+            currentData.put(AsyncCommandParameter.USER_DETAIL_AVATAR, userDetail.getImagePath());
+            currentData.put(AsyncCommandParameter.USER_DETAIL_EXPERIENCE, userDetail.getExperience());
+            currentData.put(AsyncCommandParameter.USER_DETAIL_SALARY, userDetail.getSalary());
+            currentData.put(AsyncCommandParameter.USER_DETAIL_PRIMARY_SKILL, userDetail.getPrimarySkill());
+            currentData.put(
+                    AsyncCommandParameter.USER_DETAIL_SKILLS_DESCRIPTION, userDetail.getSkillsDescription());
             data.put(currentData);
         }
         response.getWriter().write(data.toString());
@@ -57,9 +59,12 @@ public class SeekEmployeesCommand implements AsyncCommand {
 
     private EmployeeRequirement createEmployeeRequirement(HttpServletRequest request) {
         EmployeeRequirement employeeRequirement = new EmployeeRequirement();
-        employeeRequirement.setPrimarySkill(request.getParameter(RequestParameter.PRIMARY_SKILL));
-        employeeRequirement.setSalary(Integer.parseInt(request.getParameter(RequestParameter.SALARY)));
-        employeeRequirement.setExperience(Integer.parseInt(request.getParameter(RequestParameter.EXPERIENCE)));
+        employeeRequirement.setPrimarySkill(
+                request.getParameter(AsyncCommandParameter.REQUIREMENT_PRIMARY_SKILL));
+        employeeRequirement.setSalary(
+                Integer.parseInt(request.getParameter(AsyncCommandParameter.REQUIREMENT_SALARY)));
+        employeeRequirement.setExperience(
+                Integer.parseInt(request.getParameter(AsyncCommandParameter.REQUIREMENT_EXPERIENCE)));
         return employeeRequirement;
     }
 

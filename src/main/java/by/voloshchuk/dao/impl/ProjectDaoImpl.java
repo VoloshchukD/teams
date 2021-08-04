@@ -34,7 +34,7 @@ public class ProjectDaoImpl implements ProjectDao {
             statement.setString(1, project.getName());
             statement.setString(2, project.getDescription());
             statement.setTimestamp(3, new Timestamp(project.getStartDate().getTime()));
-            statement.setString(4, project.getState());
+            statement.setString(4, project.getState().toString());
             statement.setLong(5, project.getTechnicalTask().getId());
             isAdded = (statement.executeUpdate() == 1);
             if (isAdded) {
@@ -63,7 +63,8 @@ public class ProjectDaoImpl implements ProjectDao {
                 Timestamp timestamp = resultSet.getTimestamp(ConstantColumnName.PROJECT_START_DATE);
                 Date date = new Date(timestamp.getTime());
                 project.setStartDate(date);
-                project.setState(resultSet.getString(ConstantColumnName.PROJECT_STATE));
+                project.setState(Project.ProjectStatus.valueOf(
+                        resultSet.getString(ConstantColumnName.PROJECT_STATE)));
             }
         } catch (SQLException e) {
             throw new DaoException(e);
@@ -86,7 +87,8 @@ public class ProjectDaoImpl implements ProjectDao {
                 Timestamp timestamp = resultSet.getTimestamp(ConstantColumnName.PROJECT_START_DATE);
                 Date date = new Date(timestamp.getTime());
                 project.setStartDate(date);
-                project.setState(resultSet.getString(ConstantColumnName.PROJECT_STATE));
+                project.setState(Project.ProjectStatus.valueOf(
+                        resultSet.getString(ConstantColumnName.PROJECT_STATE)));
                 projects.add(project);
             }
         } catch (SQLException e) {
@@ -102,7 +104,7 @@ public class ProjectDaoImpl implements ProjectDao {
             statement.setString(1, project.getName());
             statement.setString(2, project.getDescription());
             statement.setTimestamp(3, new Timestamp(project.getStartDate().getTime()));
-            statement.setString(4, project.getState());
+            statement.setString(4, project.getState().toString());
             statement.setLong(5, project.getTechnicalTask().getId());
             statement.setLong(6, project.getId());
             int result = statement.executeUpdate();

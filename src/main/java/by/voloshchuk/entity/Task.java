@@ -8,7 +8,13 @@ public class Task extends AbstractIdentifiedEntity {
 
     private Integer hours;
 
-    private String status;
+    private TaskStatus status;
+
+    public enum TaskStatus {
+        TO_DO,
+        IN_PROGRESS,
+        DONE
+    }
 
     private Project project;
 
@@ -38,11 +44,11 @@ public class Task extends AbstractIdentifiedEntity {
         this.hours = hours;
     }
 
-    public String getStatus() {
+    public TaskStatus getStatus() {
         return status;
     }
 
-    public void setStatus(String status) {
+    public void setStatus(TaskStatus status) {
         this.status = status;
     }
 

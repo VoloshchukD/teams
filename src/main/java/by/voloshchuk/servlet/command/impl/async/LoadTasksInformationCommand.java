@@ -1,5 +1,6 @@
 package by.voloshchuk.servlet.command.impl.async;
 
+import by.voloshchuk.entity.Project;
 import by.voloshchuk.entity.Task;
 import by.voloshchuk.entity.User;
 import by.voloshchuk.entity.UserDetail;
@@ -8,6 +9,7 @@ import by.voloshchuk.service.ServiceProvider;
 import by.voloshchuk.service.TaskService;
 import by.voloshchuk.service.UserService;
 import by.voloshchuk.servlet.command.AsyncCommand;
+import by.voloshchuk.servlet.command.AsyncCommandParameter;
 import by.voloshchuk.servlet.command.RequestParameter;
 import org.apache.logging.log4j.Level;
 import org.apache.logging.log4j.LogManager;
@@ -29,12 +31,11 @@ public class LoadTasksInformationCommand implements AsyncCommand {
 
     @Override
     public void execute(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
-        Long projectId = Long.parseLong(request.getParameter(RequestParameter.PROJECT_ID));
-        String status = "Done";
+        Long projectId = Long.parseLong(request.getParameter(AsyncCommandParameter.PROJECT_ID));
         List<Task> tasks = null;
         TaskService taskService = serviceProvider.getTaskService();
         try {
-            tasks = taskService.findTaskByProjectIdAndStatus(projectId, status);
+            tasks = taskService.findTaskByProjectIdAndStatus(projectId, Task.TaskStatus.DONE.toString());
         } catch (ServiceException e) {
             logger.log(Level.ERROR, e);
         }
@@ -42,11 +43,11 @@ public class LoadTasksInformationCommand implements AsyncCommand {
         JSONArray data = new JSONArray();
         for (Task task : tasks) {
             JSONObject currentData = new JSONObject();
-            currentData.put("name", task.getName());
-            currentData.put("hours", task.getHours());
+            currentData.put(AsyncCommandParameter.TASK_NAME, task.getName());
+            currentData.put(AsyncCommandParameter.TASK_HOURS, task.getHours());
             User user = task.getDeveloper();
             UserDetail userDetail = user.getUserDetail();
-            currentData.put("salary", userDetail.getSalary());
+            currentData.put(AsyncCommandParameter.USER_DETAIL_SALARY, userDetail.getSalary());
             data.put(currentData);
         }
         response.getWriter().write(data.toString());
