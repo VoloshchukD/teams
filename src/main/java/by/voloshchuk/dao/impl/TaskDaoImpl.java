@@ -26,6 +26,11 @@ public class TaskDaoImpl implements TaskDao {
             "INNER JOIN users ON tasks.developer_id = users.user_id " +
             "INNER JOIN user_details ON users.user_id = user_details.user_detail_id WHERE project_id = ?";
 
+    private static final String FIND_TASKS_BY_PROJECT_ID_QUERY_AND_STATUS = "SELECT * FROM tasks " +
+            "INNER JOIN users ON tasks.developer_id = users.user_id " +
+            "INNER JOIN user_details ON users.user_id = user_details.user_detail_id " +
+            "WHERE tasks.project_id = ? AND tasks.status = ?";
+
     private static final String FIND_TASKS_BY_USER_ID_AND_PROJECT_ID_QUERY = "SELECT * FROM tasks WHERE project_id = ? " +
             "AND developer_id = ?";
 
@@ -95,6 +100,34 @@ public class TaskDaoImpl implements TaskDao {
                 userDetail.setImagePath(resultSet.getString(ConstantColumnName.USER_DETAIL_IMAGE));
                 userDetail.setFirstName(resultSet.getString(ConstantColumnName.USER_DETAIL_FIRST_NAME));
                 userDetail.setLastName(resultSet.getString(ConstantColumnName.USER_DETAIL_LAST_NAME));
+                user.setUserDetail(userDetail);
+                task.setDeveloper(user);
+                tasks.add(task);
+            }
+        } catch (SQLException e) {
+            throw new DaoException(e);
+        }
+        return tasks;
+    }
+
+    public List<Task> findTaskByProjectIdAndStatus(Long projectId, String status) throws DaoException {
+        List<Task> tasks = new ArrayList<>();
+        try (Connection connection = connectionPool.getConnection();
+             PreparedStatement statement = connection.prepareStatement(
+                     FIND_TASKS_BY_PROJECT_ID_QUERY_AND_STATUS)) {
+            statement.setLong(1, projectId);
+            statement.setString(2, status);
+            ResultSet resultSet = statement.executeQuery();
+            while (resultSet.next()) {
+                Task task = new Task();
+                task.setId(resultSet.getLong(ConstantColumnName.TASK_ID));
+                task.setName(resultSet.getString(ConstantColumnName.TASK_NAME));
+                task.setDetails(resultSet.getString(ConstantColumnName.TASK_DETAILS));
+                task.setHours(resultSet.getInt(ConstantColumnName.TASK_HOURS));
+                task.setStatus(resultSet.getString(ConstantColumnName.TASK_STATUS));
+                User user = new User();
+                UserDetail userDetail = new UserDetail();
+                userDetail.setSalary(resultSet.getInt(ConstantColumnName.USER_DETAIL_SALARY));
                 user.setUserDetail(userDetail);
                 task.setDeveloper(user);
                 tasks.add(task);

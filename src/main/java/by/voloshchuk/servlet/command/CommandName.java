@@ -9,6 +9,7 @@ public enum CommandName {
     TO_CREATE_PROJECT,
     CREATE_PROJECT,
     CREATE_TECHNICAL_TASK,
+    CREATE_BILL,
     TO_CREATE_REQUIREMENT,
     TO_SEEK_EMPLOYEES,
     TO_TASKS,
@@ -22,6 +23,7 @@ public enum CommandName {
     AUTHORIZATION,
     AUTHORIZE,
     PROFILE,
-    LOGOUT
+    LOGOUT,
+    TO_BILL_CREATION
 
 }

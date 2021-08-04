@@ -33,6 +33,8 @@ public final class CommandPath {
 
     public static final String TASKS_JSP = "/jsp/tasks.jsp";
 
+    public static final String BILL_CREATION_JSP = "/jsp/bill_creation.jsp";
+
     public static final String MAIN = "/controller?command=main";
 
     public static final String SEEK_EMPLOYEES = "/controller?command=to-seek-employees";

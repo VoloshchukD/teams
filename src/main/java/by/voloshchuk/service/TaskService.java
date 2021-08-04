@@ -12,6 +12,8 @@ public interface TaskService {
 
     List<Task> findTaskByProjectId(Long projectId) throws ServiceException;
 
+    List<Task> findTaskByProjectIdAndStatus(Long projectId, String status) throws ServiceException;
+
     String updateTaskStatus(Long taskId, String status) throws ServiceException;
 
     Integer updateTaskHours(Long taskId, Integer hours) throws ServiceException;

@@ -91,16 +91,7 @@ $('.requirement').each(function () {
                     });
                 }
             })
-        // var last = $(this).siblings('.elements').children('.element:last');
-        // $('.employee').each(function () {
-        //     $(this).find('.add').click(function () {
-        //         $('.employee').each(function () {
-        //             $(this).remove();
-        //         })
-        //         $('#form3').hide();
-        //     });
-        // });
-
+        
     });
 
 

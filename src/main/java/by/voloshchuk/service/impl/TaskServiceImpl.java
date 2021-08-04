@@ -42,6 +42,18 @@ public class TaskServiceImpl implements TaskService {
     }
 
     @Override
+    public List<Task> findTaskByProjectIdAndStatus(Long projectId, String status) throws ServiceException {
+        List<Task> tasks = null;
+        TaskDao taskDao = daoProvider.getTaskDao();
+        try {
+            tasks = taskDao.findTaskByProjectIdAndStatus(projectId, status);
+        } catch (DaoException e) {
+            throw new ServiceException(e);
+        }
+        return tasks;
+    }
+
+    @Override
     public String updateTaskStatus(Long taskId, String status) throws ServiceException {
         String resultStatus = null;
         TaskDao taskDao = daoProvider.getTaskDao();

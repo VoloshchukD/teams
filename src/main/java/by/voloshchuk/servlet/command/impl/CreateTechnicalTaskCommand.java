@@ -1,13 +1,14 @@
 package by.voloshchuk.servlet.command.impl;
 
-import by.voloshchuk.entity.Project;
 import by.voloshchuk.entity.TechnicalTask;
 import by.voloshchuk.entity.User;
 import by.voloshchuk.exception.ServiceException;
-import by.voloshchuk.service.ProjectService;
 import by.voloshchuk.service.ServiceProvider;
 import by.voloshchuk.service.TechnicalTaskService;
-import by.voloshchuk.servlet.command.*;
+import by.voloshchuk.servlet.command.Command;
+import by.voloshchuk.servlet.command.CommandAttribute;
+import by.voloshchuk.servlet.command.CommandPath;
+import by.voloshchuk.servlet.command.CommandRouter;
 import org.apache.logging.log4j.Level;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -27,30 +28,23 @@ public class CreateTechnicalTaskCommand implements Command {
 
     @Override
     public CommandRouter execute(HttpServletRequest request, HttpServletResponse response) throws ServletException {
-        TechnicalTask technicalTask = createTechnicalTask(request);
         TechnicalTaskService technicalTaskService = serviceProvider.getTechnicalTaskService();
         try {
+            TechnicalTask technicalTask = createTechnicalTask(request);
             technicalTaskService.addTechnicalTask(technicalTask);
-        } catch (ServiceException e) {
+        } catch (ServiceException | ParseException e) {
             logger.log(Level.ERROR, e.getMessage());
         }
         CommandRouter router = new CommandRouter(CommandRouter.RouterType.REDIRECT, CommandPath.TO_CREATE_REQUIREMENT);
         return router;
     }
 
-    private TechnicalTask createTechnicalTask(HttpServletRequest request) {
+    private TechnicalTask createTechnicalTask(HttpServletRequest request) throws ParseException {
         TechnicalTask technicalTask = new TechnicalTask();
         technicalTask.setName(request.getParameter("name"));
         technicalTask.setOverview(request.getParameter("overview"));
-
         String deadlineAsString = request.getParameter("deadline");
-        Date deadline = null;
-        try {
-            deadline = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").parse(deadlineAsString);
-        } catch (ParseException e) {
-            e.printStackTrace();
-        }
-
+        Date deadline = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").parse(deadlineAsString);
         technicalTask.setDeadline(deadline);
         technicalTask.setStatus("EDITING");
         User user = new User();

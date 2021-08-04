@@ -3,7 +3,7 @@
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <%@ include file="../WEB-INF/jspf/header.jspf" %>
-    <title><fmt:message bundle="${loc}" key="local.technical-task.creation"/></title>
+    <title><fmt:message bundle="${loc}" key="local.tasks"/></title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css" rel="stylesheet"
           integrity="sha384-+0n0xVW2eSR5OomGNYDnhzAbDsOXxcvSN1TPprVMTNDbiYZCxYbOOl7+AMvyTG2x" crossorigin="anonymous">
     <link rel="icon" type="image/x-icon" href="assets/favicon.ico"/>
@@ -19,25 +19,25 @@
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">New task</h5>
+                    <h5 class="modal-title" id="exampleModalLabel"><fmt:message bundle="${loc}" key="local.tasks.create-header"/></h5>
                 </div>
                 <div class="modal-body">
                     <form>
-                        <label for="name" class="col-form-label">Name</label>
+                        <label for="name" class="col-form-label"><fmt:message bundle="${loc}" key="local.tasks.create-name"/></label>
                         <input type="text" class="form-control" name="name" id="name">
-                        <label for="details" class="col-form-label">Description</label>
+                        <label for="details" class="col-form-label"><fmt:message bundle="${loc}" key="local.tasks.create-description"/></label>
                         <textarea class="form-control" name="details" id="details"></textarea>
-                        <label for="hours" class="col-form-label">Hours</label>
+                        <label for="hours" class="col-form-label"><fmt:message bundle="${loc}" key="local.tasks.create-hours"/></label>
                         <input type="text" class="form-control" name="hours" id="hours">
-                        <label for="developer" class="col-form-label">Executor</label>
+                        <label for="developer" class="col-form-label"><fmt:message bundle="${loc}" key="local.tasks.create-executor"/></label>
                         <select class="form-select" aria-label="Default select example" name="developer" id="developer">
-                            <option value="null" selected>Assign to</option>
+                            <option value="null" selected><fmt:message bundle="${loc}" key="local.tasks.create-assign"/></option>
                         </select>
                     </form>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
-                    <button type="button" class="btn btn-primary" id="create-task-button">Add</button>
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal"><fmt:message bundle="${loc}" key="local.tasks.create-cancel"/></button>
+                    <button type="button" class="btn btn-primary" id="create-task-button"><fmt:message bundle="${loc}" key="local.tasks.create-add"/></button>
                 </div>
             </div>
         </div>
@@ -48,7 +48,7 @@
             <div class="card">
                 <div class="card-body">
                     <button type="button" class="btn btn-primary mt-1 save" data-toggle="modal" data-target="#modal"
-                            id="create-task-modal-button">Create task
+                            id="create-task-modal-button"><fmt:message bundle="${loc}" key="local.tasks.button-modal"/>
                     </button>
                 </div>
             </div>
@@ -59,7 +59,7 @@
         <div class="col-4 text-center">
             <div class="card">
                 <div class="card-body">
-                    <h2>To do
+                    <h2><fmt:message bundle="${loc}" key="local.tasks.to-do"/>
                     </h2>
                 </div>
             </div>
@@ -67,7 +67,7 @@
         <div class="col-4 text-center">
             <div class="card">
                 <div class="card-body">
-                    <h2>In progress
+                    <h2><fmt:message bundle="${loc}" key="local.tasks.in-progress"/>
                     </h2>
                 </div>
             </div>
@@ -75,7 +75,7 @@
         <div class="col-4 text-center">
             <div class="card">
                 <div class="card-body">
-                    <h2>Done</h2>
+                    <h2><fmt:message bundle="${loc}" key="local.tasks.done"/></h2>
                 </div>
             </div>
         </div>
@@ -95,16 +95,20 @@
 
                             <div class="d-flex justify-content-between my-auto">
                                 <div>
-                                    <button type="button" class="btn btn-primary track">Track</button>
+                                    <button type="button" class="btn btn-primary track">
+                                        <fmt:message bundle="${loc}" key="local.tasks.track-button"/>
+                                    </button>
                                 </div>
                                 <div>
                                     <button type="button" class="btn btn-outline-dark hours" disabled><small
-                                            class="val">7</small>/(${task.hours}) Hours
+                                            class="val">7</small>/(${task.hours}) <fmt:message bundle="${loc}" key="local.tasks.hours"/>
                                     </button>
                                     <div class="panel" style="display:none;">
                                         <input type="text" class="hour input align form-control mx-1"
                                                style="width: 50px; margin-left: auto; margin-right: auto;"/>
-                                        <button type="button" class="btn btn-outline-dark mt-1 save">Save</button>
+                                        <button type="button" class="btn btn-outline-dark mt-1 save">
+                                            <fmt:message bundle="${loc}" key="local.tasks.save"/>
+                                        </button>
                                     </div>
                                 </div>
                                 <div>
@@ -142,16 +146,20 @@
 
                             <div class="d-flex justify-content-between my-auto">
                                 <div>
-                                    <button type="button" class="btn btn-primary track">Track</button>
+                                    <button type="button" class="btn btn-primary track">
+                                        <fmt:message bundle="${loc}" key="local.tasks.track-button"/>
+                                    </button>
                                 </div>
                                 <div>
                                     <button type="button" class="btn btn-outline-dark hours" disabled><small
-                                            class="val">7</small>/(${task.hours}) Hours
+                                            class="val">7</small>/(${task.hours}) <fmt:message bundle="${loc}" key="local.tasks.hours"/>
                                     </button>
                                     <div class="panel" style="display:none;">
                                         <input type="text" class="hour input align form-control mx-1"
                                                style="width: 50px; margin-left: auto; margin-right: auto;"/>
-                                        <button type="button" class="btn btn-outline-dark mt-1 save">Save</button>
+                                        <button type="button" class="btn btn-outline-dark mt-1 save">
+                                            <fmt:message bundle="${loc}" key="local.tasks.save"/>
+                                        </button>
                                     </div>
                                 </div>
                                 <div>
@@ -189,16 +197,20 @@
 
                             <div class="d-flex justify-content-between my-auto">
                                 <div>
-                                    <button type="button" class="btn btn-primary track">Track</button>
+                                    <button type="button" class="btn btn-primary track">
+                                        <fmt:message bundle="${loc}" key="local.tasks.track-button"/>
+                                    </button>
                                 </div>
                                 <div>
                                     <button type="button" class="btn btn-outline-dark hours" disabled><small
-                                            class="val">7</small>/(${task.hours}) Hours
+                                            class="val">7</small>/(${task.hours}) <fmt:message bundle="${loc}" key="local.tasks.hours"/>
                                     </button>
                                     <div class="panel" style="display:none;">
                                         <input type="text" class="hour input align form-control mx-1"
                                                style="width: 50px; margin-left: auto; margin-right: auto;"/>
-                                        <button type="button" class="btn btn-outline-dark mt-1 save">Save</button>
+                                        <button type="button" class="btn btn-outline-dark mt-1 save">
+                                            <fmt:message bundle="${loc}" key="local.tasks.save"/>
+                                        </button>
                                     </div>
                                 </div>
                                 <div>

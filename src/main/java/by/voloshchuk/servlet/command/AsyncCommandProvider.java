@@ -27,6 +27,7 @@ public class AsyncCommandProvider {
         asyncCommands.put(AsyncCommandName.ADD_TASK, new AddTaskCommand());
         asyncCommands.put(AsyncCommandName.UPDATE_TASK_HOURS, new UpdateTaskHoursCommand());
         asyncCommands.put(AsyncCommandName.UPDATE_TASK_STATUS, new UpdateTaskStatusCommand());
+        asyncCommands.put(AsyncCommandName.LOAD_TASKS_INFORMATION, new LoadTasksInformationCommand());
     }
 
     public static AsyncCommandProvider getInstance() {
