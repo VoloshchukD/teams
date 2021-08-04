@@ -54,6 +54,18 @@ public class UserServiceImpl implements UserService {
         return resultData;
     }
 
+    @Override
+    public List<User> findUsersByProjectId(Long projectId) throws ServiceException {
+        List<User> users = null;
+        UserDao userDao = daoProvider.getUserDao();
+        try {
+            users = userDao.findUsersByProjectId(projectId);
+        } catch (DaoException e) {
+            throw new ServiceException(e);
+        }
+        return users;
+    }
+
     public User checkUser(String email, String password) throws ServiceException {
         User resultUser = null;
         UserDao userDao = new UserDaoImpl();

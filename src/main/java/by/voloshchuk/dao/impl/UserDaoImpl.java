@@ -34,6 +34,12 @@ public class UserDaoImpl implements UserDao {
             "ON users.user_detail_id = user_details.user_detail_id " +
             "WHERE user_id = ?";
 
+    private static final String FIND_USERS_BY_PROJECT_ID = "SELECT * FROM teams.users " +
+            "INNER JOIN teams.user_project_maps " +
+            "ON teams.users.user_id = teams.user_project_maps.user_id " +
+            "INNER JOIN teams.user_details ON teams.users.user_id = teams.user_details.user_detail_id " +
+            "WHERE teams.user_project_maps.project_id = ?";
+
     private static final String FIND_USER_BY_EMAIL_QUERY = "SELECT * FROM users INNER JOIN user_details " +
             "ON users.user_detail_id = user_details.user_detail_id " +
             "WHERE email = ?";
@@ -123,6 +129,41 @@ public class UserDaoImpl implements UserDao {
             throw new DaoException(e);
         }
         return user;
+    }
+
+    public List<User> findUsersByProjectId(Long projectId) throws DaoException {
+        List<User> users = new ArrayList<>();
+        try (Connection connection = connectionPool.getConnection();
+             PreparedStatement statement = connection.prepareStatement(FIND_USERS_BY_PROJECT_ID)) {
+            statement.setLong(1, projectId);
+            ResultSet resultSet = statement.executeQuery();
+            while (resultSet.next()) {
+                User user = new User();
+                UserDetail userDetail = new UserDetail();
+                userDetail.setId(resultSet.getLong(ConstantColumnName.USER_DETAIL_ID));
+                userDetail.setImagePath(resultSet.getString(ConstantColumnName.USER_DETAIL_IMAGE));
+                userDetail.setFirstName(resultSet.getString(ConstantColumnName.USER_DETAIL_FIRST_NAME));
+                userDetail.setLastName(resultSet.getString(ConstantColumnName.USER_DETAIL_LAST_NAME));
+                userDetail.setCompany(resultSet.getString(ConstantColumnName.USER_DETAIL_COMPANY));
+                userDetail.setPosition(resultSet.getString(ConstantColumnName.USER_DETAIL_POSITION));
+                userDetail.setExperience(resultSet.getInt(ConstantColumnName.USER_DETAIL_EXPERIENCE));
+                userDetail.setSalary(resultSet.getInt(ConstantColumnName.USER_DETAIL_SALARY));
+                userDetail.setStatus(resultSet.getString(ConstantColumnName.USER_DETAIL_STATUS));
+                userDetail.setPrimarySkill(resultSet.getString(ConstantColumnName.USER_DETAIL_PRIMARY_SKILL));
+                userDetail.setSkillsDescription(resultSet.getString(ConstantColumnName.USER_DETAIL_SKILLS_DESCRIPTION));
+
+                user.setId(resultSet.getLong(ConstantColumnName.USER_ID));
+                user.setEmail(resultSet.getString(ConstantColumnName.USER_EMAIL));
+                user.setPassword(resultSet.getString(ConstantColumnName.USER_PASSWORD));
+                user.setRole(resultSet.getString(ConstantColumnName.USER_ROLE));
+                user.setUserDetail(userDetail);
+
+                users.add(user);
+            }
+        } catch (SQLException e) {
+            throw new DaoException(e);
+        }
+        return users;
     }
 
     public User findUserByEmail(String email) throws DaoException {

@@ -16,6 +16,8 @@ public class ServiceProvider {
 
     private final EmployeeRequirementService employeeRequirementService = new EmployeeRequirementServiceImpl();
 
+    private final TaskService taskService = new TaskServiceImpl();
+
     private ServiceProvider() {
     }
 
@@ -49,6 +51,10 @@ public class ServiceProvider {
 
     public EmployeeRequirementService getEmployeeRequirementService() {
         return employeeRequirementService;
+    }
+
+    public TaskService getTaskService() {
+        return taskService;
     }
 
 }

@@ -15,6 +15,8 @@ public interface UserDao {
 
     User findUserById(Long id) throws DaoException;
 
+    List<User> findUsersByProjectId(Long projectId) throws DaoException;
+
     User findUserByEmail(String email) throws DaoException;
 
     User updateUser(User user) throws DaoException;

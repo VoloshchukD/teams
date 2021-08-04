@@ -17,6 +17,10 @@ public interface TaskDao {
 
     Task updateTask(Task task) throws DaoException;
 
+    String updateTaskStatus(Long taskId, String status) throws DaoException;
+
+    Integer updateTaskHours(Long taskId, Integer hours) throws DaoException;
+
     boolean removeTask(Long id) throws DaoException;
 
 }

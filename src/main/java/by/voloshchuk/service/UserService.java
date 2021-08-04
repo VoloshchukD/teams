@@ -14,6 +14,8 @@ public interface UserService {
 
     User checkUser(String email, String password) throws ServiceException;
 
+    List<User> findUsersByProjectId(Long projectId) throws ServiceException;
+
     Map<String, Integer> findBasicData() throws ServiceException;
 
     List<User> findAllByEmployeeRequirement(EmployeeRequirement requirements) throws ServiceException;

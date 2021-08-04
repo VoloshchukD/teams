@@ -28,6 +28,7 @@ public class CommandProvider {
         commands.put(CommandName.TO_SEEK_EMPLOYEES, new ToSeekEmployeesCommand());
         commands.put(CommandName.TECHNICAL_TASKS, new TechnicalTasksCommand());
         commands.put(CommandName.TO_CREATE_TECHNICAL_TASK, new ToCreateTechnicalTask());
+        commands.put(CommandName.TO_TASKS, new ToTasksCommand());
         commands.put(CommandName.FIND_TECHNICAL_TASKS, new FindTechnicalTaskCommand());
         commands.put(CommandName.BILLS, new BillsCommand());
         commands.put(CommandName.LOCALE, new LocaleCommand());

@@ -3,6 +3,8 @@ package by.voloshchuk.dao.impl;
 import by.voloshchuk.dao.TaskDao;
 import by.voloshchuk.dao.pool.CustomConnectionPool;
 import by.voloshchuk.entity.Task;
+import by.voloshchuk.entity.User;
+import by.voloshchuk.entity.UserDetail;
 import by.voloshchuk.exception.DaoException;
 
 import java.sql.Connection;
@@ -20,13 +22,19 @@ public class TaskDaoImpl implements TaskDao {
 
     private static final String FIND_TASK_BY_ID_QUERY = "SELECT * FROM tasks WHERE task_id = ?";
 
-    private static final String FIND_TASKS_BY_PROJECT_ID_QUERY = "SELECT * FROM tasks WHERE project_id = ?";
+    private static final String FIND_TASKS_BY_PROJECT_ID_QUERY = "SELECT * FROM tasks " +
+            "INNER JOIN users ON tasks.developer_id = users.user_id " +
+            "INNER JOIN user_details ON users.user_id = user_details.user_detail_id WHERE project_id = ?";
 
     private static final String FIND_TASKS_BY_USER_ID_AND_PROJECT_ID_QUERY = "SELECT * FROM tasks WHERE project_id = ? " +
             "AND developer_id = ?";
 
     private static final String UPDATE_TASK_QUERY = "UPDATE tasks SET name = ?, details = ?," +
             " hours = ?, status = ?, developer_id = ? WHERE task_id = ?";
+
+    private static final String UPDATE_TASK_STATUS_QUERY = "UPDATE tasks SET status = ? WHERE task_id = ?";
+
+    private static final String UPDATE_TASK_HOURS_QUERY = "UPDATE tasks SET hours = ? WHERE task_id = ?";
 
     private static final String DELETE_TASK_QUERY = "DELETE FROM tasks WHERE task_id = ?";
 
@@ -82,6 +90,13 @@ public class TaskDaoImpl implements TaskDao {
                 task.setDetails(resultSet.getString(ConstantColumnName.TASK_DETAILS));
                 task.setHours(resultSet.getInt(ConstantColumnName.TASK_HOURS));
                 task.setStatus(resultSet.getString(ConstantColumnName.TASK_STATUS));
+                User user = new User();
+                UserDetail userDetail = new UserDetail();
+                userDetail.setImagePath(resultSet.getString(ConstantColumnName.USER_DETAIL_IMAGE));
+                userDetail.setFirstName(resultSet.getString(ConstantColumnName.USER_DETAIL_FIRST_NAME));
+                userDetail.setLastName(resultSet.getString(ConstantColumnName.USER_DETAIL_LAST_NAME));
+                user.setUserDetail(userDetail);
+                task.setDeveloper(user);
                 tasks.add(task);
             }
         } catch (SQLException e) {
@@ -131,6 +146,38 @@ public class TaskDaoImpl implements TaskDao {
             throw new DaoException(e);
         }
         return resultTask;
+    }
+
+    public String updateTaskStatus(Long taskId, String status) throws DaoException {
+        String resultStatus = null;
+        try (Connection connection = connectionPool.getConnection();
+             PreparedStatement statement = connection.prepareStatement(UPDATE_TASK_STATUS_QUERY)) {
+            statement.setString(1, status);
+            statement.setLong(2, taskId);
+            int result = statement.executeUpdate();
+            if (result == 1) {
+                resultStatus = status;
+            }
+        } catch (SQLException e) {
+            throw new DaoException(e);
+        }
+        return resultStatus;
+    }
+
+    public Integer updateTaskHours(Long taskId, Integer hours) throws DaoException {
+        Integer resultHours = null;
+        try (Connection connection = connectionPool.getConnection();
+             PreparedStatement statement = connection.prepareStatement(UPDATE_TASK_HOURS_QUERY)) {
+            statement.setInt(1, hours);
+            statement.setLong(2, taskId);
+            int result = statement.executeUpdate();
+            if (result == 1) {
+                resultHours = hours;
+            }
+        } catch (SQLException e) {
+            throw new DaoException(e);
+        }
+        return resultHours;
     }
 
     public boolean removeTask(Long id) throws DaoException {

@@ -39,7 +39,7 @@ public class CustomConnectionPool {
         try {
             Class.forName(ConnectionProperty.DRIVER_CLASS_NAME);
         } catch (ClassNotFoundException e) {
-            e.printStackTrace();
+            logger.log(Level.ERROR, "Error while db driver registration " + e.getMessage());
         }
     }
 

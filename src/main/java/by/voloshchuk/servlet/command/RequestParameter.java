@@ -57,6 +57,8 @@ public final class RequestParameter {
 
     public static final String TECHNICAL_TASKS = "technicalTasks";
 
+    public static final String TASKS = "tasks";
+
     public static final String BILLS = "bills";
 
     public static final String ALL_PAGES = "allPagesNumber";
@@ -74,5 +76,15 @@ public final class RequestParameter {
     public static final String TECHNICAL_TASK = "technicalTask";
 
     public static final String PROJECT_ID = "project-id";
+
+    public static final String TASK_NAME = "name";
+
+    public static final String TASK_DETAILS = "details";
+
+    public static final String TASK_ID = "task-id";
+
+    public static final String TASK_STATUS = "status";
+
+    public static final String TASK_HOURS = "hours";
 
 }

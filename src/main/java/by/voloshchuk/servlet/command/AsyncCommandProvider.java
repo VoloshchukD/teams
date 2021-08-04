@@ -23,6 +23,10 @@ public class AsyncCommandProvider {
         asyncCommands.put(AsyncCommandName.SEEK_EMPLOYEES, new SeekEmployeesCommand());
         asyncCommands.put(AsyncCommandName.ADD_EMPLOYEE, new AddEmployeeCommand());
         asyncCommands.put(AsyncCommandName.ADD_REQUIREMENT, new AddRequirementCommand());
+        asyncCommands.put(AsyncCommandName.LOAD_PROJECT_USERS, new LoadProjectUsersCommand());
+        asyncCommands.put(AsyncCommandName.ADD_TASK, new AddTaskCommand());
+        asyncCommands.put(AsyncCommandName.UPDATE_TASK_HOURS, new UpdateTaskHoursCommand());
+        asyncCommands.put(AsyncCommandName.UPDATE_TASK_STATUS, new UpdateTaskStatusCommand());
     }
 
     public static AsyncCommandProvider getInstance() {
