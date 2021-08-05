@@ -70,8 +70,6 @@ public final class ConstantColumnName {
 
     public static final String TECHNICAL_TASK_DEADLINE = "deadline";
 
-    public static final String TECHNICAL_TASK_WORKERS_AMOUNT = "workers_amount";
-
     public static final String TECHNICAL_TASK_STATUS = "status";
 
     public static final String TECHNICAL_TASK_CUSTOMER_ID = "customer_id";
@@ -82,7 +80,9 @@ public final class ConstantColumnName {
 
     public static final String TASK_DETAILS = "details";
 
-    public static final String TASK_HOURS = "hours";
+    public static final String TASK_PLANNED_TIME = "planned_time";
+
+    public static final String TASK_TRACKED_TIME = "tracked_time";
 
     public static final String TASK_STATUS = "status";
 

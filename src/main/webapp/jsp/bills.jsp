@@ -18,23 +18,23 @@
 <div class="container-xxl">
     <div class="title h1 text-center mt-3"><fmt:message bundle="${loc}" key="local.bills.header"/></div>
     <div class="d-flex justify-content-center mt-3">
-        <form id="my_radio_box">
+        <form id="radio">
             <div class="form-check form-check-inline">
-                <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio1" value="3"
+                <input class="form-check-input" type="radio" name="unitPerPage" id="option1" value="3"
                        checked>
-                <label class="form-check-label" for="inlineRadio1">3</label>
+                <label class="form-check-label" for="option1">3</label>
             </div>
             <div class="form-check form-check-inline">
-                <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio2" value="6">
-                <label class="form-check-label" for="inlineRadio2">6</label>
+                <input class="form-check-input" type="radio" name="unitPerPage" id="option2" value="6">
+                <label class="form-check-label" for="option2">6</label>
             </div>
             <div class="form-check form-check-inline">
-                <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio3" value="9">
-                <label class="form-check-label" for="inlineRadio2">9</label>
+                <input class="form-check-input" type="radio" name="unitPerPage" id="option3" value="9">
+                <label class="form-check-label" for="option2">9</label>
             </div>
         </form>
     </div>
-    <div class="pagging-frame row justify-content-center">
+    <div class="frame row justify-content-center">
         <div class="elements row card-deck justify-content-center mt-1">
             <c:forEach items="${bills}" var="bill">
                 <div class="element col-3 card text-center m-2 ">
@@ -81,15 +81,17 @@
                 </div>
             </c:forEach>
         </div>
-        <a class="first col" style="text-align: center"><fmt:message bundle="${loc}" key="local.pagination.first"/></a>
-        <a class="prev col" style="text-align: center"><fmt:message bundle="${loc}"
-                                                                    key="local.pagination.previous"/></a> <a id="num1"
-                                                                                                             class="num1 col"
-                                                                                                             style="text-align: center"> </a>
-        <a id="num2" class="num2 col" style="color:gray; text-align: center"> </a> <a id="num3" class="num3 col"
-                                                                                      style="text-align: center"> </a>
-        <a class="next col" style="text-align: center"><fmt:message bundle="${loc}" key="local.pagination.next"/></a> <a
-            class="last col" style="text-align: center"><fmt:message bundle="${loc}" key="local.pagination.last"/></a>
+        <div class="pagging row" aria-label="...">
+            <a class="first col" style="text-align: center"><fmt:message bundle="${loc}" key="local.pagination.first"/></a>
+            <a class="prev col" style="text-align: center"><fmt:message bundle="${loc}"
+                                                                        key="local.pagination.previous"/></a> <a id="num1"
+                                                                                                                 class="num1 col"
+                                                                                                                 style="text-align: center"> </a>
+            <a id="num2" class="num2 col" style="color:gray; text-align: center"> </a> <a id="num3" class="num3 col"
+                                                                                          style="text-align: center"> </a>
+            <a class="next col" style="text-align: center"><fmt:message bundle="${loc}" key="local.pagination.next"/></a> <a
+                class="last col" style="text-align: center"><fmt:message bundle="${loc}" key="local.pagination.last"/></a>
+        </div>
     </div>
 </div>
 <%@ include file="../WEB-INF/jspf/footer.jspf" %>

@@ -1,12 +1,16 @@
 package by.voloshchuk.entity;
 
+import java.util.Objects;
+
 public class Task extends AbstractIdentifiedEntity {
 
     private String name;
 
     private String details;
 
-    private Integer hours;
+    private Integer plannedTime;
+
+    private Integer trackedTime;
 
     private TaskStatus status;
 
@@ -36,12 +40,20 @@ public class Task extends AbstractIdentifiedEntity {
         this.details = details;
     }
 
-    public Integer getHours() {
-        return hours;
+    public Integer getPlannedTime() {
+        return plannedTime;
     }
 
-    public void setHours(Integer hours) {
-        this.hours = hours;
+    public void setPlannedTime(Integer plannedTime) {
+        this.plannedTime = plannedTime;
+    }
+
+    public Integer getTrackedTime() {
+        return trackedTime;
+    }
+
+    public void setTrackedTime(Integer trackedTime) {
+        this.trackedTime = trackedTime;
     }
 
     public TaskStatus getStatus() {
@@ -69,12 +81,29 @@ public class Task extends AbstractIdentifiedEntity {
     }
 
     @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Task task = (Task) o;
+        return Objects.equals(name, task.name) && Objects.equals(details, task.details) && Objects.equals(plannedTime, task.plannedTime) && Objects.equals(trackedTime, task.trackedTime) && status == task.status && Objects.equals(project, task.project) && Objects.equals(developer, task.developer);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(name, details, plannedTime, trackedTime, status, project, developer);
+    }
+
+    @Override
     public String toString() {
         return "Task{" +
                 "name='" + name + '\'' +
                 ", details='" + details + '\'' +
-                ", hours=" + hours +
-                ", status='" + status;
+                ", plannedTime=" + plannedTime +
+                ", trackedTime=" + trackedTime +
+                ", status=" + status +
+                ", project=" + project +
+                ", developer=" + developer +
+                '}';
     }
 
 }

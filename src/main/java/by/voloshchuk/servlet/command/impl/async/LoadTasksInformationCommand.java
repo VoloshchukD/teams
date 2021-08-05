@@ -44,7 +44,7 @@ public class LoadTasksInformationCommand implements AsyncCommand {
         for (Task task : tasks) {
             JSONObject currentData = new JSONObject();
             currentData.put(AsyncCommandParameter.TASK_NAME, task.getName());
-            currentData.put(AsyncCommandParameter.TASK_HOURS, task.getHours());
+            currentData.put(AsyncCommandParameter.TASK_HOURS, task.getTrackedTime());
             User user = task.getDeveloper();
             UserDetail userDetail = user.getUserDetail();
             currentData.put(AsyncCommandParameter.USER_DETAIL_SALARY, userDetail.getSalary());

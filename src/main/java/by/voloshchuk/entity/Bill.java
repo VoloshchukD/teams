@@ -1,5 +1,7 @@
 package by.voloshchuk.entity;
 
+import java.util.Objects;
+
 public class Bill extends AbstractIdentifiedEntity {
 
     private BillStatus status;
@@ -49,9 +51,22 @@ public class Bill extends AbstractIdentifiedEntity {
     }
 
     @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Bill bill = (Bill) o;
+        return status == bill.status && Objects.equals(information, bill.information) && Objects.equals(amountDue, bill.amountDue) && Objects.equals(projectId, bill.projectId);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(status, information, amountDue, projectId);
+    }
+
+    @Override
     public String toString() {
         return "Bill{" +
-                "status='" + status + '\'' +
+                "status=" + status +
                 ", information='" + information + '\'' +
                 ", amountDue=" + amountDue +
                 ", projectId=" + projectId +

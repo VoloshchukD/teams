@@ -17,7 +17,7 @@ import java.util.List;
 public class TaskDaoImpl implements TaskDao {
 
     private static final String ADD_TASK_QUERY = "INSERT INTO tasks (name, " +
-            "details, hours, status, project_id, developer_id) " +
+            "details, planned_time, status, project_id, developer_id) " +
             "VALUES (?, ?, ?, ?, ?, ?)";
 
     private static final String FIND_TASK_BY_ID_QUERY = "SELECT * FROM tasks WHERE task_id = ?";
@@ -39,7 +39,7 @@ public class TaskDaoImpl implements TaskDao {
 
     private static final String UPDATE_TASK_STATUS_QUERY = "UPDATE tasks SET status = ? WHERE task_id = ?";
 
-    private static final String UPDATE_TASK_HOURS_QUERY = "UPDATE tasks SET hours = ? WHERE task_id = ?";
+    private static final String UPDATE_TASK_HOURS_QUERY = "UPDATE tasks SET tracked_time = ? WHERE task_id = ?";
 
     private static final String DELETE_TASK_QUERY = "DELETE FROM tasks WHERE task_id = ?";
 
@@ -51,7 +51,7 @@ public class TaskDaoImpl implements TaskDao {
              PreparedStatement statement = connection.prepareStatement(ADD_TASK_QUERY)) {
             statement.setString(1, task.getName());
             statement.setString(2, task.getDetails());
-            statement.setInt(3, task.getHours());
+            statement.setInt(3, task.getPlannedTime());
             statement.setString(4, task.getStatus().toString());
             statement.setLong(5, task.getProject().getId());
             statement.setLong(6, task.getDeveloper().getId());
@@ -73,7 +73,8 @@ public class TaskDaoImpl implements TaskDao {
                 task.setId(resultSet.getLong(ConstantColumnName.TASK_ID));
                 task.setName(resultSet.getString(ConstantColumnName.TASK_NAME));
                 task.setDetails(resultSet.getString(ConstantColumnName.TASK_DETAILS));
-                task.setHours(resultSet.getInt(ConstantColumnName.TASK_HOURS));
+                task.setPlannedTime(resultSet.getInt(ConstantColumnName.TASK_PLANNED_TIME));
+                task.setTrackedTime(resultSet.getInt(ConstantColumnName.TASK_TRACKED_TIME));
                 task.setStatus(Task.TaskStatus.valueOf(resultSet.getString(ConstantColumnName.TASK_STATUS)));
             }
         } catch (SQLException e) {
@@ -93,7 +94,8 @@ public class TaskDaoImpl implements TaskDao {
                 task.setId(resultSet.getLong(ConstantColumnName.TASK_ID));
                 task.setName(resultSet.getString(ConstantColumnName.TASK_NAME));
                 task.setDetails(resultSet.getString(ConstantColumnName.TASK_DETAILS));
-                task.setHours(resultSet.getInt(ConstantColumnName.TASK_HOURS));
+                task.setPlannedTime(resultSet.getInt(ConstantColumnName.TASK_PLANNED_TIME));
+                task.setTrackedTime(resultSet.getInt(ConstantColumnName.TASK_TRACKED_TIME));
                 task.setStatus(Task.TaskStatus.valueOf(resultSet.getString(ConstantColumnName.TASK_STATUS)));
                 User user = new User();
                 UserDetail userDetail = new UserDetail();
@@ -123,7 +125,8 @@ public class TaskDaoImpl implements TaskDao {
                 task.setId(resultSet.getLong(ConstantColumnName.TASK_ID));
                 task.setName(resultSet.getString(ConstantColumnName.TASK_NAME));
                 task.setDetails(resultSet.getString(ConstantColumnName.TASK_DETAILS));
-                task.setHours(resultSet.getInt(ConstantColumnName.TASK_HOURS));
+                task.setPlannedTime(resultSet.getInt(ConstantColumnName.TASK_PLANNED_TIME));
+                task.setTrackedTime(resultSet.getInt(ConstantColumnName.TASK_TRACKED_TIME));
                 task.setStatus(Task.TaskStatus.valueOf(resultSet.getString(ConstantColumnName.TASK_STATUS)));
                 User user = new User();
                 UserDetail userDetail = new UserDetail();
@@ -151,7 +154,8 @@ public class TaskDaoImpl implements TaskDao {
                 task.setId(resultSet.getLong(ConstantColumnName.TASK_ID));
                 task.setName(resultSet.getString(ConstantColumnName.TASK_NAME));
                 task.setDetails(resultSet.getString(ConstantColumnName.TASK_DETAILS));
-                task.setHours(resultSet.getInt(ConstantColumnName.TASK_HOURS));
+                task.setPlannedTime(resultSet.getInt(ConstantColumnName.TASK_PLANNED_TIME));
+                task.setTrackedTime(resultSet.getInt(ConstantColumnName.TASK_TRACKED_TIME));
                 task.setStatus(
                         Task.TaskStatus.valueOf(resultSet.getString(ConstantColumnName.TASK_STATUS)));
                 tasks.add(task);
@@ -168,7 +172,7 @@ public class TaskDaoImpl implements TaskDao {
              PreparedStatement statement = connection.prepareStatement(UPDATE_TASK_QUERY)) {
             statement.setString(1, task.getName());
             statement.setString(2, task.getDetails());
-            statement.setInt(3, task.getHours());
+            statement.setInt(3, task.getPlannedTime());
             statement.setString(4, task.getStatus().toString());
             statement.setLong(5, task.getDeveloper().getId());
             statement.setLong(6, task.getId());

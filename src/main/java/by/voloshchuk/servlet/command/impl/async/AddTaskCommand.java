@@ -47,7 +47,7 @@ public class AddTaskCommand implements AsyncCommand {
         project.setId(projectId);
         task.setProject(project);
         task.setStatus(Task.TaskStatus.TO_DO);
-        task.setHours(Integer.parseInt(request.getParameter(AsyncCommandParameter.TASK_HOURS)));
+        task.setPlannedTime(Integer.parseInt(request.getParameter(AsyncCommandParameter.TASK_HOURS)));
         task.setName(request.getParameter(AsyncCommandParameter.TASK_NAME));
         task.setDetails(request.getParameter(AsyncCommandParameter.TASK_DETAILS));
         return task;

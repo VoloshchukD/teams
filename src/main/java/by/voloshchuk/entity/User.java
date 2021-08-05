@@ -1,5 +1,7 @@
 package by.voloshchuk.entity;
 
+import java.util.Objects;
+
 public class User extends AbstractIdentifiedEntity {
 
     private String email;
@@ -49,11 +51,24 @@ public class User extends AbstractIdentifiedEntity {
     }
 
     @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        User user = (User) o;
+        return Objects.equals(email, user.email) && Objects.equals(password, user.password) && role == user.role && Objects.equals(userDetail, user.userDetail);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(email, password, role, userDetail);
+    }
+
+    @Override
     public String toString() {
         return "User{" +
-                "login='" + email + '\'' +
+                "email='" + email + '\'' +
                 ", password='" + password + '\'' +
-                ", role='" + role + '\'' +
+                ", role=" + role +
                 ", userDetail=" + userDetail +
                 '}';
     }

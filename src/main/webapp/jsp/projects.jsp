@@ -21,23 +21,23 @@
                     <c:when test="${state == 'IN_PROGRESS'}">
                         <li class="nav-item">
                             <a class="nav-link active"
-                               href="?command=projects&state=in%20progress"><fmt:message
+                               href="?command=projects&state=IN_PROGRESS"><fmt:message
                                     bundle="${loc}" key="local.projects.active"/></a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="?command=projects&state=finished"><fmt:message
+                            <a class="nav-link" href="?command=projects&state=FINISHED"><fmt:message
                                     bundle="${loc}" key="local.projects.finished"/></a>
                         </li>
                     </c:when>
                     <c:when test="${state == 'FINISHED'}">
                         <li class="nav-item">
                             <a class="nav-link"
-                               href="?command=projects&state=in%20progress"><fmt:message
+                               href="?command=projects&state=IN_PROGRESS"><fmt:message
                                     bundle="${loc}" key="local.projects.active"/></a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link active"
-                               href="?command=projects1&state=finished"><fmt:message
+                               href="?command=projects1&state=FINISHED"><fmt:message
                                     bundle="${loc}" key="local.projects.finished"/></a>
                         </li>
                     </c:when>
@@ -46,19 +46,19 @@
         </div>
     </div>
     <div class="d-flex justify-content-center mt-3">
-        <form id="my_radio_box">
+        <form id="radio">
             <div class="form-check form-check-inline">
-                <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio1" value="4"
+                <input class="form-check-input" type="radio" name="unitPerPage" id="option1" value="4"
                        checked>
-                <label class="form-check-label" for="inlineRadio1">4</label>
+                <label class="form-check-label" for="option1">4</label>
             </div>
             <div class="form-check form-check-inline">
-                <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio2" value="8">
-                <label class="form-check-label" for="inlineRadio2">8</label>
+                <input class="form-check-input" type="radio" name="unitPerPage" id="option2" value="8">
+                <label class="form-check-label" for="option2">8</label>
             </div>
         </form>
     </div>
-    <div class="pagging-frame row justify-content-center">
+    <div class="frame row justify-content-center">
         <div class="elements row mt-3">
             <c:forEach items="${projects}" var="project">
                 <div class="element col-6">
@@ -102,15 +102,17 @@
                 </div>
             </c:forEach>
         </div>
-        <a class="first col" style="text-align: center"><fmt:message bundle="${loc}" key="local.pagination.first"/></a>
-        <a class="prev col" style="text-align: center"><fmt:message bundle="${loc}"
-                                                                    key="local.pagination.previous"/></a> <a id="num1"
-                                                                                                             class="num1 col"
-                                                                                                             style="text-align: center"> </a>
-        <a id="num2" class="num2 col" style="color:gray; text-align: center"> </a> <a id="num3" class="num3 col"
-                                                                                      style="text-align: center"> </a>
-        <a class="next col" style="text-align: center"><fmt:message bundle="${loc}" key="local.pagination.next"/></a> <a
-            class="last col" style="text-align: center"><fmt:message bundle="${loc}" key="local.pagination.last"/></a>
+        <div class="pagging row" aria-label="...">
+                <a class="first col" style="text-align: center"><fmt:message bundle="${loc}" key="local.pagination.first"/></a>
+                <a class="prev col" style="text-align: center"><fmt:message bundle="${loc}"
+                                                                            key="local.pagination.previous"/></a> <a id="num1"
+                                                                                                                     class="num1 col"
+                                                                                                                     style="text-align: center"> </a>
+                <a id="num2" class="num2 col" style="color:gray; text-align: center"> </a> <a id="num3" class="num3 col"
+                                                                                              style="text-align: center"> </a>
+                <a class="next col" style="text-align: center"><fmt:message bundle="${loc}" key="local.pagination.next"/></a> <a
+                    class="last col" style="text-align: center"><fmt:message bundle="${loc}" key="local.pagination.last"/></a>
+        </div>
     </div>
 </div>
 <%@ include file="../WEB-INF/jspf/footer.jspf" %>

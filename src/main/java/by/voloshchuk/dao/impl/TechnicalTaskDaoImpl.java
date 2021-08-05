@@ -26,7 +26,7 @@ public class TechnicalTaskDaoImpl implements TechnicalTaskDao {
             "WHERE teams.technical_tasks.status = ?";
 
     private static final String UPDATE_TECHNICAL_TASK_QUERY = "UPDATE technical_tasks SET overview = ?, " +
-            "deadline = ?, workers_amount = ?, status = ? WHERE technical_task_id = ?";
+            "deadline = ?, status = ? WHERE technical_task_id = ?";
 
     private static final String DELETE_TECHNICAL_TASK_QUERY = "DELETE FROM technical_tasks " +
             "WHERE technical_task_id = ?";
@@ -64,7 +64,6 @@ public class TechnicalTaskDaoImpl implements TechnicalTaskDao {
                 Date date = new Date(timestamp.getTime());
                 technicalTask.setDeadline(date);
                 technicalTask.setOverview(resultSet.getString(ConstantColumnName.TECHNICAL_TASK_OVERVIEW));
-                technicalTask.setWorkersAmount(resultSet.getInt(ConstantColumnName.TECHNICAL_TASK_WORKERS_AMOUNT));
             }
         } catch (SQLException e) {
             throw new DaoException(e);
@@ -89,7 +88,6 @@ public class TechnicalTaskDaoImpl implements TechnicalTaskDao {
                 technicalTask.setStatus(
                         TechnicalTask.TechnicalTaskStatus.valueOf(
                                 resultSet.getString(ConstantColumnName.TECHNICAL_TASK_STATUS)));
-                technicalTask.setWorkersAmount(resultSet.getInt(ConstantColumnName.TECHNICAL_TASK_WORKERS_AMOUNT));
                 technicalTasks.add(technicalTask);
             }
         } catch (SQLException e) {
@@ -114,7 +112,6 @@ public class TechnicalTaskDaoImpl implements TechnicalTaskDao {
                 technicalTask.setOverview(resultSet.getString(ConstantColumnName.TECHNICAL_TASK_OVERVIEW));
                 technicalTask.setStatus(TechnicalTask.TechnicalTaskStatus.EDITING.valueOf(
                         resultSet.getString(ConstantColumnName.TECHNICAL_TASK_STATUS)));
-                technicalTask.setWorkersAmount(resultSet.getInt(ConstantColumnName.TECHNICAL_TASK_WORKERS_AMOUNT));
                 technicalTasks.add(technicalTask);
             }
         } catch (SQLException e) {
@@ -129,9 +126,8 @@ public class TechnicalTaskDaoImpl implements TechnicalTaskDao {
              PreparedStatement statement = connection.prepareStatement(UPDATE_TECHNICAL_TASK_QUERY)) {
             statement.setString(1, technicalTask.getOverview());
             statement.setTimestamp(2, new Timestamp(technicalTask.getDeadline().getTime()));
-            statement.setInt(3, technicalTask.getWorkersAmount());
-            statement.setString(4, technicalTask.getStatus().toString());
-            statement.setLong(5, technicalTask.getId());
+            statement.setString(3, technicalTask.getStatus().toString());
+            statement.setLong(4, technicalTask.getId());
             int result = statement.executeUpdate();
             if (result == 1) {
                 resultTechnicalTask = technicalTask;

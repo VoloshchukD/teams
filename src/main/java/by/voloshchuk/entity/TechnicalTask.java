@@ -2,6 +2,7 @@ package by.voloshchuk.entity;
 
 import java.util.Date;
 import java.util.List;
+import java.util.Objects;
 
 public class TechnicalTask extends AbstractIdentifiedEntity {
 
@@ -10,8 +11,6 @@ public class TechnicalTask extends AbstractIdentifiedEntity {
     private String overview;
 
     private Date deadline;
-
-    private Integer workersAmount;
 
     private TechnicalTaskStatus status;
 
@@ -50,14 +49,6 @@ public class TechnicalTask extends AbstractIdentifiedEntity {
         this.deadline = deadline;
     }
 
-    public Integer getWorkersAmount() {
-        return workersAmount;
-    }
-
-    public void setWorkersAmount(Integer workersAmount) {
-        this.workersAmount = workersAmount;
-    }
-
     public TechnicalTaskStatus getStatus() {
         return status;
     }
@@ -83,16 +74,27 @@ public class TechnicalTask extends AbstractIdentifiedEntity {
     }
 
     @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        TechnicalTask that = (TechnicalTask) o;
+        return Objects.equals(name, that.name) && Objects.equals(overview, that.overview) && Objects.equals(deadline, that.deadline) && status == that.status && Objects.equals(customer, that.customer) && Objects.equals(requirements, that.requirements);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(name, overview, deadline, status, customer, requirements);
+    }
+
+    @Override
     public String toString() {
         return "TechnicalTask{" +
                 "name='" + name + '\'' +
                 ", overview='" + overview + '\'' +
                 ", deadline=" + deadline +
-                ", workersAmount=" + workersAmount +
                 ", status=" + status +
                 ", customer=" + customer +
                 ", requirements=" + requirements +
                 '}';
     }
-
 }

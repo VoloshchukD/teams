@@ -1,5 +1,7 @@
 package by.voloshchuk.entity;
 
+import java.util.Objects;
+
 public class EmployeeRequirement extends AbstractIdentifiedEntity {
 
     private Integer experience;
@@ -63,6 +65,19 @@ public class EmployeeRequirement extends AbstractIdentifiedEntity {
     }
 
     @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        EmployeeRequirement that = (EmployeeRequirement) o;
+        return Objects.equals(experience, that.experience) && Objects.equals(salary, that.salary) && Objects.equals(qualification, that.qualification) && Objects.equals(comment, that.comment) && Objects.equals(technicalTask, that.technicalTask) && Objects.equals(primarySkill, that.primarySkill);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(experience, salary, qualification, comment, technicalTask, primarySkill);
+    }
+
+    @Override
     public String toString() {
         return "EmployeeRequirement{" +
                 "experience=" + experience +
@@ -73,4 +88,6 @@ public class EmployeeRequirement extends AbstractIdentifiedEntity {
                 ", primarySkill='" + primarySkill + '\'' +
                 '}';
     }
+
 }
+

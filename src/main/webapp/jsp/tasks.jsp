@@ -203,7 +203,7 @@
                                 </div>
                                 <div>
                                     <button type="button" class="btn btn-outline-dark hours" disabled><small
-                                            class="val">7</small>/(${task.hours}) <fmt:message bundle="${loc}" key="local.tasks.hours"/>
+                                            class="val">${task.trackedTime}</small>/(${task.plannedTime}) <fmt:message bundle="${loc}" key="local.tasks.hours"/>
                                     </button>
                                     <div class="panel" style="display:none;">
                                         <input type="text" class="hour input align form-control mx-1"
