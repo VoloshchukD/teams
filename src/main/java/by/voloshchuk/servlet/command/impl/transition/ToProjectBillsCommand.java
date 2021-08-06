@@ -1,11 +1,9 @@
 package by.voloshchuk.servlet.command.impl.transition;
 
-import by.voloshchuk.entity.Project;
-import by.voloshchuk.entity.Task;
+import by.voloshchuk.entity.Bill;
 import by.voloshchuk.exception.ServiceException;
-import by.voloshchuk.service.ProjectService;
+import by.voloshchuk.service.BillService;
 import by.voloshchuk.service.ServiceProvider;
-import by.voloshchuk.service.TaskService;
 import by.voloshchuk.servlet.command.*;
 import org.apache.logging.log4j.Level;
 import org.apache.logging.log4j.LogManager;
@@ -16,7 +14,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.util.List;
 
-public class ToBillCreationCommand implements Command {
+public class ToProjectBillsCommand implements Command {
 
     private static final Logger logger = LogManager.getLogger();
 
@@ -24,17 +22,17 @@ public class ToBillCreationCommand implements Command {
 
     @Override
     public CommandRouter execute(HttpServletRequest request, HttpServletResponse response) throws ServletException {
-        Long userId = (Long) request.getSession().getAttribute(CommandAttribute.USER_ID);
-        List<Project> projects = null;
-        ProjectService projectService = serviceProvider.getProjectService();
+        Long projectId = Long.parseLong(request.getParameter(RequestParameter.PROJECT_ID));
+        List<Bill> bills = null;
+        BillService billService = serviceProvider.getBillService();
         try {
-            projects = projectService.findProjectsByUserIdAndState(userId,
-                    Project.ProjectStatus.IN_PROGRESS.toString());
+            bills = billService.findBillsByProjectId(projectId);
         } catch (ServiceException e) {
             logger.log(Level.ERROR, e.getMessage());
         }
-        request.setAttribute(RequestParameter.PROJECTS, projects);
-        CommandRouter router = new CommandRouter(CommandRouter.RouterType.FORWARD, CommandPath.BILL_CREATION_JSP);
+
+        request.setAttribute(RequestParameter.BILLS, bills);
+        CommandRouter router = new CommandRouter(CommandRouter.RouterType.FORWARD, CommandPath.BILLS_JSP);
         return router;
     }
 

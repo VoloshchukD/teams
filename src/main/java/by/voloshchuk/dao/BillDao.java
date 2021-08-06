@@ -13,7 +13,11 @@ public interface BillDao {
 
     List<Bill> findBillsByUserId(Long userId) throws DaoException;
 
+    List<Bill> findBillsByProjectId(Long projectId) throws DaoException;
+
     Bill updateBill(Bill bill) throws DaoException;
+
+    String updateBillStatus(Long billId, String status) throws DaoException;
 
     boolean removeBill(Long id) throws DaoException;
 

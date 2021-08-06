@@ -1,10 +1,16 @@
+window.addEventListener("load", function (event) {
+    var url_string = window.location.href;
+    var url = new URL(url_string);
+    var technicalTaskId = url.searchParams.get("technical-task-id");
+    if (technicalTaskId != null) {
+        $('#task option[value=' + technicalTaskId + ']').prop('selected', true);
+        loadRequirements();
+    }
+});
+
 var ajax = webix.ajax().headers({
     'Content-type': 'application/json'
 })
-
-function sleep(time) {
-    return new Promise((resolve) => setTimeout(resolve, time));
-}
 
 $("#task").change(function () {
     loadRequirements()
@@ -26,13 +32,13 @@ function loadRequirements() {
                         '<td>' + data[i].primary + '</td>' +
                         '<td>' + data[i].comment + '</td>' +
                         '<td>' +
-                        '<button type="button" class="edit btn btn-secondary">'+'<fmt:message bundle="${loc}" key="local.requirement.create.edit-button"/>'+'</button>' +
+                        '<button type="button" class="edit btn btn-secondary"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></i></button>' +
                         '</td>' +
                         '<td>' +
-                        '<button type="button" class="delete btn btn-danger">Delete</button>' +
+                        '<button type="button" class="delete btn btn-danger"><i class="fa fa-trash" aria-hidden="true"></i></button>' +
                         '</td>' +
                         '</tr>';
-                    $('.table tr:eq('+(i + 1)+')').before(html);
+                    $('.table tr:eq(' + (i + 1) + ')').before(html);
                     var savedRequirement = $('.table').find('.saved:last');
                     savedRequirement.find('.edit').click(function () {
                         savedRequirement.remove();
@@ -53,10 +59,10 @@ $('#add').click(function () {
         '<td class="primary" ><input type="text" class="input4 form-control" /></td>' +
         '<td class="comment" > <textarea class="input5 form-control" aria-label="With textarea" style="height: 10px;" ></textarea></td>' +
         '<td>' +
-        '<button type="button" class="save btn btn-primary">Save</button>' +
+        '<button type="button" class="save btn btn-primary"><i class="fa fa-floppy-o" aria-hidden="true"></i></button>' +
         '</td>' +
         '<td>' +
-        '<button type="button" class="drop btn btn-danger">Drop</button>' +
+        '<button type="button" class="drop btn btn-danger"><i class="fa fa-minus-square" aria-hidden="true"></i></button>' +
         '</td>' +
         '</tr>';
     $('.table').append(html);
@@ -96,7 +102,6 @@ $('.requirement').each(function () {
 
     var saveButton = $(this).find('.save');
     var dropButton = $(this).find('.drop');
-
 
 
     saveButton.click(function () {

@@ -12,4 +12,6 @@ public interface EmployeeRequirementService {
 
     List<EmployeeRequirement> findAllByTechnicalTaskId(Long technicalTaskId) throws ServiceException;
 
+    List<EmployeeRequirement> findAllByProjectId(Long projectId) throws ServiceException;
+
 }

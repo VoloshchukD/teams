@@ -12,6 +12,8 @@ public interface EmployeeRequirementDao {
 
     List<EmployeeRequirement> findAllByTechnicalTaskId(Long technicalTaskId) throws DaoException;
 
+    List<EmployeeRequirement> findAllByProjectId(Long projectId) throws DaoException;
+
     EmployeeRequirement updateEmployeeRequirement(EmployeeRequirement requirement) throws DaoException;
 
     boolean removeUserDetailById(Long id) throws DaoException;

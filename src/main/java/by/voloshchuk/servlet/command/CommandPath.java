@@ -23,6 +23,8 @@ public final class CommandPath {
 
     public static final String BILLS_JSP = "/jsp/bills.jsp";
 
+    public static final String PAYMENT_FORM_JSP = "/jsp/payment_form.jsp";
+
     public static final String PROFILE_JSP = "/jsp/profile.jsp";
 
     public static final String PROJECT_CREATION_JSP = "/jsp/project_creation.jsp";
@@ -40,5 +42,9 @@ public final class CommandPath {
     public static final String SEEK_EMPLOYEES = "/controller?command=to-seek-employees";
 
     public static final String TO_CREATE_REQUIREMENT = "/controller?command=to-create-requirement";
+
+    public static final String TO_PROJECTS = "/controller?command=to-create-requirement";
+
+    public static final String TO_BILLS = "/controller?command=bills";
 
 }

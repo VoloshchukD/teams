@@ -1,15 +1,15 @@
 package by.voloshchuk.servlet.command.impl.transition;
 
 import by.voloshchuk.entity.EmployeeRequirement;
+import by.voloshchuk.entity.Project;
 import by.voloshchuk.exception.ServiceException;
 import by.voloshchuk.service.EmployeeRequirementService;
+import by.voloshchuk.service.ProjectService;
 import by.voloshchuk.service.ServiceProvider;
 import by.voloshchuk.servlet.command.*;
 import org.apache.logging.log4j.Level;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import org.json.JSONArray;
-import org.json.JSONObject;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -24,17 +24,16 @@ public class ToSeekEmployeesCommand implements Command {
 
     @Override
     public CommandRouter execute(HttpServletRequest request, HttpServletResponse response) throws ServletException {
-        Long technicalTaskId = Long.parseLong(request.getParameter(RequestParameter.TECHNICAL_TASK_ID));
-        List<EmployeeRequirement> employeeRequirements = null;
-        EmployeeRequirementService employeeRequirementService = serviceProvider.getEmployeeRequirementService();
+        Long userId = (Long) request.getSession().getAttribute(CommandAttribute.USER_ID);
+        List<Project> projects = null;
+        ProjectService projectService = serviceProvider.getProjectService();
         try {
-            employeeRequirements = employeeRequirementService.findAllByTechnicalTaskId(technicalTaskId);
+            projects = projectService.findProjectsByUserIdAndState(userId,
+                    Project.ProjectStatus.IN_PROGRESS.toString());
         } catch (ServiceException e) {
-            logger.log(Level.ERROR, e);
+            logger.log(Level.ERROR, e.getMessage());
         }
-
-        request.setAttribute(CommandAttribute.EMPLOYEE_REQUIREMENTS, employeeRequirements);
-
+        request.setAttribute(RequestParameter.PROJECTS, projects);
         CommandRouter router = new CommandRouter(CommandRouter.RouterType.FORWARD, CommandPath.SEEK_EMPLOYEES_JSP);
         return router;
     }

@@ -16,7 +16,7 @@ public class AsyncCommandParameter {
 
     public static final String TASK_STATUS = "status";
 
-    public static final String USER_ID = "user-id";
+    public static final String USER_ID = "id";
 
     public static final String PROJECT_ID = "project-id";
 

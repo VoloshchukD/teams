@@ -43,17 +43,19 @@
         </div>
     </div>
 
-    <div class="row d-flex justify-content-center m-3">
-        <div class="col-4  text-center">
-            <div class="card">
-                <div class="card-body">
-                    <button type="button" class="btn btn-primary mt-1 save" data-toggle="modal" data-target="#modal"
-                            id="create-task-modal-button"><fmt:message bundle="${loc}" key="local.tasks.button-modal"/>
-                    </button>
+    <c:if test="${ role == 'MANAGER' }">
+        <div class="row d-flex justify-content-center m-3">
+            <div class="col-4  text-center">
+                <div class="card">
+                    <div class="card-body">
+                        <button type="button" class="btn btn-primary mt-1 save" data-toggle="modal" data-target="#modal"
+                                id="create-task-modal-button"><fmt:message bundle="${loc}" key="local.tasks.button-modal"/>
+                        </button>
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
+    </c:if>
 
     <div class="row m-3">
         <div class="col-4 text-center">
@@ -101,7 +103,7 @@
                                 </div>
                                 <div>
                                     <button type="button" class="btn btn-outline-dark hours" disabled><small
-                                            class="val">7</small>/(${task.hours}) <fmt:message bundle="${loc}" key="local.tasks.hours"/>
+                                            class="val">${task.trackedTime}</small>/(${task.plannedTime}) <fmt:message bundle="${loc}" key="local.tasks.hours"/>
                                     </button>
                                     <div class="panel" style="display:none;">
                                         <input type="text" class="hour input align form-control mx-1"
@@ -152,7 +154,7 @@
                                 </div>
                                 <div>
                                     <button type="button" class="btn btn-outline-dark hours" disabled><small
-                                            class="val">7</small>/(${task.hours}) <fmt:message bundle="${loc}" key="local.tasks.hours"/>
+                                            class="val">${task.trackedTime}</small>/(${task.plannedTime}) <fmt:message bundle="${loc}" key="local.tasks.hours"/>
                                     </button>
                                     <div class="panel" style="display:none;">
                                         <input type="text" class="hour input align form-control mx-1"

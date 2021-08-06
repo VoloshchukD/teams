@@ -119,9 +119,14 @@
                                             <button type="submit" class="btn btn-primary"><fmt:message bundle="${loc}"
                                                                                                        key="local.technical-tasks.create"/></button>
                                         </c:if>
+                                        <c:if test="${ role == 'CUSTOMER' }">
+                                            <input type="hidden" class="command" name="command"
+                                                   value="to-create-requirement"/>
+                                            <button type="submit" class="btn btn-primary"><fmt:message bundle="${loc}"
+                                                                                                       key="local.technical-tasks.add-requirements"/></button>
+                                        </c:if>
                                     </form>
                                 </div>
-
                             </div>
                             <div class="mt-3"><span class="text1"><fmt:message bundle="${loc}"
                                                                                key="local.technical-tasks.deadline"/> <span

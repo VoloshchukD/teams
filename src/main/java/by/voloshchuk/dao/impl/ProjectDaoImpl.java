@@ -3,6 +3,7 @@ package by.voloshchuk.dao.impl;
 import by.voloshchuk.dao.ProjectDao;
 import by.voloshchuk.dao.pool.CustomConnectionPool;
 import by.voloshchuk.entity.Project;
+import by.voloshchuk.entity.TechnicalTask;
 import by.voloshchuk.exception.DaoException;
 
 import java.sql.*;
@@ -89,6 +90,9 @@ public class ProjectDaoImpl implements ProjectDao {
                 project.setStartDate(date);
                 project.setState(Project.ProjectStatus.valueOf(
                         resultSet.getString(ConstantColumnName.PROJECT_STATE)));
+                TechnicalTask technicalTask = new TechnicalTask();
+                technicalTask.setId(resultSet.getLong(ConstantColumnName.PROJECT_TECHNICAL_TASK_ID));
+                project.setTechnicalTask(technicalTask);
                 projects.add(project);
             }
         } catch (SQLException e) {

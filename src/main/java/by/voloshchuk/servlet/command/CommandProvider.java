@@ -1,6 +1,7 @@
 package by.voloshchuk.servlet.command;
 
 import by.voloshchuk.servlet.command.impl.*;
+import by.voloshchuk.servlet.command.impl.async.AcceptPaymentCommand;
 import by.voloshchuk.servlet.command.impl.transition.*;
 
 import java.util.HashMap;
@@ -30,9 +31,12 @@ public class CommandProvider {
         commands.put(CommandName.TECHNICAL_TASKS, new TechnicalTasksCommand());
         commands.put(CommandName.TO_CREATE_TECHNICAL_TASK, new ToCreateTechnicalTask());
         commands.put(CommandName.TO_TASKS, new ToTasksCommand());
+        commands.put(CommandName.TO_PROJECT_BILLS, new ToProjectBillsCommand());
         commands.put(CommandName.TO_BILL_CREATION, new ToBillCreationCommand());
+        commands.put(CommandName.TO_PAYMENT_FORM, new ToPaymentFormCommand());
         commands.put(CommandName.FIND_TECHNICAL_TASKS, new FindTechnicalTaskCommand());
         commands.put(CommandName.BILLS, new BillsCommand());
+        commands.put(CommandName.MAKE_PAYMENT, new MakePaymentCommand());
         commands.put(CommandName.LOCALE, new LocaleCommand());
         commands.put(CommandName.REGISTRATION, new ToRegistrationCommand());
         commands.put(CommandName.REGISTRATE, new RegistrationCommand());

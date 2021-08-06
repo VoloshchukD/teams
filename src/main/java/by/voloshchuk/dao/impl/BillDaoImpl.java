@@ -22,7 +22,13 @@ public class BillDaoImpl implements BillDao {
     private static final String UPDATE_BILL_QUERY = "UPDATE teams.bills SET status = ?, information = ?, amount_due = ? " +
             "WHERE bill_id = ?;";
 
+    private static final String UPDATE_BILL_STATUS_QUERY = "UPDATE teams.bills SET status = ? WHERE bill_id = ?;";
+
     private static final String DELETE_BILL_QUERY = "DELETE FROM teams.bills WHERE bill_id = ?;";
+
+    private static final String FIND_BILLS_BY_PROJECT_ID_QUERY = "SELECT * FROM teams.bills INNER JOIN teams.projects " +
+            "ON teams.projects.project_id=teams.bills.project_id " +
+            "WHERE teams.projects.project_id = ?";
 
     private static final String FIND_BILLS_BY_USER_ID_QUERY = "SELECT * FROM teams.bills INNER JOIN teams.projects " +
             "ON teams.projects.project_id=teams.bills.project_id INNER JOIN teams.technical_tasks " +
@@ -88,6 +94,27 @@ public class BillDaoImpl implements BillDao {
         return bills;
     }
 
+    public List<Bill> findBillsByProjectId(Long projectId) throws DaoException {
+        List<Bill> bills = new ArrayList<>();
+        try (Connection connection = connectionPool.getConnection();
+             PreparedStatement statement = connection.prepareStatement(FIND_BILLS_BY_PROJECT_ID_QUERY)) {
+            statement.setLong(1, projectId);
+            ResultSet resultSet = statement.executeQuery();
+            while (resultSet.next()) {
+                Bill bill = new Bill();
+                bill.setId(resultSet.getLong(ConstantColumnName.BILL_ID));
+                bill.setStatus(Bill.BillStatus.valueOf(resultSet.getString(ConstantColumnName.BILL_STATUS)));
+                bill.setInformation(resultSet.getString(ConstantColumnName.BILL_INFORMATION));
+                bill.setAmountDue(resultSet.getInt(ConstantColumnName.BILL_AMOUNT_DUE));
+                bill.setProjectId(resultSet.getLong(ConstantColumnName.BILL_PROJECT_ID));
+                bills.add(bill);
+            }
+        } catch (SQLException e) {
+            throw new DaoException(e);
+        }
+        return bills;
+    }
+
     public Bill updateBill(Bill bill) throws DaoException {
         Bill resultBill = null;
         try (Connection connection = connectionPool.getConnection();
@@ -104,6 +131,22 @@ public class BillDaoImpl implements BillDao {
             throw new DaoException(e);
         }
         return resultBill;
+    }
+
+    public String updateBillStatus(Long billId, String status) throws DaoException {
+        String resultStatus = null;
+        try (Connection connection = connectionPool.getConnection();
+             PreparedStatement statement = connection.prepareStatement(UPDATE_BILL_STATUS_QUERY)) {
+            statement.setString(1, status);
+            statement.setLong(2, billId);
+            int result = statement.executeUpdate();
+            if (result == 1) {
+                resultStatus = status;
+            }
+        } catch (SQLException e) {
+            throw new DaoException(e);
+        }
+        return resultStatus;
     }
 
     public boolean removeBill(Long id) throws DaoException {

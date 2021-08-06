@@ -1,8 +1,22 @@
+window.addEventListener("load", function (event) {
+    var url_string = window.location.href;
+    var url = new URL(url_string);
+    var projectId = url.searchParams.get("project-id");
+    if (projectId != null) {
+        $('#project option[value=' + projectId + ']').prop('selected', true);
+        loadBillData();
+    }
+});
+
+$("#project").change(function () {
+    loadBillData();
+});
+
 var ajax = webix.ajax().headers({
     'Content-type': 'application/json'
 })
 
-$("#project").change(function () {
+function loadBillData() {
     ajax.get("http://localhost:8080/async-controller?async-command=load-tasks-information",
         {"project-id": $("#project").val()})
         .then((response) => response.json())
@@ -17,4 +31,4 @@ $("#project").change(function () {
             $("#amount").val(amountDue);
             $("#information").val(text);
         })
-});
+}

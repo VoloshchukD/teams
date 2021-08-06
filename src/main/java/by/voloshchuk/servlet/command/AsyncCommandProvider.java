@@ -28,6 +28,8 @@ public class AsyncCommandProvider {
         asyncCommands.put(AsyncCommandName.UPDATE_TASK_HOURS, new UpdateTaskHoursCommand());
         asyncCommands.put(AsyncCommandName.UPDATE_TASK_STATUS, new UpdateTaskStatusCommand());
         asyncCommands.put(AsyncCommandName.LOAD_TASKS_INFORMATION, new LoadTasksInformationCommand());
+        asyncCommands.put(AsyncCommandName.LOAD_PROJECT_REQUIREMENTS, new LoadProjectRequirementsCommand());
+        asyncCommands.put(AsyncCommandName.ACCEPT_PAYMENT, new AcceptPaymentCommand());
     }
 
     public static AsyncCommandProvider getInstance() {
@@ -46,7 +48,8 @@ public class AsyncCommandProvider {
     }
 
     public AsyncCommandName parseCommand(String commandName) {
-        String formattedName = commandName.toUpperCase().replaceAll(COMMAND_SEPARATOR, ENUM_COMMAND_SEPARATOR);
+        String formattedName = commandName.toUpperCase().replaceAll(
+                COMMAND_SEPARATOR, ENUM_COMMAND_SEPARATOR);
         AsyncCommandName asyncCommandName = AsyncCommandName.valueOf(formattedName);
         return asyncCommandName;
     }

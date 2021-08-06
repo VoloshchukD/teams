@@ -20,6 +20,13 @@ public class EmployeeRequirementDaoImpl implements EmployeeRequirementDao {
     private static final String FIND_ALL_BY_TECHNICAL_TASK_ID_QUERY = "SELECT * FROM teams.employee_requirements " +
             "WHERE teams.employee_requirements.technical_task_id = ?";
 
+    private static final String FIND_ALL_BY_PROJECT_ID_QUERY = "SELECT * FROM teams.employee_requirements " +
+            "INNER JOIN teams.technical_tasks " +
+            "ON teams.employee_requirements.technical_task_id = teams.technical_tasks.technical_task_id " +
+            "INNER JOIN teams.projects " +
+            "ON teams.projects.technical_task_id = teams.technical_tasks.technical_task_id " +
+            "WHERE teams.projects.project_id = ?";
+
     private static final String UPDATE_EMPLOYEE_REQUIREMENT_QUERY = "UPDATE employee_requirements SET experience = ?, " +
             "salary = ?, qualification = ?, primary_skill = ?, comment = ? WHERE employee_requirement_id = ?";
 
@@ -50,6 +57,29 @@ public class EmployeeRequirementDaoImpl implements EmployeeRequirementDao {
         try (Connection connection = connectionPool.getConnection();
              PreparedStatement statement = connection.prepareStatement(FIND_ALL_BY_TECHNICAL_TASK_ID_QUERY)) {
             statement.setLong(1, technicalTaskId);
+            ResultSet resultSet = statement.executeQuery();
+
+            while (resultSet.next()) {
+                EmployeeRequirement requirement = new EmployeeRequirement();
+                requirement.setId(resultSet.getLong(ConstantColumnName.EMPLOYEE_REQUIREMENT_ID));
+                requirement.setExperience(resultSet.getInt(ConstantColumnName.EMPLOYEE_REQUIREMENT_EXPERIENCE));
+                requirement.setSalary(resultSet.getInt(ConstantColumnName.EMPLOYEE_REQUIREMENT_SALARY));
+                requirement.setQualification(resultSet.getString(ConstantColumnName.EMPLOYEE_REQUIREMENT_QUALIFICATION));
+                requirement.setPrimarySkill(resultSet.getString(ConstantColumnName.EMPLOYEE_REQUIREMENT_PRIMARY_SKILL));
+                requirement.setComment(resultSet.getString(ConstantColumnName.EMPLOYEE_REQUIREMENT_COMMENT));
+                requirements.add(requirement);
+            }
+        } catch (SQLException e) {
+            throw new DaoException(e);
+        }
+        return requirements;
+    }
+
+    public List<EmployeeRequirement> findAllByProjectId(Long projectId) throws DaoException {
+        List<EmployeeRequirement> requirements = new ArrayList<>();
+        try (Connection connection = connectionPool.getConnection();
+             PreparedStatement statement = connection.prepareStatement(FIND_ALL_BY_PROJECT_ID_QUERY)) {
+            statement.setLong(1, projectId);
             ResultSet resultSet = statement.executeQuery();
 
             while (resultSet.next()) {

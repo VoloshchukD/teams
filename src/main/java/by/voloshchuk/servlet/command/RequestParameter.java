@@ -87,4 +87,8 @@ public final class RequestParameter {
 
     public static final String TASK_HOURS = "hours";
 
+    public static final String BILL_ID = "bill-id";
+
+    public static final String BILL = "bill";
+
 }
