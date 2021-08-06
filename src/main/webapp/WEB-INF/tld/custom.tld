@@ -9,20 +9,14 @@
     <short-name>ctg</short-name>
     <uri>custom-tags</uri>
     <tag>
-        <name>hello</name>
-        <tag-class>by.voloshchuk.tag.PaginationTag</tag-class>
+        <name>user-badge</name>
+        <tag-class>by.voloshchuk.tag.UserBadgeTag</tag-class>
         <body-content>empty</body-content>
         <attribute>
-            <name>total</name>
-            <required>true</required>
-            <rtexprvalue>true</rtexprvalue>
-        </attribute>
-        <attribute>
-            <name>current</name>
+            <name>role</name>
             <required>true</required>
             <rtexprvalue>true</rtexprvalue>
         </attribute>
     </tag>
-
 
 </taglib>

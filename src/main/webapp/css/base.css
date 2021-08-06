@@ -53,6 +53,11 @@
     color: #0000FF;
 }
 
+.gray {
+    background-color: #E8E8E8;
+    color: #181818;
+}
+
 .violet {
     background-color: #f5ccff;
     color: #520066;
