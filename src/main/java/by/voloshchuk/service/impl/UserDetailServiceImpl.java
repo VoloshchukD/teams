@@ -46,4 +46,16 @@ public class UserDetailServiceImpl implements UserDetailService {
         return resultImagePath;
     }
 
+    @Override
+    public String updateUserDetailStatus(Long id, String status) throws ServiceException {
+        UserDetailDao userDetailDao = daoProvider.getUserDetailDao();
+        String resultStatus = null;
+        try {
+            resultStatus = userDetailDao.updateUserDetailStatus(id, status);
+        } catch (DaoException e) {
+            throw new ServiceException(e);
+        }
+        return resultStatus;
+    }
+
 }

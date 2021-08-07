@@ -2,6 +2,10 @@ var ajax = webix.ajax().headers({
     'Content-type': 'application/json'
 })
 
+function sleep(time) {
+    return new Promise((resolve) => setTimeout(resolve, time));
+}
+
 window.addEventListener("load", function (event) {
     loadEditData();
 });
@@ -47,6 +51,24 @@ window.addEventListener("load", function (event) {
         });
     });
 
+    $("#status-checker").on('change', function() {
+        var newStatus;
+        if ($(this).is(':checked')) {
+            newStatus = 'NOT_BUSY';
+        }
+        else {
+            newStatus = 'BUSY';
+        }
+        webix.ajax().post("http://localhost:8080/async-controller?async-command=update-user-status",
+            {'status': newStatus})
+    });
+
+    $("#delete-account-button").on("click", function(){
+        $('#modal').hide();
+        $('body').removeClass('modal-open');
+        $('.modal-backdrop').remove();
+    });
+
 });
 
 function validateEditForm() {
@@ -69,7 +91,6 @@ function submitEditForm() {
         webix.ajax().post("http://localhost:8080/async-controller?async-command=update-user-detail", {'jsonString': json})
             .then((response) => response.json())
             .then((data) => {
-                webix.message({type: 'success', text: 'Данные изменены'});
                 loadEditData();
             })
     }
@@ -87,14 +108,15 @@ function loadEditData() {
             document.getElementById("salary").value = data.salary;
             document.getElementById("primary").value = data.primary;
             document.getElementById("skills").value = data.skills;
+            if (data.status == 'NOT_BUSY') {
+                $("#status-checker").prop('checked', true);
+            } else if (data.status == 'BUSY') {
+                $("#status-checker").prop('checked', false);
+            }
         })
 }
 
 webix.ready(function () {
-
-    function sleep(time) {
-        return new Promise((resolve) => setTimeout(resolve, time));
-    }
 
     webix.ui({
         id: "editFormAndTable",
@@ -148,5 +170,7 @@ webix.ready(function () {
         ],
     });
 });
+
+
 
 

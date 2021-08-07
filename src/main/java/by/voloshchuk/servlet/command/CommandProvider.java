@@ -44,6 +44,7 @@ public class CommandProvider {
         commands.put(CommandName.AUTHORIZE, new AuthorizationCommand());
         commands.put(CommandName.PROFILE, new ProfileCommand());
         commands.put(CommandName.LOGOUT, new LogoutCommand());
+        commands.put(CommandName.DELETE_ACCOUNT, new DeleteAccountCommand());
     }
 
     public static CommandProvider getInstance() {

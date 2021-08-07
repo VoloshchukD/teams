@@ -45,8 +45,10 @@ public class UserDaoImpl implements UserDao {
             "WHERE email = ?";
 
     private static final String FIND_USER_BY_REQUIREMENT_QUERY = "SELECT * FROM users " +
-            "INNER JOIN user_details ON users.user_id = user_details.user_detail_id WHERE teams.users.role = 'developer' " +
-            "AND teams.user_details.experience >= ? AND teams.user_details.salary <= ? AND teams.user_details.primary_skill = ?";
+            "INNER JOIN user_details ON users.user_id = user_details.user_detail_id " +
+            "WHERE teams.users.role = 'developer' " +
+            "AND teams.user_details.experience >= ? AND teams.user_details.salary <= ? AND teams.user_details.primary_skill = ? " +
+            "AND user_details.status = 'NOT_BUSY'";
 
     private static final String UPDATE_USER_QUERY = "UPDATE users SET email = ?, " +
             "password = ? WHERE user_id = ?";
@@ -122,7 +124,7 @@ public class UserDaoImpl implements UserDao {
                 userDetail.setSalary(resultSet.getInt(ConstantColumnName.USER_DETAIL_SALARY));
                 userDetail.setPrimarySkill(resultSet.getString(ConstantColumnName.USER_DETAIL_PRIMARY_SKILL));
                 userDetail.setSkillsDescription(resultSet.getString(ConstantColumnName.USER_DETAIL_SKILLS_DESCRIPTION));
-                userDetail.setStatus(resultSet.getString(ConstantColumnName.USER_DETAIL_STATUS));
+                userDetail.setStatus(UserDetail.Status.valueOf(resultSet.getString(ConstantColumnName.USER_DETAIL_STATUS)));
                 user.setUserDetail(userDetail);
             }
         } catch (SQLException e) {
@@ -148,9 +150,11 @@ public class UserDaoImpl implements UserDao {
                 userDetail.setPosition(resultSet.getString(ConstantColumnName.USER_DETAIL_POSITION));
                 userDetail.setExperience(resultSet.getInt(ConstantColumnName.USER_DETAIL_EXPERIENCE));
                 userDetail.setSalary(resultSet.getInt(ConstantColumnName.USER_DETAIL_SALARY));
-                userDetail.setStatus(resultSet.getString(ConstantColumnName.USER_DETAIL_STATUS));
+                userDetail.setStatus(
+                        UserDetail.Status.valueOf(resultSet.getString(ConstantColumnName.USER_DETAIL_STATUS)));
                 userDetail.setPrimarySkill(resultSet.getString(ConstantColumnName.USER_DETAIL_PRIMARY_SKILL));
-                userDetail.setSkillsDescription(resultSet.getString(ConstantColumnName.USER_DETAIL_SKILLS_DESCRIPTION));
+                userDetail.setSkillsDescription(
+                        resultSet.getString(ConstantColumnName.USER_DETAIL_SKILLS_DESCRIPTION));
 
                 user.setId(resultSet.getLong(ConstantColumnName.USER_ID));
                 user.setEmail(resultSet.getString(ConstantColumnName.USER_EMAIL));
@@ -189,8 +193,9 @@ public class UserDaoImpl implements UserDao {
                 userDetail.setExperience(resultSet.getInt(ConstantColumnName.USER_DETAIL_EXPERIENCE));
                 userDetail.setSalary(resultSet.getInt(ConstantColumnName.USER_DETAIL_SALARY));
                 userDetail.setPrimarySkill(resultSet.getString(ConstantColumnName.USER_DETAIL_PRIMARY_SKILL));
-                userDetail.setSkillsDescription(resultSet.getString(ConstantColumnName.USER_DETAIL_SKILLS_DESCRIPTION));
-                userDetail.setStatus(resultSet.getString(ConstantColumnName.USER_DETAIL_STATUS));
+                userDetail.setSkillsDescription(
+                        resultSet.getString(ConstantColumnName.USER_DETAIL_SKILLS_DESCRIPTION));
+                userDetail.setStatus(UserDetail.Status.valueOf(resultSet.getString(ConstantColumnName.USER_DETAIL_STATUS)));
                 userDetail.setImagePath(resultSet.getString(ConstantColumnName.USER_DETAIL_IMAGE));
                 user.setUserDetail(userDetail);
             }
@@ -251,9 +256,11 @@ public class UserDaoImpl implements UserDao {
                 userDetail.setPosition(resultSet.getString(ConstantColumnName.USER_DETAIL_POSITION));
                 userDetail.setExperience(resultSet.getInt(ConstantColumnName.USER_DETAIL_EXPERIENCE));
                 userDetail.setSalary(resultSet.getInt(ConstantColumnName.USER_DETAIL_SALARY));
-                userDetail.setStatus(resultSet.getString(ConstantColumnName.USER_DETAIL_STATUS));
+                userDetail.setStatus(
+                        UserDetail.Status.valueOf(resultSet.getString(ConstantColumnName.USER_DETAIL_STATUS)));
                 userDetail.setPrimarySkill(resultSet.getString(ConstantColumnName.USER_DETAIL_PRIMARY_SKILL));
-                userDetail.setSkillsDescription(resultSet.getString(ConstantColumnName.USER_DETAIL_SKILLS_DESCRIPTION));
+                userDetail.setSkillsDescription(
+                        resultSet.getString(ConstantColumnName.USER_DETAIL_SKILLS_DESCRIPTION));
 
                 user.setId(resultSet.getLong(ConstantColumnName.USER_ID));
                 user.setEmail(resultSet.getString(ConstantColumnName.USER_EMAIL));

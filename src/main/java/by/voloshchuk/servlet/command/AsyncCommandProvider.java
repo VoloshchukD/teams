@@ -30,6 +30,7 @@ public class AsyncCommandProvider {
         asyncCommands.put(AsyncCommandName.LOAD_TASKS_INFORMATION, new LoadTasksInformationCommand());
         asyncCommands.put(AsyncCommandName.LOAD_PROJECT_REQUIREMENTS, new LoadProjectRequirementsCommand());
         asyncCommands.put(AsyncCommandName.ACCEPT_PAYMENT, new AcceptPaymentCommand());
+        asyncCommands.put(AsyncCommandName.UPDATE_USER_STATUS, new UpdateUserStatusCommand());
     }
 
     public static AsyncCommandProvider getInstance() {

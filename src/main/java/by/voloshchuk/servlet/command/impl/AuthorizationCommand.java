@@ -1,6 +1,7 @@
 package by.voloshchuk.servlet.command.impl;
 
 import by.voloshchuk.entity.User;
+import by.voloshchuk.entity.UserDetail;
 import by.voloshchuk.exception.ServiceException;
 import by.voloshchuk.service.ServiceProvider;
 import by.voloshchuk.service.UserService;
@@ -26,7 +27,8 @@ public class AuthorizationCommand implements Command {
         UserService userService = serviceProvider.getUserService();
         try {
             User currentUser = userService.checkUser(email, password);
-            if (currentUser != null) {
+            if (currentUser != null &&
+                    currentUser.getUserDetail().getStatus() != UserDetail.Status.DELETED) {
                 request.getSession().setAttribute(CommandAttribute.USER_ID, currentUser.getId());
                 request.getSession().setAttribute(CommandAttribute.USER_DETAIL_ID, currentUser.getUserDetail().getId());
                 request.getSession().setAttribute(CommandAttribute.ROLE, currentUser.getRole());

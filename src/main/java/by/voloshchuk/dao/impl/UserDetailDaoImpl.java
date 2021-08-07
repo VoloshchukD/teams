@@ -19,6 +19,9 @@ public class UserDetailDaoImpl implements UserDetailDao {
             "last_name = ?, company = ?, position = ?, experience = ?, salary = ?, primary_skill = ?, " +
             "skills_description = ?, status = ? WHERE user_detail_id = ?";
 
+    private static final String UPDATE_USER_DETAIL_STATUS_QUERY = "UPDATE user_details " +
+            "SET status = ? WHERE user_detail_id = ?";
+
     private static final String UPDATE_USER_DETAIL_IMAGE_QUERY = "UPDATE user_details SET user_image_path = ? " +
             "WHERE user_detail_id = ?";
 
@@ -39,7 +42,7 @@ public class UserDetailDaoImpl implements UserDetailDao {
             statement.setInt(6, userDetail.getSalary());
             statement.setString(7, userDetail.getPrimarySkill());
             statement.setString(8, userDetail.getSkillsDescription());
-            statement.setString(9, userDetail.getStatus());
+            statement.setString(9, userDetail.getStatus().toString());
             isAdded = statement.executeUpdate() == 1;
             if (isAdded) {
                 ResultSet resultSet = statement.getGeneratedKeys();
@@ -69,8 +72,10 @@ public class UserDetailDaoImpl implements UserDetailDao {
                 userDetail.setExperience(resultSet.getInt(ConstantColumnName.USER_DETAIL_EXPERIENCE));
                 userDetail.setSalary(resultSet.getInt(ConstantColumnName.USER_DETAIL_SALARY));
                 userDetail.setPrimarySkill(resultSet.getString(ConstantColumnName.USER_DETAIL_PRIMARY_SKILL));
-                userDetail.setSkillsDescription(resultSet.getString(ConstantColumnName.USER_DETAIL_SKILLS_DESCRIPTION));
-                userDetail.setStatus(resultSet.getString(ConstantColumnName.USER_DETAIL_STATUS));
+                userDetail.setSkillsDescription(
+                        resultSet.getString(ConstantColumnName.USER_DETAIL_SKILLS_DESCRIPTION));
+                userDetail.setStatus(
+                        UserDetail.Status.valueOf(resultSet.getString(ConstantColumnName.USER_DETAIL_STATUS)));
             }
         } catch (SQLException e) {
             throw new DaoException(e);
@@ -90,7 +95,7 @@ public class UserDetailDaoImpl implements UserDetailDao {
             statement.setInt(6, userDetail.getSalary());
             statement.setString(7, userDetail.getPrimarySkill());
             statement.setString(8, userDetail.getSkillsDescription());
-            statement.setString(9, userDetail.getStatus());
+            statement.setString(9, userDetail.getStatus().toString());
             statement.setLong(10, userDetail.getId());
             int result = statement.executeUpdate();
             if (result == 1) {
@@ -100,6 +105,24 @@ public class UserDetailDaoImpl implements UserDetailDao {
             throw new DaoException(e);
         }
         return resultUserDetail;
+    }
+
+    public String updateUserDetailStatus(Long id, String status) throws DaoException {
+        String resultStatus = null;
+
+        try (Connection connection = connectionPool.getConnection();
+             PreparedStatement statement = connection.prepareStatement(UPDATE_USER_DETAIL_STATUS_QUERY)) {
+
+            statement.setString(1, status);
+            statement.setLong(2, id);
+            int result = statement.executeUpdate();
+            if (result == 1) {
+                resultStatus = status;
+            }
+        } catch (SQLException e) {
+            throw new DaoException(e);
+        }
+        return status;
     }
 
     public String updateUserDetailImage(Long userDetailId, String imagePath) throws DaoException {

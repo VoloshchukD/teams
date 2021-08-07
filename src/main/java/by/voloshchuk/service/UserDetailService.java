@@ -12,4 +12,6 @@ public interface UserDetailService {
 
     String updateUserDetailImage(Long userDetailId, String imagePath) throws ServiceException;
 
+    String updateUserDetailStatus(Long id, String status) throws ServiceException;
+
 }

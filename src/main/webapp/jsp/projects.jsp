@@ -96,11 +96,6 @@
                                                                                        key="local.projects.status-finished"/></span>
                                     </div>
                                 </c:when>
-                                <c:when test="${project.state == 'STARTING'}">
-                                    <div class="badge"><span class="yellow"><fmt:message bundle="${loc}"
-                                                                                         key="local.projects.status-starting"/></span>
-                                    </div>
-                                </c:when>
                             </c:choose>
                         </div>
                         <hr>

@@ -2,12 +2,10 @@ package by.voloshchuk.servlet.command.impl;
 
 import by.voloshchuk.entity.Project;
 import by.voloshchuk.entity.TechnicalTask;
-import by.voloshchuk.entity.User;
 import by.voloshchuk.entity.dto.ProjectDto;
 import by.voloshchuk.exception.ServiceException;
 import by.voloshchuk.service.ProjectService;
 import by.voloshchuk.service.ServiceProvider;
-import by.voloshchuk.service.UserService;
 import by.voloshchuk.servlet.command.*;
 import org.apache.logging.log4j.Level;
 import org.apache.logging.log4j.LogManager;
@@ -35,7 +33,7 @@ public class CreateProjectCommand implements Command {
         }
         CommandRouter router;
         if (created) {
-            request.getSession().setAttribute(CommandAttribute.RECENTLY_CREATED_PROJECT , projectDto.getProject());
+            request.getSession().setAttribute(CommandAttribute.RECENTLY_CREATED_PROJECT, projectDto.getProject());
             router = new CommandRouter(CommandRouter.RouterType.REDIRECT, CommandPath.TO_PROJECTS);
         } else {
             request.setAttribute(CommandAttribute.ERROR, true);
@@ -49,7 +47,7 @@ public class CreateProjectCommand implements Command {
         Project project = new Project();
         project.setName(request.getParameter(RequestParameter.PROJECT_NAME));
         project.setDescription(request.getParameter(RequestParameter.PROJECT_DESCRIPTION));
-        project.setState(Project.ProjectStatus.STARTING);
+        project.setState(Project.ProjectStatus.IN_PROGRESS);
         TechnicalTask technicalTask = new TechnicalTask();
         technicalTask.setId(Long.parseLong(request.getParameter(RequestParameter.TECHNICAL_TASK_ID)));
         project.setTechnicalTask(technicalTask);

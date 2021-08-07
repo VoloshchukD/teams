@@ -17,7 +17,7 @@ $('#create-task-button').click(function () {
             "details": document.getElementById("details").value,
             "hours": document.getElementById("hours").value,
             "project-id": projectId,
-            "user-id": $("#developer").val()
+            "id": $("#developer").val()
         })
         .then((response) => response.json())
         .then((data) => {

@@ -38,6 +38,8 @@ public class AsyncCommandParameter {
 
     public static final String USER_DETAIL_AVATAR = "avatar";
 
+    public static final String USER_DETAIL_STATUS = "status";
+
     public static final String TECHNICAL_TASK_ID = "technical-task-id";
 
     public static final String REQUIREMENT_EXPERIENCE = "experience";

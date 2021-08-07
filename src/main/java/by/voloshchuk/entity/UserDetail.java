@@ -22,7 +22,13 @@ public class UserDetail extends AbstractIdentifiedEntity {
 
     private String skillsDescription;
 
-    private String status;
+    private Status status;
+
+    public enum Status {
+        BUSY,
+        NOT_BUSY,
+        DELETED
+    }
 
     public String getImagePath() {
         return imagePath;
@@ -80,11 +86,11 @@ public class UserDetail extends AbstractIdentifiedEntity {
         this.salary = salary;
     }
 
-    public String getStatus() {
+    public Status getStatus() {
         return status;
     }
 
-    public void setStatus(String status) {
+    public void setStatus(Status status) {
         this.status = status;
     }
 
@@ -109,32 +115,28 @@ public class UserDetail extends AbstractIdentifiedEntity {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         UserDetail that = (UserDetail) o;
-        return Objects.equals(firstName, that.firstName) && Objects.equals(lastName, that.lastName)
-                && Objects.equals(company, that.company) && Objects.equals(position, that.position)
-                && Objects.equals(experience, that.experience) && Objects.equals(salary, that.salary)
-                && Objects.equals(primarySkill, that.primarySkill)
-                && Objects.equals(skillsDescription, that.skillsDescription)
-                && Objects.equals(status, that.status);
+        return Objects.equals(imagePath, that.imagePath) && Objects.equals(firstName, that.firstName) && Objects.equals(lastName, that.lastName) && Objects.equals(company, that.company) && Objects.equals(position, that.position) && Objects.equals(experience, that.experience) && Objects.equals(salary, that.salary) && Objects.equals(primarySkill, that.primarySkill) && Objects.equals(skillsDescription, that.skillsDescription) && status == that.status;
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(firstName, lastName, company, position,
-                experience, salary, primarySkill, skillsDescription, status);
+        return Objects.hash(imagePath, firstName, lastName, company, position, experience, salary, primarySkill, skillsDescription, status);
     }
 
     @Override
     public String toString() {
-        return getClass().getName() +
-                "@firstName='" + firstName +
-                ", lastName='" + lastName +
-                ", company='" + company +
-                ", position='" + position +
+        return "UserDetail{" +
+                "imagePath='" + imagePath + '\'' +
+                ", firstName='" + firstName + '\'' +
+                ", lastName='" + lastName + '\'' +
+                ", company='" + company + '\'' +
+                ", position='" + position + '\'' +
                 ", experience=" + experience +
                 ", salary=" + salary +
-                ", primarySkill='" + primarySkill +
-                ", skillsDescription='" + skillsDescription +
-                ", status='" + status;
+                ", primarySkill='" + primarySkill + '\'' +
+                ", skillsDescription='" + skillsDescription + '\'' +
+                ", status=" + status +
+                '}';
     }
 
 }

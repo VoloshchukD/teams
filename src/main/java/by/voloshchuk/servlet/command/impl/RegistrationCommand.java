@@ -58,7 +58,7 @@ public class RegistrationCommand implements Command {
         userDetail.setSalary(Integer.parseInt(request.getParameter(RequestParameter.SALARY)));
         userDetail.setPrimarySkill(request.getParameter(RequestParameter.PRIMARY_SKILL));
         userDetail.setSkillsDescription(request.getParameter(RequestParameter.SKILLS_DESCRIPTION));
-        userDetail.setStatus(request.getParameter(RequestParameter.STATUS));
+        userDetail.setStatus(UserDetail.Status.NOT_BUSY);
         return userDetail;
     }
 

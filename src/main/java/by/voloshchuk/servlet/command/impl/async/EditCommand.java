@@ -9,6 +9,7 @@ import by.voloshchuk.service.impl.UserDetailServiceImpl;
 import by.voloshchuk.service.impl.UserServiceImpl;
 import by.voloshchuk.servlet.command.AsyncCommand;
 import by.voloshchuk.servlet.command.AsyncCommandParameter;
+import by.voloshchuk.servlet.command.CommandAttribute;
 import by.voloshchuk.servlet.command.RequestParameter;
 import org.apache.logging.log4j.Level;
 import org.apache.logging.log4j.LogManager;
@@ -28,7 +29,7 @@ public class EditCommand implements AsyncCommand {
 
     @Override
     public void execute(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
-        Long userId = (Long) request.getSession().getAttribute(AsyncCommandParameter.USER_ID);
+        Long userId = (Long) request.getSession().getAttribute(CommandAttribute.USER_ID);
         UserDetail userDetail = null;
         UserDetailService userDetailService = serviceProvider.getUserDetailService();
         try {
@@ -44,6 +45,7 @@ public class EditCommand implements AsyncCommand {
         jsonObject.put(AsyncCommandParameter.USER_DETAIL_EXPERIENCE,  userDetail.getExperience());
         jsonObject.put(AsyncCommandParameter.USER_DETAIL_SALARY,  userDetail.getSalary());
         jsonObject.put(AsyncCommandParameter.USER_DETAIL_PRIMARY_SKILL,  userDetail.getPrimarySkill());
+        jsonObject.put(AsyncCommandParameter.USER_DETAIL_STATUS,  userDetail.getStatus());
         jsonObject.put(AsyncCommandParameter.USER_DETAIL_SKILLS_DESCRIPTION,  userDetail.getSkillsDescription());
         response.getWriter().write(jsonObject.toString());
     }

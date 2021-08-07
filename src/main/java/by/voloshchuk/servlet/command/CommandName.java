@@ -27,6 +27,7 @@ public enum CommandName {
     PROFILE,
     LOGOUT,
     TO_BILL_CREATION,
-    TO_PAYMENT_FORM
+    TO_PAYMENT_FORM,
+    DELETE_ACCOUNT
 
 }

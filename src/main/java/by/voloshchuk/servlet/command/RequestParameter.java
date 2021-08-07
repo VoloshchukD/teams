@@ -93,4 +93,6 @@ public final class RequestParameter {
 
     public static final String CUSTOMER_ID = "customer-id";
 
+    public static final String USER_DETAIL_STATUS = "status";
+
 }

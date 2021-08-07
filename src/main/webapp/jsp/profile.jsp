@@ -14,6 +14,10 @@
     <script type="text/javascript" src="/js/validation.js"></script>
     <script type="text/javascript" src="/js/profile.js"></script>
     <link rel="stylesheet" href="/css/validation.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 </head>
 <body>
 <div class="container-xxl">
@@ -27,6 +31,48 @@
                 <div id="box" class="justify-content-center"></div>
             </div>
 
+            <div class="row d-flex justify-content-center mt-3" >
+                <div class="form-check form-switch col-3 mr-2" >
+                    <input class="form-check-input" type="checkbox" id="status-checker" >
+                    <label class="form-check-label" for="status-checker">
+                        <fmt:message bundle="${loc}" key="local.profile.ready"/>
+                    </label>
+                </div>
+                <div class="col-1 mb-1" >
+                    <button type="button" class="btn btn-danger mt-1 delete" data-toggle="modal" data-target="#modal"
+                            id="show-modal-button"><fmt:message bundle="${loc}" key="local.profile.delete"/>
+                    </button>
+                </div>
+            </div>
+
+        </div>
+
+        <div class="modal fade" id="modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+             aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">
+                            <fmt:message bundle="${loc}" key="local.profile.confirmation"/>
+                        </h5>
+                    </div>
+                    <div class="modal-body">
+                        <h4 class="modal-title" id="myModalLabel">
+                            <fmt:message bundle="${loc}" key="local.profile.confirmation-message"/>
+                        </h4>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">
+                            <fmt:message bundle="${loc}" key="local.profile.delete-cancel"/>
+                        </button>
+                        <a href="?command=delete-account">
+                            <button type="button" class="btn btn-primary" id="delete-account-button" >
+                                <fmt:message bundle="${loc}" key="local.profile.delete-confirm"/>
+                            </button>
+                        </a>
+                    </div>
+                </div>
+            </div>
         </div>
 
         <div class="col-5 my-auto px-5">
