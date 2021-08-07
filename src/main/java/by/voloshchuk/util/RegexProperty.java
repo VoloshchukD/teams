@@ -5,27 +5,29 @@ import java.util.ResourceBundle;
 
 public class RegexProperty {
 
-    public static final String REGEX_EMAIL = "regex.email";
+    private static final String REGEX_EMAIL = "regex.email";
 
-    public static final String REGEX_PASSWORD = "regex.password";
+    private static final String REGEX_PASSWORD = "regex.password";
 
-    public static final String REGEX_FIRST = "regex.forename";
+    private static final String REGEX_FIRST = "regex.forename";
 
-    public static final String REGEX_LAST = "regex.surname";
+    private static final String REGEX_LAST = "regex.surname";
 
-    public static final String REGEX_COMPANY = "regex.company";
+    private static final String REGEX_COMPANY = "regex.company";
 
-    public static final String REGEX_POSITION = "regex.position";
+    private static final String REGEX_POSITION = "regex.position";
 
-    public static final String REGEX_EXPERIENCE = "regex.experience";
+    private static final String REGEX_EXPERIENCE = "regex.experience";
 
-    public static final String REGEX_SALARY = "regex.salary";
+    private static final String REGEX_SALARY = "regex.salary";
 
-    public static final String REGEX_PRIMARY = "regex.primary";
+    private static final String REGEX_PRIMARY = "regex.primary";
 
-    public static final String REGEX_SKILLS = "regex.skills";
+    private static final String REGEX_SKILLS = "regex.skills";
 
-    private static final ResourceBundle resourceBundle = ResourceBundle.getBundle("regex", Locale.getDefault());
+    private static final String RESOURCE_NAME = "regex";
+
+    private static final ResourceBundle resourceBundle = ResourceBundle.getBundle(RESOURCE_NAME, Locale.getDefault());
 
     public static final String PROPERTY_EMAIL_REGEX = resourceBundle.getString(REGEX_EMAIL);
 

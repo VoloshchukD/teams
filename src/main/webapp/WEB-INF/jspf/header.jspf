@@ -108,7 +108,7 @@
             <c:if test="${ not empty role }">
                 <ul class="navbar-nav">
                     <li class="nav-item mt-1">
-                        <ctg:user-badge role="${role}" />
+                        <ctg:user-badge role="${role}"/>
                     </li>
                     <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"

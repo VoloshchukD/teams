@@ -3,6 +3,7 @@ package by.voloshchuk.servlet.command.impl;
 import by.voloshchuk.entity.Project;
 import by.voloshchuk.entity.TechnicalTask;
 import by.voloshchuk.entity.User;
+import by.voloshchuk.entity.dto.ProjectDto;
 import by.voloshchuk.exception.ServiceException;
 import by.voloshchuk.service.ProjectService;
 import by.voloshchuk.service.ServiceProvider;
@@ -24,29 +25,39 @@ public class CreateProjectCommand implements Command {
 
     @Override
     public CommandRouter execute(HttpServletRequest request, HttpServletResponse response) throws ServletException {
-        Project project = createProject(request);
+        ProjectDto projectDto = createProjectDto(request);
         ProjectService projectService = serviceProvider.getProjectService();
+        boolean created = false;
         try {
-            projectService.addProject(project);
+            created = projectService.addProject(projectDto);
         } catch (ServiceException e) {
             logger.log(Level.ERROR, e.getMessage());
         }
-        CommandRouter router = new CommandRouter(CommandRouter.RouterType.REDIRECT,
-                CommandPath.SEEK_EMPLOYEES + "&" + RequestParameter.TECHNICAL_TASK_ID
-                        + "=" + project.getTechnicalTask().getId() +
-                "&" + RequestParameter.PROJECT_ID
-                        + "=" + project.getId());
+        CommandRouter router;
+        if (created) {
+            request.getSession().setAttribute(CommandAttribute.RECENTLY_CREATED_PROJECT , projectDto.getProject());
+            router = new CommandRouter(CommandRouter.RouterType.REDIRECT, CommandPath.TO_PROJECTS);
+        } else {
+            request.setAttribute(CommandAttribute.ERROR, true);
+            router = new CommandRouter(CommandRouter.RouterType.FORWARD, CommandPath.TO_CREATE_PROJECT);
+        }
         return router;
     }
 
-    private Project createProject(HttpServletRequest request) {
+    private ProjectDto createProjectDto(HttpServletRequest request) {
+        ProjectDto projectDto = new ProjectDto();
         Project project = new Project();
         project.setName(request.getParameter(RequestParameter.PROJECT_NAME));
         project.setDescription(request.getParameter(RequestParameter.PROJECT_DESCRIPTION));
+        project.setState(Project.ProjectStatus.STARTING);
         TechnicalTask technicalTask = new TechnicalTask();
         technicalTask.setId(Long.parseLong(request.getParameter(RequestParameter.TECHNICAL_TASK_ID)));
         project.setTechnicalTask(technicalTask);
-        return project;
+        projectDto.setProject(project);
+        projectDto.setCustomerId(Long.parseLong(request.getParameter(RequestParameter.CUSTOMER_ID)));
+        Long userId = (Long) request.getSession().getAttribute(CommandAttribute.USER_ID);
+        projectDto.setManagerId(userId);
+        return projectDto;
     }
 
 }

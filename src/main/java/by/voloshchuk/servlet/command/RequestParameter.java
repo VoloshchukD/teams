@@ -91,4 +91,6 @@ public final class RequestParameter {
 
     public static final String BILL = "bill";
 
+    public static final String CUSTOMER_ID = "customer-id";
+
 }

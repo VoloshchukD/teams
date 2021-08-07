@@ -115,6 +115,8 @@
                                         <c:if test="${ role == 'MANAGER' }">
                                             <input type="hidden" class="command" name="command"
                                                    value="to-create-project"/>
+                                            <input type="hidden" name="customer-id"
+                                                   value="${task.customer.id}"/>
                                             <button type="submit" class="btn btn-primary"><fmt:message bundle="${loc}"
                                                                                                        key="local.technical-tasks.create"/></button>
                                         </c:if>

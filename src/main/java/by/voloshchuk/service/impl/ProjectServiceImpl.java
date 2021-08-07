@@ -3,6 +3,7 @@ package by.voloshchuk.service.impl;
 import by.voloshchuk.dao.*;
 import by.voloshchuk.entity.Project;
 import by.voloshchuk.entity.User;
+import by.voloshchuk.entity.dto.ProjectDto;
 import by.voloshchuk.exception.DaoException;
 import by.voloshchuk.exception.ServiceException;
 import by.voloshchuk.service.ProjectService;
@@ -15,13 +16,14 @@ public class ProjectServiceImpl implements ProjectService {
 
     private static DaoProvider daoProvider = DaoProvider.getInstance();
 
-    public boolean addProject(Project project) throws ServiceException {
+    public boolean addProject(ProjectDto projectDto) throws ServiceException {
         boolean result = false;
         ProjectDao projectDao = daoProvider.getProjectDao();
         Date date = new Date(System.currentTimeMillis());
+        Project project = projectDto.getProject();
         project.setStartDate(new java.sql.Date(date.getTime()));
         try {
-            result = projectDao.addProject(project);
+            result = projectDao.addProject(projectDto);
         } catch (DaoException e) {
             throw new ServiceException(e);
         }

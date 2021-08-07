@@ -4,6 +4,7 @@ import by.voloshchuk.dao.ProjectDao;
 import by.voloshchuk.dao.pool.CustomConnectionPool;
 import by.voloshchuk.entity.Project;
 import by.voloshchuk.entity.TechnicalTask;
+import by.voloshchuk.entity.dto.ProjectDto;
 import by.voloshchuk.exception.DaoException;
 
 import java.sql.*;
@@ -26,12 +27,18 @@ public class ProjectDaoImpl implements ProjectDao {
 
     private static final String DELETE_PROJECT_QUERY = "DELETE FROM projects WHERE project_id = ?";
 
+    private static final String ADD_USER_TO_PROJECT_QUERY = "INSERT INTO user_project_maps (project_id, user_id) VALUES (?, ?);";
+
+    private static final String UPDATE_TECHNICAL_TASK_QUERY = "UPDATE technical_tasks SET status = ? WHERE technical_task_id = ?";
+
     private CustomConnectionPool connectionPool = CustomConnectionPool.getInstance();
 
-    public boolean addProject(Project project) throws DaoException {
+    public boolean addProject(ProjectDto projectDto) throws DaoException {
         boolean isAdded = false;
-        try (Connection connection = connectionPool.getConnection();
-             PreparedStatement statement = connection.prepareStatement(ADD_PROJECT_QUERY, Statement.RETURN_GENERATED_KEYS)) {
+        Connection connection = connectionPool.getConnection();
+        try (PreparedStatement statement = connection.prepareStatement(ADD_PROJECT_QUERY, Statement.RETURN_GENERATED_KEYS)) {
+            connection.setAutoCommit(false);
+            Project project = projectDto.getProject();
             statement.setString(1, project.getName());
             statement.setString(2, project.getDescription());
             statement.setTimestamp(3, new Timestamp(project.getStartDate().getTime()));
@@ -43,9 +50,35 @@ public class ProjectDaoImpl implements ProjectDao {
                 resultSet.next();
                 long projectId = resultSet.getLong(1);
                 project.setId(projectId);
+                try (PreparedStatement userStatement = connection.prepareStatement(ADD_USER_TO_PROJECT_QUERY)) {
+                    userStatement.setLong(1, projectId);
+                    userStatement.setLong(2, projectDto.getCustomerId());
+                    userStatement.executeUpdate();
+                    userStatement.setLong(1, projectId);
+                    userStatement.setLong(2, projectDto.getManagerId());
+                    userStatement.executeUpdate();
+                }
+                try (PreparedStatement userStatement = connection.prepareStatement(UPDATE_TECHNICAL_TASK_QUERY)) {
+                    userStatement.setString(1, TechnicalTask.TechnicalTaskStatus.ON_PROJECT.toString());
+                    userStatement.setLong(2, project.getTechnicalTask().getId());
+                    userStatement.executeUpdate();
+                }
+                connection.commit();
             }
         } catch (SQLException e) {
+            try {
+                connection.rollback();
+            } catch (SQLException exception) {
+                throw new DaoException(exception);
+            }
             throw new DaoException(e);
+        } finally {
+            try {
+                connection.setAutoCommit(true);
+                connection.close();
+            } catch (SQLException exception) {
+                throw new DaoException(exception);
+            }
         }
         return isAdded;
     }

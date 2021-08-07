@@ -47,4 +47,10 @@ public final class CommandAttribute {
 
     public static final String EMPLOYEE_REQUIREMENTS = "requirements";
 
+    public static final String ERROR = "error";
+
+    public static final String RECENTLY_CREATED_PROJECT = "recentlyCreatedProject";
+
+    public static final String RECENTLY_CREATED_PROJECT_NAME = "recentlyCreatedProjectName";
+
 }

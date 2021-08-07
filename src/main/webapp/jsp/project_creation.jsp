@@ -13,26 +13,51 @@
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.0/css/all.css"
           integrity="sha384-lZN37f5QGtY3VHgisS14W3ExzMWZxybE1SJSEsQp9S+oqd12jhcu+A56Ebc1zFSJ" crossorigin="anonymous">
     <link rel="stylesheet" href="/css/base.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 </head>
 <body>
 <div class="container-xxl">
     <div class="title h1 text-center mt-3"><fmt:message bundle="${loc}" key="local.project.create-header"/></div>
+    <c:if test="${error}">
+        <div class="row justify-content-center">
+            <div class="col-6">
+                <div class="alert alert-danger alert-dismissible" role="alert" id="error">
+                    <strong><fmt:message bundle="${loc}" key="local.message.error.header"/></strong>
+                    <fmt:message bundle="${loc}" key="local.message.project.error"/>
+                    <button type="button" class="close" data-dismiss="alert">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </c:if>
     <div class="row justify-content-center">
-        <div class="col-4" >
-            <jsp:useBean id="technicalTask" class="by.voloshchuk.entity.TechnicalTask" scope="request" />
-            <form action="controller" >
+        <div class="col-4">
+            <jsp:useBean id="technicalTask" class="by.voloshchuk.entity.TechnicalTask" scope="request"/>
+            <form action="controller">
                 <input type="hidden" class="command" name="command" value="create-project"/>
-                <input type="hidden" class="technical-task-id" name="technical-task-id" value="<jsp:getProperty name="technicalTask" property="id" />"/>
+                <input type="hidden" class="technical-task-id" name="technical-task-id"
+                       value="${technicalTask.id}"/>
+                <input type="hidden" name="customer-id"
+                       value="${technicalTask.customer.id}"/>
                 <div class="form-group">
-                    <label for="name" class="col-form-label"><fmt:message bundle="${loc}" key="local.project.create-name"/></label>
-                    <input type="text" class="form-control" name="name" value="<jsp:getProperty name="technicalTask" property="name" />" id="name">
+                    <label for="name" class="col-form-label"><fmt:message bundle="${loc}"
+                                                                          key="local.project.create-name"/></label>
+                    <input type="text" class="form-control" name="name"
+                           value="<jsp:getProperty name="technicalTask" property="name" />" id="name">
                 </div>
                 <div class="form-group">
-                    <label for="description" class="col-form-label"><fmt:message bundle="${loc}" key="local.project.create-description"/></label>
-                    <textarea class="form-control" name="description" id="description"><jsp:getProperty name="technicalTask" property="overview" />
+                    <label for="description" class="col-form-label"><fmt:message bundle="${loc}"
+                                                                                 key="local.project.create-description"/></label>
+                    <textarea class="form-control" name="description" id="description"><jsp:getProperty
+                            name="technicalTask" property="overview"/>
                     </textarea>
                 </div>
-                <button type="submit" class="btn btn-primary mt-3" id="create"><fmt:message bundle="${loc}" key="local.project.create-button"/></button>
+                <button type="submit" class="btn btn-primary mt-3" id="create"><fmt:message bundle="${loc}"
+                                                                                            key="local.project.create-button"/></button>
             </form>
         </div>
 

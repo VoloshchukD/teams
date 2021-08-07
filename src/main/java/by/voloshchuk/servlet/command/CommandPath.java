@@ -43,7 +43,9 @@ public final class CommandPath {
 
     public static final String TO_CREATE_REQUIREMENT = "/controller?command=to-create-requirement";
 
-    public static final String TO_PROJECTS = "/controller?command=to-create-requirement";
+    public static final String TO_CREATE_PROJECT = "/controller?command=to-create-project";
+
+    public static final String TO_PROJECTS = "/controller?command=projects&state=IN_PROGRESS";
 
     public static final String TO_BILLS = "/controller?command=bills";
 

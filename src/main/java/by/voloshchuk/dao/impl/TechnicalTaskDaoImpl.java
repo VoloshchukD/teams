@@ -4,6 +4,7 @@ import by.voloshchuk.dao.TechnicalTaskDao;
 import by.voloshchuk.dao.pool.CustomConnectionPool;
 import by.voloshchuk.entity.Task;
 import by.voloshchuk.entity.TechnicalTask;
+import by.voloshchuk.entity.User;
 import by.voloshchuk.exception.DaoException;
 
 import java.sql.*;
@@ -88,6 +89,9 @@ public class TechnicalTaskDaoImpl implements TechnicalTaskDao {
                 technicalTask.setStatus(
                         TechnicalTask.TechnicalTaskStatus.valueOf(
                                 resultSet.getString(ConstantColumnName.TECHNICAL_TASK_STATUS)));
+                User user = new User();
+                user.setId(resultSet.getLong(ConstantColumnName.TECHNICAL_TASK_CUSTOMER_ID));
+                technicalTask.setCustomer(user);
                 technicalTasks.add(technicalTask);
             }
         } catch (SQLException e) {

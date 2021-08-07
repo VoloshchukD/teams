@@ -35,6 +35,15 @@ public class ProjectsCommand implements Command {
         request.setAttribute(RequestParameter.PROJECTS, projects);
         request.setAttribute(RequestParameter.PROJECT_STATE, state);
 
+        Project recentlyCreatedProject = (Project) request.getSession()
+                .getAttribute(CommandAttribute.RECENTLY_CREATED_PROJECT);
+        if (recentlyCreatedProject != null) {
+            request.setAttribute(CommandAttribute.RECENTLY_CREATED_PROJECT_NAME,
+                    recentlyCreatedProject.getName());
+            request.getSession()
+                    .removeAttribute(CommandAttribute.RECENTLY_CREATED_PROJECT);
+        }
+
         CommandRouter router = new CommandRouter(CommandRouter.RouterType.FORWARD, CommandPath.PROJECTS_JSP);
         return router;
     }
