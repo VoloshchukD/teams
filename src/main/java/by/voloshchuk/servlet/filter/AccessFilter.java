@@ -70,13 +70,16 @@ public class AccessFilter implements Filter {
                 CommandName.TO_PROJECT_BILLS,
                 CommandName.UPDATE_PROJECT,
                 CommandName.DELETE_PROJECT,
+                CommandName.UPDATE_BILL,
+                CommandName.DELETE_BILL,
                 AsyncCommandName.ACCEPT_PAYMENT,
                 AsyncCommandName.ADD_EMPLOYEE,
                 AsyncCommandName.ADD_TASK,
                 AsyncCommandName.EMPLOYEE_REQUIREMENTS,
                 AsyncCommandName.LOAD_PROJECT_REQUIREMENTS,
                 AsyncCommandName.LOAD_PROJECT_USERS,
-                AsyncCommandName.SEEK_EMPLOYEES));
+                AsyncCommandName.SEEK_EMPLOYEES,
+                AsyncCommandName.LOAD_TASKS_INFORMATION));
         managerCommands.addAll(commonCommands);
         accessMap.put(User.UserRole.MANAGER, managerCommands);
 

@@ -19,13 +19,6 @@ public class BillDaoImpl implements BillDao {
 
     private static final String FIND_BILL_BY_ID_QUERY = "SELECT * FROM teams.bills WHERE bill_id = ?";
 
-    private static final String UPDATE_BILL_QUERY = "UPDATE teams.bills SET status = ?, information = ?, amount_due = ? " +
-            "WHERE bill_id = ?;";
-
-    private static final String UPDATE_BILL_STATUS_QUERY = "UPDATE teams.bills SET status = ? WHERE bill_id = ?;";
-
-    private static final String DELETE_BILL_QUERY = "DELETE FROM teams.bills WHERE bill_id = ?;";
-
     private static final String FIND_BILLS_BY_PROJECT_ID_QUERY = "SELECT * FROM teams.bills INNER JOIN teams.projects " +
             "ON teams.projects.project_id=teams.bills.project_id " +
             "WHERE teams.projects.project_id = ?";
@@ -34,6 +27,15 @@ public class BillDaoImpl implements BillDao {
             "ON teams.projects.project_id=teams.bills.project_id INNER JOIN teams.technical_tasks " +
             "ON teams.projects.technical_task_id=teams.technical_tasks.technical_task_id " +
             "WHERE teams.technical_tasks.customer_id = ?";
+
+    private static final String UPDATE_BILL_QUERY = "UPDATE teams.bills " +
+            "SET information = ?, amount_due = ? " +
+            "WHERE bill_id = ?;";
+
+    private static final String UPDATE_BILL_STATUS_QUERY = "UPDATE teams.bills " +
+            "SET status = ? WHERE bill_id = ?;";
+
+    private static final String DELETE_BILL_QUERY = "DELETE FROM teams.bills WHERE bill_id = ?;";
 
     private CustomConnectionPool connectionPool = CustomConnectionPool.getInstance();
 
@@ -119,10 +121,9 @@ public class BillDaoImpl implements BillDao {
         Bill resultBill = null;
         try (Connection connection = connectionPool.getConnection();
              PreparedStatement statement = connection.prepareStatement(UPDATE_BILL_QUERY)) {
-            statement.setString(1, bill.getStatus().toString());
-            statement.setString(2, bill.getInformation());
-            statement.setInt(3, bill.getAmountDue());
-            statement.setLong(4, bill.getId());
+            statement.setString(1, bill.getInformation());
+            statement.setInt(2, bill.getAmountDue());
+            statement.setLong(3, bill.getId());
             int result = statement.executeUpdate();
             if (result == 1) {
                 resultBill = bill;

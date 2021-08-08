@@ -51,4 +51,6 @@ public final class CommandPath {
 
     public static final String TECHNICAL_TASKS = "/controller?command=technical-tasks";
 
+    public static final String PROJECT_BILLS =  "?command=to-project-bills&project-id=";
+
 }

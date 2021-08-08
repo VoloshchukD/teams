@@ -2,7 +2,9 @@ package by.voloshchuk.service.impl;
 
 import by.voloshchuk.dao.BillDao;
 import by.voloshchuk.dao.DaoProvider;
+import by.voloshchuk.dao.ProjectDao;
 import by.voloshchuk.entity.Bill;
+import by.voloshchuk.entity.Project;
 import by.voloshchuk.exception.DaoException;
 import by.voloshchuk.exception.ServiceException;
 import by.voloshchuk.service.BillService;
@@ -71,6 +73,30 @@ public class BillServiceImpl implements BillService {
             throw new ServiceException(e);
         }
         return resultStatus;
+    }
+
+    @Override
+    public Bill updateBill(Bill bill) throws ServiceException {
+        Bill updatedBill = null;
+        BillDao billDao = daoProvider.getBillDao();
+        try {
+            updatedBill = billDao.updateBill(bill);
+        } catch (DaoException e) {
+            throw new ServiceException(e);
+        }
+        return updatedBill;
+    }
+
+    @Override
+    public boolean removeBill(Long id) throws ServiceException {
+        boolean deleted = false;
+        BillDao billDao = daoProvider.getBillDao();
+        try {
+            deleted = billDao.removeBill(id);
+        } catch (DaoException e) {
+            throw new ServiceException(e);
+        }
+        return deleted;
     }
 
 }

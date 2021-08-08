@@ -51,7 +51,7 @@
                             </c:when>
                             <c:when test="${bill.status == 'ACCEPTED'}">
                                 <div class="badge"><span class="blue"><fmt:message bundle="${loc}"
-                                                                                    key="local.bills.accepted"/></span>
+                                                                                   key="local.bills.accepted"/></span>
                                 </div>
                             </c:when>
                         </c:choose>
@@ -67,18 +67,79 @@
                         </ul>
                         <c:if test="${ (bill.status == 'NOT_PAID') && (role == 'CUSTOMER') }">
                             <a href="?command=to-payment-form&bill-id=${bill.id}">
-                                <button type="submit" class="btn btn-primary"><fmt:message bundle="${loc}" key="local.bills.pay"/></button>
+                                <button type="submit" class="btn btn-primary"><fmt:message bundle="${loc}"
+                                                                                           key="local.bills.pay"/></button>
                             </a>
                         </c:if>
                         <c:if test="${ (bill.status == 'PAID') && (role == 'MANAGER') }">
                             <div class="block">
-                                <input type="hidden" class="id" value="${bill.id}" />
+                                <input type="hidden" class="id" value="${bill.id}"/>
                                 <input type="hidden" class="update" value="<fmt:message bundle="${loc}"
-                                                                                    key="local.bills.accepted"/>" />
-                                <button type="button" class="accept btn btn-primary"><fmt:message bundle="${loc}" key="local.bills.accept"/></button>
+                                                                                    key="local.bills.accepted"/>"/>
+                                <button type="button" class="accept btn btn-primary"><fmt:message bundle="${loc}"
+                                                                                                  key="local.bills.accept"/></button>
                             </div>
                         </c:if>
                     </div>
+
+                    <c:if test="${ role == 'MANAGER' && bill.status == 'NOT_PAID' }">
+                        <hr>
+                        <div class="editing mt-3 d-flex justify-content-between mx-5">
+                            <div>
+                                <input type="hidden" class="billId" name="bill-id"
+                                       value="${bill.id}"/>
+                                <button type="button" class="edit btn btn-secondary"
+                                        data-toggle="modal" data-target="#modal">
+                                    <i class="fa fa-wrench" aria-hidden="true"></i>
+                                </button>
+                            </div>
+                            <div></div>
+                            <div>
+                                <form class="delete" action="controller" method="post">
+                                    <input type="hidden" name="command" value="delete-bill"/>
+                                    <input type="hidden" name="bill-id" value="${bill.id}"/>
+                                    <input type="hidden" class="forDeleteProjectId"
+                                           name="project-id"/>
+                                    <button type="submit" class="btn btn-danger">
+                                        <i class="fa fa-ban" aria-hidden="true"></i>
+                                    </button>
+                                </form>
+                            </div>
+                        </div>
+                    </c:if>
+
+                    <div class="modal fade" id="modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+                         aria-hidden="true">
+                        <div class="modal-dialog" role="document">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="exampleModalLabel"><fmt:message bundle="${loc}"
+                                                                                                key="local.bills.update-header"/></h5>
+                                </div>
+                                <form action="controller" method="post">
+                                    <input type="hidden" name="command" value="update-bill"/>
+                                    <input type="hidden" name="bill-id" id="updateBillId"/>
+                                    <input type="hidden" name="project-id" id="forUpdateProjectId"/>
+                                    <div class="modal-body">
+                                        <label for="amount" class="col-form-label"><fmt:message bundle="${loc}"
+                                                                                                key="local.bills.update-amount"/></label>
+                                        <input type="text" class="form-control" name="amount" id="amount"
+                                               style="width: 120px;">
+                                        <label for="information" class="col-form-label"><fmt:message bundle="${loc}"
+                                                                                                     key="local.bills.update-information"/></label>
+                                        <textarea class="form-control" name="information" id="information"></textarea>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-secondary" data-dismiss="modal">
+                                            <fmt:message bundle="${loc}" key="local.bills.update-cancel"/></button>
+                                        <button type="submit" class="btn btn-primary" id="create-task-button">
+                                            <fmt:message bundle="${loc}" key="local.bills.update-submit"/></button>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+
                 </div>
             </c:forEach>
         </div>
@@ -100,11 +161,16 @@
     </div>
 </div>
 <%@ include file="../WEB-INF/jspf/footer.jspf" %>
+<script src="https://use.fontawesome.com/6d201ab77c.js"></script>
 <script src="http://cdn.webix.com/edge/webix.js" type="text/javascript"></script>
 <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
         integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
         crossorigin="anonymous"></script>
 <script src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 <script type="text/javascript" src="/js/bills.js"></script>
 <script type="text/javascript" src="/js/pagging.js"></script>
 </body>

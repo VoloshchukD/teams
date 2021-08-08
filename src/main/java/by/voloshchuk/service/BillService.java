@@ -18,4 +18,8 @@ public interface BillService {
 
     List<Bill> findBillsByProjectId(Long projectId) throws ServiceException;
 
+    Bill updateBill(Bill bill) throws ServiceException;
+
+    boolean removeBill(Long id) throws ServiceException;
+
 }

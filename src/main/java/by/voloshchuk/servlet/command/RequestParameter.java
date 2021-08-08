@@ -97,4 +97,10 @@ public final class RequestParameter {
 
     public static final String USER_DETAIL_STATUS = "status";
 
+    public static final String BILL_AMOUNT = "amount";
+
+    public static final String BILL_INFORMATION = "information";
+
+
+
 }
