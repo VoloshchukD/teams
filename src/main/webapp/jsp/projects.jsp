@@ -83,7 +83,7 @@
                     <div class="card p-3 mb-2">
                         <div class="d-flex justify-content-between">
                             <div class="d-flex flex-row align-items-center">
-                                <h2 class="mb-0">${project.name}</h2>
+                                <h2 class="mb-0 name">${project.name}</h2>
                             </div>
                             <c:choose>
                                 <c:when test="${project.state == 'IN_PROGRESS'}">
@@ -100,7 +100,7 @@
                         </div>
                         <hr>
                         <div class="mt-5">
-                            <h6 class="heading">${project.description}</h6>
+                            <h6 class="heading description">${project.description}</h6>
                             <div class="mt-5">
                                 <div class="d-flex justify-content-between mr-3">
                                     <div class="d-flex flex-row align-items-center">
@@ -126,9 +126,67 @@
                                     </a>
                                     </c:if>
                                 </div>
-                                <div class="mt-3"><span class="text1"><fmt:message bundle="${loc}"
-                                                                                   key="local.projects.start-date"/> <span
-                                        class="text2">${project.startDate}</span></span></div>
+                                <div class="mt-3 d-flex justify-content-between mr-3">
+                                    <div class="d-flex flex-row align-items-center">
+                                        <span class="text1">
+                                            <fmt:message bundle="${loc}" key="local.projects.start-date"/>
+                                             <span class="text2">${project.startDate}</span></span>
+                                    </div>
+                                    <c:if test="${ role == 'MANAGER' }">
+                                        <c:if test="${ project.state == 'IN_PROGRESS'}">
+                                            <input type="hidden" class="identifier" name="project-id"
+                                                   value="${project.id}"/>
+                                            <button type="button" class="edit btn btn-secondary"
+                                                    data-toggle="modal" data-target="#modal">
+                                                <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
+                                            </button>
+                                        </c:if>
+                                        <c:if test="${ project.state == 'FINISHED' }">
+                                            <form action="controller" method="post" >
+                                                <input type="hidden" name="command" value="delete-project"/>
+                                                <input type="hidden" name="project-id" value="${project.id}" />
+                                                <button type="submit" class="btn btn-danger">
+                                                    <i class="fa fa-trash" aria-hidden="true"></i>
+                                                </button>
+                                            </form>
+                                        </c:if>
+                                    </c:if>
+                                </div>
+
+                                <div class="modal fade" id="modal" tabindex="-1" role="dialog"
+                                     aria-labelledby="exampleModalLabel"
+                                     aria-hidden="true">
+                                    <div class="modal-dialog" role="document">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <h5 class="modal-title" id="exampleModalLabel"><fmt:message bundle="${loc}"
+                                                                                                            key="local.projects.update-header"/></h5>
+                                            </div>
+                                            <form action="controller" method="post" >
+                                                <input type="hidden" name="command"
+                                                       value="update-project"/>
+                                                <input type="hidden" name="project-id" id="updateProjectId" />
+                                                <div class="modal-body">
+                                                    <label for="name" class="col-form-label"><fmt:message bundle="${loc}"
+                                                                                                          key="local.projects.update-name"/></label>
+                                                    <input type="text" class="form-control" name="name" id="name">
+                                                    <label for="description" class="col-form-label"><fmt:message bundle="${loc}"
+                                                                                                          key="local.projects.update-description"/></label>
+                                                    <textarea class="form-control" name="description" id="description"></textarea>
+                                                </div>
+                                                <div class="modal-footer">
+                                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">
+                                                        <fmt:message bundle="${loc}"
+                                                                     key="local.projects.update-cancel"/></button>
+                                                    <button type="submit" class="btn btn-primary" id="create-task-button">
+                                                        <fmt:message bundle="${loc}" key="local.projects.update-submit"/>
+                                                    </button>
+                                                </div>
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>
+
                             </div>
                         </div>
                     </div>
@@ -149,9 +207,17 @@
     </div>
 </div>
 <%@ include file="../WEB-INF/jspf/footer.jspf" %>
+<script src="https://use.fontawesome.com/6d201ab77c.js"></script>
+<script src="http://cdn.webix.com/edge/webix.js" type="text/javascript"></script>
 <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
         integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
         crossorigin="anonymous"></script>
+<script src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+<script type="text/javascript" src="/js/projects.js"></script>
 <script type="text/javascript" src="/js/pagging.js"></script>
 </body>
 </html>

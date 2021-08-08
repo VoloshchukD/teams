@@ -2,6 +2,7 @@ package by.voloshchuk.service.impl;
 
 import by.voloshchuk.dao.*;
 import by.voloshchuk.entity.Project;
+import by.voloshchuk.entity.TechnicalTask;
 import by.voloshchuk.entity.User;
 import by.voloshchuk.entity.dto.ProjectDto;
 import by.voloshchuk.exception.DaoException;
@@ -40,6 +41,30 @@ public class ProjectServiceImpl implements ProjectService {
             throw new ServiceException(e);
         }
         return projects;
+    }
+
+    @Override
+    public Project updateProject(Project project) throws ServiceException {
+        Project updatedProject = null;
+        ProjectDao projectDao = daoProvider.getProjectDao();
+        try {
+            updatedProject = projectDao.updateProject(project);
+        } catch (DaoException e) {
+            throw new ServiceException(e);
+        }
+        return updatedProject;
+    }
+
+    @Override
+    public boolean removeProject(Long id) throws ServiceException {
+        boolean deleted = false;
+        ProjectDao projectDao = daoProvider.getProjectDao();
+        try {
+            deleted = projectDao.removeProject(id);
+        } catch (DaoException e) {
+            throw new ServiceException(e);
+        }
+        return deleted;
     }
 
 }

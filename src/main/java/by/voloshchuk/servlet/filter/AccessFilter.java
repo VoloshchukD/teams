@@ -68,6 +68,8 @@ public class AccessFilter implements Filter {
                 CommandName.TO_CREATE_PROJECT,
                 CommandName.CREATE_PROJECT,
                 CommandName.TO_PROJECT_BILLS,
+                CommandName.UPDATE_PROJECT,
+                CommandName.DELETE_PROJECT,
                 AsyncCommandName.ACCEPT_PAYMENT,
                 AsyncCommandName.ADD_EMPLOYEE,
                 AsyncCommandName.ADD_TASK,

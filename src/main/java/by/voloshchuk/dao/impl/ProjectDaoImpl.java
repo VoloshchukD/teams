@@ -22,8 +22,9 @@ public class ProjectDaoImpl implements ProjectDao {
     private static final String FIND_PROJECTS_BY_USER_ID_AND_STATE_QUERY = "SELECT * FROM teams.projects INNER JOIN teams.user_project_maps " +
             "ON teams.projects.project_id=teams.user_project_maps.project_id WHERE teams.user_project_maps.user_id = ? AND teams.projects.state = ?";
 
-    private static final String UPDATE_PROJECT_QUERY = "UPDATE projects SET project_name = ?, description = ?, start_date = ?, state = ?," +
-            " technical_task_id = ? WHERE project_id = ?";
+    private static final String UPDATE_PROJECT_QUERY = "UPDATE projects " +
+            "SET project_name = ?, description = ? " +
+            "WHERE project_id = ?";
 
     private static final String DELETE_PROJECT_QUERY = "DELETE FROM projects WHERE project_id = ?";
 
@@ -140,10 +141,7 @@ public class ProjectDaoImpl implements ProjectDao {
              PreparedStatement statement = connection.prepareStatement(UPDATE_PROJECT_QUERY)) {
             statement.setString(1, project.getName());
             statement.setString(2, project.getDescription());
-            statement.setTimestamp(3, new Timestamp(project.getStartDate().getTime()));
-            statement.setString(4, project.getState().toString());
-            statement.setLong(5, project.getTechnicalTask().getId());
-            statement.setLong(6, project.getId());
+            statement.setLong(3, project.getId());
             int result = statement.executeUpdate();
             if (result == 1) {
                 resultProject = project;

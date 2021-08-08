@@ -35,6 +35,8 @@ public class CommandProvider {
         commands.put(CommandName.TO_BILL_CREATION, new ToBillCreationCommand());
         commands.put(CommandName.UPDATE_TECHNICAL_TASK, new UpdateTechnicalTaskCommand());
         commands.put(CommandName.DELETE_TECHNICAL_TASK, new DeleteTechnicalTaskCommand());
+        commands.put(CommandName.UPDATE_PROJECT, new UpdateProjectCommand());
+        commands.put(CommandName.DELETE_PROJECT, new DeleteProjectCommand());
         commands.put(CommandName.TO_PAYMENT_FORM, new ToPaymentFormCommand());
         commands.put(CommandName.FIND_TECHNICAL_TASKS, new FindTechnicalTaskCommand());
         commands.put(CommandName.BILLS, new BillsCommand());
