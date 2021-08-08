@@ -16,4 +16,8 @@ public interface TechnicalTaskService {
 
     List<TechnicalTask> findTechnicalTasksByStatus(String status) throws ServiceException;
 
+    TechnicalTask updateTechnicalTask(TechnicalTask technicalTask) throws ServiceException;
+
+    boolean removeTechnicalTask(Long id) throws ServiceException;
+
 }

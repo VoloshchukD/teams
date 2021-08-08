@@ -51,6 +51,10 @@ public final class RequestParameter {
 
     public static final String TECHNICAL_TASKS_STATUS = "status";
 
+    public static final String TECHNICAL_TASKS_NAME = "name";
+
+    public static final String TECHNICAL_TASKS_OVERVIEW = "overview";
+
     public static final String PROJECTS = "projects";
 
     public static final String TECHNICAL_TASKS = "technicalTasks";

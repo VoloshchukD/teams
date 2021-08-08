@@ -36,3 +36,17 @@ $('.requirements').each(function () {
     });
 
 });
+
+$('.element').each(function () {
+
+    var nameValue = $(this).find('.name').html();
+    var overviewValue = $(this).find('.overview').html();
+    var updateTaskId =  $(this).find('.identifier').val();
+
+    $(this).find('.edit').click(function () {
+        $('#modal').find('#updateTaskId').val(updateTaskId)
+        $('#modal').find('#name').val(nameValue);
+        $('#modal').find('#overview').val(overviewValue);
+    });
+
+})

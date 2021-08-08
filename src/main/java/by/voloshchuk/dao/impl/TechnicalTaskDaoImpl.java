@@ -26,8 +26,8 @@ public class TechnicalTaskDaoImpl implements TechnicalTaskDao {
     private static final String FIND_TECHNICAL_TASKS_BY_STATUS_QUERY = "SELECT * FROM teams.technical_tasks " +
             "WHERE teams.technical_tasks.status = ?";
 
-    private static final String UPDATE_TECHNICAL_TASK_QUERY = "UPDATE technical_tasks SET overview = ?, " +
-            "deadline = ?, status = ? WHERE technical_task_id = ?";
+    private static final String UPDATE_TECHNICAL_TASK_QUERY = "UPDATE technical_tasks SET name = ?, overview = ? " +
+            "WHERE technical_task_id = ?";
 
     private static final String DELETE_TECHNICAL_TASK_QUERY = "DELETE FROM technical_tasks " +
             "WHERE technical_task_id = ?";
@@ -128,10 +128,9 @@ public class TechnicalTaskDaoImpl implements TechnicalTaskDao {
         TechnicalTask resultTechnicalTask = null;
         try (Connection connection = connectionPool.getConnection();
              PreparedStatement statement = connection.prepareStatement(UPDATE_TECHNICAL_TASK_QUERY)) {
-            statement.setString(1, technicalTask.getOverview());
-            statement.setTimestamp(2, new Timestamp(technicalTask.getDeadline().getTime()));
-            statement.setString(3, technicalTask.getStatus().toString());
-            statement.setLong(4, technicalTask.getId());
+            statement.setString(1, technicalTask.getName());
+            statement.setString(2, technicalTask.getOverview());
+            statement.setLong(3, technicalTask.getId());
             int result = statement.executeUpdate();
             if (result == 1) {
                 resultTechnicalTask = technicalTask;

@@ -65,4 +65,28 @@ public class TechnicalTaskServiceImpl implements TechnicalTaskService {
         return technicalTasks;
     }
 
+    @Override
+    public TechnicalTask updateTechnicalTask(TechnicalTask technicalTask) throws ServiceException {
+        TechnicalTask updatedTechnicalTask = null;
+        TechnicalTaskDao technicalTaskDao = daoProvider.getTechnicalTaskDao();
+        try {
+            updatedTechnicalTask = technicalTaskDao.updateTechnicalTask(technicalTask);
+        } catch (DaoException e) {
+            throw new ServiceException(e);
+        }
+        return updatedTechnicalTask;
+    }
+
+    @Override
+    public boolean removeTechnicalTask(Long id) throws ServiceException {
+        boolean deleted = false;
+        TechnicalTaskDao technicalTaskDao = daoProvider.getTechnicalTaskDao();
+        try {
+            deleted = technicalTaskDao.removeTechnicalTask(id);
+        } catch (DaoException e) {
+            throw new ServiceException(e);
+        }
+        return deleted;
+    }
+
 }

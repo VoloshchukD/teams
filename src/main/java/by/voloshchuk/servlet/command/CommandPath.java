@@ -49,4 +49,6 @@ public final class CommandPath {
 
     public static final String TO_BILLS = "/controller?command=bills";
 
+    public static final String TECHNICAL_TASKS = "/controller?command=technical-tasks";
+
 }

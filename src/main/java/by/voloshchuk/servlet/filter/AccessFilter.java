@@ -43,7 +43,6 @@ public class AccessFilter implements Filter {
                 CommandName.MAIN,
                 CommandName.ERROR));
         accessMap.put(User.UserRole.GUEST, guestCommands);
-        System.out.println(guestCommands.toString());
 
         Set<String> commonCommands = makeStringSet(Arrays.asList(
                 CommandName.LOGOUT,
@@ -94,6 +93,8 @@ public class AccessFilter implements Filter {
                 CommandName.TO_PROJECT_BILLS,
                 CommandName.CREATE_TECHNICAL_TASK,
                 CommandName.TECHNICAL_TASKS,
+                CommandName.UPDATE_TECHNICAL_TASK,
+                CommandName.DELETE_TECHNICAL_TASK,
                 AsyncCommandName.ADD_REQUIREMENT,
                 AsyncCommandName.EMPLOYEE_REQUIREMENTS,
                 AsyncCommandName.LOAD_TASKS_INFORMATION));
