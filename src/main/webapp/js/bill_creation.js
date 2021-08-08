@@ -17,7 +17,7 @@ var ajax = webix.ajax().headers({
 })
 
 function loadBillData() {
-    ajax.get("http://localhost:8080/async-controller?async-command=load-tasks-information",
+    ajax.get("http://localhost:8080/async-controller?command=load-tasks-information",
         {"project-id": $("#project").val()})
         .then((response) => response.json())
         .then((data) => {

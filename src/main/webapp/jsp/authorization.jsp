@@ -12,6 +12,10 @@
     <script type="text/javascript" src="/js/validation.js"></script>
     <script type="text/javascript" src="/js/authorization.js"></script>
     <link rel="stylesheet" href="/css/validation.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 </head>
 <body style="background-color: #D3D3D3;">
 <div class="container-xxl">
@@ -24,6 +28,15 @@
                 <h4><fmt:message bundle="${loc}" key="local.hello"/></h4>
                 <h2><fmt:message bundle="${loc}" key="local.signin.welcome"/></h2>
             </div>
+            <c:if test="${error}">
+                <div class="alert alert-danger alert-dismissible" role="alert" id="error">
+                    <strong><fmt:message bundle="${loc}" key="local.message.error.header"/></strong>
+                    <fmt:message bundle="${loc}" key="local.message.authorization.error"/>
+                    <button type="button" class="close" data-dismiss="alert">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+            </c:if>
             <form method="POST" action="controller" onSubmit="return validateSignInForm()" novalidate>
                 <input type="hidden" name="command" value="authorize" id="command"/>
                 <div class="mb-3">

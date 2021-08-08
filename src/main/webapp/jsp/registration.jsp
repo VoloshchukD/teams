@@ -120,11 +120,11 @@
                     <div class="mb-3">
                         <label for="role"><fmt:message bundle="${loc}" key="local.form.role"/></label>
                         <select class="form-select" aria-label="Default select example" name="role" id="role">
-                            <option value="manager"><fmt:message bundle="${loc}"
+                            <option value="MANAGER"><fmt:message bundle="${loc}"
                                                                  key="local.form.manager"/></option>
-                            <option value="developer"><fmt:message bundle="${loc}"
+                            <option value="DEVELOPER"><fmt:message bundle="${loc}"
                                                                    key="local.form.developer"/></option>
-                            <option value="customer"><fmt:message bundle="${loc}"
+                            <option value="CUSTOMER"><fmt:message bundle="${loc}"
                                                                   key="local.form.customer"/></option>
                         </select>
                     </div>

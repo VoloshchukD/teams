@@ -59,7 +59,7 @@ window.addEventListener("load", function (event) {
         else {
             newStatus = 'BUSY';
         }
-        webix.ajax().post("http://localhost:8080/async-controller?async-command=update-user-status",
+        webix.ajax().post("http://localhost:8080/async-controller?command=update-user-status",
             {'status': newStatus})
     });
 
@@ -88,7 +88,7 @@ function submitEditForm() {
             skills: document.getElementById("skills").value
         };
         let json = JSON.stringify(userDataToEdit);
-        webix.ajax().post("http://localhost:8080/async-controller?async-command=update-user-detail", {'jsonString': json})
+        webix.ajax().post("http://localhost:8080/async-controller?command=update-user-detail", {'jsonString': json})
             .then((response) => response.json())
             .then((data) => {
                 loadEditData();
@@ -97,7 +97,7 @@ function submitEditForm() {
 }
 
 function loadEditData() {
-    ajax.get("http://localhost:8080/async-controller?async-command=edit")
+    ajax.get("http://localhost:8080/async-controller?command=edit")
         .then((response) => response.json())
         .then((data) => {
             document.getElementById("forename").value = data.forename;
@@ -153,7 +153,7 @@ webix.ready(function () {
                     on: {
                         onAfterFileAdd: function () {
                             sleep(5000).then(() => {
-                                ajax.get("http://localhost:8080/async-controller?async-command=load-avatar")
+                                ajax.get("http://localhost:8080/async-controller?command=load-avatar")
                                     .then((response) => response.json())
                                     .then((data) => {
                                         $$("user_image").config.image = "http://localhost:8080" + data.avatar;

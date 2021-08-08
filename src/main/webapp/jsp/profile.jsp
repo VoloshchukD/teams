@@ -77,7 +77,7 @@
 
         <div class="col-5 my-auto px-5">
             <form method="post" action="async-controller" novalidate>
-                <input type="hidden" name="async-command" value="update-user-detail"/>
+                <input type="hidden" name="command" value="update-user-detail"/>
 
                 <div class="row">
                     <div class="col-md-6 mb-3">

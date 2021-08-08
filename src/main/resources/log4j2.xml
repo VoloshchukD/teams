@@ -1,18 +1,25 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<Configuration status="ERROR">
+<Configuration status="INFO" monitorInterval="86400">
     <Properties>
         <property name="pattern_file">
-            %d{yyyy-MM-dd HH:mm:ss} [%t] %-5level %logger{5}- %msg%n
+            %d{yyyy-MM-dd HH:mm:ss} [%t] %-5level %logger{5} - %msg%n
+        </property>
+        <property name="pattern_console">
+            %highlight{%relative %-5level %logger{5} - %msg%n}
         </property>
     </Properties>
     <Appenders>
         <File name="TxtFile" fileName="logs/log.txt" bufferedIO="true" append="false">
             <PatternLayout pattern="${pattern_file}"/>
         </File>
+        <Console name="Console" target="SYSTEM_OUT">
+            <PatternLayout pattern="${pattern_console}" disableAnsi="false"/>
+        </Console>
     </Appenders>
     <Loggers>
-        <Root level="debug">
+        <Root level="INFO">
             <AppenderRef ref="TxtFile"/>
+            <AppenderRef ref="Console"/>
         </Root>
     </Loggers>
 </Configuration>

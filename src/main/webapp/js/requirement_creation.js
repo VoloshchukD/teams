@@ -20,7 +20,7 @@ function loadRequirements() {
     var taskId = $("#task").val();
     if (taskId != 'null') {
         $('.table').find(".saved").remove();
-        ajax.get("http://localhost:8080/async-controller?async-command=employee-requirements",
+        ajax.get("http://localhost:8080/async-controller?command=employee-requirements",
             {"technical-task-id": taskId})
             .then((response) => response.json())
             .then((data) => {
@@ -76,7 +76,7 @@ $('#add').click(function () {
         var primary = addedRequirement.find('.primary');
         var comment = addedRequirement.find('.comment');
 
-        webix.ajax().post("http://localhost:8080/async-controller?async-command=add-requirement",
+        webix.ajax().post("http://localhost:8080/async-controller?command=add-requirement",
             {
                 "experience": experience.find('.input1').val(),
                 "salary": salary.find('.input2').val(),

@@ -21,7 +21,7 @@ $("#projects").change(function () {
 
 function loadProjectRequirements() {
     $('#requirements').find("tr:gt(0)").remove();
-    ajax.get("http://localhost:8080/async-controller?async-command=load-project-requirements",
+    ajax.get("http://localhost:8080/async-controller?command=load-project-requirements",
         {
             "project-id": projectId
         })
@@ -54,7 +54,7 @@ function loadProjectRequirements() {
                             $(this).remove();
                         })
                         $('#form3').show();
-                        ajax.get("http://localhost:8080/async-controller?async-command=seek-employees",
+                        ajax.get("http://localhost:8080/async-controller?command=seek-employees",
                             {
                                 "salary": salary,
                                 "experience": experience,
@@ -102,7 +102,7 @@ function loadProjectRequirements() {
                                             $(this).remove();
                                         })
                                         $('#form3').hide();
-                                        ajax.get("http://localhost:8080/async-controller?async-command=add-employee",
+                                        ajax.get("http://localhost:8080/async-controller?command=add-employee",
                                             {
                                                 "user-id": data[i].id,
                                                 "project-id": projectId

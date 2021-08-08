@@ -6,7 +6,7 @@ $('.element').each(function () {
     var updatedText = block.find('.update').val();
     $(this).find('.accept')
     $(this).find('.accept').click(function () {
-        webix.ajax().post("http://localhost:8080/async-controller?async-command=accept-payment",
+        webix.ajax().post("http://localhost:8080/async-controller?command=accept-payment",
             {
                 "bill-id":billId
             })

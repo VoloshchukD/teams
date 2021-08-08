@@ -22,11 +22,13 @@ public class Controller extends HttpServlet {
     }
 
     @Override
-    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+    protected void doPost(HttpServletRequest req, HttpServletResponse resp)
+            throws ServletException, IOException {
         doProcess(req, resp);
     }
 
-    private void doProcess(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
+    private void doProcess(HttpServletRequest request, HttpServletResponse response)
+            throws IOException, ServletException {
         String commandName = request.getParameter(RequestParameter.COMMAND);
         Command command = provider.getCommand(commandName);
         CommandRouter router = command.execute(request, response);

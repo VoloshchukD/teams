@@ -14,7 +14,7 @@ $('.requirements').each(function () {
         $(tableDiv).show();
         $(details).hide();
         $(hidden).show();
-        ajax.get("http://localhost:8080/async-controller?async-command=employee-requirements",
+        ajax.get("http://localhost:8080/async-controller?command=employee-requirements",
             {"technical-task-id": technicalTaskId})
             .then((response) => response.json())
             .then((data) => {

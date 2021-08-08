@@ -11,7 +11,7 @@ var ajax = webix.ajax().headers({
 })
 
 $('#create-task-button').click(function () {
-    webix.ajax().post("http://localhost:8080/async-controller?async-command=add-task",
+    webix.ajax().post("http://localhost:8080/async-controller?command=add-task",
         {
             "name": document.getElementById("name").value,
             "details": document.getElementById("details").value,
@@ -30,7 +30,7 @@ $('#create-task-button').click(function () {
 })
 
 $('#create-task-modal-button').click(function () {
-    ajax.get("http://localhost:8080/async-controller?async-command=load-project-users",
+    ajax.get("http://localhost:8080/async-controller?command=load-project-users",
         {"project-id": projectId}).then((response) => response.json())
         .then((data) => {
             for (let i = 0; i < data.length; i++) {
@@ -63,7 +63,7 @@ $('.card').each(function () {
     var saveButton = $(this).find('.save');
     var hoursInput = $(this).find('.hour');
     saveButton.click(function () {
-        webix.ajax().post("http://localhost:8080/async-controller?async-command=update-task-hours",
+        webix.ajax().post("http://localhost:8080/async-controller?command=update-task-hours",
             {
                 "hours": hoursInput.val(),
                 "task-id": taskId
@@ -128,14 +128,14 @@ function initCardButtons(card){
     function updateTaskStatus(taskId, target) {
         var status ;
         if (target == '#col1') {
-            status = 'ToDo';
+            status = 'TO_DO';
         } else if (target == '#col2') {
-            status = 'InProgress';
+            status = 'IN_PROGRESS';
         } else if (target == '#col3') {
-            status = 'Done';
+            status = 'DONE';
         }
 
-        webix.ajax().post("http://localhost:8080/async-controller?async-command=update-task-status",
+        webix.ajax().post("http://localhost:8080/async-controller?command=update-task-status",
             {
                 "status": status,
                 "task-id": taskId

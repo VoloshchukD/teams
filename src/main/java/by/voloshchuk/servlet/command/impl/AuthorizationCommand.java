@@ -25,6 +25,7 @@ public class AuthorizationCommand implements Command {
         String email = request.getParameter(RequestParameter.EMAIL);
         String password = request.getParameter(RequestParameter.PASSWORD);
         UserService userService = serviceProvider.getUserService();
+        CommandRouter router = new CommandRouter(CommandRouter.RouterType.FORWARD, CommandPath.AUTHORIZATION_JSP);
         try {
             User currentUser = userService.checkUser(email, password);
             if (currentUser != null &&
@@ -33,11 +34,14 @@ public class AuthorizationCommand implements Command {
                 request.getSession().setAttribute(CommandAttribute.USER_DETAIL_ID, currentUser.getUserDetail().getId());
                 request.getSession().setAttribute(CommandAttribute.ROLE, currentUser.getRole());
                 request.getSession().setAttribute(CommandAttribute.USER_IMAGE, currentUser.getUserDetail().getImagePath());
+                router = new CommandRouter(CommandRouter.RouterType.REDIRECT, CommandPath.MAIN);
+            } else {
+                request.setAttribute(CommandAttribute.ERROR, true);
             }
         } catch (ServiceException e) {
             logger.log(Level.ERROR, e.getMessage());
         }
-        CommandRouter router = new CommandRouter(CommandRouter.RouterType.REDIRECT, CommandPath.MAIN);
+
         return router;
     }
 

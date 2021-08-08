@@ -21,12 +21,14 @@ public class AsyncController extends HttpServlet {
     }
 
     @Override
-    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+    protected void doPost(HttpServletRequest req, HttpServletResponse resp)
+            throws ServletException, IOException {
         doProcess(req, resp);
     }
 
-    private void doProcess(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
-        String commandName = request.getParameter(RequestParameter.ASYNC_COMMAND);
+    private void doProcess(HttpServletRequest request, HttpServletResponse response)
+            throws IOException, ServletException {
+        String commandName = request.getParameter(RequestParameter.COMMAND);
         AsyncCommand asyncCommand = asyncProvider.getCommand(commandName);
         asyncCommand.execute(request, response);
     }

@@ -13,7 +13,9 @@ public class User extends AbstractIdentifiedEntity {
     public enum UserRole {
         MANAGER,
         DEVELOPER,
-        CUSTOMER
+        CUSTOMER,
+        GUEST,
+        ADMIN
     }
 
     private UserDetail userDetail;

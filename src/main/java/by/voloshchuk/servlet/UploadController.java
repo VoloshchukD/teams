@@ -31,7 +31,8 @@ public class UploadController extends HttpServlet {
     private static ServiceProvider serviceProvider = ServiceProvider.getInstance();
 
     @Override
-    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+    protected void doPost(HttpServletRequest req, HttpServletResponse resp)
+            throws ServletException, IOException {
         String applicationPath = req.getServletContext().getRealPath("");
         String uploadFilePath = applicationPath + File.separator + UPLOAD_DIRECTORY;
         File fileSaveDir = new File(uploadFilePath);
