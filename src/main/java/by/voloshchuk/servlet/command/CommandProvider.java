@@ -1,7 +1,6 @@
 package by.voloshchuk.servlet.command;
 
 import by.voloshchuk.servlet.command.impl.*;
-import by.voloshchuk.servlet.command.impl.async.AcceptPaymentCommand;
 import by.voloshchuk.servlet.command.impl.transition.*;
 
 import java.util.HashMap;
@@ -51,6 +50,8 @@ public class CommandProvider {
         commands.put(CommandName.DELETE_ACCOUNT, new DeleteAccountCommand());
         commands.put(CommandName.UPDATE_BILL, new UpdateBillCommand());
         commands.put(CommandName.DELETE_BILL, new DeleteBillCommand());
+        commands.put(CommandName.UPDATE_TASK, new UpdateTaskCommand());
+        commands.put(CommandName.DELETE_TASK, new DeleteTaskCommand());
     }
 
     public static CommandProvider getInstance() {

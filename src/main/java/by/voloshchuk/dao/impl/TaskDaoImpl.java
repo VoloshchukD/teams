@@ -35,7 +35,7 @@ public class TaskDaoImpl implements TaskDao {
             "AND developer_id = ?";
 
     private static final String UPDATE_TASK_QUERY = "UPDATE tasks SET name = ?, details = ?," +
-            " hours = ?, status = ?, developer_id = ? WHERE task_id = ?";
+            " planned_time = ?, developer_id = ? WHERE task_id = ?";
 
     private static final String UPDATE_TASK_STATUS_QUERY = "UPDATE tasks SET status = ? WHERE task_id = ?";
 
@@ -173,9 +173,8 @@ public class TaskDaoImpl implements TaskDao {
             statement.setString(1, task.getName());
             statement.setString(2, task.getDetails());
             statement.setInt(3, task.getPlannedTime());
-            statement.setString(4, task.getStatus().toString());
-            statement.setLong(5, task.getDeveloper().getId());
-            statement.setLong(6, task.getId());
+            statement.setLong(4, task.getDeveloper().getId());
+            statement.setLong(5, task.getId());
 
             int result = statement.executeUpdate();
             if (result == 1) {

@@ -34,6 +34,8 @@ public enum CommandName {
     UPDATE_PROJECT,
     DELETE_PROJECT,
     UPDATE_BILL,
-    DELETE_BILL
+    DELETE_BILL,
+    UPDATE_TASK,
+    DELETE_TASK
 
 }

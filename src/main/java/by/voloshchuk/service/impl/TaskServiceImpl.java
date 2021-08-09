@@ -4,6 +4,7 @@ import by.voloshchuk.dao.DaoProvider;
 import by.voloshchuk.dao.TaskDao;
 import by.voloshchuk.dao.TechnicalTaskDao;
 import by.voloshchuk.entity.Task;
+import by.voloshchuk.entity.TechnicalTask;
 import by.voloshchuk.exception.DaoException;
 import by.voloshchuk.exception.ServiceException;
 import by.voloshchuk.service.TaskService;
@@ -75,6 +76,30 @@ public class TaskServiceImpl implements TaskService {
             throw new ServiceException(e);
         }
         return resultHours;
+    }
+
+    @Override
+    public Task updateTask(Task task) throws ServiceException {
+        Task updatedTask = null;
+        TaskDao taskDao = daoProvider.getTaskDao();
+        try {
+            updatedTask = taskDao.updateTask(task);
+        } catch (DaoException e) {
+            throw new ServiceException(e);
+        }
+        return updatedTask;
+    }
+
+    @Override
+    public boolean removeTask(Long id) throws ServiceException {
+        boolean deleted = false;
+        TaskDao taskDao = daoProvider.getTaskDao();
+        try {
+            deleted = taskDao.removeTask(id);
+        } catch (DaoException e) {
+            throw new ServiceException(e);
+        }
+        return deleted;
     }
 
 }

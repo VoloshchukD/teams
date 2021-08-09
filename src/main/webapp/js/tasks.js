@@ -4,6 +4,11 @@ window.addEventListener("load", function (event){
     var url_string = window.location.href;
     var url = new URL(url_string);
     projectId = url.searchParams.get("project-id");
+
+    $('.card').each(function () {
+    var editForm = $(this).find('.editing');
+    editForm.find('.forDeleteProjectId').val(projectId)
+    });
 });
 
 var ajax = webix.ajax().headers({
@@ -44,8 +49,6 @@ $('#create-task-modal-button').click(function () {
 
 $('.card').each(function () {
     initCardButtons($(this));
-
-
 
     var trackButton = $(this).find('.track');
     var hours = $(this).find('.hours');
@@ -147,3 +150,35 @@ function initCardButtons(card){
     }
 
 }
+
+
+$('#updateModal').click(function () {
+    ajax.get("http://localhost:8080/async-controller?command=load-project-users",
+        {"project-id": projectId}).then((response) => response.json())
+        .then((data) => {
+            for (let i = 0; i < data.length; i++) {
+                $('#updateDeveloper').append($('<option>', {
+                    value: data[i].id,
+                    text: data[i].forename + ' ' + data[i].surname
+                }));
+            }
+        })
+})
+
+$('.card').each(function () {
+    var card = $(this);
+
+    $(this).find('.edit').click(function () {
+        var nameValue = card.find('.name').html();
+        var detailsValue = card.find('.details').html();
+        var updateTaskId =  card.find('.identifier').val();
+        var plannedTime = card.find('.planned').html();
+
+        $('#updateModal').find('#updateTaskId').val(updateTaskId)
+        $('#updateModal').find('#updateName').val(nameValue);
+        $('#updateModal').find('#updateDetails').val(detailsValue);
+        $('#updateModal').find('#updateHours').val(plannedTime);
+        $('#updateModal').find('#forUpdateProjectId').val(projectId)
+    });
+
+})

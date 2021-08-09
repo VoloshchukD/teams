@@ -72,6 +72,8 @@ public class AccessFilter implements Filter {
                 CommandName.DELETE_PROJECT,
                 CommandName.UPDATE_BILL,
                 CommandName.DELETE_BILL,
+                CommandName.UPDATE_TASK,
+                CommandName.DELETE_TASK,
                 AsyncCommandName.ACCEPT_PAYMENT,
                 AsyncCommandName.ADD_EMPLOYEE,
                 AsyncCommandName.ADD_TASK,

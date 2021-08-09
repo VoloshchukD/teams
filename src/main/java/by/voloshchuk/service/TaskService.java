@@ -18,4 +18,8 @@ public interface TaskService {
 
     Integer updateTaskHours(Long taskId, Integer hours) throws ServiceException;
 
+    Task updateTask(Task task) throws ServiceException;
+
+    boolean removeTask(Long id) throws ServiceException;
+
 }

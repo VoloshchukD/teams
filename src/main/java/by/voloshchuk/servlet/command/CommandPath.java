@@ -53,4 +53,6 @@ public final class CommandPath {
 
     public static final String PROJECT_BILLS =  "?command=to-project-bills&project-id=";
 
+    public static final String TASKS =  "?command=to-tasks&project-id=";
+
 }
