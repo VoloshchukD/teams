@@ -52,4 +52,6 @@ public class AsyncCommandParameter {
 
     public static final String REQUIREMENT_COMMENT = "comment";
 
+    public static final String REQUIREMENT_ID = "id";
+
 }

@@ -51,6 +51,52 @@
         </div>
     </div>
 </div>
+
+<div class="modal fade" id="updateModal" tabindex="-1" role="dialog"
+     aria-labelledby="exampleModalLabel"
+     aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">
+                    <fmt:message bundle="${loc}" key="local.requirement.update-header"/>
+                </h5>
+            </div>
+            <form action="controller" method="post">
+                <input type="hidden" name="command" value="update-requirement"/>
+                <input type="hidden" name="id" id="updateRequirementId"/>
+                <input type="hidden" name="technical-task-id" id="forUpdateTechnicalTaskId"/>
+                <div class="modal-body">
+                    <label for="updateExperience" class="col-form-label"><fmt:message
+                            bundle="${loc}" key="local.requirement.update-experience"/></label>
+                    <input type="text" class="form-control" name="experience" id="updateExperience">
+                    <label for="updateSalary" class="col-form-label"><fmt:message
+                            bundle="${loc}" key="local.requirement.update-salary"/></label>
+                    <input type="text" class="form-control" name="salary" id="updateSalary">
+                    <label for="updateQualification" class="col-form-label"><fmt:message
+                            bundle="${loc}" key="local.requirement.update-qualification"/></label>
+                    <input type="text" class="form-control" name="qualification" id="updateQualification">
+                    <label for="updatePrimary" class="col-form-label"><fmt:message
+                            bundle="${loc}" key="local.requirement.update-primary"/></label>
+                    <input type="text" class="form-control" name="primary" id="updatePrimary">
+                    <label for="updateComment" class="col-form-label"><fmt:message
+                            bundle="${loc}" key="local.requirement.update-comment"/></label>
+                    <textarea class="form-control" name="comment"
+                              id="updateComment"></textarea>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">
+                        <fmt:message bundle="${loc}"
+                                     key="local.requirement.update-cancel"/></button>
+                    <button type="submit" class="btn btn-primary" id="update-task-button">
+                        <fmt:message bundle="${loc}"
+                                     key="local.requirement.update-submit"/></button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
 </div>
 <%@ include file="../WEB-INF/jspf/footer.jspf" %>
 <script src="https://use.fontawesome.com/6d201ab77c.js"></script>
@@ -59,6 +105,10 @@
         integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
         crossorigin="anonymous"></script>
 <script src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 <script type="text/javascript" src="/js/requirement_creation.js"></script>
 </body>
 </html>

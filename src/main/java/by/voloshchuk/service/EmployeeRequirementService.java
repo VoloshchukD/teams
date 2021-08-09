@@ -14,4 +14,8 @@ public interface EmployeeRequirementService {
 
     List<EmployeeRequirement> findAllByProjectId(Long projectId) throws ServiceException;
 
+    EmployeeRequirement updateEmployeeRequirement(EmployeeRequirement requirement) throws ServiceException;
+
+    boolean removeEmployeeRequirement(Long id) throws ServiceException;
+
 }

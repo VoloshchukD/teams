@@ -16,6 +16,6 @@ public interface EmployeeRequirementDao {
 
     EmployeeRequirement updateEmployeeRequirement(EmployeeRequirement requirement) throws DaoException;
 
-    boolean removeUserDetailById(Long id) throws DaoException;
+    boolean removeEmployeeRequirement(Long id) throws DaoException;
 
 }

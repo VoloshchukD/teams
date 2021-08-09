@@ -101,6 +101,16 @@ public final class RequestParameter {
 
     public static final String BILL_INFORMATION = "information";
 
+    public static final String REQUIREMENT_ID = "id";
 
+    public static final String REQUIREMENT_QUALIFICATION = "qualification";
+
+    public static final String REQUIREMENT_PRIMARY_SKILL = "primary";
+
+    public static final String REQUIREMENT_COMMENT = "comment";
+
+    public static final String REQUIREMENT_SALARY = "salary";
+
+    public static final String REQUIREMENT_EXPERIENCE = "experience";
 
 }

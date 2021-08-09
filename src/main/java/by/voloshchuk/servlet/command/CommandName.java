@@ -36,6 +36,7 @@ public enum CommandName {
     UPDATE_BILL,
     DELETE_BILL,
     UPDATE_TASK,
-    DELETE_TASK
+    DELETE_TASK,
+    UPDATE_REQUIREMENT
 
 }

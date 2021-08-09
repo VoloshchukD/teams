@@ -42,6 +42,7 @@ public class EmployeeRequirementsCommand implements AsyncCommand {
         JSONArray data = new JSONArray();
         for (EmployeeRequirement employeeRequirement : employeeRequirements){
             JSONObject currentData = new JSONObject();
+            currentData.put(AsyncCommandParameter.REQUIREMENT_ID, employeeRequirement.getId());
             currentData.put(AsyncCommandParameter.REQUIREMENT_EXPERIENCE, employeeRequirement.getExperience());
             currentData.put(AsyncCommandParameter.REQUIREMENT_SALARY, employeeRequirement.getSalary());
             currentData.put(AsyncCommandParameter.REQUIREMENT_QUALIFICATION, employeeRequirement.getQualification());

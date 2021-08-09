@@ -102,9 +102,11 @@ public class AccessFilter implements Filter {
                 CommandName.TECHNICAL_TASKS,
                 CommandName.UPDATE_TECHNICAL_TASK,
                 CommandName.DELETE_TECHNICAL_TASK,
+                CommandName.UPDATE_REQUIREMENT,
                 AsyncCommandName.ADD_REQUIREMENT,
                 AsyncCommandName.EMPLOYEE_REQUIREMENTS,
-                AsyncCommandName.LOAD_TASKS_INFORMATION));
+                AsyncCommandName.LOAD_TASKS_INFORMATION,
+                AsyncCommandName.DELETE_REQUIREMENT));
         customerCommands.addAll(commonCommands);
         accessMap.put(User.UserRole.CUSTOMER, customerCommands);
 

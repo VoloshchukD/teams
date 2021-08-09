@@ -52,6 +52,7 @@ public class CommandProvider {
         commands.put(CommandName.DELETE_BILL, new DeleteBillCommand());
         commands.put(CommandName.UPDATE_TASK, new UpdateTaskCommand());
         commands.put(CommandName.DELETE_TASK, new DeleteTaskCommand());
+        commands.put(CommandName.UPDATE_REQUIREMENT, new UpdateRequirementCommand());
     }
 
     public static CommandProvider getInstance() {

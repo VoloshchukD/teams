@@ -27,8 +27,9 @@ public class EmployeeRequirementDaoImpl implements EmployeeRequirementDao {
             "ON teams.projects.technical_task_id = teams.technical_tasks.technical_task_id " +
             "WHERE teams.projects.project_id = ?";
 
-    private static final String UPDATE_EMPLOYEE_REQUIREMENT_QUERY = "UPDATE employee_requirements SET experience = ?, " +
-            "salary = ?, qualification = ?, primary_skill = ?, comment = ? WHERE employee_requirement_id = ?";
+    private static final String UPDATE_EMPLOYEE_REQUIREMENT_QUERY = "UPDATE employee_requirements " +
+            "SET experience = ?, salary = ?, qualification = ?, primary_skill = ?, comment = ? " +
+            "WHERE employee_requirement_id = ?";
 
     private static final String DELETE_EMPLOYEE_REQUIREMENT_QUERY = "DELETE FROM employee_requirements " +
             "WHERE employee_requirement_id = ?";
@@ -118,7 +119,7 @@ public class EmployeeRequirementDaoImpl implements EmployeeRequirementDao {
         return resultRequirement;
     }
 
-    public boolean removeUserDetailById(Long id) throws DaoException {
+    public boolean removeEmployeeRequirement(Long id) throws DaoException {
         boolean isRemoved = false;
         try (Connection connection = connectionPool.getConnection();
              PreparedStatement statement = connection.prepareStatement(DELETE_EMPLOYEE_REQUIREMENT_QUERY)) {

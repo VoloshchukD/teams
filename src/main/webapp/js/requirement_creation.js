@@ -13,11 +13,12 @@ var ajax = webix.ajax().headers({
 })
 
 $("#task").change(function () {
-    loadRequirements()
+    loadRequirements();
 });
 
 function loadRequirements() {
     var taskId = $("#task").val();
+    $('#updateModal').find('#forUpdateTechnicalTaskId').val(taskId);
     if (taskId != 'null') {
         $('.table').find(".saved").remove();
         ajax.get("http://localhost:8080/async-controller?command=employee-requirements",
@@ -26,29 +27,67 @@ function loadRequirements() {
             .then((data) => {
                 for (let i = 0; i < data.length; i++) {
                     var html = '<tr class="saved table-primary">' +
-                        '<td>' + data[i].experience + '</td>' +
-                        '<td>' + data[i].salary + '</td>' +
-                        '<td>' + data[i].qualification + '</td>' +
-                        '<td>' + data[i].primary + '</td>' +
-                        '<td>' + data[i].comment + '</td>' +
+                        '<td class="experience" >' + data[i].experience +
+                        '<input type="hidden" class="identifier" value="' + data[i].id + '"/>' +
+                        '</td>' +
+                        '<td class="salary" >' + data[i].salary + '</td>' +
+                        '<td class="qualification" >' + data[i].qualification + '</td>' +
+                        '<td class="primary" >' + data[i].primary + '</td>' +
+                        '<td class="comment" >' + data[i].comment + '</td>' +
                         '<td>' +
-                        '<button type="button" class="edit btn btn-secondary"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></i></button>' +
+                        '<button type="button" class="edit btn btn-secondary" data-toggle="modal" data-target="#updateModal" ><i class="fa fa-pencil-square-o" aria-hidden="true"></i></i></button>' +
                         '</td>' +
                         '<td>' +
                         '<button type="button" class="delete btn btn-danger"><i class="fa fa-trash" aria-hidden="true"></i></button>' +
                         '</td>' +
                         '</tr>';
                     $('.table tr:eq(' + (i + 1) + ')').before(html);
-                    var savedRequirement = $('.table').find('.saved:last');
-                    savedRequirement.find('.edit').click(function () {
-                        savedRequirement.remove();
-                    });
-                    savedRequirement.find('.delete').click(function () {
-                        savedRequirement.remove();
-                    });
+
+
                 }
+            }).then(() => {
+
+            $('.saved').each(function () {
+                var savedRow = $(this);
+
+                var experienceValue = savedRow.find('.experience').text();
+                var salaryValue = savedRow.find('.salary').text();
+                var qualificationValue = savedRow.find('.qualification').text();
+                var primaryValue = savedRow.find('.primary').text();
+                var commentValue = savedRow.find('.comment').text();
+                var updateRequirementId = savedRow.find('.identifier').val();
+
+
+                $('.employee').each(function () {
+                    $(this).remove();
+                })
+
+                savedRow.find('.edit').click(function () {
+                    $('#updateModal').find('#updateRequirementId').val(updateRequirementId);
+                    $('#updateModal').find('#updateExperience').val(experienceValue);
+                    $('#updateModal').find('#updateSalary').val(salaryValue);
+                    $('#updateModal').find('#updateQualification').val(qualificationValue);
+                    $('#updateModal').find('#updatePrimary').val(primaryValue);
+                    $('#updateModal').find('#updateComment').val(commentValue);
+                });
+
+                savedRow.find('.delete').click(function () {
+                    webix.ajax().post("http://localhost:8080/async-controller?command=delete-requirement",
+                        {
+                            "id": updateRequirementId
+                        })
+                        .then((response) => response.json())
+                        .then((data) => {
+                            savedRow.remove();
+                        })
+                });
+
             })
+
+        })
+
     }
+
 }
 
 $('#add').click(function () {
