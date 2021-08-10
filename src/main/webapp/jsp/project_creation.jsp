@@ -17,6 +17,9 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="/js/validation.js"></script>
+    <script type="text/javascript" src="/js/project_creation.js"></script>
+    <link rel="stylesheet" href="/css/validation.css">
 </head>
 <body>
 <div class="container-xxl">
@@ -37,7 +40,7 @@
     <div class="row justify-content-center">
         <div class="col-4">
             <jsp:useBean id="technicalTask" class="by.voloshchuk.entity.TechnicalTask" scope="request"/>
-            <form action="controller">
+            <form action="controller" onSubmit="return validateCreateForm()" novalidate>
                 <input type="hidden" class="command" name="command" value="create-project"/>
                 <input type="hidden" class="technical-task-id" name="technical-task-id"
                        value="${technicalTask.id}"/>
@@ -48,13 +51,19 @@
                                                                           key="local.project.create-name"/></label>
                     <input type="text" class="form-control" name="name"
                            value="<jsp:getProperty name="technicalTask" property="name" />" id="name">
+                    <small id="name-help" class="form-text">
+                        <fmt:message bundle="${loc}" key="local.form.project.name-help"/>
+                    </small>
+                    <div id="regex-name" class="hidden-regex">${regexProjectName}</div>
                 </div>
                 <div class="form-group">
                     <label for="description" class="col-form-label"><fmt:message bundle="${loc}"
                                                                                  key="local.project.create-description"/></label>
-                    <textarea class="form-control" name="description" id="description"><jsp:getProperty
-                            name="technicalTask" property="overview"/>
-                    </textarea>
+                    <textarea class="form-control" name="description" id="description"><jsp:getProperty name="technicalTask" property="overview"/></textarea>
+                    <small id="description-help" class="form-text">
+                        <fmt:message bundle="${loc}" key="local.form.project.description-help"/>
+                    </small>
+                    <div id="regex-description" class="hidden-regex">${regexProjectDescription}</div>
                 </div>
                 <button type="submit" class="btn btn-primary mt-3" id="create"><fmt:message bundle="${loc}"
                                                                                             key="local.project.create-button"/></button>

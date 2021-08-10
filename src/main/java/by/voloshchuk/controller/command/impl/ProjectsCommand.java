@@ -5,6 +5,7 @@ import by.voloshchuk.exception.ServiceException;
 import by.voloshchuk.service.ProjectService;
 import by.voloshchuk.service.ServiceProvider;
 import by.voloshchuk.controller.command.*;
+import by.voloshchuk.util.RegexProperty;
 import org.apache.logging.log4j.Level;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -43,6 +44,11 @@ public class ProjectsCommand implements Command {
             request.getSession()
                     .removeAttribute(CommandAttribute.RECENTLY_CREATED_PROJECT);
         }
+
+        request.setAttribute(CommandAttribute.PROJECT_NAME_REGEX,
+                RegexProperty.PROPERTY_PROJECT_NAME_REGEX);
+        request.setAttribute(CommandAttribute.PROJECT_DESCRIPTION_REGEX,
+                RegexProperty.PROPERTY_PROJECT_DESCRIPTION_REGEX);
 
         CommandRouter router = new CommandRouter(CommandRouter.RouterType.FORWARD, CommandPath.PROJECTS_JSP);
         return router;

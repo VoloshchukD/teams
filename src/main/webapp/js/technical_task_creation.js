@@ -25,15 +25,55 @@ webix.ready(function () {
 });
 
 function submitCreationForm() {
-    webix.ajax().post("http://localhost:8080/controller?command=create-technical-task",
-        {
-            "deadline": $$("deadline").getValue(),
-            "name": document.getElementById("name").value,
-            "overview": document.getElementById("overview").value
-        })
-        .then((response) => response.json())
-        .then((data) => {
-            window.location.href = "http://localhost:8080/controller?command=to-create-requirement";
-        })
+    $('#deadlineHelp').hide();
+    if (validateCreationForm()) {
+        webix.ajax().post("http://localhost:8080/controller?command=create-technical-task",
+            {
+                "deadline": $$("deadline").getValue(),
+                "name": document.getElementById("name").value,
+                "overview": document.getElementById("overview").value
+            })
+            .then((response) => response.json())
+            .then((data) => {
+                window.location.href = "http://localhost:8080/controller?command=to-create-requirement";
+            })
+    }
+}
+
+var technicalTaskCreationInputs;
+
+var technicalTaskCreationPatterns;
+
+window.addEventListener("load", function (event) {
+
+    const nameRegex = new RegExp(document.getElementById('regex-name').textContent);
+
+    const overviewRegex = new RegExp(document.getElementById('regex-overview').textContent);
+
+    technicalTaskCreationInputs = document.querySelectorAll('.form-control');
+
+    technicalTaskCreationPatterns = {
+        name: nameRegex,
+        overview: overviewRegex
+    };
+
+    technicalTaskCreationInputs.forEach((input) => {
+        input.addEventListener('keyup', (e) => {
+            validate(e.target, technicalTaskCreationPatterns[e.target.attributes.id.value]);
+        });
+    });
+
+
+});
+
+function validateCreationForm() {
+    var today = new Date();
+    var deadlineValue = $$("deadline").getValue();
+    var deadline = new Date(deadlineValue);
+    if (deadline < today) {
+        $('#deadlineHelp').show();
+    }
+    return validateInputs(technicalTaskCreationInputs, technicalTaskCreationPatterns)
+        && (deadline > today);
 }
 

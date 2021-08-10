@@ -5,6 +5,7 @@ import by.voloshchuk.exception.ServiceException;
 import by.voloshchuk.service.ServiceProvider;
 import by.voloshchuk.service.TechnicalTaskService;
 import by.voloshchuk.controller.command.*;
+import by.voloshchuk.util.RegexProperty;
 import org.apache.logging.log4j.Level;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -29,6 +30,13 @@ public class FindTechnicalTaskCommand implements Command {
         } catch (ServiceException e) {
             logger.log(Level.ERROR, e.getMessage());
         }
+
+        request.setAttribute(CommandAttribute.TECHNICAL_TASK_NAME_REGEX,
+                RegexProperty.PROPERTY_TECHNICAL_TASK_NAME_REGEX);
+        request.setAttribute(CommandAttribute.TECHNICAL_TASK_OVERVIEW_REGEX,
+                RegexProperty.PROPERTY_TECHNICAL_TASK_OVERVIEW_REGEX);
+        request.setAttribute(CommandAttribute.TECHNICAL_TASK_DEADLINE_REGEX,
+                RegexProperty.PROPERTY_TECHNICAL_TASK_DEADLINE_REGEX);
 
         request.setAttribute(RequestParameter.TECHNICAL_TASKS, technicalTasks);
         CommandRouter router = new CommandRouter(CommandRouter.RouterType.FORWARD, CommandPath.TECHNICAL_TASKS_JSP);

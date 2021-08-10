@@ -32,3 +32,32 @@ function loadBillData() {
             $("#information").val(text);
         })
 }
+
+var billCreationInputs;
+
+var billCreationPatterns;
+
+window.addEventListener("load", function (event) {
+
+    const amountRegex = new RegExp(document.getElementById('regex-amount').textContent);
+
+    const informationRegex = new RegExp(document.getElementById('regex-information').textContent);
+
+    billCreationInputs = document.querySelectorAll('.form-control');
+
+    billCreationPatterns = {
+        amount: amountRegex,
+        information: informationRegex
+    };
+
+    billCreationInputs.forEach((input) => {
+        input.addEventListener('keyup', (e) => {
+            validate(e.target, billCreationPatterns[e.target.attributes.id.value]);
+        });
+    });
+
+});
+
+function validateCreationForm() {
+    return validateInputs(billCreationInputs, billCreationPatterns);
+}

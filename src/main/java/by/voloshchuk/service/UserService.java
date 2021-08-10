@@ -2,7 +2,7 @@ package by.voloshchuk.service;
 
 import by.voloshchuk.entity.EmployeeRequirement;
 import by.voloshchuk.entity.User;
-import by.voloshchuk.exception.DaoException;
+import by.voloshchuk.entity.dto.UserDto;
 import by.voloshchuk.exception.ServiceException;
 
 import java.util.List;
@@ -10,7 +10,7 @@ import java.util.Map;
 
 public interface UserService {
 
-    boolean addUser(User user) throws ServiceException;
+    boolean addUser(UserDto userDto) throws ServiceException;
 
     User checkUser(String email, String password) throws ServiceException;
 

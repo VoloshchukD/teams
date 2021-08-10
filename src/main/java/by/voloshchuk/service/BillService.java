@@ -1,6 +1,7 @@
 package by.voloshchuk.service;
 
 import by.voloshchuk.entity.Bill;
+import by.voloshchuk.entity.dto.BillDto;
 import by.voloshchuk.exception.DaoException;
 import by.voloshchuk.exception.ServiceException;
 
@@ -10,7 +11,7 @@ public interface BillService {
 
     Bill findBillById(Long id) throws ServiceException;
 
-    boolean addBill(Bill bill) throws ServiceException;
+    boolean addBill(BillDto billDto) throws ServiceException;
 
     String updateBillStatus(Long billId, String status) throws ServiceException;
 

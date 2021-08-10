@@ -10,9 +10,11 @@
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.0/css/all.css"
           integrity="sha384-lZN37f5QGtY3VHgisS14W3ExzMWZxybE1SJSEsQp9S+oqd12jhcu+A56Ebc1zFSJ" crossorigin="anonymous">
     <link rel="stylesheet" href="/css/base.css">
+    <link rel="stylesheet" href="/css/validation.css">
     <link rel="stylesheet" href="http://cdn.webix.com/edge/webix.css" type="text/css">
     <script src="http://cdn.webix.com/edge/webix.js" type="text/javascript"></script>
     <script src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
+    <script type="text/javascript" src="/js/validation.js"></script>
     <script type="text/javascript" src="/js/technical_task_creation.js"></script>
 </head>
 <body>
@@ -20,19 +22,31 @@
     <div class="title h1 text-center mt-3"><fmt:message bundle="${loc}" key="local.technical-task.create-header"/></div>
     <div class="row justify-content-center mt-3">
         <div class="col-4">
-            <form>
+            <form novalidate>
                 <input type="hidden" class="command" name="command" value="create-project"/>
                 <div class="form-group">
                     <label for="name" class="col-form-label"><fmt:message bundle="${loc}" key="local.technical-task.create-name"/></label>
                     <input type="text" class="form-control" name="name" id="name"/>
+                    <small id="name-help" class="form-text">
+                        <fmt:message bundle="${loc}" key="local.form.technical-task.name-help"/>
+                    </small>
+                    <div id="regex-name" class="hidden-regex">${regexTechnicalTaskName}</div>
                 </div>
                 <div class="form-group">
                     <label for="overview" class="col-form-label"><fmt:message bundle="${loc}" key="local.technical-task.create-overview"/></label>
-                    <textarea class="form-control" name="description" id="overview">
-                            </textarea>
+                    <textarea class="form-control" name="description" id="overview"></textarea>
+                    <small id="overview-help" class="form-text">
+                        <fmt:message bundle="${loc}" key="local.form.technical-task.description-help"/>
+                    </small>
+                    <div id="regex-overview" class="hidden-regex">${regexTechnicalTaskOverview}</div>
                 </div>
                 <label for="date" class="col-form-label"><fmt:message bundle="${loc}" key="local.technical-task.create-deadline"/></label>
                 <div id="date" class="justify-content-center mt-1"></div>
+                <input type="text" class="form-control-hidden is-invalid" style="display: none;">
+                <div id="deadlineHelp" class="invalid-feedback" style="display: none" >
+                    <fmt:message bundle="${loc}" key="local.form.technical-task.deadline-help"/>
+                </div>
+                <div id="regex-deadline-help" class="hidden-regex">${regexTechnicalTaskDeadline}</div>
                 <div class="d-flex justify-content-center">
                     <button onclick="submitCreationForm()" type="button" class="btn btn-primary mt-3"><fmt:message bundle="${loc}" key="local.technical-task.create-button"/></button>
                 </div>

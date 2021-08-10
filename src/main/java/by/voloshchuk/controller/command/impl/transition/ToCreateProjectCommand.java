@@ -1,14 +1,12 @@
 package by.voloshchuk.controller.command.impl.transition;
 
+import by.voloshchuk.controller.command.*;
 import by.voloshchuk.entity.TechnicalTask;
 import by.voloshchuk.entity.User;
 import by.voloshchuk.exception.ServiceException;
 import by.voloshchuk.service.ServiceProvider;
 import by.voloshchuk.service.TechnicalTaskService;
-import by.voloshchuk.controller.command.Command;
-import by.voloshchuk.controller.command.CommandPath;
-import by.voloshchuk.controller.command.CommandRouter;
-import by.voloshchuk.controller.command.RequestParameter;
+import by.voloshchuk.util.RegexProperty;
 import org.apache.logging.log4j.Level;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -42,6 +40,10 @@ public class ToCreateProjectCommand implements Command {
         }
 
         request.setAttribute(RequestParameter.TECHNICAL_TASK, technicalTask);
+        request.setAttribute(CommandAttribute.PROJECT_NAME_REGEX,
+                RegexProperty.PROPERTY_PROJECT_NAME_REGEX);
+        request.setAttribute(CommandAttribute.PROJECT_DESCRIPTION_REGEX,
+                RegexProperty.PROPERTY_PROJECT_DESCRIPTION_REGEX);
 
         CommandRouter router = new CommandRouter(CommandRouter.RouterType.FORWARD, CommandPath.PROJECT_CREATION_JSP);
         return router;

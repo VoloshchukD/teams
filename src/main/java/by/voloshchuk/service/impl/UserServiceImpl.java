@@ -1,5 +1,6 @@
 package by.voloshchuk.service.impl;
 
+import by.voloshchuk.controller.command.CommandAttribute;
 import by.voloshchuk.dao.DaoProvider;
 import by.voloshchuk.dao.UserDao;
 import by.voloshchuk.dao.UserDetailDao;
@@ -7,10 +8,13 @@ import by.voloshchuk.dao.impl.ConstantColumnName;
 import by.voloshchuk.dao.impl.UserDaoImpl;
 import by.voloshchuk.entity.EmployeeRequirement;
 import by.voloshchuk.entity.User;
+import by.voloshchuk.entity.dto.UserDto;
 import by.voloshchuk.exception.DaoException;
 import by.voloshchuk.exception.ServiceException;
 import by.voloshchuk.service.UserService;
-import by.voloshchuk.controller.command.CommandAttribute;
+import by.voloshchuk.service.validator.Validator;
+import by.voloshchuk.service.validator.ValidatorProvider;
+import by.voloshchuk.util.DtoBuilder;
 import org.mindrot.jbcrypt.BCrypt;
 
 import java.util.HashMap;
@@ -21,18 +25,24 @@ public class UserServiceImpl implements UserService {
 
     private static DaoProvider daoProvider = DaoProvider.getInstance();
 
-    public boolean addUser(User user) throws ServiceException {
+    public boolean addUser(UserDto userDto) throws ServiceException {
         boolean result = false;
         UserDao userDao = daoProvider.getUserDao();
         UserDetailDao userDetailDao = daoProvider.getUserDetailDao();
-        try {
-            userDetailDao.addUserDetail(user.getUserDetail());
-            String password = user.getPassword();
-            String hash = BCrypt.hashpw(password, BCrypt.gensalt());
-            user.setPassword(hash);
-            result = userDao.addUser(user);
-        } catch (DaoException e) {
-            throw new ServiceException(e);
+        User user = DtoBuilder.buildUser(userDto);
+        Validator<UserDto> userValidator = ValidatorProvider.getInstance().getUserValidator();
+        if (userValidator.validateCreateData(userDto)) {
+            try {
+                userDetailDao.addUserDetail(user.getUserDetail());
+                userDto.setUserDetailId(user.getUserDetail().getId());
+                String password = user.getPassword();
+                String hash = BCrypt.hashpw(password, BCrypt.gensalt());
+                userDto.setPassword(hash);
+                result = userDao.addUser(user);
+                userDto.setUserId(user.getId());
+            } catch (DaoException e) {
+                throw new ServiceException(e);
+            }
         }
         return result;
     }

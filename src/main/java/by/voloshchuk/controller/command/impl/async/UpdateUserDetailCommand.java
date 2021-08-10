@@ -1,6 +1,7 @@
 package by.voloshchuk.controller.command.impl.async;
 
 import by.voloshchuk.entity.UserDetail;
+import by.voloshchuk.entity.dto.UserDto;
 import by.voloshchuk.exception.ServiceException;
 import by.voloshchuk.service.ServiceProvider;
 import by.voloshchuk.service.UserDetailService;
@@ -26,31 +27,31 @@ public class UpdateUserDetailCommand implements AsyncCommand {
     @Override
     public void execute(HttpServletRequest request, HttpServletResponse response)
             throws IOException, ServletException {
-        String jsonString = request.getParameter(AsyncCommandParameter.JSON_STRING);
-        JSONObject jsonObject = new JSONObject(jsonString);
-        UserDetail userDetail = createUserDetail(request, jsonObject);
+        UserDto userDto = buildUserDto(request);
 
         UserDetailService userDetailService = serviceProvider.getUserDetailService();
         try {
-            userDetailService.updateUserDetail(userDetail);
+            userDetailService.updateUserDetail(userDto);
         } catch (ServiceException e) {
             logger.log(Level.ERROR, e);
         }
     }
 
-    private UserDetail createUserDetail(HttpServletRequest request, JSONObject jsonObject) {
-        UserDetail userDetail = new UserDetail();
+    private UserDto buildUserDto(HttpServletRequest request) {
+        String jsonString = request.getParameter(AsyncCommandParameter.JSON_STRING);
+        JSONObject jsonObject = new JSONObject(jsonString);
+        UserDto userDto = new UserDto();
         Long userDetailId = (Long) request.getSession().getAttribute(CommandAttribute.USER_DETAIL_ID);
-        userDetail.setId(userDetailId);
-        userDetail.setFirstName(jsonObject.getString(AsyncCommandParameter.USER_DETAIL_FIRST_NAME));
-        userDetail.setLastName(jsonObject.getString(AsyncCommandParameter.USER_DETAIL_LAST_NAME));
-        userDetail.setCompany(jsonObject.getString(AsyncCommandParameter.USER_DETAIL_COMPANY));
-        userDetail.setPosition(jsonObject.getString(AsyncCommandParameter.USER_DETAIL_POSITION));
-        userDetail.setExperience(jsonObject.getInt(AsyncCommandParameter.USER_DETAIL_EXPERIENCE));
-        userDetail.setSalary(jsonObject.getInt(AsyncCommandParameter.USER_DETAIL_SALARY));
-        userDetail.setPrimarySkill(jsonObject.getString(AsyncCommandParameter.USER_DETAIL_PRIMARY_SKILL));
-        userDetail.setSkillsDescription(jsonObject.getString(AsyncCommandParameter.USER_DETAIL_SKILLS_DESCRIPTION));
-        return userDetail;
+        userDto.setUserDetailId(userDetailId);
+        userDto.setFirstName(jsonObject.getString(AsyncCommandParameter.USER_DETAIL_FIRST_NAME));
+        userDto.setLastName(jsonObject.getString(AsyncCommandParameter.USER_DETAIL_LAST_NAME));
+        userDto.setCompany(jsonObject.getString(AsyncCommandParameter.USER_DETAIL_COMPANY));
+        userDto.setPosition(jsonObject.getString(AsyncCommandParameter.USER_DETAIL_POSITION));
+        userDto.setExperience(jsonObject.getString(AsyncCommandParameter.USER_DETAIL_EXPERIENCE));
+        userDto.setSalary(jsonObject.getString(AsyncCommandParameter.USER_DETAIL_SALARY));
+        userDto.setPrimarySkill(jsonObject.getString(AsyncCommandParameter.USER_DETAIL_PRIMARY_SKILL));
+        userDto.setSkillsDescription(jsonObject.getString(AsyncCommandParameter.USER_DETAIL_SKILLS_DESCRIPTION));
+        return userDto;
     }
 
 }

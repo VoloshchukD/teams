@@ -37,6 +37,20 @@ public final class CommandAttribute {
 
     public static final String SKILLS_REGEX = "regexSkills";
 
+    public static final String PROJECT_NAME_REGEX = "regexProjectName";
+
+    public static final String PROJECT_DESCRIPTION_REGEX = "regexProjectDescription";
+
+    public static final String BILL_AMOUNT_REGEX = "regexAmount";
+
+    public static final String BILL_INFORMATION_REGEX = "regexInformation";
+
+    public static final String TECHNICAL_TASK_NAME_REGEX = "regexTechnicalTaskName";
+
+    public static final String TECHNICAL_TASK_OVERVIEW_REGEX = "regexTechnicalTaskOverview";
+
+    public static final String TECHNICAL_TASK_DEADLINE_REGEX = "regexTechnicalTaskDeadline";
+
     public static final String YEARS_ON_MARKET = "yearsOnMarket";
 
     public static final String PROJECTS_PRODUCTIVITY = "projectsProductivity";

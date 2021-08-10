@@ -1,26 +1,18 @@
-package by.voloshchuk.entity;
+package by.voloshchuk.entity.dto;
 
-import java.util.Date;
 import java.util.Objects;
 
-public class TechnicalTask extends AbstractEntity {
+public class TechnicalTaskDto {
 
     private String name;
 
     private String overview;
 
-    private Date deadline;
+    private String deadline;
 
-    private TechnicalTaskStatus status;
+    private String status;
 
-    public enum TechnicalTaskStatus {
-        EDITING,
-        ON_PROJECT,
-        WAIT_PROJECT,
-        COMPLETED
-    }
-
-    private User customer;
+    private Long customerId;
 
     public String getName() {
         return name;
@@ -38,51 +30,50 @@ public class TechnicalTask extends AbstractEntity {
         this.overview = overview;
     }
 
-    public Date getDeadline() {
+    public String getDeadline() {
         return deadline;
     }
 
-    public void setDeadline(Date deadline) {
+    public void setDeadline(String deadline) {
         this.deadline = deadline;
     }
 
-    public TechnicalTaskStatus getStatus() {
+    public String getStatus() {
         return status;
     }
 
-    public void setStatus(TechnicalTaskStatus status) {
+    public void setStatus(String status) {
         this.status = status;
     }
 
-    public User getCustomer() {
-        return customer;
+    public Long getCustomerId() {
+        return customerId;
     }
 
-    public void setCustomer(User customer) {
-        this.customer = customer;
+    public void setCustomerId(Long customerId) {
+        this.customerId = customerId;
     }
 
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        TechnicalTask that = (TechnicalTask) o;
+        TechnicalTaskDto that = (TechnicalTaskDto) o;
         return Objects.equals(name, that.name)
                 && Objects.equals(overview, that.overview)
                 && Objects.equals(deadline, that.deadline)
-                && status == that.status && Objects.equals(customer, that.customer);
+                && Objects.equals(status, that.status)
+                && Objects.equals(customerId, that.customerId);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(name, overview, deadline, status, customer);
+        return Objects.hash(name, overview, deadline, status, customerId);
     }
 
     @Override
     public String toString() {
         StringBuilder builder = new StringBuilder(getClass().getName());
-        builder.append("id=");
-        builder.append(getId());
         builder.append("name=");
         builder.append(name);
         builder.append(", overview=");
@@ -91,8 +82,8 @@ public class TechnicalTask extends AbstractEntity {
         builder.append(deadline);
         builder.append(", status=");
         builder.append(status);
-        builder.append(", customer=");
-        builder.append(customer);
+        builder.append(", customerId=");
+        builder.append(customerId);
         return builder.toString();
     }
 

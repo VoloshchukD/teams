@@ -1,11 +1,11 @@
 package by.voloshchuk.controller.command.impl;
 
+import by.voloshchuk.controller.command.*;
 import by.voloshchuk.entity.User;
-import by.voloshchuk.entity.UserDetail;
+import by.voloshchuk.entity.dto.UserDto;
 import by.voloshchuk.exception.ServiceException;
 import by.voloshchuk.service.ServiceProvider;
 import by.voloshchuk.service.UserService;
-import by.voloshchuk.controller.command.*;
 import org.apache.logging.log4j.Level;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -22,13 +22,14 @@ public class RegistrationCommand implements Command {
 
     @Override
     public CommandRouter execute(HttpServletRequest request, HttpServletResponse response) throws ServletException {
-        User user = createUser(request);
+        UserDto userDto = buildDto(request);
         UserService userService = serviceProvider.getUserService();
         try {
-            if (userService.addUser(user)) {
-                request.getSession().setAttribute(CommandAttribute.USER_ID, user.getId());
-                request.getSession().setAttribute(CommandAttribute.USER_DETAIL_ID, user.getUserDetail().getId());
-                request.getSession().setAttribute(CommandAttribute.ROLE, user.getRole());
+            if (userService.addUser(userDto)) {
+                request.getSession().setAttribute(CommandAttribute.USER_ID, userDto.getUserId());
+                request.getSession().setAttribute(CommandAttribute.USER_DETAIL_ID, userDto.getUserDetailId());
+                User.UserRole role = User.UserRole.valueOf(userDto.getRole());
+                request.getSession().setAttribute(CommandAttribute.ROLE, role);
             }
         } catch (ServiceException e) {
             logger.log(Level.ERROR, e.getMessage());
@@ -37,27 +38,20 @@ public class RegistrationCommand implements Command {
         return router;
     }
 
-    private User createUser(HttpServletRequest request) {
-        User user = new User();
-        user.setEmail(request.getParameter(RequestParameter.EMAIL));
-        user.setPassword(request.getParameter(RequestParameter.PASSWORD));
-        user.setRole(User.UserRole.valueOf(request.getParameter(RequestParameter.ROLE)));
-        user.setUserDetail(createUserDetails(request));
-        return user;
-    }
-
-    private UserDetail createUserDetails(HttpServletRequest request) {
-        UserDetail userDetail = new UserDetail();
-        userDetail.setFirstName(request.getParameter(RequestParameter.FIRST_NAME));
-        userDetail.setLastName(request.getParameter(RequestParameter.LAST_NAME));
-        userDetail.setCompany(request.getParameter(RequestParameter.COMPANY));
-        userDetail.setPosition(request.getParameter(RequestParameter.POSITION));
-        userDetail.setExperience(Integer.parseInt(request.getParameter(RequestParameter.EXPERIENCE)));
-        userDetail.setSalary(Integer.parseInt(request.getParameter(RequestParameter.SALARY)));
-        userDetail.setPrimarySkill(request.getParameter(RequestParameter.PRIMARY_SKILL));
-        userDetail.setSkillsDescription(request.getParameter(RequestParameter.SKILLS_DESCRIPTION));
-        userDetail.setStatus(UserDetail.Status.NOT_BUSY);
-        return userDetail;
+    private UserDto buildDto(HttpServletRequest request) {
+        UserDto userDto = new UserDto();
+        userDto.setEmail(request.getParameter(RequestParameter.EMAIL));
+        userDto.setPassword(request.getParameter(RequestParameter.PASSWORD));
+        userDto.setRole(request.getParameter(RequestParameter.ROLE));
+        userDto.setFirstName(request.getParameter(RequestParameter.FIRST_NAME));
+        userDto.setLastName(request.getParameter(RequestParameter.LAST_NAME));
+        userDto.setCompany(request.getParameter(RequestParameter.COMPANY));
+        userDto.setPosition(request.getParameter(RequestParameter.POSITION));
+        userDto.setExperience(request.getParameter(RequestParameter.EXPERIENCE));
+        userDto.setSalary(request.getParameter(RequestParameter.SALARY));
+        userDto.setPrimarySkill(request.getParameter(RequestParameter.PRIMARY_SKILL));
+        userDto.setSkillsDescription(request.getParameter(RequestParameter.SKILLS_DESCRIPTION));
+        return userDto;
     }
 
 }

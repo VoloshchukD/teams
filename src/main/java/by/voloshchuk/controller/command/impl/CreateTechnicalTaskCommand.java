@@ -2,6 +2,7 @@ package by.voloshchuk.controller.command.impl;
 
 import by.voloshchuk.entity.TechnicalTask;
 import by.voloshchuk.entity.User;
+import by.voloshchuk.entity.dto.TechnicalTaskDto;
 import by.voloshchuk.exception.ServiceException;
 import by.voloshchuk.service.ServiceProvider;
 import by.voloshchuk.service.TechnicalTaskService;
@@ -30,8 +31,8 @@ public class CreateTechnicalTaskCommand implements Command {
     public CommandRouter execute(HttpServletRequest request, HttpServletResponse response) throws ServletException {
         TechnicalTaskService technicalTaskService = serviceProvider.getTechnicalTaskService();
         try {
-            TechnicalTask technicalTask = createTechnicalTask(request);
-            technicalTaskService.addTechnicalTask(technicalTask);
+            TechnicalTaskDto technicalTaskDto = createTechnicalTaskDto(request);
+            technicalTaskService.addTechnicalTask(technicalTaskDto);
         } catch (ServiceException | ParseException e) {
             logger.log(Level.ERROR, e.getMessage());
         }
@@ -39,19 +40,14 @@ public class CreateTechnicalTaskCommand implements Command {
         return router;
     }
 
-    private TechnicalTask createTechnicalTask(HttpServletRequest request) throws ParseException {
-        TechnicalTask technicalTask = new TechnicalTask();
-        technicalTask.setName(request.getParameter("name"));
-        technicalTask.setOverview(request.getParameter("overview"));
-        String deadlineAsString = request.getParameter("deadline");
-        Date deadline = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").parse(deadlineAsString);
-        technicalTask.setDeadline(deadline);
-        technicalTask.setStatus(TechnicalTask.TechnicalTaskStatus.EDITING);
-        User user = new User();
+    private TechnicalTaskDto createTechnicalTaskDto(HttpServletRequest request) throws ParseException {
+        TechnicalTaskDto technicalTaskDto = new TechnicalTaskDto();
+        technicalTaskDto.setName(request.getParameter("name"));
+        technicalTaskDto.setOverview(request.getParameter("overview"));
+        technicalTaskDto.setDeadline(request.getParameter("deadline"));
         Long userId = (Long) request.getSession().getAttribute(CommandAttribute.USER_ID);
-        user.setId(userId);
-        technicalTask.setCustomer(user);
-        return technicalTask;
+        technicalTaskDto.setCustomerId(userId);
+        return technicalTaskDto;
     }
 
 }

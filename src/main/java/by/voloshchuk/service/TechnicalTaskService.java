@@ -1,14 +1,14 @@
 package by.voloshchuk.service;
 
 import by.voloshchuk.entity.TechnicalTask;
-import by.voloshchuk.exception.DaoException;
+import by.voloshchuk.entity.dto.TechnicalTaskDto;
 import by.voloshchuk.exception.ServiceException;
 
 import java.util.List;
 
 public interface TechnicalTaskService {
 
-    boolean addTechnicalTask(TechnicalTask technicalTask) throws ServiceException;
+    boolean addTechnicalTask(TechnicalTaskDto technicalTaskDto) throws ServiceException;
 
     TechnicalTask findTechnicalTaskById(Long technicalTaskId) throws ServiceException;
 

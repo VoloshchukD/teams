@@ -14,6 +14,20 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script src="https://use.fontawesome.com/6d201ab77c.js"></script>
+    <script src="http://cdn.webix.com/edge/webix.js" type="text/javascript"></script>
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
+            integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
+            crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="/js/validation.js"></script>
+    <script type="text/javascript" src="/js/projects.js"></script>
+    <link rel="stylesheet" href="/css/validation.css">
+    <script type="text/javascript" src="/js/pagging.js"></script>
 </head>
 <body>
 <div class="container-xxl">
@@ -24,7 +38,8 @@
                 <div class="alert alert-success alert-dismissible" role="alert" id="success">
                     <strong><fmt:message bundle="${loc}" key="local.message.success.header"/></strong>
                     <fmt:message bundle="${loc}" key="local.message.project.success"/>
-                    <fmt:message bundle="${loc}" key="local.message.project.created-name"/> ${recentlyCreatedProjectName}
+                    <fmt:message bundle="${loc}"
+                                 key="local.message.project.created-name"/> ${recentlyCreatedProjectName}
                     <button type="button" class="close" data-dismiss="alert">
                         <span aria-hidden="true">&times;</span>
                     </button>
@@ -120,10 +135,10 @@
                                         </a>
                                     </c:if>
                                     <c:if test="${ (role == 'MANAGER') || (role == 'CUSTOMER') }">
-                                    <a href="?command=to-project-bills&project-id=${project.id}">
-                                        <button type="submit" class="btn btn-primary"><fmt:message bundle="${loc}"
-                                                                                                   key="local.projects.to-bills"/></button>
-                                    </a>
+                                        <a href="?command=to-project-bills&project-id=${project.id}">
+                                            <button type="submit" class="btn btn-primary"><fmt:message bundle="${loc}"
+                                                                                                       key="local.projects.to-bills"/></button>
+                                        </a>
                                     </c:if>
                                 </div>
                                 <div class="mt-3 d-flex justify-content-between mr-3">
@@ -142,9 +157,9 @@
                                             </button>
                                         </c:if>
                                         <c:if test="${ project.state == 'FINISHED' }">
-                                            <form action="controller" method="post" >
+                                            <form action="controller" method="post">
                                                 <input type="hidden" name="command" value="delete-project"/>
-                                                <input type="hidden" name="project-id" value="${project.id}" />
+                                                <input type="hidden" name="project-id" value="${project.id}"/>
                                                 <button type="submit" class="btn btn-danger">
                                                     <i class="fa fa-trash" aria-hidden="true"></i>
                                                 </button>
@@ -159,27 +174,50 @@
                                     <div class="modal-dialog" role="document">
                                         <div class="modal-content">
                                             <div class="modal-header">
-                                                <h5 class="modal-title" id="exampleModalLabel"><fmt:message bundle="${loc}"
-                                                                                                            key="local.projects.update-header"/></h5>
+                                                <h5 class="modal-title" id="exampleModalLabel"><fmt:message
+                                                        bundle="${loc}"
+                                                        key="local.projects.update-header"/></h5>
                                             </div>
                                             <form action="controller" method="post" >
                                                 <input type="hidden" name="command"
                                                        value="update-project"/>
-                                                <input type="hidden" name="project-id" id="updateProjectId" />
+                                                <input type="hidden" name="project-id" id="updateProjectId"/>
                                                 <div class="modal-body">
-                                                    <label for="name" class="col-form-label"><fmt:message bundle="${loc}"
-                                                                                                          key="local.projects.update-name"/></label>
-                                                    <input type="text" class="form-control" name="name" id="name">
-                                                    <label for="description" class="col-form-label"><fmt:message bundle="${loc}"
-                                                                                                          key="local.projects.update-description"/></label>
-                                                    <textarea class="form-control" name="description" id="description"></textarea>
+                                                    <div class="form-group">
+                                                        <label for="name" class="col-form-label"><fmt:message
+                                                                bundle="${loc}"
+                                                                key="local.projects.update-name"/></label>
+                                                        <input type="text" class="form-control" name="name" id="name">
+                                                        <label for="description" class="col-form-label"><fmt:message
+                                                                bundle="${loc}"
+                                                                key="local.projects.update-description"/></label>
+                                                        <small id="name-help" class="form-text">
+                                                            <fmt:message bundle="${loc}"
+                                                                         key="local.form.project.name-help"/>
+                                                        </small>
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <div id="regex-name"
+                                                             class="hidden-regex">${regexProjectName}</div>
+                                                        <textarea class="form-control" name="description"
+                                                                  id="description"></textarea>
+                                                        <small id="description-help" class="form-text">
+                                                            <fmt:message bundle="${loc}"
+                                                                         key="local.form.project.description-help"/>
+                                                        </small>
+                                                        <div id="regex-description"
+                                                             class="hidden-regex">${regexProjectDescription}</div>
+                                                    </div>
                                                 </div>
                                                 <div class="modal-footer">
-                                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">
+                                                    <button type="button" class="btn btn-secondary"
+                                                            data-dismiss="modal">
                                                         <fmt:message bundle="${loc}"
                                                                      key="local.projects.update-cancel"/></button>
-                                                    <button type="submit" class="btn btn-primary" id="create-task-button">
-                                                        <fmt:message bundle="${loc}" key="local.projects.update-submit"/>
+                                                    <button type="submit" class="btn btn-primary"
+                                                            id="create-task-button">
+                                                        <fmt:message bundle="${loc}"
+                                                                     key="local.projects.update-submit"/>
                                                     </button>
                                                 </div>
                                             </form>
@@ -194,30 +232,22 @@
             </c:forEach>
         </div>
         <div class="pagging row" aria-label="...">
-                <a class="first col" style="text-align: center"><fmt:message bundle="${loc}" key="local.pagination.first"/></a>
-                <a class="prev col" style="text-align: center"><fmt:message bundle="${loc}"
-                                                                            key="local.pagination.previous"/></a> <a id="num1"
-                                                                                                                     class="num1 col"
-                                                                                                                     style="text-align: center"> </a>
-                <a id="num2" class="num2 col" style="color:gray; text-align: center"> </a> <a id="num3" class="num3 col"
-                                                                                              style="text-align: center"> </a>
-                <a class="next col" style="text-align: center"><fmt:message bundle="${loc}" key="local.pagination.next"/></a> <a
-                    class="last col" style="text-align: center"><fmt:message bundle="${loc}" key="local.pagination.last"/></a>
+            <a class="first col" style="text-align: center"><fmt:message bundle="${loc}"
+                                                                         key="local.pagination.first"/></a>
+            <a class="prev col" style="text-align: center"><fmt:message bundle="${loc}"
+                                                                        key="local.pagination.previous"/></a> <a
+                id="num1"
+                class="num1 col"
+                style="text-align: center"> </a>
+            <a id="num2" class="num2 col" style="color:gray; text-align: center"> </a> <a id="num3" class="num3 col"
+                                                                                          style="text-align: center"> </a>
+            <a class="next col" style="text-align: center"><fmt:message bundle="${loc}"
+                                                                        key="local.pagination.next"/></a> <a
+                class="last col" style="text-align: center"><fmt:message bundle="${loc}"
+                                                                         key="local.pagination.last"/></a>
         </div>
     </div>
 </div>
 <%@ include file="../WEB-INF/jspf/footer.jspf" %>
-<script src="https://use.fontawesome.com/6d201ab77c.js"></script>
-<script src="http://cdn.webix.com/edge/webix.js" type="text/javascript"></script>
-<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
-        integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
-        crossorigin="anonymous"></script>
-<script src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-<script type="text/javascript" src="/js/projects.js"></script>
-<script type="text/javascript" src="/js/pagging.js"></script>
 </body>
 </html>

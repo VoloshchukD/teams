@@ -25,6 +25,26 @@ public class RegexProperty {
 
     private static final String REGEX_SKILLS = "regex.skills";
 
+    private static final String REGEX_PROJECT_NAME = "regex.project.name";
+
+    private static final String REGEX_PROJECT_DESCRIPTION = "regex.project.description";
+
+    private static final String REGEX_TECHNICAL_TASK_NAME = "regex.technical-task.name";
+
+    private static final String REGEX_TECHNICAL_TASK_OVERVIEW = "regex.technical-task.overview";
+
+    private static final String REGEX_TECHNICAL_TASK_DEADLINE = "regex.technical-task.deadline";
+
+    private static final String REGEX_BILL_AMOUNT = "regex.bill.amount";
+
+    private static final String REGEX_BILL_INFORMATION = "regex.bill.information";
+
+    private static final String NUMBER = "regex.number";
+
+    private static final String REGEX_REQUIREMENT_QUALIFICATION = "regex.requirement.qualification";
+
+    private static final String REGEX_REQUIREMENT_PRIMARY_SKILL = "regex.requirement.primary-skill";
+
     private static final String RESOURCE_NAME = "regex";
 
     private static final ResourceBundle resourceBundle = ResourceBundle.getBundle(RESOURCE_NAME, Locale.getDefault());
@@ -48,5 +68,31 @@ public class RegexProperty {
     public static final String PROPERTY_PRIMARY_REGEX = resourceBundle.getString(REGEX_PRIMARY);
 
     public static final String PROPERTY_SKILLS_REGEX = resourceBundle.getString(REGEX_SKILLS);
+
+    public static final String PROPERTY_PROJECT_NAME_REGEX = resourceBundle.getString(REGEX_PROJECT_NAME);
+
+    public static final String PROPERTY_PROJECT_DESCRIPTION_REGEX = resourceBundle.getString(
+            REGEX_PROJECT_DESCRIPTION);
+
+    public static final String PROPERTY_TECHNICAL_TASK_NAME_REGEX = resourceBundle.getString(
+            REGEX_TECHNICAL_TASK_NAME);
+
+    public static final String PROPERTY_TECHNICAL_TASK_OVERVIEW_REGEX = resourceBundle.getString(
+            REGEX_TECHNICAL_TASK_OVERVIEW);
+
+    public static final String PROPERTY_TECHNICAL_TASK_DEADLINE_REGEX = resourceBundle.getString(
+            REGEX_TECHNICAL_TASK_DEADLINE);
+
+    public static final String PROPERTY_BILL_AMOUNT_REGEX = resourceBundle.getString(REGEX_BILL_AMOUNT);
+
+    public static final String PROPERTY_BILL_INFORMATION_REGEX = resourceBundle.getString(REGEX_BILL_INFORMATION);
+
+    public static final String PROPERTY_NUMBER_REGEX = resourceBundle.getString(NUMBER);
+
+    public static final String PROPERTY_REQUIREMENT_QUALIFICATION_REGEX = resourceBundle.getString(
+            REGEX_REQUIREMENT_QUALIFICATION);
+
+    public static final String PROPERTY_REQUIREMENT_PRIMARY_REGEX = resourceBundle.getString(
+            REGEX_REQUIREMENT_PRIMARY_SKILL);
 
 }

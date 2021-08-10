@@ -4,13 +4,20 @@ import by.voloshchuk.dao.DaoProvider;
 import by.voloshchuk.dao.TechnicalTaskDao;
 import by.voloshchuk.dao.UserDao;
 import by.voloshchuk.dao.UserDetailDao;
+import by.voloshchuk.entity.Project;
 import by.voloshchuk.entity.TechnicalTask;
 import by.voloshchuk.entity.User;
+import by.voloshchuk.entity.dto.TechnicalTaskDto;
 import by.voloshchuk.exception.DaoException;
 import by.voloshchuk.exception.ServiceException;
 import by.voloshchuk.service.TechnicalTaskService;
+import by.voloshchuk.service.validator.Validator;
+import by.voloshchuk.service.validator.ValidatorProvider;
 import org.mindrot.jbcrypt.BCrypt;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
 public class TechnicalTaskServiceImpl implements TechnicalTaskService {
@@ -18,15 +25,32 @@ public class TechnicalTaskServiceImpl implements TechnicalTaskService {
     private static DaoProvider daoProvider = DaoProvider.getInstance();
 
     @Override
-    public boolean addTechnicalTask(TechnicalTask technicalTask) throws ServiceException {
+    public boolean addTechnicalTask(TechnicalTaskDto technicalTaskDto) throws ServiceException {
         boolean result = false;
         TechnicalTaskDao technicalTaskDao = daoProvider.getTechnicalTaskDao();
-        try {
-            result = technicalTaskDao.addTechnicalTask(technicalTask);
-        } catch (DaoException e) {
-            throw new ServiceException(e);
+        Validator<TechnicalTaskDto> taskValidator = ValidatorProvider.getInstance().getTechnicalTaskValidator();
+        if (taskValidator.validateCreateData(technicalTaskDto)) {
+            try {
+                TechnicalTask technicalTask = createTechnicalTask(technicalTaskDto);
+                result = technicalTaskDao.addTechnicalTask(technicalTask);
+            } catch (DaoException | ParseException e) {
+                throw new ServiceException(e);
+            }
         }
         return result;
+    }
+
+    private TechnicalTask createTechnicalTask(TechnicalTaskDto technicalTaskDto) throws ParseException {
+        TechnicalTask technicalTask = new TechnicalTask();
+        technicalTask.setName(technicalTaskDto.getName());
+        technicalTask.setOverview(technicalTaskDto.getOverview());
+        Date deadline = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").parse(technicalTaskDto.getDeadline());
+        technicalTask.setDeadline(deadline);
+        technicalTask.setStatus(TechnicalTask.TechnicalTaskStatus.EDITING);
+        User user = new User();
+        user.setId(technicalTaskDto.getCustomerId());
+        technicalTask.setCustomer(user);
+        return technicalTask;
     }
 
     @Override

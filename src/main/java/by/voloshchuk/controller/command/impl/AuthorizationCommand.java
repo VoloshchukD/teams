@@ -34,7 +34,7 @@ public class AuthorizationCommand implements Command {
                 request.getSession().setAttribute(CommandAttribute.USER_DETAIL_ID, currentUser.getUserDetail().getId());
                 request.getSession().setAttribute(CommandAttribute.ROLE, currentUser.getRole());
                 request.getSession().setAttribute(CommandAttribute.USER_IMAGE, currentUser.getUserDetail().getImagePath());
-                router = new CommandRouter(CommandRouter.RouterType.REDIRECT, CommandPath.MAIN);
+                router = new CommandRouter(CommandRouter.RouterType.REDIRECT, CommandPath.TO_PROJECTS);
             } else {
                 request.setAttribute(CommandAttribute.ERROR, true);
             }

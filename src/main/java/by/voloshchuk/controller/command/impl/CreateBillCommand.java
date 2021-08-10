@@ -1,6 +1,7 @@
 package by.voloshchuk.controller.command.impl;
 
 import by.voloshchuk.entity.Bill;
+import by.voloshchuk.entity.dto.BillDto;
 import by.voloshchuk.exception.ServiceException;
 import by.voloshchuk.service.BillService;
 import by.voloshchuk.service.ServiceProvider;
@@ -23,10 +24,10 @@ public class CreateBillCommand implements Command {
 
     @Override
     public CommandRouter execute(HttpServletRequest request, HttpServletResponse response) throws ServletException {
-        Bill bill = createBill(request);
+        BillDto billDto = createBill(request);
         BillService billService = serviceProvider.getBillService();
         try {
-            billService.addBill(bill);
+            billService.addBill(billDto);
         } catch (ServiceException e) {
             logger.log(Level.ERROR, e.getMessage());
         }
@@ -34,13 +35,12 @@ public class CreateBillCommand implements Command {
         return router;
     }
 
-    private Bill createBill(HttpServletRequest request) {
-        Bill bill = new Bill();
-        bill.setAmountDue(Integer.parseInt(request.getParameter("amount")));
-        bill.setInformation(request.getParameter("information"));
-        bill.setStatus(Bill.BillStatus.NOT_PAID);
-        bill.setProjectId(Long.parseLong(request.getParameter("project-id")));
-        return bill;
+    private BillDto createBill(HttpServletRequest request) {
+        BillDto billDto = new BillDto();
+        billDto.setAmountDue(request.getParameter("amount"));
+        billDto.setInformation(request.getParameter("information"));
+        billDto.setProjectId(request.getParameter("project-id"));
+        return billDto;
     }
 
 }

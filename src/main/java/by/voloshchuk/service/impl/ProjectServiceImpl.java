@@ -1,14 +1,14 @@
 package by.voloshchuk.service.impl;
 
-import by.voloshchuk.dao.*;
+import by.voloshchuk.dao.DaoProvider;
+import by.voloshchuk.dao.ProjectDao;
 import by.voloshchuk.entity.Project;
-import by.voloshchuk.entity.TechnicalTask;
-import by.voloshchuk.entity.User;
 import by.voloshchuk.entity.dto.ProjectDto;
 import by.voloshchuk.exception.DaoException;
 import by.voloshchuk.exception.ServiceException;
 import by.voloshchuk.service.ProjectService;
-import org.mindrot.jbcrypt.BCrypt;
+import by.voloshchuk.service.validator.Validator;
+import by.voloshchuk.service.validator.ValidatorProvider;
 
 import java.util.Date;
 import java.util.List;
@@ -22,11 +22,14 @@ public class ProjectServiceImpl implements ProjectService {
         ProjectDao projectDao = daoProvider.getProjectDao();
         Date date = new Date(System.currentTimeMillis());
         Project project = projectDto.getProject();
-        project.setStartDate(new java.sql.Date(date.getTime()));
-        try {
-            result = projectDao.addProject(projectDto);
-        } catch (DaoException e) {
-            throw new ServiceException(e);
+        Validator<Project> projectValidator = ValidatorProvider.getInstance().getProjectValidator();
+        if (projectValidator.validateCreateData(project)) {
+            try {
+                project.setStartDate(new java.sql.Date(date.getTime()));
+                result = projectDao.addProject(projectDto);
+            } catch (DaoException e) {
+                throw new ServiceException(e);
+            }
         }
         return result;
     }
@@ -46,11 +49,14 @@ public class ProjectServiceImpl implements ProjectService {
     @Override
     public Project updateProject(Project project) throws ServiceException {
         Project updatedProject = null;
-        ProjectDao projectDao = daoProvider.getProjectDao();
-        try {
-            updatedProject = projectDao.updateProject(project);
-        } catch (DaoException e) {
-            throw new ServiceException(e);
+        Validator<Project> projectValidator = ValidatorProvider.getInstance().getProjectValidator();
+        if (projectValidator.validateUpdateData(project)) {
+            ProjectDao projectDao = daoProvider.getProjectDao();
+            try {
+                updatedProject = projectDao.updateProject(project);
+            } catch (DaoException e) {
+                throw new ServiceException(e);
+            }
         }
         return updatedProject;
     }

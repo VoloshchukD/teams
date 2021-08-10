@@ -3,9 +3,13 @@ package by.voloshchuk.service.impl;
 import by.voloshchuk.dao.DaoProvider;
 import by.voloshchuk.dao.UserDetailDao;
 import by.voloshchuk.entity.UserDetail;
+import by.voloshchuk.entity.dto.UserDto;
 import by.voloshchuk.exception.DaoException;
 import by.voloshchuk.exception.ServiceException;
 import by.voloshchuk.service.UserDetailService;
+import by.voloshchuk.service.validator.Validator;
+import by.voloshchuk.service.validator.ValidatorProvider;
+import by.voloshchuk.util.DtoBuilder;
 
 public class UserDetailServiceImpl implements UserDetailService {
 
@@ -23,13 +27,18 @@ public class UserDetailServiceImpl implements UserDetailService {
     }
 
     @Override
-    public UserDetail updateUserDetail(UserDetail userDetail) throws ServiceException {
+    public UserDetail updateUserDetail(UserDto userDto) throws ServiceException {
         UserDetailDao userDetailDao = daoProvider.getUserDetailDao();
         UserDetail resultUserDetail = null;
-        try {
-            resultUserDetail = userDetailDao.updateUserDetail(userDetail);
-        } catch (DaoException e) {
-            throw new ServiceException(e);
+        Validator<UserDto> userValidator = ValidatorProvider.getInstance().getUserValidator();
+        if (userValidator.validateUpdateData(userDto)) {
+            try {
+                UserDetail userDetail = DtoBuilder.buildUserDetail(userDto);
+                userDetail.setId(userDto.getUserDetailId());
+                resultUserDetail = userDetailDao.updateUserDetail(userDetail);
+            } catch (DaoException e) {
+                throw new ServiceException(e);
+            }
         }
         return resultUserDetail;
     }

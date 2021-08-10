@@ -2,12 +2,14 @@ package by.voloshchuk.service.impl;
 
 import by.voloshchuk.dao.BillDao;
 import by.voloshchuk.dao.DaoProvider;
-import by.voloshchuk.dao.ProjectDao;
 import by.voloshchuk.entity.Bill;
 import by.voloshchuk.entity.Project;
+import by.voloshchuk.entity.dto.BillDto;
 import by.voloshchuk.exception.DaoException;
 import by.voloshchuk.exception.ServiceException;
 import by.voloshchuk.service.BillService;
+import by.voloshchuk.service.validator.Validator;
+import by.voloshchuk.service.validator.ValidatorProvider;
 
 import java.util.List;
 
@@ -28,15 +30,28 @@ public class BillServiceImpl implements BillService {
     }
 
     @Override
-    public boolean addBill(Bill bill) throws ServiceException {
+    public boolean addBill(BillDto billDto) throws ServiceException {
         boolean result = false;
         BillDao billDao = daoProvider.getBillDao();
-        try {
-            result = billDao.addBill(bill);
-        } catch (DaoException e) {
-            throw new ServiceException(e);
+        Validator<BillDto> billValidator = ValidatorProvider.getInstance().getBillValidator();
+        if (billValidator.validateCreateData(billDto)) {
+            Bill bill = buildBill(billDto);
+            try {
+                result = billDao.addBill(bill);
+            } catch (DaoException e) {
+                throw new ServiceException(e);
+            }
         }
         return result;
+    }
+
+    private Bill buildBill(BillDto billDto) {
+        Bill bill = new Bill();
+        bill.setAmountDue(Integer.parseInt(billDto.getAmountDue()));
+        bill.setInformation(billDto.getInformation());
+        bill.setStatus(Bill.BillStatus.NOT_PAID);
+        bill.setProjectId(Long.parseLong(billDto.getProjectId()));
+        return bill;
     }
 
     @Override
