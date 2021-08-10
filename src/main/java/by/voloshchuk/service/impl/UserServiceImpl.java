@@ -1,18 +1,16 @@
 package by.voloshchuk.service.impl;
 
 import by.voloshchuk.dao.DaoProvider;
-import by.voloshchuk.dao.ProjectDao;
 import by.voloshchuk.dao.UserDao;
 import by.voloshchuk.dao.UserDetailDao;
 import by.voloshchuk.dao.impl.ConstantColumnName;
 import by.voloshchuk.dao.impl.UserDaoImpl;
 import by.voloshchuk.entity.EmployeeRequirement;
-import by.voloshchuk.entity.Project;
 import by.voloshchuk.entity.User;
 import by.voloshchuk.exception.DaoException;
 import by.voloshchuk.exception.ServiceException;
 import by.voloshchuk.service.UserService;
-import by.voloshchuk.servlet.command.CommandAttribute;
+import by.voloshchuk.controller.command.CommandAttribute;
 import org.mindrot.jbcrypt.BCrypt;
 
 import java.util.HashMap;
@@ -92,11 +90,35 @@ public class UserServiceImpl implements UserService {
         return users;
     }
 
+    @Override
+    public List<User> findUsersByPrimarySkill(String primarySkill) throws ServiceException {
+        List<User> users = null;
+        UserDao userDao = daoProvider.getUserDao();
+        try {
+            users = userDao.findUsersByPrimarySkill(primarySkill);
+        } catch (DaoException e) {
+            throw new ServiceException(e);
+        }
+        return users;
+    }
+
     public boolean addUserToProject(Long userId, Long projectId) throws ServiceException {
         boolean result = false;
         UserDao userDao = daoProvider.getUserDao();
         try {
             result = userDao.addUserToProject(userId, projectId);
+        } catch (DaoException e) {
+            throw new ServiceException(e);
+        }
+        return result;
+    }
+
+    @Override
+    public boolean removeUserFromProject(Long userId, Long projectId) throws ServiceException {
+        boolean result = false;
+        UserDao userDao = daoProvider.getUserDao();
+        try {
+            result = userDao.removeUserFromProject(userId, projectId);
         } catch (DaoException e) {
             throw new ServiceException(e);
         }

@@ -2,7 +2,7 @@ package by.voloshchuk.entity;
 
 import java.util.Objects;
 
-public class Task extends AbstractIdentifiedEntity {
+public class Task extends AbstractEntity {
 
     private String name;
 
@@ -85,25 +85,40 @@ public class Task extends AbstractIdentifiedEntity {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Task task = (Task) o;
-        return Objects.equals(name, task.name) && Objects.equals(details, task.details) && Objects.equals(plannedTime, task.plannedTime) && Objects.equals(trackedTime, task.trackedTime) && status == task.status && Objects.equals(project, task.project) && Objects.equals(developer, task.developer);
+        return Objects.equals(name, task.name)
+                && Objects.equals(details, task.details)
+                && Objects.equals(plannedTime, task.plannedTime)
+                && Objects.equals(trackedTime, task.trackedTime)
+                && status == task.status && Objects.equals(project, task.project)
+                && Objects.equals(developer, task.developer);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(name, details, plannedTime, trackedTime, status, project, developer);
+        return Objects.hash(name, details, plannedTime,
+                trackedTime, status, project, developer);
     }
 
     @Override
     public String toString() {
-        return "Task{" +
-                "name='" + name + '\'' +
-                ", details='" + details + '\'' +
-                ", plannedTime=" + plannedTime +
-                ", trackedTime=" + trackedTime +
-                ", status=" + status +
-                ", project=" + project +
-                ", developer=" + developer +
-                '}';
+        StringBuilder builder = new StringBuilder(getClass().getName());
+        builder.append("id=");
+        builder.append(getId());
+        builder.append("name=");
+        builder.append(name);
+        builder.append(", details=");
+        builder.append(details);
+        builder.append(", plannedTime=");
+        builder.append(plannedTime);
+        builder.append(", trackedTime=");
+        builder.append(trackedTime);
+        builder.append(", status=");
+        builder.append(status);
+        builder.append(", project=");
+        builder.append(project);
+        builder.append(", developer=");
+        builder.append(developer);
+        return builder.toString();
     }
 
 }

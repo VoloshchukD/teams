@@ -25,6 +25,8 @@ public interface UserDao {
 
     List<User> findAllByEmployeeRequirement(EmployeeRequirement requirements) throws DaoException;
 
+    List<User> findUsersByPrimarySkill(String primarySkill) throws DaoException;
+
     boolean addUserToProject(Long userId, Long projectId) throws DaoException;
 
     boolean removeUserFromProject(Long userId, Long projectId) throws DaoException;

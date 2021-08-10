@@ -10,7 +10,7 @@
 
     <filter>
         <filter-name>AccessFilter</filter-name>
-        <filter-class>by.voloshchuk.servlet.filter.AccessFilter</filter-class>
+        <filter-class>by.voloshchuk.controller.filter.AccessFilter</filter-class>
     </filter>
     <filter-mapping>
         <filter-name>AccessFilter</filter-name>
@@ -29,7 +29,7 @@
     </jsp-config>
 
     <listener>
-        <listener-class>by.voloshchuk.servlet.listener.WebAppListener</listener-class>
+        <listener-class>by.voloshchuk.controller.listener.WebAppListener</listener-class>
     </listener>
 
     <error-page>
@@ -39,7 +39,7 @@
 
     <servlet>
         <servlet-name>Controller</servlet-name>
-        <servlet-class>by.voloshchuk.servlet.Controller</servlet-class>
+        <servlet-class>by.voloshchuk.controller.Controller</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>Controller</servlet-name>
@@ -48,7 +48,7 @@
 
     <servlet>
         <servlet-name>AsyncController</servlet-name>
-        <servlet-class>by.voloshchuk.servlet.AsyncController</servlet-class>
+        <servlet-class>by.voloshchuk.controller.AsyncController</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>AsyncController</servlet-name>
@@ -57,7 +57,7 @@
 
     <servlet>
         <servlet-name>UploadController</servlet-name>
-        <servlet-class>by.voloshchuk.servlet.UploadController</servlet-class>
+        <servlet-class>by.voloshchuk.controller.UploadController</servlet-class>
         <multipart-config>
             <location>/</location>
             <max-file-size>20848820</max-file-size>

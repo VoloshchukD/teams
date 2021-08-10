@@ -20,6 +20,10 @@ public interface UserService {
 
     List<User> findAllByEmployeeRequirement(EmployeeRequirement requirements) throws ServiceException;
 
+    List<User> findUsersByPrimarySkill(String primarySkill) throws ServiceException;
+
     boolean addUserToProject(Long userId, Long projectId) throws ServiceException;
+
+    boolean removeUserFromProject(Long userId, Long projectId) throws ServiceException;
 
 }

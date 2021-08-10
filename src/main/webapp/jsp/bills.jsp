@@ -57,7 +57,7 @@
                         </c:choose>
                     </div>
                     <div class="card-body text-center">
-                        <h1 class="card-title pricing-card-title">$${bill.amountDue}</h1>
+                        <h1 class="card-title pricing-card-title">$<c:out value="${bill.amountDue}"/></h1>
                         <h6 class="my-0 font-weight-normal"><fmt:message bundle="${loc}" key="local.bills.project"/>:
                             lkdsmfsdf</h6>
                         <hr>
@@ -66,14 +66,14 @@
                             <li>${bill.information}</li>
                         </ul>
                         <c:if test="${ (bill.status == 'NOT_PAID') && (role == 'CUSTOMER') }">
-                            <a href="?command=to-payment-form&bill-id=${bill.id}">
+                            <a href="?command=to-payment-form&bill-id=<c:out value="${bill.id}" />">
                                 <button type="submit" class="btn btn-primary"><fmt:message bundle="${loc}"
                                                                                            key="local.bills.pay"/></button>
                             </a>
                         </c:if>
                         <c:if test="${ (bill.status == 'PAID') && (role == 'MANAGER') }">
                             <div class="block">
-                                <input type="hidden" class="id" value="${bill.id}"/>
+                                <input type="hidden" class="id" value="<c:out value="${bill.id}" />"/>
                                 <input type="hidden" class="update" value="<fmt:message bundle="${loc}"
                                                                                     key="local.bills.accepted"/>"/>
                                 <button type="button" class="accept btn btn-primary"><fmt:message bundle="${loc}"
@@ -87,7 +87,7 @@
                         <div class="editing mt-3 d-flex justify-content-between mx-5">
                             <div>
                                 <input type="hidden" class="billId" name="bill-id"
-                                       value="${bill.id}"/>
+                                       value="<c:out value="${bill.id}" />"/>
                                 <button type="button" class="edit btn btn-secondary"
                                         data-toggle="modal" data-target="#modal">
                                     <i class="fa fa-wrench" aria-hidden="true"></i>
@@ -97,7 +97,7 @@
                             <div>
                                 <form class="delete" action="controller" method="post">
                                     <input type="hidden" name="command" value="delete-bill"/>
-                                    <input type="hidden" name="bill-id" value="${bill.id}"/>
+                                    <input type="hidden" name="bill-id" value="<c:out value="${bill.id}" />"/>
                                     <input type="hidden" class="forDeleteProjectId"
                                            name="project-id"/>
                                     <button type="submit" class="btn btn-danger">

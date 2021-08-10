@@ -2,9 +2,7 @@ package by.voloshchuk.service.impl;
 
 import by.voloshchuk.dao.DaoProvider;
 import by.voloshchuk.dao.EmployeeRequirementDao;
-import by.voloshchuk.dao.ProjectDao;
 import by.voloshchuk.entity.EmployeeRequirement;
-import by.voloshchuk.entity.Project;
 import by.voloshchuk.exception.DaoException;
 import by.voloshchuk.exception.ServiceException;
 import by.voloshchuk.service.EmployeeRequirementService;
@@ -32,7 +30,7 @@ public class EmployeeRequirementServiceImpl implements EmployeeRequirementServic
         List<EmployeeRequirement> employeeRequirements = null;
         EmployeeRequirementDao employeeRequirementDao = daoProvider.getEmployeeRequirementDao();
         try {
-            employeeRequirements = employeeRequirementDao.findAllByProjectId(technicalTaskId);
+            employeeRequirements = employeeRequirementDao.findAllByTechnicalTaskId(technicalTaskId);
         } catch (DaoException e) {
             throw new ServiceException(e);
         }

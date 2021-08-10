@@ -1,7 +1,7 @@
 package by.voloshchuk.tag;
 
 import by.voloshchuk.entity.User;
-import by.voloshchuk.servlet.command.CommandAttribute;
+import by.voloshchuk.controller.command.CommandAttribute;
 
 import javax.servlet.jsp.JspException;
 import javax.servlet.jsp.tagext.TagSupport;

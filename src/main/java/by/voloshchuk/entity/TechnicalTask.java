@@ -4,7 +4,7 @@ import java.util.Date;
 import java.util.List;
 import java.util.Objects;
 
-public class TechnicalTask extends AbstractIdentifiedEntity {
+public class TechnicalTask extends AbstractEntity {
 
     private String name;
 
@@ -78,23 +78,37 @@ public class TechnicalTask extends AbstractIdentifiedEntity {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         TechnicalTask that = (TechnicalTask) o;
-        return Objects.equals(name, that.name) && Objects.equals(overview, that.overview) && Objects.equals(deadline, that.deadline) && status == that.status && Objects.equals(customer, that.customer) && Objects.equals(requirements, that.requirements);
+        return Objects.equals(name, that.name)
+                && Objects.equals(overview, that.overview)
+                && Objects.equals(deadline, that.deadline)
+                && status == that.status && Objects.equals(customer, that.customer)
+                && Objects.equals(requirements, that.requirements);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(name, overview, deadline, status, customer, requirements);
+        return Objects.hash(name, overview, deadline,
+                status, customer, requirements);
     }
 
     @Override
     public String toString() {
-        return "TechnicalTask{" +
-                "name='" + name + '\'' +
-                ", overview='" + overview + '\'' +
-                ", deadline=" + deadline +
-                ", status=" + status +
-                ", customer=" + customer +
-                ", requirements=" + requirements +
-                '}';
+        StringBuilder builder = new StringBuilder(getClass().getName());
+        builder.append("id=");
+        builder.append(getId());
+        builder.append("name=");
+        builder.append(name);
+        builder.append(", overview=");
+        builder.append(overview);
+        builder.append(", deadline=");
+        builder.append(deadline);
+        builder.append(", status=");
+        builder.append(status);
+        builder.append(", customer=");
+        builder.append(customer);
+        builder.append(", requirements=");
+        builder.append(requirements);
+        return builder.toString();
     }
+
 }

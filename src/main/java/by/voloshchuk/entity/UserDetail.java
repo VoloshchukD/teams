@@ -2,7 +2,7 @@ package by.voloshchuk.entity;
 
 import java.util.Objects;
 
-public class UserDetail extends AbstractIdentifiedEntity {
+public class UserDetail extends AbstractEntity {
 
     private String imagePath;
 
@@ -115,28 +115,50 @@ public class UserDetail extends AbstractIdentifiedEntity {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         UserDetail that = (UserDetail) o;
-        return Objects.equals(imagePath, that.imagePath) && Objects.equals(firstName, that.firstName) && Objects.equals(lastName, that.lastName) && Objects.equals(company, that.company) && Objects.equals(position, that.position) && Objects.equals(experience, that.experience) && Objects.equals(salary, that.salary) && Objects.equals(primarySkill, that.primarySkill) && Objects.equals(skillsDescription, that.skillsDescription) && status == that.status;
+        return Objects.equals(imagePath, that.imagePath)
+                && Objects.equals(firstName, that.firstName)
+                && Objects.equals(lastName, that.lastName)
+                && Objects.equals(company, that.company)
+                && Objects.equals(position, that.position)
+                && Objects.equals(experience, that.experience)
+                && Objects.equals(salary, that.salary)
+                && Objects.equals(primarySkill, that.primarySkill)
+                && Objects.equals(skillsDescription, that.skillsDescription)
+                && status == that.status;
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(imagePath, firstName, lastName, company, position, experience, salary, primarySkill, skillsDescription, status);
+        return Objects.hash(imagePath, firstName, lastName, company,
+                position, experience, salary, primarySkill, skillsDescription, status);
     }
 
     @Override
     public String toString() {
-        return "UserDetail{" +
-                "imagePath='" + imagePath + '\'' +
-                ", firstName='" + firstName + '\'' +
-                ", lastName='" + lastName + '\'' +
-                ", company='" + company + '\'' +
-                ", position='" + position + '\'' +
-                ", experience=" + experience +
-                ", salary=" + salary +
-                ", primarySkill='" + primarySkill + '\'' +
-                ", skillsDescription='" + skillsDescription + '\'' +
-                ", status=" + status +
-                '}';
+        StringBuilder builder = new StringBuilder(getClass().getName());
+        builder.append("id=");
+        builder.append(getId());
+        builder.append("imagePath=");
+        builder.append(imagePath);
+        builder.append(", firstName=");
+        builder.append(firstName);
+        builder.append(", lastName=");
+        builder.append(lastName);
+        builder.append(", company=");
+        builder.append(company);
+        builder.append(", position=");
+        builder.append(position);
+        builder.append(", experience=");
+        builder.append(experience);
+        builder.append(", salary=");
+        builder.append(salary);
+        builder.append(", primarySkill=");
+        builder.append(primarySkill);
+        builder.append(", skillsDescription=");
+        builder.append(skillsDescription);
+        builder.append(", status=");
+        builder.append(status);
+        return builder.toString();
     }
 
 }

@@ -50,6 +50,12 @@ public class UserDaoImpl implements UserDao {
             "AND teams.user_details.experience >= ? AND teams.user_details.salary <= ? AND teams.user_details.primary_skill = ? " +
             "AND user_details.status = 'NOT_BUSY'";
 
+    private static final String FIND_USER_BY_PRIMARY_SKILL_QUERY = "SELECT * FROM teams.user_details " +
+            "INNER JOIN teams.users ON teams.users.user_detail_id = teams.user_details.user_detail_id " +
+            "WHERE teams.user_details.primary_skill LIKE ?";
+
+    private static final String PERCENT = "%";
+
     private static final String UPDATE_USER_QUERY = "UPDATE users SET email = ?, " +
             "password = ? WHERE user_id = ?";
 
@@ -205,6 +211,43 @@ public class UserDaoImpl implements UserDao {
         return user;
     }
 
+    public List<User> findUsersByPrimarySkill(String primarySkill) throws DaoException {
+        List<User> users = new ArrayList<>();
+        try (Connection connection = connectionPool.getConnection();
+             PreparedStatement statement = connection.prepareStatement(FIND_USER_BY_PRIMARY_SKILL_QUERY)) {
+            statement.setString(1, PERCENT + primarySkill + PERCENT);
+            ResultSet resultSet = statement.executeQuery();
+            while (resultSet.next()) {
+                User user = new User();
+                UserDetail userDetail = new UserDetail();
+                userDetail.setId(resultSet.getLong(ConstantColumnName.USER_DETAIL_ID));
+                userDetail.setImagePath(resultSet.getString(ConstantColumnName.USER_DETAIL_IMAGE));
+                userDetail.setFirstName(resultSet.getString(ConstantColumnName.USER_DETAIL_FIRST_NAME));
+                userDetail.setLastName(resultSet.getString(ConstantColumnName.USER_DETAIL_LAST_NAME));
+                userDetail.setCompany(resultSet.getString(ConstantColumnName.USER_DETAIL_COMPANY));
+                userDetail.setPosition(resultSet.getString(ConstantColumnName.USER_DETAIL_POSITION));
+                userDetail.setExperience(resultSet.getInt(ConstantColumnName.USER_DETAIL_EXPERIENCE));
+                userDetail.setSalary(resultSet.getInt(ConstantColumnName.USER_DETAIL_SALARY));
+                userDetail.setStatus(
+                        UserDetail.Status.valueOf(resultSet.getString(ConstantColumnName.USER_DETAIL_STATUS)));
+                userDetail.setPrimarySkill(resultSet.getString(ConstantColumnName.USER_DETAIL_PRIMARY_SKILL));
+                userDetail.setSkillsDescription(
+                        resultSet.getString(ConstantColumnName.USER_DETAIL_SKILLS_DESCRIPTION));
+
+                user.setId(resultSet.getLong(ConstantColumnName.USER_ID));
+                user.setEmail(resultSet.getString(ConstantColumnName.USER_EMAIL));
+                user.setPassword(resultSet.getString(ConstantColumnName.USER_PASSWORD));
+                user.setRole(User.UserRole.valueOf(resultSet.getString(ConstantColumnName.USER_ROLE)));
+                user.setUserDetail(userDetail);
+
+                users.add(user);
+            }
+        } catch (SQLException e) {
+            throw new DaoException(e);
+        }
+        return users;
+    }
+
     public User updateUser(User user) throws DaoException {
         User resultUser = null;
         try (Connection connection = connectionPool.getConnection();
@@ -291,16 +334,16 @@ public class UserDaoImpl implements UserDao {
     }
 
     public boolean removeUserFromProject(Long userId, Long projectId) throws DaoException {
-        boolean isRemoved = false;
+        boolean removed = false;
         try (Connection connection = connectionPool.getConnection();
              PreparedStatement statement = connection.prepareStatement(DELETE_USER_FROM_PROJECT_QUERY)) {
             statement.setLong(1, projectId);
             statement.setLong(2, userId);
-            isRemoved = statement.executeUpdate() == 1;
+            removed = statement.executeUpdate() == 1;
         } catch (SQLException e) {
             throw new DaoException(e);
         }
-        return isRemoved;
+        return removed;
     }
 
 }

@@ -2,7 +2,7 @@ package by.voloshchuk.entity;
 
 import java.util.Objects;
 
-public class User extends AbstractIdentifiedEntity {
+public class User extends AbstractEntity {
 
     private String email;
 
@@ -57,7 +57,10 @@ public class User extends AbstractIdentifiedEntity {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         User user = (User) o;
-        return Objects.equals(email, user.email) && Objects.equals(password, user.password) && role == user.role && Objects.equals(userDetail, user.userDetail);
+        return Objects.equals(email, user.email)
+                && Objects.equals(password, user.password)
+                && role == user.role
+                && Objects.equals(userDetail, user.userDetail);
     }
 
     @Override
@@ -67,12 +70,18 @@ public class User extends AbstractIdentifiedEntity {
 
     @Override
     public String toString() {
-        return "User{" +
-                "email='" + email + '\'' +
-                ", password='" + password + '\'' +
-                ", role=" + role +
-                ", userDetail=" + userDetail +
-                '}';
+        StringBuilder builder = new StringBuilder(getClass().getName());
+        builder.append("id=");
+        builder.append(getId());
+        builder.append("email=");
+        builder.append(email);
+        builder.append(", password=");
+        builder.append(password);
+        builder.append(", role=");
+        builder.append(role);
+        builder.append(", userDetail=");
+        builder.append(userDetail);
+        return builder.toString();
     }
 
 }

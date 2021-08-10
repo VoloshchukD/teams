@@ -2,7 +2,7 @@ package by.voloshchuk.entity;
 
 import java.util.Objects;
 
-public class Bill extends AbstractIdentifiedEntity {
+public class Bill extends AbstractEntity {
 
     private BillStatus status;
 
@@ -55,7 +55,10 @@ public class Bill extends AbstractIdentifiedEntity {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Bill bill = (Bill) o;
-        return status == bill.status && Objects.equals(information, bill.information) && Objects.equals(amountDue, bill.amountDue) && Objects.equals(projectId, bill.projectId);
+        return status == bill.status
+                && Objects.equals(information, bill.information)
+                && Objects.equals(amountDue, bill.amountDue)
+                && Objects.equals(projectId, bill.projectId);
     }
 
     @Override
@@ -65,12 +68,18 @@ public class Bill extends AbstractIdentifiedEntity {
 
     @Override
     public String toString() {
-        return "Bill{" +
-                "status=" + status +
-                ", information='" + information + '\'' +
-                ", amountDue=" + amountDue +
-                ", projectId=" + projectId +
-                '}';
+        StringBuilder builder = new StringBuilder(getClass().getName());
+        builder.append("id=");
+        builder.append(getId());
+        builder.append("status=");
+        builder.append(status);
+        builder.append(", information=");
+        builder.append(information);
+        builder.append(", amountDue=");
+        builder.append(amountDue);
+        builder.append(", projectId=");
+        builder.append(projectId);
+        return builder.toString();
     }
 
 }

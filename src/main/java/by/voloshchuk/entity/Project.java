@@ -4,7 +4,7 @@ import java.sql.Date;
 import java.util.List;
 import java.util.Objects;
 
-public class Project extends AbstractIdentifiedEntity {
+public class Project extends AbstractEntity {
 
     private String name;
 
@@ -77,24 +77,38 @@ public class Project extends AbstractIdentifiedEntity {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Project project = (Project) o;
-        return Objects.equals(name, project.name) && Objects.equals(description, project.description) && Objects.equals(startDate, project.startDate) && state == project.state && Objects.equals(technicalTask, project.technicalTask) && Objects.equals(employees, project.employees);
+        return Objects.equals(name, project.name)
+                && Objects.equals(description, project.description)
+                && Objects.equals(startDate, project.startDate)
+                && state == project.state
+                && Objects.equals(technicalTask, project.technicalTask)
+                && Objects.equals(employees, project.employees);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(name, description, startDate, state, technicalTask, employees);
+        return Objects.hash(name, description, startDate,
+                state, technicalTask, employees);
     }
 
     @Override
     public String toString() {
-        return "Project{" +
-                "name='" + name + '\'' +
-                ", description='" + description + '\'' +
-                ", startDate=" + startDate +
-                ", state=" + state +
-                ", technicalTask=" + technicalTask +
-                ", employees=" + employees +
-                '}';
+        StringBuilder builder = new StringBuilder(getClass().getName());
+        builder.append("id=");
+        builder.append(getId());
+        builder.append("name=");
+        builder.append(name);
+        builder.append(", description=");
+        builder.append(description);
+        builder.append(", startDate=");
+        builder.append(startDate);
+        builder.append(", state=");
+        builder.append(state);
+        builder.append(", technicalTask=");
+        builder.append(technicalTask);
+        builder.append(", employees=");
+        builder.append(employees);
+        return builder.toString();
     }
 
 }

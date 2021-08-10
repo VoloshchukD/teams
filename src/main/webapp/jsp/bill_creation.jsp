@@ -18,7 +18,7 @@
                 <select class="form-select" name="project-id" id="project">
                     <option value="null" selected><fmt:message bundle="${loc}" key="local.bills.create-project"/></option>
                     <c:forEach items="${projects}" var="project">
-                    <option value="${project.id}">${project.name}</option>
+                    <option value="${project.id}"><c:out value="${project.name}" />/option>
                     </c:forEach>
                 </select>
                 <label for="amount" class="col-form-label" ><fmt:message bundle="${loc}" key="local.bills.create-amount"/></label>
