@@ -10,6 +10,11 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+/**
+ * Command to move to page with technical task creation form.
+ *
+ * @author Daniil Voloshchuk
+ */
 public class ToCreateTechnicalTask implements Command {
 
     @Override

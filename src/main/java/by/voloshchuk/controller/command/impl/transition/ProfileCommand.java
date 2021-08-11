@@ -10,6 +10,11 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+/**
+ * Command to move to profile page.
+ *
+ * @author Daniil Voloshchuk
+ */
 public class ProfileCommand implements Command {
 
     @Override

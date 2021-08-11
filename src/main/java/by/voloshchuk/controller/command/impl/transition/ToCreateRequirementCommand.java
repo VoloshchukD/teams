@@ -14,6 +14,11 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.util.List;
 
+/**
+ * Command to move to requirements managing page.
+ *
+ * @author Daniil Voloshchuk
+ */
 public class ToCreateRequirementCommand implements Command {
 
     private static final Logger logger = LogManager.getLogger();

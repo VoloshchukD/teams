@@ -1,5 +1,10 @@
 package by.voloshchuk.controller.command;
 
+/**
+ * Constants for async request parameters.
+ *
+ * @author Daniil Voloshchuk
+ */
 public final class AsyncCommandParameter {
 
     public static final String MESSAGE = "message";

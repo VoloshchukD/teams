@@ -46,7 +46,7 @@ public class TechnicalTaskServiceImpl implements TechnicalTaskService {
         technicalTask.setOverview(technicalTaskDto.getOverview());
         Date deadline = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").parse(technicalTaskDto.getDeadline());
         technicalTask.setDeadline(deadline);
-        technicalTask.setStatus(TechnicalTask.TechnicalTaskStatus.EDITING);
+        technicalTask.setStatus(TechnicalTask.TechnicalTaskStatus.WAIT_PROJECT);
         User user = new User();
         user.setId(technicalTaskDto.getCustomerId());
         technicalTask.setCustomer(user);

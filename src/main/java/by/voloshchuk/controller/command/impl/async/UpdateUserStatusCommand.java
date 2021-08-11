@@ -15,6 +15,11 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
+/**
+ * Async command for updating user status.
+ *
+ * @author Daniil Voloshchuk
+ */
 public class UpdateUserStatusCommand implements AsyncCommand {
 
     private static final Logger logger = LogManager.getLogger();

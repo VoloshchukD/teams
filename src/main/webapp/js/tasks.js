@@ -34,6 +34,10 @@ $('#create-task-button').click(function () {
     $('.modal-backdrop').remove();
 })
 
+$('#finish-project-modal-button').click(function () {
+    $('#updateProjectId').val(projectId);
+})
+
 $('#create-task-modal-button').click(function () {
     ajax.get("http://localhost:8080/async-controller?command=load-project-users",
         {"project-id": projectId}).then((response) => response.json())
@@ -81,8 +85,6 @@ $('.card').each(function () {
     })
 
 })
-
-
 
 function initCardButtons(card){
 

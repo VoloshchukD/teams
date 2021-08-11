@@ -3,6 +3,11 @@ package by.voloshchuk.util;
 import java.util.Locale;
 import java.util.ResourceBundle;
 
+/**
+ * Constants with regular expression values.
+ *
+ * @author Daniil Voloshchuk
+ */
 public class RegexProperty {
 
     private static final String REGEX_EMAIL = "regex.email";

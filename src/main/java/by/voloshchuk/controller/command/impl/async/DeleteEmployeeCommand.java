@@ -1,10 +1,10 @@
 package by.voloshchuk.controller.command.impl.async;
 
+import by.voloshchuk.controller.command.AsyncCommand;
+import by.voloshchuk.controller.command.RequestParameter;
 import by.voloshchuk.exception.ServiceException;
 import by.voloshchuk.service.ServiceProvider;
 import by.voloshchuk.service.UserService;
-import by.voloshchuk.controller.command.AsyncCommand;
-import by.voloshchuk.controller.command.RequestParameter;
 import org.apache.logging.log4j.Level;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -14,6 +14,11 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
+/**
+ * Async command for deleting user from project.
+ *
+ * @author Daniil Voloshchuk
+ */
 public class DeleteEmployeeCommand implements AsyncCommand {
 
     private static final Logger logger = LogManager.getLogger();
@@ -26,9 +31,8 @@ public class DeleteEmployeeCommand implements AsyncCommand {
         Long projectId = Long.parseLong(request.getParameter(RequestParameter.PROJECT_ID));
 
         UserService userService = serviceProvider.getUserService();
-        boolean result = false;
         try {
-            result = userService.removeUserFromProject(userId, projectId);
+            userService.removeUserFromProject(userId, projectId);
         } catch (ServiceException e) {
             logger.log(Level.ERROR, e);
         }

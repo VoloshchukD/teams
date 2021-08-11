@@ -9,6 +9,11 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
+/**
+ * Async command for loading user image after uploading.
+ *
+ * @author Daniil Voloshchuk
+ */
 public class LoadAvatarCommand implements AsyncCommand {
 
     @Override

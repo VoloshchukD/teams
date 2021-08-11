@@ -1,10 +1,10 @@
 package by.voloshchuk.controller.command.impl;
 
-import by.voloshchuk.entity.Bill;
-import by.voloshchuk.exception.ServiceException;
-import by.voloshchuk.service.BillService;
-import by.voloshchuk.service.ServiceProvider;
 import by.voloshchuk.controller.command.*;
+import by.voloshchuk.entity.Project;
+import by.voloshchuk.exception.ServiceException;
+import by.voloshchuk.service.ProjectService;
+import by.voloshchuk.service.ServiceProvider;
 import org.apache.logging.log4j.Level;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -14,11 +14,11 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 /**
- * Command to make bill payment.
+ * Command to finish the project.
  *
  * @author Daniil Voloshchuk
  */
-public class MakePaymentCommand implements Command {
+public class FinishProjectCommand implements Command {
 
     private static final Logger logger = LogManager.getLogger();
 
@@ -26,15 +26,16 @@ public class MakePaymentCommand implements Command {
 
     @Override
     public CommandRouter execute(HttpServletRequest request, HttpServletResponse response) throws ServletException {
-        Long billId = Long.parseLong(request.getParameter(RequestParameter.BILL_ID));
-        BillService billService = serviceProvider.getBillService();
+        String state = Project.ProjectStatus.FINISHED.toString();
+        Long projectId = Long.parseLong(request.getParameter(RequestParameter.PROJECT_ID));
+        ProjectService projectService = serviceProvider.getProjectService();
         try {
-            billService.updateBillStatus(billId, Bill.BillStatus.PAID.toString());
+            projectService.updateProjectStatus(projectId, state);
         } catch (ServiceException e) {
             logger.log(Level.ERROR, e.getMessage());
         }
 
-        CommandRouter router = new CommandRouter(CommandRouter.RouterType.REDIRECT, CommandPath.TO_BILLS);
+        CommandRouter router = new CommandRouter(CommandRouter.RouterType.REDIRECT, CommandPath.TO_PROJECTS);
         return router;
     }
 

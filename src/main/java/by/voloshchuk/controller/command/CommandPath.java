@@ -1,5 +1,10 @@
 package by.voloshchuk.controller.command;
 
+/**
+ * Constants with paths to move to.
+ *
+ * @author Daniil Voloshchuk
+ */
 public final class CommandPath {
 
     private CommandPath() {

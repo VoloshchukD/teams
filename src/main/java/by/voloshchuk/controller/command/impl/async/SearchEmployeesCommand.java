@@ -19,6 +19,11 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.List;
 
+/**
+ * Async command for making employee search.
+ *
+ * @author Daniil Voloshchuk
+ */
 public class SearchEmployeesCommand implements AsyncCommand {
 
     private static final Logger logger = LogManager.getLogger();

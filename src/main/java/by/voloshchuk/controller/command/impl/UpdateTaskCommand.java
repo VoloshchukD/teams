@@ -17,6 +17,11 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+/**
+ * Command to update task data.
+ *
+ * @author Daniil Voloshchuk
+ */
 public class UpdateTaskCommand implements Command {
 
     private static final Logger logger = LogManager.getLogger();

@@ -1,5 +1,10 @@
 package by.voloshchuk.controller.command;
 
+/**
+ * Constants that represents users sync commands.
+ *
+ * @author Daniil Voloshchuk
+ */
 public enum CommandName {
 
     ERROR,
@@ -37,6 +42,7 @@ public enum CommandName {
     DELETE_BILL,
     UPDATE_TASK,
     DELETE_TASK,
-    UPDATE_REQUIREMENT
+    UPDATE_REQUIREMENT,
+    FINISH_PROJECT
 
 }

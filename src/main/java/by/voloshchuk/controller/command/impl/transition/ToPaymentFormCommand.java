@@ -1,13 +1,13 @@
 package by.voloshchuk.controller.command.impl.transition;
 
-import by.voloshchuk.entity.Bill;
-import by.voloshchuk.exception.ServiceException;
-import by.voloshchuk.service.BillService;
-import by.voloshchuk.service.ServiceProvider;
 import by.voloshchuk.controller.command.Command;
 import by.voloshchuk.controller.command.CommandPath;
 import by.voloshchuk.controller.command.CommandRouter;
 import by.voloshchuk.controller.command.RequestParameter;
+import by.voloshchuk.entity.Bill;
+import by.voloshchuk.exception.ServiceException;
+import by.voloshchuk.service.BillService;
+import by.voloshchuk.service.ServiceProvider;
 import org.apache.logging.log4j.Level;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -16,6 +16,11 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+/**
+ * Command to move to payment form.
+ *
+ * @author Daniil Voloshchuk
+ */
 public class ToPaymentFormCommand implements Command {
 
     private static final Logger logger = LogManager.getLogger();

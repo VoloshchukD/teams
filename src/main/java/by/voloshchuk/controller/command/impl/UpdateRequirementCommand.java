@@ -13,6 +13,11 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+/**
+ * Command to update employee requirement.
+ *
+ * @author Daniil Voloshchuk
+ */
 public class UpdateRequirementCommand implements Command {
 
     private static final Logger logger = LogManager.getLogger();

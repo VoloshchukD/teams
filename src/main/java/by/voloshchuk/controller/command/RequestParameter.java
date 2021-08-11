@@ -1,5 +1,10 @@
 package by.voloshchuk.controller.command;
 
+/**
+ * Constants with request parameters.
+ *
+ * @author Daniil Voloshchuk
+ */
 public final class RequestParameter {
 
     private RequestParameter() {

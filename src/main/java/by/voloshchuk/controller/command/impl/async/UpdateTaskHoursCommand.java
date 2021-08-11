@@ -14,6 +14,11 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
+/**
+ * Async command for tracking task hours.
+ *
+ * @author Daniil Voloshchuk
+ */
 public class UpdateTaskHoursCommand implements AsyncCommand {
 
     private static final Logger logger = LogManager.getLogger();

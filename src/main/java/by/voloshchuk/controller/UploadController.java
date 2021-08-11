@@ -18,6 +18,11 @@ import java.io.IOException;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+/**
+ * Controller for user image uploading.
+ *
+ * @author Daniil Voloshchuk
+ */
 public class UploadController extends HttpServlet {
 
     private static final Logger logger = LogManager.getLogger();
@@ -62,6 +67,12 @@ public class UploadController extends HttpServlet {
         req.getSession().setAttribute(CommandAttribute.USER_IMAGE, resultUserImage);
     }
 
+    /**
+     * Method that defines uploaded file extension.
+     *
+     * @param fileName - uploaded file name with extension
+     * @return file extension
+     */
     private String parseFileExtension(String fileName) {
         Pattern pattern = Pattern.compile(FILE_NAME_REGEX);
         Matcher matcher = pattern.matcher(fileName);

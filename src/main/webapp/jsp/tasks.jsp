@@ -63,6 +63,16 @@
                     </div>
                 </div>
             </div>
+            <div class="col-4 text-center">
+                <div class="card">
+                    <div class="card-body">
+                        <button type="button" class="btn btn-primary mt-1 save" data-toggle="modal"
+                                data-target="#finishModal"
+                                id="finish-project-modal-button">Finish project
+                        </button>
+                    </div>
+                </div>
+            </div>
         </div>
     </c:if>
 
@@ -113,7 +123,8 @@
                                 <div>
                                     <button type="button" class="btn btn-outline-dark hours" disabled><small
                                             class="val"><c:out value="${task.trackedTime}"/></small>
-                                        <small>/(<small class="planned"><c:out value="${task.plannedTime}"/></small>)</small>
+                                        <small>/(<small class="planned"><c:out
+                                                value="${task.plannedTime}"/></small>)</small>
                                         <fmt:message bundle="${loc}" key="local.tasks.hours"/>
                                     </button>
                                     <div class="panel" style="display:none;">
@@ -132,7 +143,8 @@
                                 </div>
                             </div>
                             <div class=" d-flex justify-content-end">
-                                <small class="form-text"><c:out value="${task.developer.userDetail.firstName}"/> <c:out value="${task.developer.userDetail.lastName}"/></small>
+                                <small class="form-text"><c:out value="${task.developer.userDetail.firstName}"/> <c:out
+                                        value="${task.developer.userDetail.lastName}"/></small>
                             </div>
                         </div>
                         <div class="card-footer bg-transparent border-dark d-flex justify-content-between">
@@ -190,7 +202,8 @@
                                 <div>
                                     <button type="button" class="btn btn-outline-dark hours" disabled><small
                                             class="val"><c:out value="${task.trackedTime}"/></small>
-                                        <small>/(<small class="planned"><c:out value="${task.plannedTime}"/></small>)</small>
+                                        <small>/(<small class="planned"><c:out
+                                                value="${task.plannedTime}"/></small>)</small>
                                         <fmt:message bundle="${loc}" key="local.tasks.hours"/>
                                     </button>
                                     <div class="panel" style="display:none;">
@@ -209,7 +222,8 @@
                                 </div>
                             </div>
                             <div class=" d-flex justify-content-end">
-                                <small class="form-text"><c:out value="${task.developer.userDetail.firstName}"/> <c:out value="${task.developer.userDetail.lastName}"/></small>
+                                <small class="form-text"><c:out value="${task.developer.userDetail.firstName}"/> <c:out
+                                        value="${task.developer.userDetail.lastName}"/></small>
                             </div>
                         </div>
                         <div class="card-footer bg-transparent border-dark d-flex justify-content-between">
@@ -267,7 +281,8 @@
                                 <div>
                                     <button type="button" class="btn btn-outline-dark hours" disabled><small
                                             class="val"><c:out value="${task.trackedTime}"/></small>
-                                        <small>/(<small class="planned"><c:out value="${task.plannedTime}"/></small>)</small>
+                                        <small>/(<small class="planned"><c:out
+                                                value="${task.plannedTime}"/></small>)</small>
                                         <fmt:message bundle="${loc}" key="local.tasks.hours"/>
                                     </button>
                                     <div class="panel" style="display:none;">
@@ -286,7 +301,8 @@
                                 </div>
                             </div>
                             <div class=" d-flex justify-content-end">
-                                <small class="form-text"><c:out value="${task.developer.userDetail.firstName}"/> <c:out value="${task.developer.userDetail.lastName}"/></small>
+                                <small class="form-text"><c:out value="${task.developer.userDetail.firstName}"/> <c:out
+                                        value="${task.developer.userDetail.lastName}"/></small>
                             </div>
                         </div>
                         <div class="card-footer bg-transparent border-dark d-flex justify-content-between">
@@ -365,6 +381,52 @@
                         <button type="submit" class="btn btn-primary" id="update-task-button">
                             <fmt:message bundle="${loc}"
                                          key="local.tasks.update-submit"/></button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="finishModal" tabindex="-1" role="dialog"
+         aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="modalHeader"><fmt:message
+                            bundle="${loc}"
+                            key="local.project.finish-header"/></h5>
+                </div>
+                <form action="controller" method="post">
+                    <input type="hidden" name="command" value="finish-project"/>
+                    <input type="hidden" name="project-id" id="updateProjectId"/>
+                    <div class="modal-body">
+                        <div class="form-group">
+                            <div>
+                                <c:choose>
+                                    <c:when test="${tasks.size() > 0}">
+                                        <fmt:message bundle="${loc}"
+                                                     key="local.projects.fail-finish"/>
+                                    </c:when>
+                                    <c:when test="${tasks.size() == 0}">
+                                        <fmt:message bundle="${loc}"
+                                                     key="local.projects.success-finish"/>
+                                    </c:when>
+                                </c:choose>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary"
+                                data-dismiss="modal">
+                            <fmt:message bundle="${loc}"
+                                         key="local.projects.finish-cancel"/></button>
+                        <c:if test="${ tasks.size() == 0 }">
+                            <button type="submit" class="btn btn-primary"
+                                    id="finish-project-button">
+                                <fmt:message bundle="${loc}"
+                                             key="local.projects.finish-submit"/>
+                            </button>
+                        </c:if>
                     </div>
                 </form>
             </div>

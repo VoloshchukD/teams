@@ -21,6 +21,11 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
+/**
+ * Command to create technical task.
+ *
+ * @author Daniil Voloshchuk
+ */
 public class CreateTechnicalTaskCommand implements Command {
 
     private static final Logger logger = LogManager.getLogger();

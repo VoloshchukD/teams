@@ -15,6 +15,11 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+/**
+ * Command to move to page with project creation form.
+ *
+ * @author Daniil Voloshchuk
+ */
 public class ToCreateProjectCommand implements Command {
 
     private static final Logger logger = LogManager.getLogger();

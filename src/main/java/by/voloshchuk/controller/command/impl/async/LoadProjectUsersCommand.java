@@ -19,6 +19,11 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.List;
 
+/**
+ * Async command for loading all project users data.
+ *
+ * @author Daniil Voloshchuk
+ */
 public class LoadProjectUsersCommand implements AsyncCommand {
 
     private static final Logger logger = LogManager.getLogger();

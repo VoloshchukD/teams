@@ -18,6 +18,11 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.List;
 
+/**
+ * Async command for loading all requirements for project.
+ *
+ * @author Daniil Voloshchuk
+ */
 public class LoadProjectRequirementsCommand implements AsyncCommand {
 
     private static final Logger logger = LogManager.getLogger();

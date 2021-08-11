@@ -16,6 +16,11 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.util.Map;
 
+/**
+ * Command to move to main page.
+ *
+ * @author Daniil Voloshchuk
+ */
 public class MainCommand implements Command {
 
     private static final Logger logger = LogManager.getLogger();

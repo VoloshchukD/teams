@@ -1,5 +1,10 @@
 package by.voloshchuk.controller.command;
 
+/**
+ * Class with page moving data.
+ *
+ * @author Daniil Voloshchuk
+ */
 public class CommandRouter {
 
     public CommandRouter(RouterType routerType, String path) {

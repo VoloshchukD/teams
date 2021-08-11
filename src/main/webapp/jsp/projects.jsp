@@ -36,7 +36,8 @@
                     <strong><fmt:message bundle="${loc}" key="local.message.success.header"/></strong>
                     <fmt:message bundle="${loc}" key="local.message.project.success"/>
                     <fmt:message bundle="${loc}"
-                                 key="local.message.project.created-name"/> <c:out value="${recentlyCreatedProjectName}"/>
+                                 key="local.message.project.created-name"/> <c:out
+                        value="${recentlyCreatedProjectName}"/>
                     <button type="button" class="close" data-dismiss="alert">
                         <span aria-hidden="true">&times;</span>
                     </button>
@@ -115,27 +116,33 @@
                             <h6 class="heading description"><c:out value="${project.description}"/></h6>
                             <div class="mt-5">
                                 <div class="d-flex justify-content-between mr-3">
-                                    <div class="d-flex flex-row align-items-center">
-                                        <a href="?command=to-tasks&project-id=${project.id}">
-                                            <button type="submit" class="btn btn-primary"><fmt:message bundle="${loc}"
-                                                                                                       key="local.projects.open"/></button>
-                                        </a>
-                                    </div>
-                                    <c:if test="${ role == 'MANAGER' }">
-                                        <a href="?command=to-bill-creation&project-id=${project.id}">
-                                            <button type="submit" class="btn btn-primary"><fmt:message bundle="${loc}"
-                                                                                                       key="local.projects.add-bill"/></button>
-                                        </a>
-                                        <a href="?command=to-seek-employees&project-id=${project.id}">
-                                            <button type="submit" class="btn btn-primary"><fmt:message bundle="${loc}"
-                                                                                                       key="local.projects.add-employees"/></button>
-                                        </a>
-                                    </c:if>
-                                    <c:if test="${ (role == 'MANAGER') || (role == 'CUSTOMER') }">
-                                        <a href="?command=to-project-bills&project-id=${project.id}">
-                                            <button type="submit" class="btn btn-primary"><fmt:message bundle="${loc}"
-                                                                                                       key="local.projects.to-bills"/></button>
-                                        </a>
+                                    <c:if test="${ project.state != 'FINISHED' }">
+                                        <div class="d-flex flex-row align-items-center">
+                                            <a href="?command=to-tasks&project-id=${project.id}">
+                                                <button type="submit" class="btn btn-primary"><fmt:message
+                                                        bundle="${loc}"
+                                                        key="local.projects.open"/></button>
+                                            </a>
+                                        </div>
+                                        <c:if test="${ role == 'MANAGER' }">
+                                            <a href="?command=to-bill-creation&project-id=${project.id}">
+                                                <button type="submit" class="btn btn-primary"><fmt:message
+                                                        bundle="${loc}"
+                                                        key="local.projects.add-bill"/></button>
+                                            </a>
+                                            <a href="?command=to-seek-employees&project-id=${project.id}">
+                                                <button type="submit" class="btn btn-primary"><fmt:message
+                                                        bundle="${loc}"
+                                                        key="local.projects.add-employees"/></button>
+                                            </a>
+                                        </c:if>
+                                        <c:if test="${ (role == 'MANAGER') || (role == 'CUSTOMER') }">
+                                            <a href="?command=to-project-bills&project-id=${project.id}">
+                                                <button type="submit" class="btn btn-primary"><fmt:message
+                                                        bundle="${loc}"
+                                                        key="local.projects.to-bills"/></button>
+                                            </a>
+                                        </c:if>
                                     </c:if>
                                 </div>
                                 <div class="mt-3 d-flex justify-content-between mr-3">
@@ -175,7 +182,7 @@
                                                         bundle="${loc}"
                                                         key="local.projects.update-header"/></h5>
                                             </div>
-                                            <form action="controller" method="post" >
+                                            <form action="controller" method="post">
                                                 <input type="hidden" name="command"
                                                        value="update-project"/>
                                                 <input type="hidden" name="project-id" id="updateProjectId"/>

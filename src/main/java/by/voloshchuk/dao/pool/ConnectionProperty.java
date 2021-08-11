@@ -10,6 +10,11 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.Properties;
 
+/**
+ * Class for holding database connection initialize properties.
+ *
+ * @author Daniil Voloshchuk
+ */
 class ConnectionProperty {
 
     private static final Logger logger = LogManager.getLogger();

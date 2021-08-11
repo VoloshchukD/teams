@@ -1,5 +1,10 @@
 package by.voloshchuk.controller.command;
 
+/**
+ * Constants for command attributes.
+ *
+ * @author Daniil Voloshchuk
+ */
 public final class CommandAttribute {
 
     private CommandAttribute() {

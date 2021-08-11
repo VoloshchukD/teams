@@ -14,6 +14,11 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.util.List;
 
+/**
+ * Command to move to seek employees page.
+ *
+ * @author Daniil Voloshchuk
+ */
 public class ToSeekEmployeesCommand implements Command {
 
     private static final Logger logger = LogManager.getLogger();

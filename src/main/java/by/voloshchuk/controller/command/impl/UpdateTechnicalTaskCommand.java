@@ -16,6 +16,11 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+/**
+ * Command to update technical task data.
+ *
+ * @author Daniil Voloshchuk
+ */
 public class UpdateTechnicalTaskCommand implements Command {
 
     private static final Logger logger = LogManager.getLogger();

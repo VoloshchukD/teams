@@ -5,6 +5,11 @@ import by.voloshchuk.dao.pool.CustomConnectionPool;
 import javax.servlet.ServletContextEvent;
 import javax.servlet.ServletContextListener;
 
+/**
+ * Listener for initializing application data on context creation.
+ *
+ * @author Daniil Voloshchuk
+ */
 public class WebAppListener implements ServletContextListener {
 
     @Override

@@ -15,6 +15,11 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.util.List;
 
+/**
+ * Command to move to page with bill creation form.
+ *
+ * @author Daniil Voloshchuk
+ */
 public class ToBillCreationCommand implements Command {
 
     private static final Logger logger = LogManager.getLogger();

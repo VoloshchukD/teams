@@ -6,6 +6,11 @@ import by.voloshchuk.controller.command.impl.transition.*;
 import java.util.HashMap;
 import java.util.Map;
 
+/**
+ * Provider for sync commands.
+ *
+ * @author Daniil Voloshchuk
+ */
 public class CommandProvider {
 
     private static final CommandProvider instance = new CommandProvider();
@@ -53,6 +58,7 @@ public class CommandProvider {
         commands.put(CommandName.UPDATE_TASK, new UpdateTaskCommand());
         commands.put(CommandName.DELETE_TASK, new DeleteTaskCommand());
         commands.put(CommandName.UPDATE_REQUIREMENT, new UpdateRequirementCommand());
+        commands.put(CommandName.FINISH_PROJECT, new FinishProjectCommand());
     }
 
     public static CommandProvider getInstance() {

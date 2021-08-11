@@ -16,6 +16,8 @@ public interface ProjectDao {
 
     Project updateProject(Project project) throws DaoException;
 
+    String updateProjectStatus(Long projectId, String status) throws DaoException;
+
     boolean removeProject(Long id) throws DaoException;
 
 }

@@ -8,6 +8,11 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+/**
+ * Command to move to error page.
+ *
+ * @author Daniil Voloshchuk
+ */
 public class ErrorCommand implements Command {
 
     @Override

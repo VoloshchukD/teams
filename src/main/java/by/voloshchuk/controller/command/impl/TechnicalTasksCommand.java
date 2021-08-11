@@ -1,10 +1,10 @@
 package by.voloshchuk.controller.command.impl;
 
+import by.voloshchuk.controller.command.*;
 import by.voloshchuk.entity.TechnicalTask;
 import by.voloshchuk.exception.ServiceException;
 import by.voloshchuk.service.ServiceProvider;
 import by.voloshchuk.service.TechnicalTaskService;
-import by.voloshchuk.controller.command.*;
 import org.apache.logging.log4j.Level;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -14,7 +14,13 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.util.List;
 
+/**
+ * Command to move to page with users technical tasks.
+ *
+ * @author Daniil Voloshchuk
+ */
 public class TechnicalTasksCommand implements Command {
+
     private static final Logger logger = LogManager.getLogger();
 
     private static ServiceProvider serviceProvider = ServiceProvider.getInstance();

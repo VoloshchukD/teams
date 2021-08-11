@@ -15,6 +15,11 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+/**
+ * Command to create project.
+ *
+ * @author Daniil Voloshchuk
+ */
 public class CreateProjectCommand implements Command {
 
     private static final Logger logger = LogManager.getLogger();

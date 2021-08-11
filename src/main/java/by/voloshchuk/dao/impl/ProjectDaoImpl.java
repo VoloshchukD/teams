@@ -26,6 +26,9 @@ public class ProjectDaoImpl implements ProjectDao {
             "SET project_name = ?, description = ? " +
             "WHERE project_id = ?";
 
+    private static final String UPDATE_PROJECT_STATUS_QUERY = "UPDATE projects SET state = ? " +
+            "WHERE project_id = ?";
+
     private static final String DELETE_PROJECT_QUERY = "DELETE FROM projects WHERE project_id = ?";
 
     private static final String ADD_USER_TO_PROJECT_QUERY = "INSERT INTO user_project_maps (project_id, user_id) VALUES (?, ?);";
@@ -150,6 +153,22 @@ public class ProjectDaoImpl implements ProjectDao {
             throw new DaoException(e);
         }
         return resultProject;
+    }
+
+    public String updateProjectStatus(Long projectId, String status) throws DaoException {
+        String resultStatus = null;
+        try (Connection connection = connectionPool.getConnection();
+             PreparedStatement statement = connection.prepareStatement(UPDATE_PROJECT_STATUS_QUERY)) {
+            statement.setString(1, status);
+            statement.setLong(2, projectId);
+            int result = statement.executeUpdate();
+            if (result == 1) {
+                resultStatus = status;
+            }
+        } catch (SQLException e) {
+            throw new DaoException(e);
+        }
+        return resultStatus;
     }
 
     public boolean removeProject(Long id) throws DaoException {

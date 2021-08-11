@@ -15,6 +15,11 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.util.List;
 
+/**
+ * Command to search technical tasks that are not on project.
+ *
+ * @author Daniil Voloshchuk
+ */
 public class FindTechnicalTaskCommand implements Command {
     private static final Logger logger = LogManager.getLogger();
 

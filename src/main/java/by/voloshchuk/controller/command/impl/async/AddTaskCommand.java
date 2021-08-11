@@ -1,11 +1,13 @@
 package by.voloshchuk.controller.command.impl.async;
 
-import by.voloshchuk.entity.*;
+import by.voloshchuk.controller.command.AsyncCommand;
+import by.voloshchuk.controller.command.AsyncCommandParameter;
+import by.voloshchuk.entity.Project;
+import by.voloshchuk.entity.Task;
+import by.voloshchuk.entity.User;
 import by.voloshchuk.exception.ServiceException;
 import by.voloshchuk.service.ServiceProvider;
 import by.voloshchuk.service.TaskService;
-import by.voloshchuk.controller.command.AsyncCommand;
-import by.voloshchuk.controller.command.AsyncCommandParameter;
 import org.apache.logging.log4j.Level;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -15,6 +17,11 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
+/**
+ * Async command for adding new task to project.
+ *
+ * @author Daniil Voloshchuk
+ */
 public class AddTaskCommand implements AsyncCommand {
 
     private static final Logger logger = LogManager.getLogger();

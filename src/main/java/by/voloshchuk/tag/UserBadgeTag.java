@@ -1,7 +1,7 @@
 package by.voloshchuk.tag;
 
-import by.voloshchuk.entity.User;
 import by.voloshchuk.controller.command.CommandAttribute;
+import by.voloshchuk.entity.User;
 
 import javax.servlet.jsp.JspException;
 import javax.servlet.jsp.tagext.TagSupport;
@@ -9,6 +9,11 @@ import java.io.IOException;
 import java.util.Locale;
 import java.util.ResourceBundle;
 
+/**
+ * Tag for viewing user badge on header.
+ *
+ * @author Daniil Voloshchuk
+ */
 public class UserBadgeTag extends TagSupport {
 
     private User.UserRole role;

@@ -1,5 +1,10 @@
 package by.voloshchuk.controller.command;
 
+/**
+ * Constants that represents users async commands.
+ *
+ * @author Daniil Voloshchuk
+ */
 public enum AsyncCommandName {
 
     LOAD_AVATAR,

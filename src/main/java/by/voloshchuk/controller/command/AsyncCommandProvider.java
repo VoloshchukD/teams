@@ -5,6 +5,11 @@ import by.voloshchuk.controller.command.impl.async.*;
 import java.util.HashMap;
 import java.util.Map;
 
+/**
+ * Provider for async commands.
+ *
+ * @author Daniil Voloshchuk
+ */
 public class AsyncCommandProvider {
 
     private static final AsyncCommandProvider instance = new AsyncCommandProvider();

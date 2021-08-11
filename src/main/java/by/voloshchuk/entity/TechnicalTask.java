@@ -14,7 +14,6 @@ public class TechnicalTask extends AbstractEntity {
     private TechnicalTaskStatus status;
 
     public enum TechnicalTaskStatus {
-        EDITING,
         ON_PROJECT,
         WAIT_PROJECT,
         COMPLETED

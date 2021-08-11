@@ -18,15 +18,9 @@
             <div class="row justify-content-center text-center">
                 <div class="statuscode">${pageContext.errorData.statusCode}</div>
                 <div class="mb-1 lead">
-                    <h3>${pageContext.exception}</h3>
+                    <h3><c:out value="${requestScope['javax.servlet.error.message']}"/></h3>
                 </div>
-                <p>
-                <div class="mb-4">Servlet name: ${pageContext.errorData.servletName}</div>
-                <div class="mb-4">Request from ${pageContext.errorData.requestURI} is failed</div>
-                </p>
-
             </div>
-
         </div>
     </div>
 </div>

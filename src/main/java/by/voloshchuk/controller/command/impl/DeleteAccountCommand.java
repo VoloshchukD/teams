@@ -13,6 +13,11 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+/**
+ * Command to delete users account.
+ *
+ * @author Daniil Voloshchuk
+ */
 public class DeleteAccountCommand implements Command {
 
     private static final Logger logger = LogManager.getLogger();

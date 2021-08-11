@@ -14,6 +14,11 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.util.List;
 
+/**
+ * Command to view project bills.
+ *
+ * @author Daniil Voloshchuk
+ */
 public class ToProjectBillsCommand implements Command {
 
     private static final Logger logger = LogManager.getLogger();

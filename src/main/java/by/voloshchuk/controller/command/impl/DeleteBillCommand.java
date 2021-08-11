@@ -15,6 +15,11 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+/**
+ * Command to delete bill from project.
+ *
+ * @author Daniil Voloshchuk
+ */
 public class DeleteBillCommand implements Command {
 
     private static final Logger logger = LogManager.getLogger();

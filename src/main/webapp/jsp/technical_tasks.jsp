@@ -58,11 +58,6 @@
                                                                                         key="local.technical-tasks.complited"/></span>
                                     </div>
                                 </c:when>
-                                <c:when test="${task.status == 'EDITING'}">
-                                    <div class="badge"><span class="yellow"><fmt:message bundle="${loc}"
-                                                                                         key="local.technical-tasks.editing"/></span>
-                                    </div>
-                                </c:when>
                             </c:choose>
                         </div>
 

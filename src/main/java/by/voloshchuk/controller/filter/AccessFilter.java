@@ -10,26 +10,14 @@ import java.io.IOException;
 import java.util.*;
 import java.util.stream.Collectors;
 
+/**
+ * Filter for limiting user access to commands.
+ *
+ * @author Daniil Voloshchuk
+ */
 public class AccessFilter implements Filter {
 
     private final Map<User.UserRole, Set<String>> accessMap = new HashMap<>();
-
-    @Override
-    public void doFilter(ServletRequest servletRequest, ServletResponse servletResponse, FilterChain filterChain) throws IOException, ServletException {
-        HttpServletRequest request = (HttpServletRequest) servletRequest;
-        HttpServletResponse response = (HttpServletResponse) servletResponse;
-        User.UserRole role = (User.UserRole) request.getSession(true)
-                .getAttribute(CommandAttribute.ROLE);
-        if (role == null) {
-            role = User.UserRole.GUEST;
-        }
-        String command = request.getParameter(RequestParameter.COMMAND);
-        if (command == null || !accessMap.get(role).contains(command)) {
-            request.getRequestDispatcher(CommandPath.ERROR_JSP).forward(request, response);
-        } else {
-            filterChain.doFilter(servletRequest, servletResponse);
-        }
-    }
 
     @Override
     public void init(FilterConfig filterConfig) throws ServletException {
@@ -74,6 +62,7 @@ public class AccessFilter implements Filter {
                 CommandName.DELETE_BILL,
                 CommandName.UPDATE_TASK,
                 CommandName.DELETE_TASK,
+                CommandName.FINISH_PROJECT,
                 AsyncCommandName.ACCEPT_PAYMENT,
                 AsyncCommandName.ADD_EMPLOYEE,
                 AsyncCommandName.DELETE_EMPLOYEE,
@@ -115,6 +104,40 @@ public class AccessFilter implements Filter {
         Set<String> adminCommands = new HashSet<>();
         adminCommands.addAll(commonCommands);
         accessMap.put(User.UserRole.ADMIN, adminCommands);
+    }
+
+    @Override
+    public void doFilter(ServletRequest servletRequest, ServletResponse servletResponse, FilterChain filterChain) throws IOException, ServletException {
+        HttpServletRequest request = (HttpServletRequest) servletRequest;
+        HttpServletResponse response = (HttpServletResponse) servletResponse;
+        User.UserRole role = (User.UserRole) request.getSession(true)
+                .getAttribute(CommandAttribute.ROLE);
+        if (role == null) {
+            role = User.UserRole.GUEST;
+        }
+        String command = request.getParameter(RequestParameter.COMMAND);
+        if (command == null) {
+            response.sendError(HttpServletResponse.SC_NOT_FOUND, "Not found");
+        } else {
+            if (!accessMap.get(role).contains(command)) {
+                if (containsCommand(command)) {
+                    response.sendError(HttpServletResponse.SC_FORBIDDEN, "Not Authorized");
+                } else {
+                    response.sendError(HttpServletResponse.SC_NOT_FOUND, "Not found");
+                }
+            } else {
+                filterChain.doFilter(servletRequest, servletResponse);
+            }
+        }
+    }
+
+    private boolean containsCommand(String command) {
+        for (Map.Entry<User.UserRole, Set<String>> entry : accessMap.entrySet()) {
+            if (entry.getValue().contains(command)) {
+                return true;
+            }
+        }
+        return false;
     }
 
     private Set<String> makeStringSet(List<?> list) {

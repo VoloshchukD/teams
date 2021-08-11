@@ -5,6 +5,11 @@ import by.voloshchuk.controller.command.*;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+/**
+ * Command to change locale.
+ *
+ * @author Daniil Voloshchuk
+ */
 public class LocaleCommand implements Command {
 
     @Override

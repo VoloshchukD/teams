@@ -17,6 +17,11 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
+/**
+ * Async command for editing user information.
+ *
+ * @author Daniil Voloshchuk
+ */
 public class EditCommand implements AsyncCommand {
 
     private static final Logger logger = LogManager.getLogger();

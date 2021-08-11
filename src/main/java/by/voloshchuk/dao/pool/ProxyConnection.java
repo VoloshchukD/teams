@@ -5,6 +5,11 @@ import java.util.Map;
 import java.util.Properties;
 import java.util.concurrent.Executor;
 
+/**
+ * Class-wrapper for connection instances.
+ *
+ * @author Daniil Voloshchuk
+ */
 public class ProxyConnection implements Connection {
 
     private Connection connection;

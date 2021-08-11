@@ -8,6 +8,11 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+/**
+ * Command to logout user.
+ *
+ * @author Daniil Voloshchuk
+ */
 public class LogoutCommand implements Command {
 
     @Override

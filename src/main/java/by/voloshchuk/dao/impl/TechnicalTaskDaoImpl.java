@@ -114,7 +114,7 @@ public class TechnicalTaskDaoImpl implements TechnicalTaskDao {
                 Date date = new Date(timestamp.getTime());
                 technicalTask.setDeadline(date);
                 technicalTask.setOverview(resultSet.getString(ConstantColumnName.TECHNICAL_TASK_OVERVIEW));
-                technicalTask.setStatus(TechnicalTask.TechnicalTaskStatus.EDITING.valueOf(
+                technicalTask.setStatus(TechnicalTask.TechnicalTaskStatus.valueOf(
                         resultSet.getString(ConstantColumnName.TECHNICAL_TASK_STATUS)));
                 technicalTasks.add(technicalTask);
             }

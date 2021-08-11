@@ -10,6 +10,11 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+/**
+ * Command to move to authorization page.
+ *
+ * @author Daniil Voloshchuk
+ */
 public class ToAuthorizationCommand implements Command {
 
     @Override

@@ -20,6 +20,11 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.List;
 
+/**
+ * Async command for loading data about done tasks for the bill creation.
+ *
+ * @author Daniil Voloshchuk
+ */
 public class LoadTasksInformationCommand implements AsyncCommand {
 
     private static final Logger logger = LogManager.getLogger();

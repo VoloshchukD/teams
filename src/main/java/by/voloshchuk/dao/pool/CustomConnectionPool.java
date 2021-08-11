@@ -16,6 +16,11 @@ import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReentrantLock;
 
+/**
+ * Pool of connections based on two blocking queues with custom connections.
+ *
+ * @author Daniil Voloshchuk
+ */
 public class CustomConnectionPool {
 
     private static CustomConnectionPool instance;
@@ -35,6 +40,9 @@ public class CustomConnectionPool {
         init();
     }
 
+    /**
+     * Method contains driver registration logics for database connection.
+     */
     private void registerDriver() {
         try {
             Class.forName(ConnectionProperty.DRIVER_CLASS_NAME);
@@ -43,6 +51,9 @@ public class CustomConnectionPool {
         }
     }
 
+    /**
+     * Method that create connection instances for release.
+     */
     private void init() {
         availableConnections = new LinkedBlockingQueue<>(ConnectionProperty.DEFAULT_POOL_SIZE);
         givenAwayConnections = new LinkedBlockingQueue<>(ConnectionProperty.DEFAULT_POOL_SIZE);
@@ -80,6 +91,11 @@ public class CustomConnectionPool {
         return instance;
     }
 
+    /**
+     * Method that is used to get available connection instance.
+     *
+     * @return - instance of free connection
+     */
     public Connection getConnection() {
         ProxyConnection connection = null;
         try {
@@ -92,6 +108,11 @@ public class CustomConnectionPool {
         return connection;
     }
 
+    /**
+     * Method which is used to return taken connection back to pool.
+     *
+     * @param connection - previously taken instance of connection
+     */
     public void releaseConnection(Connection connection) {
         if (connection instanceof ProxyConnection) {
             ProxyConnection proxyConnection = (ProxyConnection) connection;
@@ -100,6 +121,9 @@ public class CustomConnectionPool {
         }
     }
 
+    /**
+     * Method for closing used resources.
+     */
     public void destroyPool() {
         for (int i = 0; i < ConnectionProperty.DEFAULT_POOL_SIZE; i++) {
             try {
@@ -114,6 +138,9 @@ public class CustomConnectionPool {
         deregisterDrivers();
     }
 
+    /**
+     * Method for removing drivers to end working with database.
+     */
     private void deregisterDrivers() {
         Enumeration<Driver> drivers = DriverManager.getDrivers();
         while (drivers.hasMoreElements()) {

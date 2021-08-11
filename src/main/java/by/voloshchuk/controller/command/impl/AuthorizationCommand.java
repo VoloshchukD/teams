@@ -14,6 +14,11 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+/**
+ * Command to authorize the user.
+ *
+ * @author Daniil Voloshchuk
+ */
 public class AuthorizationCommand implements Command {
 
     private static final Logger logger = LogManager.getLogger();

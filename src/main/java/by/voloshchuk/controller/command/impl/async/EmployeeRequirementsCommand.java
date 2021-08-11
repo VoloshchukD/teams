@@ -1,11 +1,11 @@
 package by.voloshchuk.controller.command.impl.async;
 
+import by.voloshchuk.controller.command.AsyncCommand;
+import by.voloshchuk.controller.command.AsyncCommandParameter;
 import by.voloshchuk.entity.EmployeeRequirement;
 import by.voloshchuk.exception.ServiceException;
 import by.voloshchuk.service.EmployeeRequirementService;
 import by.voloshchuk.service.ServiceProvider;
-import by.voloshchuk.controller.command.AsyncCommand;
-import by.voloshchuk.controller.command.AsyncCommandParameter;
 import org.apache.logging.log4j.Level;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -18,6 +18,11 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.List;
 
+/**
+ * Async command for loading all requirements for technical task.
+ *
+ * @author Daniil Voloshchuk
+ */
 public class EmployeeRequirementsCommand implements AsyncCommand {
 
     private static final Logger logger = LogManager.getLogger();
@@ -36,7 +41,7 @@ public class EmployeeRequirementsCommand implements AsyncCommand {
         }
 
         JSONArray data = new JSONArray();
-        for (EmployeeRequirement employeeRequirement : employeeRequirements){
+        for (EmployeeRequirement employeeRequirement : employeeRequirements) {
             JSONObject currentData = new JSONObject();
             currentData.put(AsyncCommandParameter.REQUIREMENT_ID, employeeRequirement.getId());
             currentData.put(AsyncCommandParameter.REQUIREMENT_EXPERIENCE, employeeRequirement.getExperience());

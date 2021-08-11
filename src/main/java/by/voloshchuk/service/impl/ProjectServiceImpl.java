@@ -62,6 +62,18 @@ public class ProjectServiceImpl implements ProjectService {
     }
 
     @Override
+    public String updateProjectStatus(Long projectId, String status) throws ServiceException {
+        String resultStatus = null;
+        ProjectDao projectDao = daoProvider.getProjectDao();
+        try {
+            resultStatus = projectDao.updateProjectStatus(projectId, status);
+        } catch (DaoException e) {
+            throw new ServiceException(e);
+        }
+        return resultStatus;
+    }
+
+    @Override
     public boolean removeProject(Long id) throws ServiceException {
         boolean deleted = false;
         ProjectDao projectDao = daoProvider.getProjectDao();
