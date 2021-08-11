@@ -58,12 +58,11 @@
                     </div>
                     <div class="card-body text-center">
                         <h1 class="card-title pricing-card-title">$<c:out value="${bill.amountDue}"/></h1>
-                        <h6 class="my-0 font-weight-normal"><fmt:message bundle="${loc}" key="local.bills.project"/>:
-                            lkdsmfsdf</h6>
+                        <h6 class="my-0 font-weight-normal"><fmt:message bundle="${loc}" key="local.bills.project"/></h6>
                         <hr>
                         <ul class="list-unstyled mt-1 mb-4">
                             <li><fmt:message bundle="${loc}" key="local.bills.for"/>:</li>
-                            <li>${bill.information}</li>
+                            <li><c:out value="${bill.information}"/></li>
                         </ul>
                         <c:if test="${ (bill.status == 'NOT_PAID') && (role == 'CUSTOMER') }">
                             <a href="?command=to-payment-form&bill-id=<c:out value="${bill.id}" />">

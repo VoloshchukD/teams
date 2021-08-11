@@ -27,7 +27,7 @@
             <div class="row w-auto h-auto justify-content-center">
                 <input type="hidden" name="uploadButtonName"
                        value="<fmt:message bundle="${loc}" key="local.profile.change-photo"/>" id="uploadButtonName"/>
-                <input type="hidden" name="userImageUrl" value="${avatar}" id="userImageUrl"/>
+                <input type="hidden" name="userImageUrl" value="<c:out value="${avatar}"/>" id="userImageUrl"/>
                 <div id="box" class="justify-content-center"></div>
             </div>
 

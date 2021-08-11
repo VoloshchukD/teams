@@ -16,7 +16,7 @@
         <div>
             <c:if test="${ role == 'CUSTOMER' }">
                 <a href="?command=to-create-technical-task">
-                    <button id="create-task" type="button" class="btn btn-primary">New</button>
+                    <button id="create-task" type="button" class="btn btn-primary"><fmt:message bundle="${loc}" key="local.technical-tasks.new"/></button>
                 </a>
             </c:if>
         </div>
@@ -40,7 +40,7 @@
                     <div class="card p-3 mb-2">
                         <div class="d-flex justify-content-between">
                             <div class="d-flex flex-row align-items-center">
-                                <h2 class="mb-0 name">${task.name}</h2>
+                                <h2 class="mb-0 name"><c:out value="${task.name}"/></h2>
                             </div>
                             <c:choose>
                                 <c:when test="${task.status == 'WAIT_PROJECT'}">
@@ -68,7 +68,7 @@
 
                         <hr>
                         <div class="requirements mt-5 mx-3">
-                            <h6 class="heading overview">${task.overview}</h6>
+                            <h6 class="heading overview"><c:out value="${task.overview}"/></h6>
 
                             <div style="display:none;" class="list">
                                 <table class="table my-5">
@@ -128,7 +128,7 @@
                                 <div class="d-flex flex-row align-items-center">
                                         <span class="text1">
                                             <fmt:message bundle="${loc}" key="local.technical-tasks.deadline"/>
-                                             <span class="text2">${task.deadline}</span>
+                                             <span class="text2"><c:out value="${task.deadline}"/></span>
                                         </span>
                                 </div>
                                 <c:if test="${ role == 'CUSTOMER' }">

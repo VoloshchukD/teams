@@ -98,11 +98,11 @@
                 <c:if test="${ task.status == 'TO_DO' }">
                     <div class="card border-dark    mb-3 mx-5">
                         <input type="hidden" class="identifier" name="identifier" value="${task.id}"/>
-                        <div class="name card-header bg-transparent border-dark   ">${task.name}
+                        <div class="name card-header bg-transparent border-dark   "><c:out value="${task.name}"/>
 
                         </div>
                         <div class="card-body text-dark   ">
-                            <p class="details card-text">${task.details}</p>
+                            <p class="details card-text"><c:out value="${task.details}"/></p>
 
                             <div class="d-flex justify-content-between my-auto">
                                 <div>
@@ -112,8 +112,8 @@
                                 </div>
                                 <div>
                                     <button type="button" class="btn btn-outline-dark hours" disabled><small
-                                            class="val">${task.trackedTime}</small>
-                                        <small>/(<small class="planned">${task.plannedTime}</small>)</small>
+                                            class="val"><c:out value="${task.trackedTime}"/></small>
+                                        <small>/(<small class="planned"><c:out value="${task.plannedTime}"/></small>)</small>
                                         <fmt:message bundle="${loc}" key="local.tasks.hours"/>
                                     </button>
                                     <div class="panel" style="display:none;">
@@ -132,7 +132,7 @@
                                 </div>
                             </div>
                             <div class=" d-flex justify-content-end">
-                                <small class="form-text">${task.developer.userDetail.firstName} ${task.developer.userDetail.lastName}</small>
+                                <small class="form-text"><c:out value="${task.developer.userDetail.firstName}"/> <c:out value="${task.developer.userDetail.lastName}"/></small>
                             </div>
                         </div>
                         <div class="card-footer bg-transparent border-dark d-flex justify-content-between">
@@ -175,11 +175,11 @@
                 <c:if test="${ task.status == 'IN_PROGRESS' }">
                     <div class="card border-dark    mb-3 mx-5">
                         <input type="hidden" class="identifier" name="identifier" value="${task.id}"/>
-                        <div class="name card-header bg-transparent border-dark   ">${task.name}
+                        <div class="name card-header bg-transparent border-dark   "><c:out value="${task.name}"/>
 
                         </div>
                         <div class="card-body text-dark   ">
-                            <p class="details card-text">${task.details}</p>
+                            <p class="details card-text"><c:out value="${task.details}"/></p>
 
                             <div class="d-flex justify-content-between my-auto">
                                 <div>
@@ -189,8 +189,8 @@
                                 </div>
                                 <div>
                                     <button type="button" class="btn btn-outline-dark hours" disabled><small
-                                            class="val">${task.trackedTime}</small>
-                                        <small>/(<small class="planned">${task.plannedTime}</small>)</small>
+                                            class="val"><c:out value="${task.trackedTime}"/></small>
+                                        <small>/(<small class="planned"><c:out value="${task.plannedTime}"/></small>)</small>
                                         <fmt:message bundle="${loc}" key="local.tasks.hours"/>
                                     </button>
                                     <div class="panel" style="display:none;">
@@ -209,7 +209,7 @@
                                 </div>
                             </div>
                             <div class=" d-flex justify-content-end">
-                                <small class="form-text">${task.developer.userDetail.firstName} ${task.developer.userDetail.lastName}</small>
+                                <small class="form-text"><c:out value="${task.developer.userDetail.firstName}"/> <c:out value="${task.developer.userDetail.lastName}"/></small>
                             </div>
                         </div>
                         <div class="card-footer bg-transparent border-dark d-flex justify-content-between">
@@ -252,11 +252,11 @@
                 <c:if test="${ task.status == 'DONE' }">
                     <div class="card border-dark    mb-3 mx-5">
                         <input type="hidden" class="identifier" name="identifier" value="${task.id}"/>
-                        <div class="name card-header bg-transparent border-dark   ">${task.name}
+                        <div class="name card-header bg-transparent border-dark   "><c:out value="${task.name}"/>
 
                         </div>
                         <div class="card-body text-dark   ">
-                            <p class="details card-text">${task.details}</p>
+                            <p class="details card-text"><c:out value="${task.details}"/></p>
 
                             <div class="d-flex justify-content-between my-auto">
                                 <div>
@@ -266,8 +266,8 @@
                                 </div>
                                 <div>
                                     <button type="button" class="btn btn-outline-dark hours" disabled><small
-                                            class="val">${task.trackedTime}</small>
-                                        <small>/(<small class="planned">${task.plannedTime}</small>)</small>
+                                            class="val"><c:out value="${task.trackedTime}"/></small>
+                                        <small>/(<small class="planned"><c:out value="${task.plannedTime}"/></small>)</small>
                                         <fmt:message bundle="${loc}" key="local.tasks.hours"/>
                                     </button>
                                     <div class="panel" style="display:none;">
@@ -286,7 +286,7 @@
                                 </div>
                             </div>
                             <div class=" d-flex justify-content-end">
-                                <small class="form-text">${task.developer.userDetail.firstName} ${task.developer.userDetail.lastName}</small>
+                                <small class="form-text"><c:out value="${task.developer.userDetail.firstName}"/> <c:out value="${task.developer.userDetail.lastName}"/></small>
                             </div>
                         </div>
                         <div class="card-footer bg-transparent border-dark d-flex justify-content-between">

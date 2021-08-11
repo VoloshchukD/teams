@@ -50,7 +50,7 @@
                     <label for="name" class="col-form-label"><fmt:message bundle="${loc}"
                                                                           key="local.project.create-name"/></label>
                     <input type="text" class="form-control" name="name"
-                           value="<jsp:getProperty name="technicalTask" property="name" />" id="name">
+                           value="<c:out value="${technicalTask.name}"/>" id="name">
                     <small id="name-help" class="form-text">
                         <fmt:message bundle="${loc}" key="local.form.project.name-help"/>
                     </small>
@@ -59,7 +59,7 @@
                 <div class="form-group">
                     <label for="description" class="col-form-label"><fmt:message bundle="${loc}"
                                                                                  key="local.project.create-description"/></label>
-                    <textarea class="form-control" name="description" id="description"><jsp:getProperty name="technicalTask" property="overview"/></textarea>
+                    <textarea class="form-control" name="description" id="description"><c:out value="${technicalTask.overview}"/></textarea>
                     <small id="description-help" class="form-text">
                         <fmt:message bundle="${loc}" key="local.form.project.description-help"/>
                     </small>

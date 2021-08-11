@@ -16,13 +16,13 @@
             <form action="controller" method="post" >
                 <input type="hidden" name="command" value="make-payment" />
                 <input type="hidden" name="bill-id"
-                       value="<jsp:getProperty name="bill" property="id" />" />
+                       value="<c:out value="${bill.id}"/>" />
                 <div class="products">
                     <h3 class="title"><fmt:message bundle="${loc}" key="local.payment.header"/> №<jsp:getProperty name="bill" property="id" /></h3>
                     <hr>
                     <div>
-                        <span><jsp:getProperty name="bill" property="amountDue" /></span>
-                        <p><jsp:getProperty name="bill" property="information" /></p>
+                        <span><c:out value="${bill.amountDue}"/></span>
+                        <p><c:out value="${bill.information}"/></p>
                     </div>
                     <hr>
                 </div>

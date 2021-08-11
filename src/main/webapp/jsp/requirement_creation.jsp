@@ -20,7 +20,7 @@
             <select class="form-select" aria-label="Default select example" id="task">
                 <option value="null" selected><fmt:message bundle="${loc}" key="local.requirement.create-select"/></option>
                 <c:forEach items="${technicalTasks}" var="task">
-                    <option value="${task.id}">${task.name}</option>
+                    <option value="${task.id}"><c:out value="${task.name}"/></option>
                 </c:forEach>
             </select>
         </div>

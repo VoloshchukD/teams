@@ -24,10 +24,7 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-    <script type="text/javascript" src="/js/validation.js"></script>
-    <script type="text/javascript" src="/js/projects.js"></script>
-    <link rel="stylesheet" href="/css/validation.css">
-    <script type="text/javascript" src="/js/pagging.js"></script>
+
 </head>
 <body>
 <div class="container-xxl">
@@ -39,7 +36,7 @@
                     <strong><fmt:message bundle="${loc}" key="local.message.success.header"/></strong>
                     <fmt:message bundle="${loc}" key="local.message.project.success"/>
                     <fmt:message bundle="${loc}"
-                                 key="local.message.project.created-name"/> ${recentlyCreatedProjectName}
+                                 key="local.message.project.created-name"/> <c:out value="${recentlyCreatedProjectName}"/>
                     <button type="button" class="close" data-dismiss="alert">
                         <span aria-hidden="true">&times;</span>
                     </button>
@@ -98,7 +95,7 @@
                     <div class="card p-3 mb-2">
                         <div class="d-flex justify-content-between">
                             <div class="d-flex flex-row align-items-center">
-                                <h2 class="mb-0 name">${project.name}</h2>
+                                <h2 class="mb-0 name"><c:out value="${project.name}"/></h2>
                             </div>
                             <c:choose>
                                 <c:when test="${project.state == 'IN_PROGRESS'}">
@@ -115,7 +112,7 @@
                         </div>
                         <hr>
                         <div class="mt-5">
-                            <h6 class="heading description">${project.description}</h6>
+                            <h6 class="heading description"><c:out value="${project.description}"/></h6>
                             <div class="mt-5">
                                 <div class="d-flex justify-content-between mr-3">
                                     <div class="d-flex flex-row align-items-center">
@@ -145,7 +142,7 @@
                                     <div class="d-flex flex-row align-items-center">
                                         <span class="text1">
                                             <fmt:message bundle="${loc}" key="local.projects.start-date"/>
-                                             <span class="text2">${project.startDate}</span></span>
+                                             <span class="text2"><c:out value="${project.startDate}"/></span></span>
                                     </div>
                                     <c:if test="${ role == 'MANAGER' }">
                                         <c:if test="${ project.state == 'IN_PROGRESS'}">
@@ -249,5 +246,9 @@
     </div>
 </div>
 <%@ include file="../WEB-INF/jspf/footer.jspf" %>
+<script type="text/javascript" src="/js/validation.js"></script>
+<script type="text/javascript" src="/js/projects.js"></script>
+<link rel="stylesheet" href="/css/validation.css">
+<script type="text/javascript" src="/js/pagging.js"></script>
 </body>
 </html>
