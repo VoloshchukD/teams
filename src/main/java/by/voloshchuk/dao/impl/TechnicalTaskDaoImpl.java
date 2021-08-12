@@ -20,11 +20,11 @@ public class TechnicalTaskDaoImpl implements TechnicalTaskDao {
     private static final String FIND_TECHNICAL_TASK_BY_ID_QUERY = "SELECT * FROM technical_tasks " +
             "WHERE technical_task_id = ?";
 
-    private static final String FIND_TECHNICAL_TASKS_BY_CUSTOMER_ID_QUERY = "SELECT * FROM teams.technical_tasks " +
-            "WHERE teams.technical_tasks.customer_id = ?";
+    private static final String FIND_TECHNICAL_TASKS_BY_CUSTOMER_ID_QUERY = "SELECT * FROM technical_tasks " +
+            "WHERE technical_tasks.customer_id = ?";
 
-    private static final String FIND_TECHNICAL_TASKS_BY_STATUS_QUERY = "SELECT * FROM teams.technical_tasks " +
-            "WHERE teams.technical_tasks.status = ?";
+    private static final String FIND_TECHNICAL_TASKS_BY_STATUS_QUERY = "SELECT * FROM technical_tasks " +
+            "WHERE technical_tasks.status = ?";
 
     private static final String UPDATE_TECHNICAL_TASK_QUERY = "UPDATE technical_tasks SET name = ?, overview = ? " +
             "WHERE technical_task_id = ?";

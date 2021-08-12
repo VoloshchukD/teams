@@ -18,41 +18,42 @@ public class UserDaoImpl implements UserDao {
     private static final String ADD_USER_QUERY = "INSERT INTO users (email, " +
             "password, role, user_detail_id) VALUES (?, ?, ?, ?)";
 
-    private static final String ADD_USER_TO_PROJECT_QUERY = "INSERT INTO teams.user_project_maps (project_id, user_id) VALUES (?, ?);";
+    private static final String ADD_USER_TO_PROJECT_QUERY = "INSERT INTO user_project_maps (project_id, user_id) " +
+            "VALUES (?, ?);";
 
-    private static final String DELETE_USER_FROM_PROJECT_QUERY = "DELETE FROM teams.user_project_maps WHERE project_id = ? AND user_id = ?;";
+    private static final String DELETE_USER_FROM_PROJECT_QUERY = "DELETE FROM user_project_maps " +
+            "WHERE project_id = ? AND user_id = ?;";
 
-    private static final String FIND_BASIC_DATA_QUERY = "SELECT TIMESTAMPDIFF(year, MIN(teams.projects.start_date), CURDATE()) " +
-            "AS years, ROUND(AVG(TIMESTAMPDIFF(month, teams.projects.start_date, teams.technical_tasks.deadline))) " +
-            "AS productivity, COUNT(DISTINCT(teams.users.user_id)) AS customers, COUNT(teams.projects.project_id) " +
-            "AS projects FROM teams.users INNER JOIN teams.technical_tasks " +
-            "ON teams.users.user_id = teams.technical_tasks.customer_id INNER JOIN teams.projects " +
-            "ON teams.technical_tasks.technical_task_id = teams.projects.technical_task_id " +
-            "WHERE teams.users.role = 'customer' AND teams.projects.state = 'finished'";
+    private static final String FIND_BASIC_DATA_QUERY = "SELECT TIMESTAMPDIFF(year, MIN(projects.start_date), CURDATE()) " +
+            "AS years, ROUND(AVG(TIMESTAMPDIFF(month, projects.start_date, technical_tasks.deadline))) " +
+            "AS productivity, COUNT(DISTINCT(users.user_id)) AS customers, COUNT(projects.project_id) " +
+            "AS projects FROM users INNER JOIN technical_tasks " +
+            "ON users.user_id = technical_tasks.customer_id INNER JOIN projects " +
+            "ON technical_tasks.technical_task_id = projects.technical_task_id " +
+            "WHERE users.role = 'CUSTOMER' AND projects.state = 'FINISHED'";
 
     private static final String FIND_USER_BY_ID_QUERY = "SELECT * FROM users INNER JOIN user_details " +
             "ON users.user_detail_id = user_details.user_detail_id " +
             "WHERE user_id = ?";
 
-    private static final String FIND_USERS_BY_PROJECT_ID = "SELECT * FROM teams.users " +
-            "INNER JOIN teams.user_project_maps " +
-            "ON teams.users.user_id = teams.user_project_maps.user_id " +
-            "INNER JOIN teams.user_details ON teams.users.user_id = teams.user_details.user_detail_id " +
-            "WHERE teams.user_project_maps.project_id = ?";
+    private static final String FIND_USERS_BY_PROJECT_ID = "SELECT * FROM users " +
+            "INNER JOIN user_project_maps " +
+            "ON users.user_id = user_project_maps.user_id " +
+            "INNER JOIN user_details ON users.user_id = user_details.user_detail_id " +
+            "WHERE user_project_maps.project_id = ?";
 
     private static final String FIND_USER_BY_EMAIL_QUERY = "SELECT * FROM users INNER JOIN user_details " +
             "ON users.user_detail_id = user_details.user_detail_id " +
             "WHERE email = ?";
 
     private static final String FIND_USER_BY_REQUIREMENT_QUERY = "SELECT * FROM users " +
-            "INNER JOIN user_details ON users.user_id = user_details.user_detail_id " +
-            "WHERE teams.users.role = 'developer' " +
-            "AND teams.user_details.experience >= ? AND teams.user_details.salary <= ? AND teams.user_details.primary_skill = ? " +
+            "INNER JOIN user_details ON users.user_id = user_details.user_detail_id WHERE users.role = 'DEVELOPER' " +
+            "AND user_details.experience >= ? AND user_details.salary <= ? AND user_details.primary_skill = ? " +
             "AND user_details.status = 'NOT_BUSY'";
 
-    private static final String FIND_USER_BY_PRIMARY_SKILL_QUERY = "SELECT * FROM teams.user_details " +
-            "INNER JOIN teams.users ON teams.users.user_detail_id = teams.user_details.user_detail_id " +
-            "WHERE teams.user_details.primary_skill LIKE ?";
+    private static final String FIND_USER_BY_PRIMARY_SKILL_QUERY = "SELECT * FROM user_details " +
+            "INNER JOIN users ON users.user_detail_id = user_details.user_detail_id " +
+            "WHERE user_details.primary_skill LIKE ?";
 
     private static final String PERCENT = "%";
 

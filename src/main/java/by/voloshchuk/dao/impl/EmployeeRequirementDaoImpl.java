@@ -17,15 +17,15 @@ public class EmployeeRequirementDaoImpl implements EmployeeRequirementDao {
     private static final String ADD_EMPLOYEE_REQUIREMENT_QUERY = "INSERT INTO employee_requirements (experience, " +
             "salary, qualification, primary_skill, comment, technical_task_id) VALUES (?, ?, ?, ?, ?, ?)";
 
-    private static final String FIND_ALL_BY_TECHNICAL_TASK_ID_QUERY = "SELECT * FROM teams.employee_requirements " +
-            "WHERE teams.employee_requirements.technical_task_id = ?";
+    private static final String FIND_ALL_BY_TECHNICAL_TASK_ID_QUERY = "SELECT * FROM employee_requirements " +
+            "WHERE employee_requirements.technical_task_id = ?";
 
-    private static final String FIND_ALL_BY_PROJECT_ID_QUERY = "SELECT * FROM teams.employee_requirements " +
-            "INNER JOIN teams.technical_tasks " +
-            "ON teams.employee_requirements.technical_task_id = teams.technical_tasks.technical_task_id " +
-            "INNER JOIN teams.projects " +
-            "ON teams.projects.technical_task_id = teams.technical_tasks.technical_task_id " +
-            "WHERE teams.projects.project_id = ?";
+    private static final String FIND_ALL_BY_PROJECT_ID_QUERY = "SELECT * FROM employee_requirements " +
+            "INNER JOIN technical_tasks " +
+            "ON employee_requirements.technical_task_id = technical_tasks.technical_task_id " +
+            "INNER JOIN projects " +
+            "ON projects.technical_task_id = technical_tasks.technical_task_id " +
+            "WHERE projects.project_id = ?";
 
     private static final String UPDATE_EMPLOYEE_REQUIREMENT_QUERY = "UPDATE employee_requirements " +
             "SET experience = ?, salary = ?, qualification = ?, primary_skill = ?, comment = ? " +

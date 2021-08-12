@@ -19,8 +19,8 @@ public class ProjectDaoImpl implements ProjectDao {
 
     private static final String FIND_PROJECT_BY_ID_QUERY = "SELECT * FROM projects WHERE project_id = ?";
 
-    private static final String FIND_PROJECTS_BY_USER_ID_AND_STATE_QUERY = "SELECT * FROM teams.projects INNER JOIN teams.user_project_maps " +
-            "ON teams.projects.project_id=teams.user_project_maps.project_id WHERE teams.user_project_maps.user_id = ? AND teams.projects.state = ?";
+    private static final String FIND_PROJECTS_BY_USER_ID_AND_STATE_QUERY = "SELECT * FROM projects INNER JOIN user_project_maps " +
+            "ON projects.project_id = user_project_maps.project_id WHERE user_project_maps.user_id = ? AND projects.state = ?";
 
     private static final String UPDATE_PROJECT_QUERY = "UPDATE projects " +
             "SET project_name = ?, description = ? " +
