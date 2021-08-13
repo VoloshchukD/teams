@@ -16,9 +16,11 @@
     <div class="row h-100 justify-content-center">
         <div class="col-8 my-auto">
             <div class="row justify-content-center text-center">
-                <div class="statuscode">${pageContext.errorData.statusCode}</div>
+                <div class="statuscode">500</div>
                 <div class="mb-1 lead">
-                    <h3><c:out value="${requestScope['javax.servlet.error.message']}"/></h3>
+                    <h3>
+                        <fmt:message bundle="${loc}" key="local.error-message.server-error"/>
+                    </h3>
                 </div>
             </div>
         </div>

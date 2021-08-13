@@ -127,9 +127,6 @@
                             <li><a class="dropdown-item" href="?command=profile"><fmt:message bundle="${loc}"
                                                                                               key="local.profile"/></a>
                             </li>
-                            <li><a class="dropdown-item" href="?command=settings"><fmt:message bundle="${loc}"
-                                                                                               key="local.settings"/></a>
-                            </li>
                             <li>
                                 <hr class="dropdown-divider">
                             </li>

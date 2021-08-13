@@ -19,10 +19,11 @@ public interface BillService {
     /**
      * Bill finding logics.
      *
-     * @param id - id of bill to find
+     * @param id     - id of bill to find
+     * @param userId - id of user owner of bills
      * @return {@link Bill}
      */
-    Bill findBillById(Long id) throws ServiceException;
+    Bill findBillByIdAndUserId(Long id, Long userId) throws ServiceException;
 
     /**
      * Users bill finding logics.

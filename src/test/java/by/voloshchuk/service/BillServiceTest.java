@@ -47,7 +47,7 @@ public class BillServiceTest {
 
     @Test
     public void testFindBillById() throws ServiceException {
-        Bill founded = billService.findBillById(DATABASE_BILL_ID);
+        Bill founded = billService.findBillByIdAndUserId(DATABASE_BILL_ID, DATABASE_USER_ID);
         Assert.assertNotNull(founded);
     }
 

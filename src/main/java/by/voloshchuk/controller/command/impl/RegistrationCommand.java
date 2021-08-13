@@ -25,21 +25,28 @@ public class RegistrationCommand implements Command {
 
     private static ServiceProvider serviceProvider = ServiceProvider.getInstance();
 
+    private static final String DEFAULT_USER_IMAGE = "/images/logo.png";
+
     @Override
     public CommandRouter execute(HttpServletRequest request, HttpServletResponse response) throws ServletException {
         UserDto userDto = buildDto(request);
         UserService userService = serviceProvider.getUserService();
+        CommandRouter router = new CommandRouter(CommandRouter.RouterType.FORWARD, CommandPath.REGISTRATION_JSP);
         try {
             if (userService.addUser(userDto)) {
                 request.getSession().setAttribute(CommandAttribute.USER_ID, userDto.getUserId());
                 request.getSession().setAttribute(CommandAttribute.USER_DETAIL_ID, userDto.getUserDetailId());
+                request.getSession().setAttribute(CommandAttribute.USER_IMAGE, DEFAULT_USER_IMAGE);
                 User.UserRole role = User.UserRole.valueOf(userDto.getRole());
                 request.getSession().setAttribute(CommandAttribute.ROLE, role);
+                router = new CommandRouter(CommandRouter.RouterType.REDIRECT, CommandPath.TO_PROJECTS);
+            } else {
+                request.setAttribute(CommandAttribute.ERROR, true);
             }
         } catch (ServiceException e) {
             logger.log(Level.ERROR, e.getMessage());
         }
-        CommandRouter router = new CommandRouter(CommandRouter.RouterType.REDIRECT, CommandPath.MAIN);
+
         return router;
     }
 

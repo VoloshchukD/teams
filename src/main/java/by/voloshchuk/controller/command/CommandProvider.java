@@ -24,7 +24,7 @@ public class CommandProvider {
     private CommandProvider() {
         commands.put(CommandName.ERROR, new MainCommand());
         commands.put(CommandName.MAIN, new MainCommand());
-        commands.put(CommandName.ABOUT, new AboutCommand());
+        commands.put(CommandName.ABOUT, new ToAboutCommand());
         commands.put(CommandName.PROJECTS, new ProjectsCommand());
         commands.put(CommandName.TO_CREATE_PROJECT, new ToCreateProjectCommand());
         commands.put(CommandName.CREATE_PROJECT, new CreateProjectCommand());
@@ -50,7 +50,7 @@ public class CommandProvider {
         commands.put(CommandName.REGISTRATE, new RegistrationCommand());
         commands.put(CommandName.AUTHORIZATION, new ToAuthorizationCommand());
         commands.put(CommandName.AUTHORIZE, new AuthorizationCommand());
-        commands.put(CommandName.PROFILE, new ProfileCommand());
+        commands.put(CommandName.PROFILE, new ToProfileCommand());
         commands.put(CommandName.LOGOUT, new LogoutCommand());
         commands.put(CommandName.DELETE_ACCOUNT, new DeleteAccountCommand());
         commands.put(CommandName.UPDATE_BILL, new UpdateBillCommand());

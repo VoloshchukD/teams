@@ -54,14 +54,8 @@ public class TaskDaoTest {
     }
 
     @Test
-    public void testFindTasksByProjectId() throws DaoException {
-        List<Task> founded = taskDao.findTaskByProjectId(DATABASE_PROJECT_ID);
-        Assert.assertNotNull(founded);
-    }
-
-    @Test
-    public void testFindTaskByUserIdAndProjectId() throws DaoException {
-        List<Task> founded = taskDao.findTaskByUserIdAndProjectId(DATABASE_USER_ID, DATABASE_PROJECT_ID);
+    public void testFindTasksByProjectIdAndUserId() throws DaoException {
+        List<Task> founded = taskDao.findTasksByProjectIdAndUserId(DATABASE_PROJECT_ID, DATABASE_USER_ID);
         Assert.assertNotNull(founded);
     }
 

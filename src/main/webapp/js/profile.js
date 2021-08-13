@@ -6,10 +6,6 @@ function sleep(time) {
     return new Promise((resolve) => setTimeout(resolve, time));
 }
 
-window.addEventListener("load", function (event) {
-    loadEditData();
-});
-
 var editInputs;
 
 var editPatterns;
@@ -91,29 +87,9 @@ function submitEditForm() {
         webix.ajax().post("http://localhost:8080/async-controller?command=update-user-detail", {'jsonString': json})
             .then((response) => response.json())
             .then((data) => {
-                loadEditData();
+
             })
     }
-}
-
-function loadEditData() {
-    ajax.get("http://localhost:8080/async-controller?command=edit")
-        .then((response) => response.json())
-        .then((data) => {
-            document.getElementById("forename").value = data.forename;
-            document.getElementById("surname").value = data.surname;
-            document.getElementById("company").value = data.company;
-            document.getElementById("position").value = data.position;
-            document.getElementById("experience").value = data.experience;
-            document.getElementById("salary").value = data.salary;
-            document.getElementById("primary").value = data.primary;
-            document.getElementById("skills").value = data.skills;
-            if (data.status == 'NOT_BUSY') {
-                $("#status-checker").prop('checked', true);
-            } else if (data.status == 'BUSY') {
-                $("#status-checker").prop('checked', false);
-            }
-        })
 }
 
 webix.ready(function () {

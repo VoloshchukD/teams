@@ -31,11 +31,11 @@ public class TaskServiceImpl implements TaskService {
     }
 
     @Override
-    public List<Task> findTaskByProjectId(Long projectId) throws ServiceException {
+    public List<Task> findTasksByProjectIdAndUserId(Long projectId, Long userId) throws ServiceException {
         List<Task> tasks = null;
         TaskDao taskDao = daoProvider.getTaskDao();
         try {
-            tasks = taskDao.findTaskByProjectId(projectId);
+            tasks = taskDao.findTasksByProjectIdAndUserId(projectId, userId);
         } catch (DaoException e) {
             throw new ServiceException(e);
         }

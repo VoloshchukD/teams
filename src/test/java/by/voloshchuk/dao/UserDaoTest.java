@@ -32,12 +32,19 @@ public class UserDaoTest {
         user.setEmail("smith11@gmail.com");
         user.setPassword("27389f01249t4");
         user.setRole(User.UserRole.DEVELOPER);
+
         UserDetail userDetail = new UserDetail();
         userDetail.setId(1L);
         userDetail.setSalary(100);
         userDetail.setExperience(40);
         userDetail.setPrimarySkill("C");
+        userDetail.setFirstName("John");
+        userDetail.setLastName("Smith");
+        userDetail.setCompany("Google");
+        userDetail.setPosition("Team Lead");
+        userDetail.setStatus(UserDetail.Status.BUSY);
         user.setUserDetail(userDetail);
+
         requirement = new EmployeeRequirement();
         requirement.setSalary(1000);
         requirement.setPrimarySkill("C");

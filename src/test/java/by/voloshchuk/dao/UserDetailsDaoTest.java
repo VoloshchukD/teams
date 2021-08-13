@@ -29,12 +29,6 @@ public class UserDetailsDaoTest {
     }
 
     @Test
-    public void testAddUserDetails() throws DaoException {
-        boolean added = userDetailDao.addUserDetail(userDetail);
-        Assert.assertTrue(added);
-    }
-
-    @Test
     public void testFindUserDetailsById() throws DaoException {
         UserDetail resultUserDetail = userDetailDao.findUserDetailByUserId(userDetail.getId());
         Assert.assertNotNull(resultUserDetail);

@@ -20,10 +20,17 @@ $('.requirements').each(function () {
             .then((data) => {
                 for (let i = 0; i < data.length; i++) {
                     var html = '';
-                    html += '<tr><th scope="row">' + (i + 1) + '</th><td>'
-                    html += data[i].experience + '</td>' + '<td>' + data[i].salary + '</td><td>'
-                    html += data[i].qualification + '</td><td>' + data[i].primary + '</td><td>' + data[i].comment + '</td></tr>';
+                    html += '<tr class="requirement" ><th scope="row">' + (i + 1)
+                        + '</th><td class="experience" ></td><td class="salary" ></td><td class="qualification" >'
+                    html += '</td><td class="primary" ></td><td class="comment" ></td></tr>';
                     $(table).append(html);
+
+                    var element = $('.table').find('.requirement:last');
+                    element.find('.qualification').text(data[i].qualification);
+                    element.find('.salary').text(data[i].salary);
+                    element.find('.experience').text(data[i].experience);
+                    element.find('.primary').text(data[i].primary);
+                    element.find('.comment').text(data[i].comment);
                 }
             })
     });

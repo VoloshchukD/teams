@@ -26,16 +26,17 @@ public class ToTasksCommand implements Command {
     private static ServiceProvider serviceProvider = ServiceProvider.getInstance();
 
     @Override
-    public CommandRouter execute(HttpServletRequest request, HttpServletResponse response) throws ServletException {
+    public CommandRouter execute(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException {
         Long projectId = Long.parseLong(request.getParameter(RequestParameter.PROJECT_ID));
+        Long userId = (Long) request.getSession().getAttribute(CommandAttribute.USER_ID);
         List<Task> tasks = null;
         TaskService taskService = serviceProvider.getTaskService();
         try {
-            tasks = taskService.findTaskByProjectId(projectId);
+            tasks = taskService.findTasksByProjectIdAndUserId(projectId, userId);
         } catch (ServiceException e) {
             logger.log(Level.ERROR, e.getMessage());
         }
-
         request.setAttribute(RequestParameter.TASKS, tasks);
         CommandRouter router = new CommandRouter(CommandRouter.RouterType.FORWARD, CommandPath.TASKS_JSP);
         return router;

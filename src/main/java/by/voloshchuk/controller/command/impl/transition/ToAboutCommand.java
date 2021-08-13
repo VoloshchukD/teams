@@ -9,15 +9,15 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 /**
- * Command to move to error page.
+ * Command to move to about page.
  *
  * @author Daniil Voloshchuk
  */
-public class ErrorCommand implements Command {
+public class ToAboutCommand implements Command {
 
     @Override
     public CommandRouter execute(HttpServletRequest request, HttpServletResponse response) throws ServletException {
-        CommandRouter router = new CommandRouter(CommandRouter.RouterType.FORWARD, CommandPath.ERROR_JSP);
+        CommandRouter router = new CommandRouter(CommandRouter.RouterType.FORWARD, CommandPath.ABOUT_JSP);
         return router;
     }
 

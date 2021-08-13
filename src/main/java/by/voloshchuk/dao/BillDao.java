@@ -9,7 +9,7 @@ public interface BillDao {
 
     boolean addBill(Bill bill) throws DaoException;
 
-    Bill findBillById(Long id) throws DaoException;
+    Bill findBillByIdAndUserId(Long id, Long userId) throws DaoException;
 
     List<Bill> findBillsByUserId(Long userId) throws DaoException;
 

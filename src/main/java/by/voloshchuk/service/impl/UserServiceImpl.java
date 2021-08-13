@@ -33,13 +33,12 @@ public class UserServiceImpl implements UserService {
         Validator<UserDto> userValidator = ValidatorProvider.getInstance().getUserValidator();
         if (userValidator.validateCreateData(userDto)) {
             try {
-                userDetailDao.addUserDetail(user.getUserDetail());
-                userDto.setUserDetailId(user.getUserDetail().getId());
-                String password = user.getPassword();
+                String password = userDto.getPassword();
                 String hash = BCrypt.hashpw(password, BCrypt.gensalt());
-                userDto.setPassword(hash);
+                user.setPassword(hash);
                 result = userDao.addUser(user);
                 userDto.setUserId(user.getId());
+                userDto.setUserDetailId(user.getUserDetail().getId());
             } catch (DaoException e) {
                 throw new ServiceException(e);
             }

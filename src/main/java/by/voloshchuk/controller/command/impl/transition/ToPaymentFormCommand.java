@@ -1,9 +1,6 @@
 package by.voloshchuk.controller.command.impl.transition;
 
-import by.voloshchuk.controller.command.Command;
-import by.voloshchuk.controller.command.CommandPath;
-import by.voloshchuk.controller.command.CommandRouter;
-import by.voloshchuk.controller.command.RequestParameter;
+import by.voloshchuk.controller.command.*;
 import by.voloshchuk.entity.Bill;
 import by.voloshchuk.exception.ServiceException;
 import by.voloshchuk.service.BillService;
@@ -30,16 +27,23 @@ public class ToPaymentFormCommand implements Command {
     @Override
     public CommandRouter execute(HttpServletRequest request, HttpServletResponse response) throws ServletException {
         Long billId = Long.parseLong(request.getParameter(RequestParameter.BILL_ID));
+        Long userId = (Long) request.getSession().getAttribute(CommandAttribute.USER_ID);
         Bill bill = null;
         BillService billService = serviceProvider.getBillService();
         try {
-            bill = billService.findBillById(billId);
+            bill = billService.findBillByIdAndUserId(billId, userId);
         } catch (ServiceException e) {
             logger.log(Level.ERROR, e.getMessage());
         }
 
-        request.setAttribute(RequestParameter.BILL, bill);
-        CommandRouter router = new CommandRouter(CommandRouter.RouterType.FORWARD, CommandPath.PAYMENT_FORM_JSP);
+        CommandRouter router;
+        if (bill != null) {
+            request.setAttribute(RequestParameter.BILL, bill);
+            router = new CommandRouter(CommandRouter.RouterType.FORWARD, CommandPath.PAYMENT_FORM_JSP);
+        } else {
+            router = new CommandRouter(CommandRouter.RouterType.FORWARD, CommandPath.ERROR_500_JSP);
+        }
+
         return router;
     }
 

@@ -41,7 +41,7 @@ public class BillDaoTest {
 
     @Test
     public void testFindBillById() throws DaoException {
-        Bill founded = billDao.findBillById(DATABASE_BILL_ID);
+        Bill founded = billDao.findBillByIdAndUserId(DATABASE_BILL_ID, DATABASE_USER_ID);
         Assert.assertNotNull(founded);
     }
 

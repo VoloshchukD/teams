@@ -10,6 +10,8 @@ public final class CommandAttribute {
     private CommandAttribute() {
     }
 
+    public static final String USER_DATA = "userData";
+
     public static final String USER_ID = "user-id";
 
     public static final String USER_DETAIL_ID = "user-detail-id";
@@ -71,5 +73,9 @@ public final class CommandAttribute {
     public static final String RECENTLY_CREATED_PROJECT = "recentlyCreatedProject";
 
     public static final String RECENTLY_CREATED_PROJECT_NAME = "recentlyCreatedProjectName";
+
+    public static final String TASKS = "tasks";
+
+    public static final String PROJECT_ID = "projectId";
 
 }

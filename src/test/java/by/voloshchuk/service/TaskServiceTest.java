@@ -48,8 +48,8 @@ public class TaskServiceTest {
     }
 
     @Test
-    public void testFindTasksByProjectId() throws ServiceException {
-        List<Task> founded = taskService.findTaskByProjectId(DATABASE_PROJECT_ID);
+    public void testFindTasksByProjectIdAndUserId() throws ServiceException {
+        List<Task> founded = taskService.findTasksByProjectIdAndUserId(DATABASE_PROJECT_ID, DATABASE_USER_ID);
         Assert.assertNotNull(founded);
     }
 

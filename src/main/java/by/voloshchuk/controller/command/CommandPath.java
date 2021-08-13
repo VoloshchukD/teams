@@ -12,7 +12,11 @@ public final class CommandPath {
 
     public static final String MAIN_JSP = "/jsp/main.jsp";
 
-    public static final String ERROR_JSP = "/jsp/error.jsp";
+    public static final String ERROR_403_JSP = "/jsp/error_403.jsp";
+
+    public static final String ERROR_404_JSP = "/jsp/error_404.jsp";
+
+    public static final String ERROR_500_JSP = "/jsp/error_500.jsp";
 
     public static final String ABOUT_JSP = "/jsp/about.jsp";
 
@@ -58,7 +62,7 @@ public final class CommandPath {
 
     public static final String PROJECT_BILLS = "?command=to-project-bills&project-id=";
 
-    public static final String TASKS = "?command=to-tasks&project-id=";
+    public static final String TASKS = "?command=to-tasks";
 
     public static final String REQUIREMENTS = "?command=to-create-requirement&technical-task-id=";
 

@@ -18,11 +18,11 @@ public class BillServiceImpl implements BillService {
     private static DaoProvider daoProvider = DaoProvider.getInstance();
 
     @Override
-    public Bill findBillById(Long id) throws ServiceException {
+    public Bill findBillByIdAndUserId(Long id, Long userId) throws ServiceException {
         Bill bill = null;
         BillDao billDao = daoProvider.getBillDao();
         try {
-            bill = billDao.findBillById(id);
+            bill = billDao.findBillByIdAndUserId(id, userId);
         } catch (DaoException e) {
             throw new ServiceException(e);
         }

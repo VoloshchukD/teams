@@ -33,7 +33,14 @@
 
             <div class="row d-flex justify-content-center mt-3" >
                 <div class="form-check form-switch col-3 mr-2" >
-                    <input class="form-check-input" type="checkbox" id="status-checker" >
+                    <c:choose>
+                        <c:when test="${userData.status == 'BUSY'}">
+                            <input class="form-check-input" type="checkbox" id="status-checker" >
+                        </c:when>
+                        <c:when test="${userData.status == 'NOT_BUSY'}">
+                            <input class="form-check-input" type="checkbox" id="status-checker" checked>
+                        </c:when>
+                    </c:choose>
                     <label class="form-check-label" for="status-checker">
                         <fmt:message bundle="${loc}" key="local.profile.ready"/>
                     </label>
@@ -82,14 +89,16 @@
                 <div class="row">
                     <div class="col-md-6 mb-3">
                         <label for="forename"><fmt:message bundle="${loc}" key="local.form.forename"/></label>
-                        <input type="text" class="form-control" name="forename" id="forename">
+                        <input type="text" class="form-control" name="forename" id="forename"
+                               value="<c:out value="${userData.firstName}"/>" >
                         <small id="forename-help" class="form-text"><fmt:message bundle="${loc}"
                                                                                  key="local.form.forename-help"/></small>
                         <div id="regex-forename" class="hidden-regex">${regexForename}</div>
                     </div>
                     <div class="col-md-6 mb-3">
                         <label for="surname"><fmt:message bundle="${loc}" key="local.form.surname"/></label>
-                        <input type="text" class="form-control" name="surname" id="surname">
+                        <input type="text" class="form-control" name="surname" id="surname"
+                               value="<c:out value="${userData.lastName}"/>" >
                         <small id="surname-help" class="form-text"><fmt:message bundle="${loc}"
                                                                                 key="local.form.surname-help"/></small>
                         <div id="regex-surname" class="hidden-regex">${regexSurname}</div>
@@ -98,7 +107,8 @@
 
                 <div class="mb-3">
                     <label for="company"><fmt:message bundle="${loc}" key="local.form.company"/></label>
-                    <input type="text" class="form-control" name="company" id="company">
+                    <input type="text" class="form-control" name="company" id="company"
+                           value="<c:out value="${userData.company}"/>" >
                     <small id="company-help" class="form-text"><fmt:message bundle="${loc}"
                                                                             key="local.form.company-help"/></small>
                     <div id="regex-company" class="hidden-regex">${regexCompany}</div>
@@ -106,7 +116,8 @@
 
                 <div class="mb-3">
                     <label for="position"><fmt:message bundle="${loc}" key="local.form.position"/></label>
-                    <input type="text" class="form-control" name="position" id="position">
+                    <input type="text" class="form-control" name="position" id="position"
+                           value="<c:out value="${userData.position}"/>" >
                     <small id="position-help" class="form-text"><fmt:message bundle="${loc}"
                                                                              key="local.form.position-help"/></small>
                     <div id="regex-position" class="hidden-regex">${regexPosition}</div>
@@ -115,21 +126,24 @@
                 <div class="row">
                     <div class="col-md-4 mb-3">
                         <label for="experience"><fmt:message bundle="${loc}" key="local.form.experience"/></label>
-                        <input type="text" class="form-control" name="experience" id="experience">
+                        <input type="text" class="form-control" name="experience" id="experience"
+                               value="<c:out value="${userData.experience}"/>" >
                         <small id="experience-help" class="form-text"><fmt:message bundle="${loc}"
                                                                                    key="local.form.experience-help"/></small>
                         <div id="regex-experience" class="hidden-regex">${regexExperience}</div>
                     </div>
                     <div class="col-md-4 mb-3">
                         <label for="salary"><fmt:message bundle="${loc}" key="local.form.salary"/></label>
-                        <input type="text" class="form-control" name="salary" id="salary">
+                        <input type="text" class="form-control" name="salary" id="salary"
+                               value="<c:out value="${userData.salary}"/>" >
                         <small id="salary-help" class="form-text"><fmt:message bundle="${loc}"
                                                                                key="local.form.salary-help"/></small>
                         <div id="regex-salary" class="hidden-regex">${regexSalary}</div>
                     </div>
                     <div class="col-md-4 mb-3">
                         <label for="primary"><fmt:message bundle="${loc}" key="local.form.primary"/></label>
-                        <input type="text" class="form-control" name="primary" id="primary">
+                        <input type="text" class="form-control" name="primary" id="primary"
+                               value="<c:out value="${userData.primarySkill}"/>" >
                         <small id="primary-help" class="form-text"><fmt:message bundle="${loc}"
                                                                                 key="local.form.primary-help"/></small>
                         <div id="regex-primary" class="hidden-regex">${regexPrimary}</div>
@@ -139,7 +153,9 @@
                 <div class="row">
                     <div class="col mb-3">
                         <label for="skills"><fmt:message bundle="${loc}" key="local.form.skills"/></label>
-                        <textarea class="form-control" aria-label="With textarea" name="skills" id="skills"></textarea>
+                        <textarea class="form-control" aria-label="With textarea" name="skills" id="skills">
+                            <c:out value="${userData.skillsDescription}"/>
+                        </textarea>
                         <small id="skills-description-help" class="form-text"><fmt:message bundle="${loc}"
                                                                                            key="local.form.skills-help"/></small>
                         <div id="regex-skills" class="hidden-regex">${regexSkills}</div>

@@ -11,11 +11,9 @@ public interface TaskDao {
 
     Task findTaskById(Long id) throws DaoException;
 
-    List<Task> findTaskByProjectId(Long projectId) throws DaoException;
+    List<Task> findTasksByProjectIdAndUserId(Long projectId, Long userId) throws DaoException;
 
     List<Task> findTaskByProjectIdAndStatus(Long projectId, String status) throws DaoException;
-
-    List<Task> findTaskByUserIdAndProjectId(Long userId, Long projectId) throws DaoException;
 
     Task updateTask(Task task) throws DaoException;
 

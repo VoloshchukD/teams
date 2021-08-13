@@ -21,7 +21,7 @@ public interface UserDao {
 
     User updateUser(User user) throws DaoException;
 
-    boolean removeUserById(Long id) throws DaoException;
+    boolean removeUserById(Long id, Long userDetailId) throws DaoException;
 
     List<User> findAllByEmployeeRequirement(EmployeeRequirement requirements) throws DaoException;
 

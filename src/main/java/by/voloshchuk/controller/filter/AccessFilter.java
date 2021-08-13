@@ -1,7 +1,7 @@
 package by.voloshchuk.controller.filter;
 
-import by.voloshchuk.entity.User;
 import by.voloshchuk.controller.command.*;
+import by.voloshchuk.entity.User;
 
 import javax.servlet.*;
 import javax.servlet.http.HttpServletRequest;
@@ -117,13 +117,13 @@ public class AccessFilter implements Filter {
         }
         String command = request.getParameter(RequestParameter.COMMAND);
         if (command == null) {
-            response.sendError(HttpServletResponse.SC_NOT_FOUND, "Not found");
+            request.getRequestDispatcher(CommandPath.ERROR_404_JSP).forward(request, response);
         } else {
             if (!accessMap.get(role).contains(command)) {
                 if (containsCommand(command)) {
-                    response.sendError(HttpServletResponse.SC_FORBIDDEN, "Not Authorized");
+                    request.getRequestDispatcher(CommandPath.ERROR_403_JSP).forward(request, response);
                 } else {
-                    response.sendError(HttpServletResponse.SC_NOT_FOUND, "Not found");
+                    request.getRequestDispatcher(CommandPath.ERROR_404_JSP).forward(request, response);
                 }
             } else {
                 filterChain.doFilter(servletRequest, servletResponse);

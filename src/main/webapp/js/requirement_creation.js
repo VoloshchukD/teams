@@ -27,13 +27,13 @@ function loadRequirements() {
             .then((data) => {
                 for (let i = 0; i < data.length; i++) {
                     var html = '<tr class="saved table-primary">' +
-                        '<td class="experience" >' + data[i].experience +
+                        '<td class="experience" >' +
                         '<input type="hidden" class="identifier" value="' + data[i].id + '"/>' +
                         '</td>' +
-                        '<td class="salary" >' + data[i].salary + '</td>' +
-                        '<td class="qualification" >' + data[i].qualification + '</td>' +
-                        '<td class="primary" >' + data[i].primary + '</td>' +
-                        '<td class="comment" >' + data[i].comment + '</td>' +
+                        '<td class="salary" ></td>' +
+                        '<td class="qualification" ></td>' +
+                        '<td class="primary" ></td>' +
+                        '<td class="comment" ></td>' +
                         '<td>' +
                         '<button type="button" class="edit btn btn-secondary" data-toggle="modal" data-target="#updateModal" ><i class="fa fa-pencil-square-o" aria-hidden="true"></i></i></button>' +
                         '</td>' +
@@ -43,6 +43,12 @@ function loadRequirements() {
                         '</tr>';
                     $('.table tr:eq(' + (i + 1) + ')').before(html);
 
+                    var element = $('.table').find('.saved:last');
+                    element.find('.qualification').text(data[i].qualification);
+                    element.find('.salary').text(data[i].salary);
+                    element.find('.experience').text(data[i].experience);
+                    element.find('.primary').text(data[i].primary);
+                    element.find('.comment').text(data[i].comment);
 
                 }
             }).then(() => {

@@ -22,7 +22,6 @@ public class AsyncCommandProvider {
 
     private AsyncCommandProvider() {
         asyncCommands.put(AsyncCommandName.LOAD_AVATAR, new LoadAvatarCommand());
-        asyncCommands.put(AsyncCommandName.EDIT, new EditCommand());
         asyncCommands.put(AsyncCommandName.UPDATE_USER_DETAIL, new UpdateUserDetailCommand());
         asyncCommands.put(AsyncCommandName.EMPLOYEE_REQUIREMENTS, new EmployeeRequirementsCommand());
         asyncCommands.put(AsyncCommandName.SEEK_EMPLOYEES, new SeekEmployeesCommand());
