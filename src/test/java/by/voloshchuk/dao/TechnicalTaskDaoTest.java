@@ -60,7 +60,7 @@ public class TechnicalTaskDaoTest {
 
     @Test
     public void testFindTechnicalTasksByCustomerId() throws DaoException {
-        List<TechnicalTask> founded = technicalTaskDao.findTechnicalTasksByCustomerId(
+        List<TechnicalTask> founded = technicalTaskDao.findTechnicalTasksByUserId(
                 DATABASE_CUSTOMER_ID);
         Assert.assertNotNull(founded);
     }

@@ -59,7 +59,7 @@ public class TechnicalTaskDaoImpl implements TechnicalTaskDao {
         return technicalTasks;
     }
 
-    public List<TechnicalTask> findTechnicalTasksByCustomerId(Long id) throws DaoException {
+    public List<TechnicalTask> findTechnicalTasksByUserId(Long id) throws DaoException {
         Object[] parameters = {id};
         List<TechnicalTask> technicalTasks = executor.executeQueryMultipleResult(
                 FIND_TECHNICAL_TASKS_BY_CUSTOMER_ID_QUERY, parameters);

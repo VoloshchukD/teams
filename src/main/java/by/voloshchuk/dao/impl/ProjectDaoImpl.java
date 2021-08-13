@@ -103,12 +103,6 @@ public class ProjectDaoImpl implements ProjectDao {
         return added;
     }
 
-    public Project findProjectById(Long id) throws DaoException {
-        Object[] parameters = {id};
-        Project project = executor.executeQuery(FIND_PROJECT_BY_ID_QUERY, parameters);
-        return project;
-    }
-
     public List<Project> findProjectsByUserIdAndState(Long userId, String state)
             throws DaoException {
         Object[] parameters = {userId, state};

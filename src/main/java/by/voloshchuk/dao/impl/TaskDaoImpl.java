@@ -68,12 +68,6 @@ public class TaskDaoImpl implements TaskDao {
         return added;
     }
 
-    public Task findTaskById(Long id) throws DaoException {
-        Object[] parameters = {id};
-        Task task = executor.executeQuery(FIND_TASK_BY_ID_QUERY, parameters);
-        return task;
-    }
-
     public List<Task> findTasksByProjectIdAndUserId(Long projectId, Long userId)
             throws DaoException {
         List<Task> tasks = new ArrayList<>();

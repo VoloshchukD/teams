@@ -2,9 +2,6 @@ package by.voloshchuk.service.impl;
 
 import by.voloshchuk.dao.DaoProvider;
 import by.voloshchuk.dao.TechnicalTaskDao;
-import by.voloshchuk.dao.UserDao;
-import by.voloshchuk.dao.UserDetailDao;
-import by.voloshchuk.entity.Project;
 import by.voloshchuk.entity.TechnicalTask;
 import by.voloshchuk.entity.User;
 import by.voloshchuk.entity.dto.TechnicalTaskDto;
@@ -13,7 +10,6 @@ import by.voloshchuk.exception.ServiceException;
 import by.voloshchuk.service.TechnicalTaskService;
 import by.voloshchuk.service.validator.Validator;
 import by.voloshchuk.service.validator.ValidatorProvider;
-import org.mindrot.jbcrypt.BCrypt;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -58,7 +54,7 @@ public class TechnicalTaskServiceImpl implements TechnicalTaskService {
         List<TechnicalTask> technicalTasks = null;
         TechnicalTaskDao technicalTaskDao = daoProvider.getTechnicalTaskDao();
         try {
-            technicalTasks = technicalTaskDao.findTechnicalTasksByCustomerId(useId);
+            technicalTasks = technicalTaskDao.findTechnicalTasksByUserId(useId);
         } catch (DaoException e) {
             throw new ServiceException(e);
         }

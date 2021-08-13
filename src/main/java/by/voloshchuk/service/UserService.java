@@ -74,7 +74,7 @@ public interface UserService {
      *
      * @param userId    - id of user to remove
      * @param projectId - id of project from where to remove
-     * @return boolean result of adding
+     * @return boolean result of deletion
      */
     boolean removeUserFromProject(Long userId, Long projectId) throws ServiceException;
 

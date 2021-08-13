@@ -28,7 +28,7 @@ public interface TaskService {
      * Project tasks finding logics by status.
      *
      * @param projectId - id of project with tasks
-     * @param status    - id of project with tasks
+     * @param status    - status of task to be found
      * @return list of {@link Task}
      */
     List<Task> findTaskByProjectIdAndStatus(Long projectId, String status) throws ServiceException;

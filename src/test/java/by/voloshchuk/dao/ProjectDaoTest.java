@@ -53,13 +53,6 @@ public class ProjectDaoTest {
     }
 
     @Test
-    public void testFindProjectById() throws DaoException {
-        Project founded = projectDao.findProjectById(
-                DATABASE_PROJECT_ID);
-        Assert.assertNotNull(founded);
-    }
-
-    @Test
     public void testUpdateTechnicalTask() throws DaoException {
         String updateData = "Delivery";
         project.setName(updateData);
