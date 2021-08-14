@@ -2,12 +2,10 @@ package by.voloshchuk.service.validator;
 
 import by.voloshchuk.entity.Project;
 import by.voloshchuk.entity.dto.BillDto;
+import by.voloshchuk.entity.dto.PaymentDto;
 import by.voloshchuk.entity.dto.TechnicalTaskDto;
 import by.voloshchuk.entity.dto.UserDto;
-import by.voloshchuk.service.validator.impl.BillValidator;
-import by.voloshchuk.service.validator.impl.ProjectValidator;
-import by.voloshchuk.service.validator.impl.TechnicalTaskValidator;
-import by.voloshchuk.service.validator.impl.UserValidator;
+import by.voloshchuk.service.validator.impl.*;
 
 public class ValidatorProvider {
 
@@ -18,6 +16,8 @@ public class ValidatorProvider {
     private final Validator<TechnicalTaskDto> technicalTaskValidator = new TechnicalTaskValidator();
 
     private final Validator<BillDto> billValidator = new BillValidator();
+
+    private final PaymentValidator<PaymentDto> paymentValidator = new PaymentValidatorImpl();
 
     private ValidatorProvider() {
     }
@@ -44,6 +44,10 @@ public class ValidatorProvider {
 
     public Validator<BillDto> getBillValidator() {
         return billValidator;
+    }
+
+    public PaymentValidator<PaymentDto> getPaymentValidator() {
+        return paymentValidator;
     }
 
 }

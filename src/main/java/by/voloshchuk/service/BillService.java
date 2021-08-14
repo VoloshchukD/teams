@@ -2,6 +2,7 @@ package by.voloshchuk.service;
 
 import by.voloshchuk.entity.Bill;
 import by.voloshchuk.entity.dto.BillDto;
+import by.voloshchuk.entity.dto.PaymentDto;
 import by.voloshchuk.exception.ServiceException;
 
 import java.util.List;
@@ -57,6 +58,14 @@ public interface BillService {
      * @return updated status
      */
     String updateBillStatus(Long billId, String status) throws ServiceException;
+
+    /**
+     * Bill payment logics.
+     *
+     * @param paymentDto - data to make payment
+     * @return updated bill status
+     */
+    String payForBill(PaymentDto paymentDto) throws ServiceException;
 
     /**
      * Bill removing logics.

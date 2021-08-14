@@ -50,6 +50,16 @@ public class RegexProperty {
 
     private static final String REGEX_REQUIREMENT_PRIMARY_SKILL = "regex.requirement.primary-skill";
 
+    private static final String REGEX_PAYMENT_HOLDER = "regex.payment.holder";
+
+    private static final String REGEX_PAYMENT_MM = "regex.payment.mm";
+
+    private static final String REGEX_PAYMENT_YY = "regex.payment.yy";
+
+    private static final String REGEX_PAYMENT_NUMBER = "regex.payment.number";
+
+    private static final String REGEX_PAYMENT_CVC = "regex.payment.cvc";
+
     private static final String RESOURCE_NAME = "regex";
 
     private static final ResourceBundle resourceBundle = ResourceBundle.getBundle(RESOURCE_NAME, Locale.getDefault());
@@ -99,5 +109,20 @@ public class RegexProperty {
 
     public static final String PROPERTY_REQUIREMENT_PRIMARY_REGEX = resourceBundle.getString(
             REGEX_REQUIREMENT_PRIMARY_SKILL);
+
+    public static final String PROPERTY_PAYMENT_HOLDER_REGEX = resourceBundle.getString(
+            REGEX_PAYMENT_HOLDER);
+
+    public static final String PROPERTY_PAYMENT_MM_REGEX = resourceBundle.getString(
+            REGEX_PAYMENT_MM);
+
+    public static final String PROPERTY_PAYMENT_YY_REGEX = resourceBundle.getString(
+            REGEX_PAYMENT_YY);
+
+    public static final String PROPERTY_PAYMENT_NUMBER_REGEX = resourceBundle.getString(
+            REGEX_PAYMENT_NUMBER);
+
+    public static final String PROPERTY_PAYMENT_CVC_REGEX = resourceBundle.getString(
+            REGEX_PAYMENT_CVC);
 
 }

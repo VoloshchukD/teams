@@ -118,4 +118,13 @@ public final class RequestParameter {
 
     public static final String REQUIREMENT_EXPERIENCE = "experience";
 
+    public static final String CARD_HOLDER = "card-holder";
+
+    public static final String CARD_MONTH = "mm";
+
+    public static final String CARD_YEAR = "yy";
+
+    public static final String CARD_NUMBER = "card-number";
+
+    public static final String CARD_CVC = "cvc";
 }

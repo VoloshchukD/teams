@@ -5,6 +5,7 @@ import by.voloshchuk.entity.Bill;
 import by.voloshchuk.exception.ServiceException;
 import by.voloshchuk.service.BillService;
 import by.voloshchuk.service.ServiceProvider;
+import by.voloshchuk.util.RegexProperty;
 import org.apache.logging.log4j.Level;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -14,7 +15,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 /**
- * Command to move to payment form.
+ * Command to move to payment form for definite bill.
  *
  * @author Daniil Voloshchuk
  */
@@ -39,6 +40,19 @@ public class ToPaymentFormCommand implements Command {
         CommandRouter router;
         if (bill != null) {
             request.setAttribute(RequestParameter.BILL, bill);
+
+            request.setAttribute(CommandAttribute.HOLDER_REGEX,
+                    RegexProperty.PROPERTY_PAYMENT_HOLDER_REGEX);
+            request.setAttribute(CommandAttribute.MM_REGEX,
+                    RegexProperty.PROPERTY_PAYMENT_MM_REGEX);
+            request.setAttribute(CommandAttribute.YY_REGEX,
+                    RegexProperty.PROPERTY_PAYMENT_YY_REGEX);
+            request.setAttribute(CommandAttribute.NUMBER_REGEX,
+                    RegexProperty.PROPERTY_PAYMENT_NUMBER_REGEX);
+            request.setAttribute(CommandAttribute.CVC_REGEX,
+                    RegexProperty.PROPERTY_PAYMENT_CVC_REGEX);
+
+
             router = new CommandRouter(CommandRouter.RouterType.FORWARD, CommandPath.PAYMENT_FORM_JSP);
         } else {
             router = new CommandRouter(CommandRouter.RouterType.FORWARD, CommandPath.ERROR_500_JSP);

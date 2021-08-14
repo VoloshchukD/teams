@@ -5,9 +5,11 @@ import by.voloshchuk.dao.DaoProvider;
 import by.voloshchuk.entity.Bill;
 import by.voloshchuk.entity.Project;
 import by.voloshchuk.entity.dto.BillDto;
+import by.voloshchuk.entity.dto.PaymentDto;
 import by.voloshchuk.exception.DaoException;
 import by.voloshchuk.exception.ServiceException;
 import by.voloshchuk.service.BillService;
+import by.voloshchuk.service.validator.PaymentValidator;
 import by.voloshchuk.service.validator.Validator;
 import by.voloshchuk.service.validator.ValidatorProvider;
 
@@ -86,6 +88,16 @@ public class BillServiceImpl implements BillService {
             resultStatus = billDao.updateBillStatus(billId, status);
         } catch (DaoException e) {
             throw new ServiceException(e);
+        }
+        return resultStatus;
+    }
+
+    @Override
+    public String payForBill(PaymentDto paymentDto) throws ServiceException {
+        String resultStatus = null;
+        PaymentValidator<PaymentDto> paymentValidator = ValidatorProvider.getInstance().getPaymentValidator();
+        if (paymentValidator.validatePayment(paymentDto)) {
+            resultStatus = updateBillStatus(paymentDto.getBillId(), Bill.BillStatus.PAID.toString());
         }
         return resultStatus;
     }

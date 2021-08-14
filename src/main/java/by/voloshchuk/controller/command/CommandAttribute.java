@@ -58,6 +58,16 @@ public final class CommandAttribute {
 
     public static final String TECHNICAL_TASK_DEADLINE_REGEX = "regexTechnicalTaskDeadline";
 
+    public static final String HOLDER_REGEX = "regexHolder";
+
+    public static final String MM_REGEX = "regexMm";
+
+    public static final String YY_REGEX = "regexYy";
+
+    public static final String NUMBER_REGEX = "regexNumber";
+
+    public static final String CVC_REGEX = "regexCvc";
+
     public static final String YEARS_ON_MARKET = "yearsOnMarket";
 
     public static final String PROJECTS_PRODUCTIVITY = "projectsProductivity";
