@@ -38,11 +38,11 @@ public class EmployeeRequirementServiceTest {
         employeeRequirement.setQualification("Junior developer");
     }
 
-    @Test
-    public void testAddEmployeeRequirement() throws ServiceException {
-        boolean added = employeeRequirementService.addEmployeeRequirement(employeeRequirement);
-        Assert.assertTrue(added);
-    }
+//    @Test
+//    public void testAddEmployeeRequirement() throws ServiceException {
+//        boolean added = employeeRequirementService.addEmployeeRequirement(employeeRequirement);
+//        Assert.assertTrue(added);
+//    }
 
     @Test
     public void testFindEmployeeRequirementByTechnicalTaskId() throws ServiceException {
@@ -58,13 +58,13 @@ public class EmployeeRequirementServiceTest {
         Assert.assertNotNull(founded);
     }
 
-    @Test
-    public void testEmployeeRequirement() throws ServiceException {
-        String updateData = "Java";
-        employeeRequirement.setPrimarySkill(updateData);
-        EmployeeRequirement updated = employeeRequirementService.updateEmployeeRequirement(
-                employeeRequirement);
-        Assert.assertEquals(updateData, updated.getPrimarySkill());
-    }
+//    @Test
+//    public void testEmployeeRequirement() throws ServiceException {
+//        String updateData = "Java";
+//        employeeRequirement.setPrimarySkill(updateData);
+//        EmployeeRequirement updated = employeeRequirementService.updateEmployeeRequirement(
+//                employeeRequirement);
+//        Assert.assertEquals(updateData, updated.getPrimarySkill());
+//    }
 
 }

@@ -6,6 +6,7 @@
     <title><fmt:message bundle="${loc}" key="local.requirement.creation"/></title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css" rel="stylesheet"
           integrity="sha384-+0n0xVW2eSR5OomGNYDnhzAbDsOXxcvSN1TPprVMTNDbiYZCxYbOOl7+AMvyTG2x" crossorigin="anonymous">
+    <link rel="stylesheet" href="/css/validation.css">
 </head>
 <body>
 <div class="container-xxl">
@@ -45,6 +46,11 @@
                     </tbody>
                 </table>
             </div>
+            <div id="regex-experience" class="hidden-regex">${regexExperience}</div>
+            <div id="regex-salary" class="hidden-regex">${regexSalary}</div>
+            <div id="regex-comment" class="hidden-regex">${regexComment}</div>
+            <div id="regex-qualification" class="hidden-regex">${regexQualification}</div>
+            <div id="regex-primary" class="hidden-regex">${regexPrimary}</div>
         </div>
         <div class="d-flex justify-content-center">
             <button type="submit" class="add btn btn-secondary mt-3" id="add"><fmt:message bundle="${loc}" key="local.requirement.create-button"/></button>

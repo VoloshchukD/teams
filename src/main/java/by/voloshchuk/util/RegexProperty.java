@@ -50,6 +50,12 @@ public class RegexProperty {
 
     private static final String REGEX_REQUIREMENT_PRIMARY_SKILL = "regex.requirement.primary-skill";
 
+    private static final String REGEX_REQUIREMENT_SALARY = "regex.requirement.salary";
+
+    private static final String REGEX_REQUIREMENT_EXPERIENCE = "regex.requirement.experience";
+
+    private static final String REGEX_REQUIREMENT_COMMENT = "regex.requirement.comment";
+
     private static final String REGEX_PAYMENT_HOLDER = "regex.payment.holder";
 
     private static final String REGEX_PAYMENT_MM = "regex.payment.mm";
@@ -109,6 +115,16 @@ public class RegexProperty {
 
     public static final String PROPERTY_REQUIREMENT_PRIMARY_REGEX = resourceBundle.getString(
             REGEX_REQUIREMENT_PRIMARY_SKILL);
+
+    public static final String PROPERTY_REQUIREMENT_EXPERIENCE_REGEX = resourceBundle.getString(
+            REGEX_REQUIREMENT_EXPERIENCE);
+
+    public static final String PROPERTY_REQUIREMENT_SALARY_REGEX = resourceBundle.getString(
+            REGEX_REQUIREMENT_SALARY);
+
+    public static final String PROPERTY_REQUIREMENT_COMMENT_REGEX = resourceBundle.getString(
+            REGEX_REQUIREMENT_COMMENT);
+
 
     public static final String PROPERTY_PAYMENT_HOLDER_REGEX = resourceBundle.getString(
             REGEX_PAYMENT_HOLDER);

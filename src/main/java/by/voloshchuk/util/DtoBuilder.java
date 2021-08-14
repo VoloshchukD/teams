@@ -1,8 +1,12 @@
 package by.voloshchuk.util;
 
+import by.voloshchuk.controller.command.RequestParameter;
 import by.voloshchuk.entity.User;
 import by.voloshchuk.entity.UserDetail;
+import by.voloshchuk.entity.dto.EmployeeRequirementDto;
 import by.voloshchuk.entity.dto.UserDto;
+
+import javax.servlet.http.HttpServletRequest;
 
 public class DtoBuilder {
 
@@ -27,6 +31,16 @@ public class DtoBuilder {
         userDetail.setSkillsDescription(userDto.getSkillsDescription());
         userDetail.setStatus(UserDetail.Status.NOT_BUSY);
         return userDetail;
+    }
+
+    public static EmployeeRequirementDto buildEmployeeRequirementDto(HttpServletRequest request) {
+        EmployeeRequirementDto employeeRequirementDto = new EmployeeRequirementDto();
+        employeeRequirementDto.setPrimarySkill(request.getParameter(RequestParameter.PRIMARY_SKILL));
+        employeeRequirementDto.setSalary(request.getParameter(RequestParameter.SALARY));
+        employeeRequirementDto.setExperience(request.getParameter(RequestParameter.EXPERIENCE));
+        employeeRequirementDto.setQualification(request.getParameter(RequestParameter.QUALIFICATION));
+        employeeRequirementDto.setComment(request.getParameter(RequestParameter.COMMENT));
+        return employeeRequirementDto;
     }
 
 }

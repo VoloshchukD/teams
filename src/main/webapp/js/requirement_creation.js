@@ -8,6 +8,12 @@ window.addEventListener("load", function (event) {
     }
 });
 
+const experienceRegex = new RegExp(document.getElementById('regex-experience').textContent);
+const salaryRegex = new RegExp(document.getElementById('regex-salary').textContent);
+const commentRegex = new RegExp(document.getElementById('regex-comment').textContent);
+const qualificationRegex = new RegExp(document.getElementById('regex-qualification').textContent);
+const primaryRegex = new RegExp(document.getElementById('regex-primary').textContent);
+
 var ajax = webix.ajax().headers({
     'Content-type': 'application/json'
 })
@@ -27,9 +33,7 @@ function loadRequirements() {
             .then((data) => {
                 for (let i = 0; i < data.length; i++) {
                     var html = '<tr class="saved table-primary">' +
-                        '<td class="experience" >' +
-                        '<input type="hidden" class="identifier" value="' + data[i].id + '"/>' +
-                        '</td>' +
+                        '<td class="experience" ></td>' +
                         '<td class="salary" ></td>' +
                         '<td class="qualification" ></td>' +
                         '<td class="primary" ></td>' +
@@ -50,48 +54,29 @@ function loadRequirements() {
                     element.find('.primary').text(data[i].primary);
                     element.find('.comment').text(data[i].comment);
 
+                    element.find('.edit').click(function () {
+                            $('#updateModal').find('#updateRequirementId').val(data[i].id);
+                            $('#updateModal').find('#updateExperience').val(data[i].experience);
+                            $('#updateModal').find('#updateSalary').val(data[i].salary);
+                            $('#updateModal').find('#updateQualification').val(data[i].qualification);
+                            $('#updateModal').find('#updatePrimary').val(data[i].primary);
+                            $('#updateModal').find('#updateComment').val(data[i].comment);
+                        });
+
+                    element.find('.delete').click(function () {
+                            webix.ajax().post("http://localhost:8080/async-controller?command=delete-requirement",
+                                {
+                                    "id": data[i].id
+                                })
+                                .then((response) => response.json())
+                                .then((data) => {
+                                    element.remove();
+                                })
+                        });
+
+
                 }
-            }).then(() => {
-
-            $('.saved').each(function () {
-                var savedRow = $(this);
-
-                var experienceValue = savedRow.find('.experience').text();
-                var salaryValue = savedRow.find('.salary').text();
-                var qualificationValue = savedRow.find('.qualification').text();
-                var primaryValue = savedRow.find('.primary').text();
-                var commentValue = savedRow.find('.comment').text();
-                var updateRequirementId = savedRow.find('.identifier').val();
-
-
-                $('.employee').each(function () {
-                    $(this).remove();
-                })
-
-                savedRow.find('.edit').click(function () {
-                    $('#updateModal').find('#updateRequirementId').val(updateRequirementId);
-                    $('#updateModal').find('#updateExperience').val(experienceValue);
-                    $('#updateModal').find('#updateSalary').val(salaryValue);
-                    $('#updateModal').find('#updateQualification').val(qualificationValue);
-                    $('#updateModal').find('#updatePrimary').val(primaryValue);
-                    $('#updateModal').find('#updateComment').val(commentValue);
-                });
-
-                savedRow.find('.delete').click(function () {
-                    webix.ajax().post("http://localhost:8080/async-controller?command=delete-requirement",
-                        {
-                            "id": updateRequirementId
-                        })
-                        .then((response) => response.json())
-                        .then((data) => {
-                            savedRow.remove();
-                        })
-                });
-
             })
-
-        })
-
     }
 
 }
@@ -115,26 +100,34 @@ $('#add').click(function () {
     var addedRequirement = $('.table').find('.requirement:last');
     addedRequirement.find('.save').click(function () {
 
-        var experience = addedRequirement.find('.experience');
-        var salary = addedRequirement.find('.salary');
-        var qualification = addedRequirement.find('.qualification');
-        var primary = addedRequirement.find('.primary');
-        var comment = addedRequirement.find('.comment');
+        var experience = addedRequirement.find('.experience .input1').val();
+        var salary = addedRequirement.find('.salary .input2').val();
+        var qualification = addedRequirement.find('.qualification .input3').val();
+        var primary = addedRequirement.find('.primary .input4').val();
+        var comment = addedRequirement.find('.comment .input5').val();
 
-        webix.ajax().post("http://localhost:8080/async-controller?command=add-requirement",
-            {
-                "experience": experience.find('.input1').val(),
-                "salary": salary.find('.input2').val(),
-                "qualification": qualification.find('.input3').val(),
-                "primary": primary.find('.input4').val(),
-                "comment": comment.find('.input5').val(),
-                "technical-task-id": $("#task").val()
-            })
-            .then((response) => response.json())
-            .then((data) => {
-                loadRequirements();
-            })
-        addedRequirement.remove();
+        if (experienceRegex.test(experience)
+            && salaryRegex.test(salary)
+            && qualificationRegex.test(qualification)
+            && primaryRegex.test(primary)
+            && commentRegex.test(comment)) {
+            webix.ajax().post("http://localhost:8080/async-controller?command=add-requirement",
+                {
+                    "experience": experience,
+                    "salary": salary,
+                    "qualification": qualification,
+                    "primary": primary,
+                    "comment": comment,
+                    "technical-task-id": $("#task").val()
+                })
+                .then((response) => response.json())
+                .then((data) => {
+                    loadRequirements();
+                })
+            addedRequirement.remove();
+        } else {
+            addedRequirement.attr('class', 'requirement table-danger');
+        }
 
     });
     addedRequirement.find('.drop').click(function () {

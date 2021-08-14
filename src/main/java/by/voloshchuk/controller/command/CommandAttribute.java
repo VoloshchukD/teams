@@ -68,6 +68,16 @@ public final class CommandAttribute {
 
     public static final String CVC_REGEX = "regexCvc";
 
+    public static final String REQUIREMENT_EXPERIENCE_REGEX = "regexExperience";
+
+    public static final String REQUIREMENT_SALARY_REGEX = "regexSalary";
+
+    public static final String REQUIREMENT_QUALIFICATION_REGEX = "regexQualification";
+
+    public static final String REQUIREMENT_COMMENT_REGEX = "regexComment";
+
+    public static final String REQUIREMENT_PRIMARY_REGEX = "regexPrimary";
+
     public static final String YEARS_ON_MARKET = "yearsOnMarket";
 
     public static final String PROJECTS_PRODUCTIVITY = "projectsProductivity";

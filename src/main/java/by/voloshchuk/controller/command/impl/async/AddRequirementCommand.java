@@ -2,11 +2,11 @@ package by.voloshchuk.controller.command.impl.async;
 
 import by.voloshchuk.controller.command.AsyncCommand;
 import by.voloshchuk.controller.command.RequestParameter;
-import by.voloshchuk.entity.EmployeeRequirement;
-import by.voloshchuk.entity.TechnicalTask;
+import by.voloshchuk.entity.dto.EmployeeRequirementDto;
 import by.voloshchuk.exception.ServiceException;
 import by.voloshchuk.service.EmployeeRequirementService;
 import by.voloshchuk.service.ServiceProvider;
+import by.voloshchuk.util.DtoBuilder;
 import org.apache.logging.log4j.Level;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -29,28 +29,16 @@ public class AddRequirementCommand implements AsyncCommand {
 
     @Override
     public void execute(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
-        EmployeeRequirement employeeRequirement = createEmployeeRequirement(request);
+        EmployeeRequirementDto employeeRequirementDto = DtoBuilder.buildEmployeeRequirementDto(request);
+        String technicalTaskId = request.getParameter(RequestParameter.TECHNICAL_TASK_ID);
+        employeeRequirementDto.setTechnicalTaskId(technicalTaskId);
         EmployeeRequirementService employeeRequirementService = serviceProvider.getEmployeeRequirementService();
         boolean result = false;
         try {
-            result = employeeRequirementService.addEmployeeRequirement(employeeRequirement);
+            result = employeeRequirementService.addEmployeeRequirement(employeeRequirementDto);
         } catch (ServiceException e) {
             logger.log(Level.ERROR, e);
         }
-    }
-
-    private EmployeeRequirement createEmployeeRequirement(HttpServletRequest request) {
-        EmployeeRequirement employeeRequirement = new EmployeeRequirement();
-        Long technicalTaskId = Long.parseLong(request.getParameter(RequestParameter.TECHNICAL_TASK_ID));
-        TechnicalTask technicalTask = new TechnicalTask();
-        technicalTask.setId(technicalTaskId);
-        employeeRequirement.setTechnicalTask(technicalTask);
-        employeeRequirement.setPrimarySkill(request.getParameter(RequestParameter.PRIMARY_SKILL));
-        employeeRequirement.setSalary(Integer.parseInt(request.getParameter(RequestParameter.SALARY)));
-        employeeRequirement.setExperience(Integer.parseInt(request.getParameter(RequestParameter.EXPERIENCE)));
-        employeeRequirement.setQualification(request.getParameter(RequestParameter.QUALIFICATION));
-        employeeRequirement.setComment(request.getParameter(RequestParameter.COMMENT));
-        return employeeRequirement;
     }
 
 }

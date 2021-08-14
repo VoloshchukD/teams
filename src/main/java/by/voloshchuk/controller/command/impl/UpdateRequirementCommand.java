@@ -1,10 +1,12 @@
 package by.voloshchuk.controller.command.impl;
 
 import by.voloshchuk.entity.EmployeeRequirement;
+import by.voloshchuk.entity.dto.EmployeeRequirementDto;
 import by.voloshchuk.exception.ServiceException;
 import by.voloshchuk.service.EmployeeRequirementService;
 import by.voloshchuk.service.ServiceProvider;
 import by.voloshchuk.controller.command.*;
+import by.voloshchuk.util.DtoBuilder;
 import org.apache.logging.log4j.Level;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -27,9 +29,11 @@ public class UpdateRequirementCommand implements Command {
     @Override
     public CommandRouter execute(HttpServletRequest request, HttpServletResponse response) throws ServletException {
         EmployeeRequirementService requirementService = serviceProvider.getEmployeeRequirementService();
-        EmployeeRequirement requirement = createEmployeeRequirement(request);
+        EmployeeRequirementDto requirementDto = DtoBuilder.buildEmployeeRequirementDto(request);
+        requirementDto.setRequirementId(Long.parseLong(request.getParameter(RequestParameter.REQUIREMENT_ID)));
+        System.out.println(requirementDto);
         try {
-            requirementService.updateEmployeeRequirement(requirement);
+            requirementService.updateEmployeeRequirement(requirementDto);
         } catch (ServiceException e) {
             logger.log(Level.ERROR, e.getMessage());
         }
@@ -37,20 +41,6 @@ public class UpdateRequirementCommand implements Command {
         CommandRouter router = new CommandRouter(CommandRouter.RouterType.REDIRECT,
                 CommandPath.REQUIREMENTS + request.getParameter(RequestParameter.TECHNICAL_TASK_ID));
         return router;
-    }
-
-    private EmployeeRequirement createEmployeeRequirement(HttpServletRequest request) {
-        EmployeeRequirement requirement = new EmployeeRequirement();
-        Long requirementId = Long.parseLong(request.getParameter(RequestParameter.REQUIREMENT_ID));
-        requirement.setId(requirementId);
-        requirement.setQualification(request.getParameter(RequestParameter.REQUIREMENT_ID));
-        requirement.setExperience(
-                Integer.parseInt(request.getParameter(RequestParameter.REQUIREMENT_EXPERIENCE)));
-        requirement.setSalary(
-                Integer.parseInt(request.getParameter(RequestParameter.REQUIREMENT_SALARY)));
-        requirement.setComment(request.getParameter(RequestParameter.REQUIREMENT_COMMENT));
-        requirement.setPrimarySkill(request.getParameter(RequestParameter.REQUIREMENT_PRIMARY_SKILL));
-        return requirement;
     }
 
 }

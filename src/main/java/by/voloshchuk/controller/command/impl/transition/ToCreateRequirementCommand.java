@@ -5,6 +5,7 @@ import by.voloshchuk.exception.ServiceException;
 import by.voloshchuk.service.ServiceProvider;
 import by.voloshchuk.service.TechnicalTaskService;
 import by.voloshchuk.controller.command.*;
+import by.voloshchuk.util.RegexProperty;
 import org.apache.logging.log4j.Level;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -35,6 +36,17 @@ public class ToCreateRequirementCommand implements Command {
         } catch (ServiceException e) {
             logger.log(Level.ERROR, e.getMessage());
         }
+
+        request.setAttribute(CommandAttribute.REQUIREMENT_EXPERIENCE_REGEX,
+                RegexProperty.PROPERTY_REQUIREMENT_EXPERIENCE_REGEX);
+        request.setAttribute(CommandAttribute.REQUIREMENT_SALARY_REGEX,
+                RegexProperty.PROPERTY_REQUIREMENT_SALARY_REGEX);
+        request.setAttribute(CommandAttribute.REQUIREMENT_QUALIFICATION_REGEX,
+                RegexProperty.PROPERTY_REQUIREMENT_QUALIFICATION_REGEX);
+        request.setAttribute(CommandAttribute.REQUIREMENT_COMMENT_REGEX,
+                RegexProperty.PROPERTY_REQUIREMENT_COMMENT_REGEX);
+        request.setAttribute(CommandAttribute.REQUIREMENT_PRIMARY_REGEX,
+                RegexProperty.PROPERTY_REQUIREMENT_PRIMARY_REGEX);
 
         request.setAttribute(RequestParameter.TECHNICAL_TASKS, technicalTasks);
         CommandRouter router = new CommandRouter(CommandRouter.RouterType.FORWARD, CommandPath.REQUIREMENT_CREATION_JSP);

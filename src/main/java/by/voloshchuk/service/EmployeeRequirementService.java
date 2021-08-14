@@ -1,6 +1,7 @@
 package by.voloshchuk.service;
 
 import by.voloshchuk.entity.EmployeeRequirement;
+import by.voloshchuk.entity.dto.EmployeeRequirementDto;
 import by.voloshchuk.exception.ServiceException;
 
 import java.util.List;
@@ -13,7 +14,7 @@ public interface EmployeeRequirementService {
      * @param requirement - entity with requirement data for adding
      * @return boolean result of adding
      */
-    boolean addEmployeeRequirement(EmployeeRequirement requirement) throws ServiceException;
+    boolean addEmployeeRequirement(EmployeeRequirementDto requirement) throws ServiceException;
 
     /**
      * Technical task employee requirements finding logics.
@@ -37,7 +38,8 @@ public interface EmployeeRequirementService {
      * @param requirement - data for requirement updating
      * @return {@link EmployeeRequirement}
      */
-    EmployeeRequirement updateEmployeeRequirement(EmployeeRequirement requirement) throws ServiceException;
+    EmployeeRequirement updateEmployeeRequirement(EmployeeRequirementDto requirement)
+            throws ServiceException;
 
     /**
      * Employee requirement removing logics.
