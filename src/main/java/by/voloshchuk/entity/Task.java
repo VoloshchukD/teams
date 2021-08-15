@@ -20,7 +20,7 @@ public class Task extends AbstractEntity {
         DONE
     }
 
-    private Project project;
+    private Long projectId;
 
     private User developer;
 
@@ -64,12 +64,12 @@ public class Task extends AbstractEntity {
         this.status = status;
     }
 
-    public Project getProject() {
-        return project;
+    public Long getProjectId() {
+        return projectId;
     }
 
-    public void setProject(Project project) {
-        this.project = project;
+    public void setProjectId(Long projectId) {
+        this.projectId = projectId;
     }
 
     public User getDeveloper() {
@@ -89,14 +89,14 @@ public class Task extends AbstractEntity {
                 && Objects.equals(details, task.details)
                 && Objects.equals(plannedTime, task.plannedTime)
                 && Objects.equals(trackedTime, task.trackedTime)
-                && status == task.status && Objects.equals(project, task.project)
+                && status == task.status && Objects.equals(projectId, task.projectId)
                 && Objects.equals(developer, task.developer);
     }
 
     @Override
     public int hashCode() {
         return Objects.hash(name, details, plannedTime,
-                trackedTime, status, project, developer);
+                trackedTime, status, projectId, developer);
     }
 
     @Override
@@ -114,8 +114,8 @@ public class Task extends AbstractEntity {
         builder.append(trackedTime);
         builder.append(", status=");
         builder.append(status);
-        builder.append(", project=");
-        builder.append(project);
+        builder.append(", projectId=");
+        builder.append(projectId);
         builder.append(", developer=");
         builder.append(developer);
         return builder.toString();

@@ -10,17 +10,23 @@
 </head>
 <body>
 <div class="container-xxl h-100">
-    <div class="title h1 text-center mt-3"><fmt:message bundle="${loc}" key="local.employee.seek-header"/></div>
-    <div class="row justify-content-center">
+    <div class="title h1 text-center mt-3">
+        <fmt:message bundle="${loc}" key="local.employee.seek-header"/>
+    </div>
+    <div class="row">
         <div class="col-5">
             <select class="form-select" name="project-id" id="projects">
-                <option value="null" selected><fmt:message bundle="${loc}" key="local.bills.create-project"/></option>
+                <option value="null" selected>
+                    <fmt:message bundle="${loc}" key="local.bills.create-project"/>
+                </option>
                 <c:forEach items="${projects}" var="project">
-                    <option value="${project.id}"><c:out value="${project.name}"/></option>
+                    <option value="${project.id}">
+                        <c:out value="${project.name}"/>
+                    </option>
                 </c:forEach>
             </select>
         </div>
-        <div class="col-2">
+        <div class="col-1">
         <button class="btn btn-info btn-block" type="button" style="height: 40px;" id="users">
             <i class="fa fa-users" aria-hidden="true"></i>
         </button>
@@ -29,7 +35,8 @@
             <div class="input-group">
                 <input type="text" class="form-control" placeholder="Search this blog" id="values">
                 <div class="input-group-append">
-                    <button class="btn btn-secondary btn-block" type="button" style="height: 40px;" id="search">
+                    <button class="btn btn-secondary btn-block"
+                            type="button" style="height: 40px;" id="search">
                         <i class="fa fa-search"></i>
                     </button>
                 </div>
@@ -37,10 +44,8 @@
         </div>
     </div>
 
-
-        <input class="form-check-input" type="radio" name="unitPerPage"
-               id="option1" style="display: none" value="3" checked>
-
+    <input class="form-check-input" type="radio" name="unitPerPage"
+           id="option1" style="display: none" value="3" checked>
 
     <div class="row h-100 justify-content-center mt-2">
         <div class="col-6" id="form2">

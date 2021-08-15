@@ -1,9 +1,6 @@
 package by.voloshchuk.service;
 
-import by.voloshchuk.dao.pool.CustomConnectionPool;
-import by.voloshchuk.entity.Project;
 import by.voloshchuk.entity.Task;
-import by.voloshchuk.entity.User;
 import by.voloshchuk.entity.dto.TaskDto;
 import by.voloshchuk.exception.ServiceException;
 import org.junit.Assert;

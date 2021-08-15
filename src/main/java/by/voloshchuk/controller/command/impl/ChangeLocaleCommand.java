@@ -10,7 +10,7 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author Daniil Voloshchuk
  */
-public class LocaleCommand implements Command {
+public class ChangeLocaleCommand implements Command {
 
     @Override
     public CommandRouter execute(HttpServletRequest request, HttpServletResponse response) {

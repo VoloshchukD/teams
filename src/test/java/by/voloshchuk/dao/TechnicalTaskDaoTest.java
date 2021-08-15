@@ -1,8 +1,6 @@
 package by.voloshchuk.dao;
 
-import by.voloshchuk.dao.pool.CustomConnectionPool;
 import by.voloshchuk.entity.TechnicalTask;
-import by.voloshchuk.entity.User;
 import by.voloshchuk.exception.DaoException;
 import org.junit.Assert;
 import org.junit.BeforeClass;
@@ -25,9 +23,7 @@ public class TechnicalTaskDaoTest {
         technicalTaskDao = DaoProvider.getInstance().getTechnicalTaskDao();
         technicalTask = new TechnicalTask();
         technicalTask.setId(DATABASE_TECHNICAL_TASK_ID);
-        User user = new User();
-        user.setId(DATABASE_CUSTOMER_ID);
-        technicalTask.setCustomer(user);
+        technicalTask.setCustomerId(DATABASE_CUSTOMER_ID);
         java.util.Date currentDate = new java.util.Date(System.currentTimeMillis());
         java.sql.Date databaseValue = new java.sql.Date(currentDate.getTime());
         technicalTask.setName("Test");

@@ -1,8 +1,6 @@
 package by.voloshchuk.dao;
 
-import by.voloshchuk.dao.pool.CustomConnectionPool;
 import by.voloshchuk.entity.EmployeeRequirement;
-import by.voloshchuk.entity.TechnicalTask;
 import by.voloshchuk.exception.DaoException;
 import org.junit.Assert;
 import org.junit.BeforeClass;
@@ -31,9 +29,7 @@ public class EmployeeRequirementDaoTest {
         employeeRequirement.setComment("-");
         employeeRequirement.setExperience(1);
         employeeRequirement.setPrimarySkill("C++");
-        TechnicalTask technicalTask = new TechnicalTask();
-        technicalTask.setId(DATABASE_TECHNICAL_TASK_ID);
-        employeeRequirement.setTechnicalTask(technicalTask);
+        employeeRequirement.setTechnicalTaskId(DATABASE_TECHNICAL_TASK_ID);
         employeeRequirement.setQualification("Junior developer");
     }
 

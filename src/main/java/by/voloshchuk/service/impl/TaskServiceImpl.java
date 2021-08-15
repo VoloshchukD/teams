@@ -31,10 +31,7 @@ public class TaskServiceImpl implements TaskService {
         if (taskValidator.validateCreateData(taskDto)) {
             try {
                 Task task = buildTaskEntity(taskDto);
-                Project project = new Project();
-                Long projectId = Long.parseLong(taskDto.getProjectId());
-                project.setId(projectId);
-                task.setProject(project);
+                task.setProjectId(Long.parseLong(taskDto.getProjectId()));
                 task.setStatus(Task.TaskStatus.TO_DO);
                 result = taskDao.addTask(task);
             } catch (DaoException e) {

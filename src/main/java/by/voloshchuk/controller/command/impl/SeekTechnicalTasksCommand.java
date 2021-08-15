@@ -1,10 +1,10 @@
 package by.voloshchuk.controller.command.impl;
 
-import by.voloshchuk.controller.command.*;
 import by.voloshchuk.entity.TechnicalTask;
 import by.voloshchuk.exception.ServiceException;
 import by.voloshchuk.service.ServiceProvider;
 import by.voloshchuk.service.TechnicalTaskService;
+import by.voloshchuk.controller.command.*;
 import by.voloshchuk.util.RegexProperty;
 import org.apache.logging.log4j.Level;
 import org.apache.logging.log4j.LogManager;
@@ -16,35 +16,35 @@ import javax.servlet.http.HttpServletResponse;
 import java.util.List;
 
 /**
- * Command to move to page with users technical tasks.
+ * Command to search technical tasks that are not on project.
  *
  * @author Daniil Voloshchuk
  */
-public class TechnicalTasksCommand implements Command {
-
+public class SeekTechnicalTasksCommand implements Command {
     private static final Logger logger = LogManager.getLogger();
 
     private static ServiceProvider serviceProvider = ServiceProvider.getInstance();
 
     @Override
-    public CommandRouter execute(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException {
-        Long userId = (Long) request.getSession().getAttribute(CommandAttribute.USER_ID);
+    public CommandRouter execute(HttpServletRequest request, HttpServletResponse response) throws ServletException {
+        String status = request.getParameter(RequestParameter.TECHNICAL_TASKS_STATUS);
         List<TechnicalTask> technicalTasks = null;
         TechnicalTaskService technicalTaskService = serviceProvider.getTechnicalTaskService();
         try {
-            technicalTasks = technicalTaskService.findTechnicalTasksByUserId(userId);
+            technicalTasks = technicalTaskService.findTechnicalTasksByStatus(status);
         } catch (ServiceException e) {
             logger.log(Level.ERROR, e.getMessage());
         }
 
-        request.setAttribute(RequestParameter.TECHNICAL_TASKS, technicalTasks);
         request.setAttribute(CommandAttribute.TECHNICAL_TASK_NAME_REGEX,
                 RegexProperty.PROPERTY_TECHNICAL_TASK_NAME_REGEX);
         request.setAttribute(CommandAttribute.TECHNICAL_TASK_OVERVIEW_REGEX,
                 RegexProperty.PROPERTY_TECHNICAL_TASK_OVERVIEW_REGEX);
-        CommandRouter router = new CommandRouter(CommandRouter.RouterType.FORWARD,
-                CommandPath.TECHNICAL_TASKS_JSP);
+        request.setAttribute(CommandAttribute.TECHNICAL_TASK_DEADLINE_REGEX,
+                RegexProperty.PROPERTY_TECHNICAL_TASK_DEADLINE_REGEX);
+
+        request.setAttribute(RequestParameter.TECHNICAL_TASKS, technicalTasks);
+        CommandRouter router = new CommandRouter(CommandRouter.RouterType.FORWARD, CommandPath.TECHNICAL_TASKS_JSP);
         return router;
     }
 

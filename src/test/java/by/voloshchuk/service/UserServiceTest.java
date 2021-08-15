@@ -1,6 +1,5 @@
 package by.voloshchuk.service;
 
-import by.voloshchuk.dao.pool.CustomConnectionPool;
 import by.voloshchuk.entity.EmployeeRequirement;
 import by.voloshchuk.entity.User;
 import by.voloshchuk.entity.dto.UserDto;

@@ -1,6 +1,6 @@
 package by.voloshchuk.dao.builder;
 
-import by.voloshchuk.dao.impl.ConstantColumnName;
+import by.voloshchuk.dao.ConstantColumnName;
 import by.voloshchuk.entity.Project;
 import by.voloshchuk.entity.TechnicalTask;
 
@@ -22,9 +22,7 @@ public class ProjectBuilder implements Builder<Project> {
         project.setStartDate(date);
         project.setState(Project.ProjectStatus.valueOf(
                 resultSet.getString(ConstantColumnName.PROJECT_STATE)));
-        TechnicalTask technicalTask = new TechnicalTask();
-        technicalTask.setId(resultSet.getLong(ConstantColumnName.PROJECT_TECHNICAL_TASK_ID));
-        project.setTechnicalTask(technicalTask);
+        project.setTechnicalTaskId(resultSet.getLong(ConstantColumnName.PROJECT_TECHNICAL_TASK_ID));
         return project;
     }
 

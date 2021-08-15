@@ -30,8 +30,9 @@ public class DeleteProjectCommand implements Command {
     public CommandRouter execute(HttpServletRequest request, HttpServletResponse response) throws ServletException {
         ProjectService projectService = serviceProvider.getProjectService();
         Long projectId = Long.parseLong(request.getParameter(RequestParameter.PROJECT_ID));
+        Long technicalTaskId = Long.parseLong(request.getParameter(RequestParameter.TECHNICAL_TASK_ID));
         try {
-            projectService.removeProject(projectId);
+            projectService.removeProject(projectId, technicalTaskId);
         } catch (ServiceException e) {
             logger.log(Level.ERROR, e.getMessage());
         }

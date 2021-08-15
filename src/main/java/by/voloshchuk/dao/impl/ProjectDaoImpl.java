@@ -1,5 +1,6 @@
 package by.voloshchuk.dao.impl;
 
+import by.voloshchuk.dao.ConstantDaoQuery;
 import by.voloshchuk.dao.DaoExecutor;
 import by.voloshchuk.dao.ProjectDao;
 import by.voloshchuk.dao.builder.Builder;
@@ -15,32 +16,6 @@ import java.util.List;
 
 public class ProjectDaoImpl implements ProjectDao {
 
-    private static final String ADD_PROJECT_QUERY = "INSERT INTO projects " +
-            "(project_name, description, start_date, state, technical_task_id) " +
-            "VALUES (?, ?, ?, ?, ?)";
-
-    private static final String FIND_PROJECT_BY_ID_QUERY = "SELECT * FROM projects WHERE project_id = ?";
-
-    private static final String FIND_PROJECTS_BY_USER_ID_AND_STATE_QUERY = "SELECT * FROM projects " +
-            "INNER JOIN user_project_maps " +
-            "ON projects.project_id = user_project_maps.project_id " +
-            "WHERE user_project_maps.user_id = ? AND projects.state = ?";
-
-    private static final String UPDATE_PROJECT_QUERY = "UPDATE projects " +
-            "SET project_name = ?, description = ? " +
-            "WHERE project_id = ?";
-
-    private static final String UPDATE_PROJECT_STATUS_QUERY = "UPDATE projects SET state = ? " +
-            "WHERE project_id = ?";
-
-    private static final String DELETE_PROJECT_QUERY = "DELETE FROM projects WHERE project_id = ?";
-
-    private static final String ADD_USER_TO_PROJECT_QUERY = "INSERT INTO user_project_maps " +
-            "(project_id, user_id) VALUES (?, ?);";
-
-    private static final String UPDATE_TECHNICAL_TASK_QUERY = "UPDATE technical_tasks " +
-            "SET status = ? WHERE technical_task_id = ?";
-
     private final DaoExecutor<Project> executor;
 
     public ProjectDaoImpl() {
@@ -52,15 +27,15 @@ public class ProjectDaoImpl implements ProjectDao {
         boolean added = false;
         CustomConnectionPool connectionPool = CustomConnectionPool.getInstance();
         Connection connection = connectionPool.getConnection();
-        try (PreparedStatement statement = connection.prepareStatement(ADD_PROJECT_QUERY,
-                Statement.RETURN_GENERATED_KEYS)) {
+        try (PreparedStatement statement = connection.prepareStatement(
+                ConstantDaoQuery.ADD_PROJECT_QUERY, Statement.RETURN_GENERATED_KEYS)) {
             connection.setAutoCommit(false);
             Project project = projectDto.getProject();
             statement.setString(1, project.getName());
             statement.setString(2, project.getDescription());
             statement.setTimestamp(3, new Timestamp(project.getStartDate().getTime()));
             statement.setString(4, project.getState().toString());
-            statement.setLong(5, project.getTechnicalTask().getId());
+            statement.setLong(5, project.getTechnicalTaskId());
             added = (statement.executeUpdate() == 1);
             if (added) {
                 ResultSet resultSet = statement.getGeneratedKeys();
@@ -68,7 +43,7 @@ public class ProjectDaoImpl implements ProjectDao {
                 long projectId = resultSet.getLong(1);
                 project.setId(projectId);
                 try (PreparedStatement userStatement = connection.prepareStatement(
-                        ADD_USER_TO_PROJECT_QUERY)) {
+                        ConstantDaoQuery.ADD_USER_TO_PROJECT_QUERY)) {
                     userStatement.setLong(1, projectId);
                     userStatement.setLong(2, projectDto.getCustomerId());
                     userStatement.executeUpdate();
@@ -77,10 +52,10 @@ public class ProjectDaoImpl implements ProjectDao {
                     userStatement.executeUpdate();
                 }
                 try (PreparedStatement userStatement = connection.prepareStatement(
-                        UPDATE_TECHNICAL_TASK_QUERY)) {
+                        ConstantDaoQuery.UPDATE_TECHNICAL_TASK_STATUS_QUERY)) {
                     userStatement.setString(1,
                             TechnicalTask.TechnicalTaskStatus.ON_PROJECT.toString());
-                    userStatement.setLong(2, project.getTechnicalTask().getId());
+                    userStatement.setLong(2, project.getTechnicalTaskId());
                     userStatement.executeUpdate();
                 }
                 connection.commit();
@@ -107,14 +82,16 @@ public class ProjectDaoImpl implements ProjectDao {
             throws DaoException {
         Object[] parameters = {userId, state};
         List<Project> projects = executor.executeQueryMultipleResult(
-                FIND_PROJECTS_BY_USER_ID_AND_STATE_QUERY, parameters);
+                ConstantDaoQuery.FIND_PROJECTS_BY_USER_ID_AND_STATE_QUERY, parameters);
         return projects;
     }
 
     public Project updateProject(Project project) throws DaoException {
         Project resultProject = null;
-        Object[] parameters = {project.getName(), project.getDescription(), project.getId()};
-        boolean result = executor.executeUpdate(UPDATE_PROJECT_QUERY, parameters);
+        Object[] parameters = {project.getName(), project.getDescription(),
+                project.getId()};
+        boolean result = executor.executeUpdate(
+                ConstantDaoQuery.UPDATE_PROJECT_QUERY, parameters);
         if (result) {
             resultProject = project;
         }
@@ -124,16 +101,24 @@ public class ProjectDaoImpl implements ProjectDao {
     public String updateProjectStatus(Long projectId, String status) throws DaoException {
         String resultStatus = null;
         Object[] parameters = {status, projectId};
-        boolean result = executor.executeUpdate(UPDATE_PROJECT_STATUS_QUERY, parameters);
+        boolean result = executor.executeUpdate(
+                ConstantDaoQuery.UPDATE_PROJECT_STATUS_QUERY, parameters);
         if (result) {
             resultStatus = status;
         }
         return resultStatus;
     }
 
-    public boolean removeProject(Long id) throws DaoException {
-        Object[] parameters = {id};
-        boolean removed = executor.executeUpdate(DELETE_PROJECT_QUERY, parameters);
+    public boolean removeProject(Long projectId, Long technicalTaskId) throws DaoException {
+        String[] queries = {ConstantDaoQuery.DELETE_PROJECT_BILLS_QUERY,
+                ConstantDaoQuery.DELETE_PROJECT_TASKS_QUERY,
+                ConstantDaoQuery.DELETE_PROJECT_REQUIREMENTS_QUERY,
+                ConstantDaoQuery.DELETE_USERS_FROM_PROJECT_QUERY,
+                ConstantDaoQuery.DELETE_PROJECT_QUERY,
+                ConstantDaoQuery.DELETE_PROJECT_TECHNICAL_TASKS_QUERY};
+        Object[][] parameters = {{projectId}, {projectId}, {technicalTaskId},
+                {projectId}, {projectId}, {technicalTaskId}};
+        boolean removed = executor.executeUpdateTransactionMultiple(queries, parameters);
         return removed;
     }
 

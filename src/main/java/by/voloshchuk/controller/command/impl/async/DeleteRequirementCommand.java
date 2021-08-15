@@ -18,7 +18,7 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author Daniil Voloshchuk
  */
-public class DeleteEmployeeRequirement implements AsyncCommand {
+public class DeleteRequirementCommand implements AsyncCommand {
 
     private static final Logger logger = LogManager.getLogger();
 

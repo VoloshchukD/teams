@@ -1,4 +1,4 @@
-package by.voloshchuk.dao.impl;
+package by.voloshchuk.dao;
 
 public final class ConstantColumnName {
 

@@ -128,7 +128,7 @@ webix.ready(function () {
                     css: "webix_transparent",
                     on: {
                         onAfterFileAdd: function () {
-                            sleep(5000).then(() => {
+                            sleep(3000).then(() => {
                                 ajax.get("http://localhost:8080/async-controller?command=load-avatar")
                                     .then((response) => response.json())
                                     .then((data) => {

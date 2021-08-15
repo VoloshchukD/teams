@@ -28,9 +28,7 @@ public class EmployeeRequirementServiceImpl implements EmployeeRequirementServic
             try {
                 EmployeeRequirement employeeRequirement = buildEmployeeRequirement(requirementDto);
                 Long technicalTaskId = Long.parseLong(requirementDto.getTechnicalTaskId());
-                TechnicalTask technicalTask = new TechnicalTask();
-                technicalTask.setId(technicalTaskId);
-                employeeRequirement.setTechnicalTask(technicalTask);
+                employeeRequirement.setTechnicalTaskId(technicalTaskId);
                 result = employeeRequirementDao.addEmployeeRequirement(employeeRequirement);
             } catch (DaoException e) {
                 throw new ServiceException(e);

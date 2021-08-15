@@ -1,4 +1,4 @@
-package by.voloshchuk.controller.command.impl;
+package by.voloshchuk.controller.command.impl.transition;
 
 import by.voloshchuk.entity.Bill;
 import by.voloshchuk.exception.ServiceException;
@@ -19,7 +19,7 @@ import java.util.List;
  *
  * @author Daniil Voloshchuk
  */
-public class BillsCommand implements Command {
+public class ToUserBillsCommand implements Command {
 
     private static final Logger logger = LogManager.getLogger();
 

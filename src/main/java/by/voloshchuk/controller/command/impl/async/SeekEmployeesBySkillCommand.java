@@ -1,6 +1,5 @@
 package by.voloshchuk.controller.command.impl.async;
 
-import by.voloshchuk.entity.EmployeeRequirement;
 import by.voloshchuk.entity.User;
 import by.voloshchuk.entity.UserDetail;
 import by.voloshchuk.exception.ServiceException;
@@ -21,11 +20,11 @@ import java.io.IOException;
 import java.util.List;
 
 /**
- * Async command for seeking employees by requirements.
+ * Async command for making employee search.
  *
  * @author Daniil Voloshchuk
  */
-public class SeekEmployeesCommand implements AsyncCommand {
+public class SeekEmployeesBySkillCommand implements AsyncCommand {
 
     private static final Logger logger = LogManager.getLogger();
 
@@ -33,17 +32,17 @@ public class SeekEmployeesCommand implements AsyncCommand {
 
     @Override
     public void execute(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
-        EmployeeRequirement employeeRequirement = createEmployeeRequirement(request);
+        String primarySkill = request.getParameter(AsyncCommandParameter.USER_DETAIL_PRIMARY_SKILL);
         List<User> candidates = null;
         UserService userService = serviceProvider.getUserService();
         try {
-            candidates = userService.findAllByEmployeeRequirement(employeeRequirement);
+            candidates = userService.findUsersByPrimarySkill(primarySkill);
         } catch (ServiceException e) {
             logger.log(Level.ERROR, e);
         }
 
         JSONArray data = new JSONArray();
-        for (User user : candidates){
+        for (User user : candidates) {
             JSONObject currentData = new JSONObject();
             UserDetail userDetail = user.getUserDetail();
             currentData.put(AsyncCommandParameter.USER_ID, user.getId());
@@ -58,17 +57,6 @@ public class SeekEmployeesCommand implements AsyncCommand {
             data.put(currentData);
         }
         response.getWriter().write(data.toString());
-    }
-
-    private EmployeeRequirement createEmployeeRequirement(HttpServletRequest request) {
-        EmployeeRequirement employeeRequirement = new EmployeeRequirement();
-        employeeRequirement.setPrimarySkill(
-                request.getParameter(AsyncCommandParameter.REQUIREMENT_PRIMARY_SKILL));
-        employeeRequirement.setSalary(
-                Integer.parseInt(request.getParameter(AsyncCommandParameter.REQUIREMENT_SALARY)));
-        employeeRequirement.setExperience(
-                Integer.parseInt(request.getParameter(AsyncCommandParameter.REQUIREMENT_EXPERIENCE)));
-        return employeeRequirement;
     }
 
 }

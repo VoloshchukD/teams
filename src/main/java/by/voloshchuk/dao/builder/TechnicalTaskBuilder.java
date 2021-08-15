@@ -1,6 +1,6 @@
 package by.voloshchuk.dao.builder;
 
-import by.voloshchuk.dao.impl.ConstantColumnName;
+import by.voloshchuk.dao.ConstantColumnName;
 import by.voloshchuk.entity.TechnicalTask;
 import by.voloshchuk.entity.User;
 
@@ -23,9 +23,7 @@ public class TechnicalTaskBuilder implements Builder<TechnicalTask> {
         technicalTask.setStatus(
                 TechnicalTask.TechnicalTaskStatus.valueOf(
                         resultSet.getString(ConstantColumnName.TECHNICAL_TASK_STATUS)));
-        User user = new User();
-        user.setId(resultSet.getLong(ConstantColumnName.TECHNICAL_TASK_CUSTOMER_ID));
-        technicalTask.setCustomer(user);
+        technicalTask.setCustomerId(resultSet.getLong(ConstantColumnName.TECHNICAL_TASK_CUSTOMER_ID));
         return technicalTask;
     }
 

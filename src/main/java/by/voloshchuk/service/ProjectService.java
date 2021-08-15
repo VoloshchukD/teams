@@ -45,9 +45,9 @@ public interface ProjectService {
     /**
      * Project removing logics.
      *
-     * @param id - project id to delete
+     * @param projectId - project id to delete
      * @return boolean result of removing
      */
-    boolean removeProject(Long id) throws ServiceException;
+    boolean removeProject(Long projectId, Long technicalTaskId) throws ServiceException;
 
 }

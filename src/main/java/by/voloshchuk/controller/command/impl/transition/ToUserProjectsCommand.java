@@ -1,4 +1,4 @@
-package by.voloshchuk.controller.command.impl;
+package by.voloshchuk.controller.command.impl.transition;
 
 import by.voloshchuk.entity.Project;
 import by.voloshchuk.exception.ServiceException;
@@ -20,7 +20,7 @@ import java.util.List;
  *
  * @author Daniil Voloshchuk
  */
-public class ProjectsCommand implements Command {
+public class ToUserProjectsCommand implements Command {
 
     private static final Logger logger = LogManager.getLogger();
 

@@ -1,5 +1,7 @@
 package by.voloshchuk.dao.impl;
 
+import by.voloshchuk.dao.ConstantColumnName;
+import by.voloshchuk.dao.ConstantDaoQuery;
 import by.voloshchuk.dao.DaoExecutor;
 import by.voloshchuk.dao.TaskDao;
 import by.voloshchuk.dao.builder.Builder;
@@ -19,38 +21,6 @@ import java.util.List;
 
 public class TaskDaoImpl implements TaskDao {
 
-    private static final String ADD_TASK_QUERY = "INSERT INTO tasks (name, " +
-            "details, planned_time, status, project_id, developer_id) " +
-            "VALUES (?, ?, ?, ?, ?, ?)";
-
-    private static final String FIND_TASK_BY_ID_QUERY = "SELECT * FROM tasks WHERE task_id = ?";
-
-    private static final String FIND_TASKS_BY_PROJECT_ID_AND_USER_ID_QUERY = "SELECT * FROM tasks " +
-            "INNER JOIN user_project_maps " +
-            "ON tasks.project_id = user_project_maps.project_id " +
-            "INNER JOIN users " +
-            "ON users.user_id = tasks.developer_id " +
-            "INNER JOIN user_details " +
-            "ON user_details.user_detail_id = users.user_detail_id " +
-            "WHERE tasks.project_id = ? " +
-            "AND user_project_maps.user_id = ?";
-
-    private static final String FIND_TASKS_BY_PROJECT_ID_QUERY_AND_STATUS = "SELECT * FROM tasks " +
-            "INNER JOIN users ON tasks.developer_id = users.user_id " +
-            "INNER JOIN user_details ON users.user_id = user_details.user_detail_id " +
-            "WHERE tasks.project_id = ? AND tasks.status = ?";
-
-    private static final String UPDATE_TASK_QUERY = "UPDATE tasks SET name = ?, details = ?," +
-            " planned_time = ?, developer_id = ? WHERE task_id = ?";
-
-    private static final String UPDATE_TASK_STATUS_QUERY = "UPDATE tasks SET status = ? " +
-            "WHERE task_id = ?";
-
-    private static final String UPDATE_TASK_HOURS_QUERY = "UPDATE tasks SET tracked_time = ? " +
-            "WHERE task_id = ?";
-
-    private static final String DELETE_TASK_QUERY = "DELETE FROM tasks WHERE task_id = ?";
-
     private final DaoExecutor<Task> executor;
 
     private final Builder<Task> builder;
@@ -62,9 +32,9 @@ public class TaskDaoImpl implements TaskDao {
 
     public boolean addTask(Task task) throws DaoException {
         Object[] parameters = {task.getName(), task.getDetails(), task.getPlannedTime(),
-                task.getStatus().toString(), task.getProject().getId(),
+                task.getStatus().toString(), task.getProjectId(),
                 task.getDeveloper().getId()};
-        boolean added = executor.executeUpdate(ADD_TASK_QUERY, parameters);
+        boolean added = executor.executeUpdate(ConstantDaoQuery.ADD_TASK_QUERY, parameters);
         return added;
     }
 
@@ -74,9 +44,9 @@ public class TaskDaoImpl implements TaskDao {
         CustomConnectionPool connectionPool = CustomConnectionPool.getInstance();
         try (Connection connection = connectionPool.getConnection();
              PreparedStatement statement = connection.prepareStatement(
-                     FIND_TASKS_BY_PROJECT_ID_AND_USER_ID_QUERY)) {
-            statement.setLong(1, projectId);
-            statement.setLong(2, userId);
+                     ConstantDaoQuery.FIND_TASKS_BY_PROJECT_ID_AND_USER_ID_QUERY)) {
+            Object[] parameters = {projectId, userId};
+            DaoExecutor.fillStatement(statement, parameters);
             ResultSet resultSet = statement.executeQuery();
             while (resultSet.next()) {
                 Task task = builder.buildEntity(resultSet);
@@ -104,15 +74,16 @@ public class TaskDaoImpl implements TaskDao {
         CustomConnectionPool connectionPool = CustomConnectionPool.getInstance();
         try (Connection connection = connectionPool.getConnection();
              PreparedStatement statement = connection.prepareStatement(
-                     FIND_TASKS_BY_PROJECT_ID_QUERY_AND_STATUS)) {
-            statement.setLong(1, projectId);
-            statement.setString(2, status);
+                     ConstantDaoQuery.FIND_TASKS_BY_PROJECT_ID_QUERY_AND_STATUS)) {
+            Object[] parameters = {projectId, status};
+            DaoExecutor.fillStatement(statement, parameters);
             ResultSet resultSet = statement.executeQuery();
             while (resultSet.next()) {
                 Task task = builder.buildEntity(resultSet);
                 User user = new User();
                 UserDetail userDetail = new UserDetail();
-                userDetail.setSalary(resultSet.getInt(ConstantColumnName.USER_DETAIL_SALARY));
+                userDetail.setSalary(
+                        resultSet.getInt(ConstantColumnName.USER_DETAIL_SALARY));
                 user.setUserDetail(userDetail);
                 task.setDeveloper(user);
                 tasks.add(task);
@@ -127,7 +98,7 @@ public class TaskDaoImpl implements TaskDao {
         Task resultTask = null;
         Object[] parameters = {task.getName(), task.getDetails(), task.getPlannedTime(),
                 task.getDeveloper().getId(), task.getId()};
-        boolean result = executor.executeUpdate(UPDATE_TASK_QUERY, parameters);
+        boolean result = executor.executeUpdate(ConstantDaoQuery.UPDATE_TASK_QUERY, parameters);
         if (result) {
             resultTask = task;
         }
@@ -137,7 +108,8 @@ public class TaskDaoImpl implements TaskDao {
     public String updateTaskStatus(Long taskId, String status) throws DaoException {
         String resultStatus = null;
         Object[] parameters = {status, taskId};
-        boolean result = executor.executeUpdate(UPDATE_TASK_STATUS_QUERY, parameters);
+        boolean result = executor.executeUpdate(
+                ConstantDaoQuery.UPDATE_TASK_STATUS_QUERY, parameters);
         if (result) {
             resultStatus = status;
         }
@@ -147,7 +119,8 @@ public class TaskDaoImpl implements TaskDao {
     public Integer updateTaskHours(Long taskId, Integer hours) throws DaoException {
         Integer resultHours = null;
         Object[] parameters = {hours, taskId};
-        boolean result = executor.executeUpdate(UPDATE_TASK_HOURS_QUERY, parameters);
+        boolean result = executor.executeUpdate(
+                ConstantDaoQuery.UPDATE_TASK_HOURS_QUERY, parameters);
         if (result) {
             resultHours = hours;
         }
@@ -156,7 +129,8 @@ public class TaskDaoImpl implements TaskDao {
 
     public boolean removeTask(Long id) throws DaoException {
         Object[] parameters = {id};
-        boolean removed = executor.executeUpdate(DELETE_TASK_QUERY, parameters);
+        boolean removed = executor.executeUpdate(
+                ConstantDaoQuery.DELETE_TASK_QUERY, parameters);
         return removed;
     }
 

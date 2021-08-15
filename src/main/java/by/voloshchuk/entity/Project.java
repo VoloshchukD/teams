@@ -20,7 +20,7 @@ public class Project extends AbstractEntity {
         IN_PROGRESS
     }
 
-    private TechnicalTask technicalTask;
+    private Long technicalTaskId;
 
     private List<User> employees;
 
@@ -56,12 +56,12 @@ public class Project extends AbstractEntity {
         this.state = state;
     }
 
-    public TechnicalTask getTechnicalTask() {
-        return technicalTask;
+    public Long getTechnicalTaskId() {
+        return technicalTaskId;
     }
 
-    public void setTechnicalTask(TechnicalTask technicalTask) {
-        this.technicalTask = technicalTask;
+    public void setTechnicalTaskId(Long technicalTaskId) {
+        this.technicalTaskId = technicalTaskId;
     }
 
     public List<User> getEmployees() {
@@ -81,14 +81,14 @@ public class Project extends AbstractEntity {
                 && Objects.equals(description, project.description)
                 && Objects.equals(startDate, project.startDate)
                 && state == project.state
-                && Objects.equals(technicalTask, project.technicalTask)
+                && Objects.equals(technicalTaskId, project.technicalTaskId)
                 && Objects.equals(employees, project.employees);
     }
 
     @Override
     public int hashCode() {
         return Objects.hash(name, description, startDate,
-                state, technicalTask, employees);
+                state, technicalTaskId, employees);
     }
 
     @Override
@@ -104,8 +104,8 @@ public class Project extends AbstractEntity {
         builder.append(startDate);
         builder.append(", state=");
         builder.append(state);
-        builder.append(", technicalTask=");
-        builder.append(technicalTask);
+        builder.append(", technicalTaskId=");
+        builder.append(technicalTaskId);
         builder.append(", employees=");
         builder.append(employees);
         return builder.toString();

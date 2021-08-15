@@ -44,7 +44,7 @@ public class EmployeeRequirementDaoImpl implements EmployeeRequirementDao {
     public boolean addEmployeeRequirement(EmployeeRequirement requirement) throws DaoException {
         Object[] parameters = {requirement.getExperience(), requirement.getSalary(),
                 requirement.getQualification(), requirement.getPrimarySkill(),
-                requirement.getComment(), requirement.getTechnicalTask().getId()};
+                requirement.getComment(), requirement.getTechnicalTaskId()};
         boolean added = executor.executeUpdate(ADD_EMPLOYEE_REQUIREMENT_QUERY, parameters);
         return added;
     }

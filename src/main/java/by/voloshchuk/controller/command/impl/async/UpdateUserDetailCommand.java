@@ -54,7 +54,8 @@ public class UpdateUserDetailCommand implements AsyncCommand {
         userDto.setExperience(jsonObject.getString(AsyncCommandParameter.USER_DETAIL_EXPERIENCE));
         userDto.setSalary(jsonObject.getString(AsyncCommandParameter.USER_DETAIL_SALARY));
         userDto.setPrimarySkill(jsonObject.getString(AsyncCommandParameter.USER_DETAIL_PRIMARY_SKILL));
-        userDto.setSkillsDescription(jsonObject.getString(AsyncCommandParameter.USER_DETAIL_SKILLS_DESCRIPTION));
+        userDto.setSkillsDescription(
+                jsonObject.getString(AsyncCommandParameter.USER_DETAIL_SKILLS_DESCRIPTION));
         return userDto;
     }
 

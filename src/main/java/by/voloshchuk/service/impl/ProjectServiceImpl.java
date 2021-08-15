@@ -74,11 +74,11 @@ public class ProjectServiceImpl implements ProjectService {
     }
 
     @Override
-    public boolean removeProject(Long id) throws ServiceException {
+    public boolean removeProject(Long projectId, Long technicalTaskId) throws ServiceException {
         boolean deleted = false;
         ProjectDao projectDao = daoProvider.getProjectDao();
         try {
-            deleted = projectDao.removeProject(id);
+            deleted = projectDao.removeProject(projectId, technicalTaskId);
         } catch (DaoException e) {
             throw new ServiceException(e);
         }

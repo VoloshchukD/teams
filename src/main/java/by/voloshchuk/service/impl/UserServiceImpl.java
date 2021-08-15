@@ -4,7 +4,7 @@ import by.voloshchuk.controller.command.CommandAttribute;
 import by.voloshchuk.dao.DaoProvider;
 import by.voloshchuk.dao.UserDao;
 import by.voloshchuk.dao.UserDetailDao;
-import by.voloshchuk.dao.impl.ConstantColumnName;
+import by.voloshchuk.dao.ConstantColumnName;
 import by.voloshchuk.dao.impl.UserDaoImpl;
 import by.voloshchuk.entity.EmployeeRequirement;
 import by.voloshchuk.entity.User;

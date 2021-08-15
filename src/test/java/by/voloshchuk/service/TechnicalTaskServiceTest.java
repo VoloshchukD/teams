@@ -1,6 +1,5 @@
 package by.voloshchuk.service;
 
-import by.voloshchuk.dao.pool.CustomConnectionPool;
 import by.voloshchuk.entity.TechnicalTask;
 import by.voloshchuk.entity.dto.TechnicalTaskDto;
 import by.voloshchuk.exception.ServiceException;

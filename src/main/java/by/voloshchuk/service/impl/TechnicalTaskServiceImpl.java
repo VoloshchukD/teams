@@ -10,6 +10,7 @@ import by.voloshchuk.exception.ServiceException;
 import by.voloshchuk.service.TechnicalTaskService;
 import by.voloshchuk.service.validator.Validator;
 import by.voloshchuk.service.validator.ValidatorProvider;
+import by.voloshchuk.util.StringFormatter;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -24,7 +25,8 @@ public class TechnicalTaskServiceImpl implements TechnicalTaskService {
     public boolean addTechnicalTask(TechnicalTaskDto technicalTaskDto) throws ServiceException {
         boolean result = false;
         TechnicalTaskDao technicalTaskDao = daoProvider.getTechnicalTaskDao();
-        Validator<TechnicalTaskDto> taskValidator = ValidatorProvider.getInstance().getTechnicalTaskValidator();
+        Validator<TechnicalTaskDto> taskValidator =
+                ValidatorProvider.getInstance().getTechnicalTaskValidator();
         if (taskValidator.validateCreateData(technicalTaskDto)) {
             try {
                 TechnicalTask technicalTask = createTechnicalTask(technicalTaskDto);
@@ -36,16 +38,15 @@ public class TechnicalTaskServiceImpl implements TechnicalTaskService {
         return result;
     }
 
-    private TechnicalTask createTechnicalTask(TechnicalTaskDto technicalTaskDto) throws ParseException {
+    private TechnicalTask createTechnicalTask(TechnicalTaskDto technicalTaskDto)
+            throws ParseException {
         TechnicalTask technicalTask = new TechnicalTask();
         technicalTask.setName(technicalTaskDto.getName());
         technicalTask.setOverview(technicalTaskDto.getOverview());
-        Date deadline = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").parse(technicalTaskDto.getDeadline());
+        Date deadline = StringFormatter.parseDate(technicalTaskDto.getDeadline());
         technicalTask.setDeadline(deadline);
         technicalTask.setStatus(TechnicalTask.TechnicalTaskStatus.WAIT_PROJECT);
-        User user = new User();
-        user.setId(technicalTaskDto.getCustomerId());
-        technicalTask.setCustomer(user);
+        technicalTask.setCustomerId(technicalTaskDto.getCustomerId());
         return technicalTask;
     }
 

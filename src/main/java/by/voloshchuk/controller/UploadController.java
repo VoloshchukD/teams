@@ -1,5 +1,6 @@
 package by.voloshchuk.controller;
 
+import by.voloshchuk.controller.command.CommandPath;
 import by.voloshchuk.exception.ServiceException;
 import by.voloshchuk.service.ServiceProvider;
 import by.voloshchuk.service.UserDetailService;
@@ -33,12 +34,14 @@ public class UploadController extends HttpServlet {
 
     private static final String UPLOAD_DIRECTORY = "uploads";
 
+    private static final String WEB_APPLICATION_ROOT = "";
+
     private static ServiceProvider serviceProvider = ServiceProvider.getInstance();
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp)
             throws ServletException, IOException {
-        String applicationPath = req.getServletContext().getRealPath("");
+        String applicationPath = req.getServletContext().getRealPath(WEB_APPLICATION_ROOT);
         String uploadFilePath = applicationPath + File.separator + UPLOAD_DIRECTORY;
         File fileSaveDir = new File(uploadFilePath);
         if (!fileSaveDir.exists()) {
@@ -57,14 +60,12 @@ public class UploadController extends HttpServlet {
         fileName = File.separator + UPLOAD_DIRECTORY + File.separator + fileName;
 
         UserDetailService userDetailService = serviceProvider.getUserDetailService();
-
-        String resultUserImage = null;
         try {
-            resultUserImage = userDetailService.updateUserDetailImage(userDetailId, fileName);
+            String resultUserImage = userDetailService.updateUserDetailImage(userDetailId, fileName);
+            req.getSession().setAttribute(CommandAttribute.USER_IMAGE, resultUserImage);
         } catch (ServiceException e) {
             logger.log(Level.ERROR, e);
         }
-        req.getSession().setAttribute(CommandAttribute.USER_IMAGE, resultUserImage);
     }
 
     /**

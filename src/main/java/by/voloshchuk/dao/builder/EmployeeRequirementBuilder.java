@@ -1,6 +1,6 @@
 package by.voloshchuk.dao.builder;
 
-import by.voloshchuk.dao.impl.ConstantColumnName;
+import by.voloshchuk.dao.ConstantColumnName;
 import by.voloshchuk.entity.EmployeeRequirement;
 
 import java.sql.ResultSet;

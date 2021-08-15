@@ -28,14 +28,16 @@ var cardHeader3 = '</h5><p class="small text-white mb-0 primary">'
 var cardHeader4 = '</p></div><div class="p-3 d-flex justify-content-center">\n' +
     '<ul class="list-inline mb-0"><li class="list-inline-item text-center">\n' +
     '<h5 class="font-weight-bold mb-0 d-block experience">'
-var cardHeader5 = '</h5><small class="text-muted"><i class="fa fa-graduation-cap" aria-hidden="true"></i></small></li>' +
-    '<li class="list-inline-item text-center"><h5 class="font-weight-bold mb-0 d-block mr-3 pr-3 salary">';
+var cardHeader5 = '</h5><small class="text-muted"><i class="fa fa-graduation-cap" aria-hidden="true">' +
+    '</i></small></li><li class="list-inline-item text-center">' +
+    '<h5 class="font-weight-bold mb-0 d-block mr-3 pr-3 salary">';
 var cardHeader6 = '</h5><small class="text-muted"><i class="fa fa-usd" aria-hidden="true"></i></small>\n' +
     '</li></ul></div><div class="pb-1 px-2 d-flex justify-content-center">\n' +
     '<ul class="list-inline mb-0"><li class="text-center"><small class="text-muted skills">';
 var cardFooter = '</small></li></ul></div><hr><div class="d-flex justify-content-center mb-2">'
 
-var deleteButton = '<button type="button" class="delete btn btn-danger"><i class="fa fa-ban" aria-hidden="true"></i></button>';
+var deleteButton = '<button type="button" class="delete btn btn-danger">' +
+    '<i class="fa fa-ban" aria-hidden="true"></i></button>';
 
 var addButton = '<button type="button" class="add btn btn-primary"><i class="fa fa-plus"></i></button>';
 
@@ -85,15 +87,10 @@ $("#users").click(function () {
                         .then((responseData) => {
                             employee.remove();
                         });
-
                 });
-
             }
-
             paginate();
         })
-
-
 })
 
 $("#search").click(function () {
@@ -119,20 +116,14 @@ $("#search").click(function () {
                         $(this).remove();
                     })
                     $('#form3').hide();
-                    ajax.get("http://localhost:8080/async-controller?command=add-employee",
+                    webix.ajax().post(
+                        "http://localhost:8080/async-controller" +
+                        "?command=add-employee",
                         {
                             "user-id": data[i].id,
                             "project-id": projectId
                         })
-                        .then((response) => response.json())
-                        .then((responseData) => {
-
-                        });
-
                 });
-
-
-
             }
 
             paginate();
@@ -144,7 +135,8 @@ $("#search").click(function () {
 
 function loadProjectRequirements() {
     $('#requirements').find("tr:gt(0)").remove();
-    ajax.get("http://localhost:8080/async-controller?command=load-project-requirements",
+    ajax.get(
+        "http://localhost:8080/async-controller?command=load-project-requirements",
         {
             "project-id": projectId
         })
@@ -159,7 +151,8 @@ function loadProjectRequirements() {
                         '<td class="primary" ></td>' +
                         '<td class="comment" ></td>' +
                         '<td>' +
-                        '<button type="button" class="seek btn btn-primary"><i class="fa fa-search" aria-hidden="true"></i></button>' +
+                        '<button type="button" class="seek btn btn-primary">' +
+                        '<i class="fa fa-search" aria-hidden="true"></i></button>' +
                         '</td>'
                     '</tr>';
                     $('#requirements').append(html);
@@ -170,23 +163,18 @@ function loadProjectRequirements() {
                     requirement.find('.experience').text(data[i].experience);
                     requirement.find('.primary').text(data[i].primary);
                     requirement.find('.comment').text(data[i].comment);
-                    var seekEmployeesButton = requirement.find('.seek:last');
+                    var seekEmployeesButton = requirement.find('.seek');
 
                     seekEmployeesButton.click(function () {
-
-                        var salary = data[i].salary;
-                        var experience = data[i].experience;
-                        var primary = data[i].primary;
-
                         $('.employee').each(function () {
                             $(this).remove();
                         })
                         $('#form3').show();
                         ajax.get("http://localhost:8080/async-controller?command=seek-employees",
                             {
-                                "salary": salary,
-                                "experience": experience,
-                                "primary": primary
+                                "salary": data[i].salary,
+                                "experience": data[i].experience,
+                                "primary": data[i].primary
                             })
                             .then((response) => response.json())
                             .then((data) => {
@@ -201,23 +189,18 @@ function loadProjectRequirements() {
                                             $(this).remove();
                                         })
                                         $('#form3').hide();
-                                        ajax.get("http://localhost:8080/async-controller?command=add-employee",
+                                        webix.ajax().post(
+                                            "http://localhost:8080/async-controller" +
+                                            "?command=add-employee",
                                             {
                                                 "user-id": data[i].id,
                                                 "project-id": projectId
                                             })
-                                            .then((response) => response.json())
-                                            .then((responseData) => {
-
-                                            });
-
                                     });
                                 }
                             })
                     });
-
                 }
-
             }
         )
 }

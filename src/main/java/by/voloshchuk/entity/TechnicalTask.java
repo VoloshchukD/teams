@@ -19,7 +19,7 @@ public class TechnicalTask extends AbstractEntity {
         COMPLETED
     }
 
-    private User customer;
+    private Long customerId;
 
     public String getName() {
         return name;
@@ -53,12 +53,12 @@ public class TechnicalTask extends AbstractEntity {
         this.status = status;
     }
 
-    public User getCustomer() {
-        return customer;
+    public Long getCustomerId() {
+        return customerId;
     }
 
-    public void setCustomer(User customer) {
-        this.customer = customer;
+    public void setCustomerId(Long customerId) {
+        this.customerId = customerId;
     }
 
     @Override
@@ -69,17 +69,20 @@ public class TechnicalTask extends AbstractEntity {
         return Objects.equals(name, that.name)
                 && Objects.equals(overview, that.overview)
                 && Objects.equals(deadline, that.deadline)
-                && status == that.status && Objects.equals(customer, that.customer);
+                && status == that.status
+                && Objects.equals(customerId, that.customerId);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(name, overview, deadline, status, customer);
+        return Objects.hash(name, overview, deadline,
+                status, customerId);
     }
 
     @Override
     public String toString() {
-        StringBuilder builder = new StringBuilder(getClass().getName());
+        StringBuilder builder = new StringBuilder(
+                getClass().getName());
         builder.append("id=");
         builder.append(getId());
         builder.append("name=");
@@ -90,8 +93,8 @@ public class TechnicalTask extends AbstractEntity {
         builder.append(deadline);
         builder.append(", status=");
         builder.append(status);
-        builder.append(", customer=");
-        builder.append(customer);
+        builder.append(", customerId=");
+        builder.append(customerId);
         return builder.toString();
     }
 

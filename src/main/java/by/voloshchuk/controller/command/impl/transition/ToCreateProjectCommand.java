@@ -36,9 +36,7 @@ public class ToCreateProjectCommand implements Command {
         try {
             technicalTask = technicalTaskService.findTechnicalTaskById(technicalTaskId);
             if (technicalTask != null) {
-                User user = new User();
-                user.setId(customerId);
-                technicalTask.setCustomer(user);
+                technicalTask.setCustomerId(customerId);
             }
         } catch (ServiceException e) {
             logger.log(Level.ERROR, e.getMessage());

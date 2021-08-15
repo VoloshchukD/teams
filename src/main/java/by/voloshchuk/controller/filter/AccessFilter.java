@@ -2,6 +2,7 @@ package by.voloshchuk.controller.filter;
 
 import by.voloshchuk.controller.command.*;
 import by.voloshchuk.entity.User;
+import by.voloshchuk.util.StringFormatter;
 
 import javax.servlet.*;
 import javax.servlet.http.HttpServletRequest;
@@ -20,7 +21,7 @@ public class AccessFilter implements Filter {
     private final Map<User.UserRole, Set<String>> accessMap = new HashMap<>();
 
     @Override
-    public void init(FilterConfig filterConfig) throws ServletException {
+    public void init(FilterConfig filterConfig) {
 
         Set<String> guestCommands = makeStringSet(Arrays.asList(
                 CommandName.AUTHORIZATION,
@@ -107,7 +108,8 @@ public class AccessFilter implements Filter {
     }
 
     @Override
-    public void doFilter(ServletRequest servletRequest, ServletResponse servletResponse, FilterChain filterChain) throws IOException, ServletException {
+    public void doFilter(ServletRequest servletRequest, ServletResponse servletResponse,
+                         FilterChain filterChain) throws IOException, ServletException {
         HttpServletRequest request = (HttpServletRequest) servletRequest;
         HttpServletResponse response = (HttpServletResponse) servletResponse;
         User.UserRole role = (User.UserRole) request.getSession(true)
@@ -116,19 +118,16 @@ public class AccessFilter implements Filter {
             role = User.UserRole.GUEST;
         }
         String command = request.getParameter(RequestParameter.COMMAND);
-        if (command == null) {
-            request.getRequestDispatcher(CommandPath.ERROR_404_JSP).forward(request, response);
-        } else {
-            if (!accessMap.get(role).contains(command)) {
-                if (containsCommand(command)) {
-                    request.getRequestDispatcher(CommandPath.ERROR_403_JSP).forward(request, response);
-                } else {
-                    request.getRequestDispatcher(CommandPath.ERROR_404_JSP).forward(request, response);
-                }
+
+        if (!accessMap.get(role).contains(command)) {
+            if (containsCommand(command)) {
+                request.getRequestDispatcher(CommandPath.ERROR_403_JSP).forward(request, response);
             } else {
-                filterChain.doFilter(servletRequest, servletResponse);
+                request.getRequestDispatcher(CommandPath.ERROR_404_JSP).forward(request, response);
             }
         }
+
+        filterChain.doFilter(servletRequest, servletResponse);
     }
 
     private boolean containsCommand(String command) {
@@ -142,17 +141,8 @@ public class AccessFilter implements Filter {
 
     private Set<String> makeStringSet(List<?> list) {
         return list.stream()
-                .map(value -> transformString(String.valueOf(value)))
+                .map(value -> StringFormatter.transformCommand(String.valueOf(value)))
                 .collect(Collectors.toSet());
-    }
-
-    private static final String COMMAND_SEPARATOR = "-";
-
-    private static final String ENUM_COMMAND_SEPARATOR = "_";
-
-    static String transformString(String command) {
-        return command.toLowerCase().replaceAll(
-                ENUM_COMMAND_SEPARATOR, COMMAND_SEPARATOR);
     }
 
 }

@@ -53,11 +53,11 @@ public class CreateProjectCommand implements Command {
         project.setName(request.getParameter(RequestParameter.PROJECT_NAME));
         project.setDescription(request.getParameter(RequestParameter.PROJECT_DESCRIPTION));
         project.setState(Project.ProjectStatus.IN_PROGRESS);
-        TechnicalTask technicalTask = new TechnicalTask();
-        technicalTask.setId(Long.parseLong(request.getParameter(RequestParameter.TECHNICAL_TASK_ID)));
-        project.setTechnicalTask(technicalTask);
+        project.setTechnicalTaskId(
+                Long.parseLong(request.getParameter(RequestParameter.TECHNICAL_TASK_ID)));
         projectDto.setProject(project);
-        projectDto.setCustomerId(Long.parseLong(request.getParameter(RequestParameter.CUSTOMER_ID)));
+        projectDto.setCustomerId(
+                Long.parseLong(request.getParameter(RequestParameter.CUSTOMER_ID)));
         Long userId = (Long) request.getSession().getAttribute(CommandAttribute.USER_ID);
         projectDto.setManagerId(userId);
         return projectDto;

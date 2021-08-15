@@ -12,7 +12,7 @@ public class EmployeeRequirement extends AbstractEntity {
 
     private String comment;
 
-    private TechnicalTask technicalTask;
+    private Long technicalTaskId;
 
     private String primarySkill;
 
@@ -48,12 +48,12 @@ public class EmployeeRequirement extends AbstractEntity {
         this.comment = comment;
     }
 
-    public TechnicalTask getTechnicalTask() {
-        return technicalTask;
+    public Long getTechnicalTaskId() {
+        return technicalTaskId;
     }
 
-    public void setTechnicalTask(TechnicalTask technicalTask) {
-        this.technicalTask = technicalTask;
+    public void setTechnicalTaskId(Long technicalTaskId) {
+        this.technicalTaskId = technicalTaskId;
     }
 
     public String getPrimarySkill() {
@@ -73,14 +73,14 @@ public class EmployeeRequirement extends AbstractEntity {
                 && Objects.equals(salary, that.salary)
                 && Objects.equals(qualification, that.qualification)
                 && Objects.equals(comment, that.comment)
-                && Objects.equals(technicalTask, that.technicalTask)
+                && Objects.equals(technicalTaskId, that.technicalTaskId)
                 && Objects.equals(primarySkill, that.primarySkill);
     }
 
     @Override
     public int hashCode() {
         return Objects.hash(experience, salary, qualification,
-                comment, technicalTask, primarySkill);
+                comment, technicalTaskId, primarySkill);
     }
 
     @Override
@@ -96,8 +96,8 @@ public class EmployeeRequirement extends AbstractEntity {
         builder.append(qualification);
         builder.append(", comment=");
         builder.append(comment);
-        builder.append(", technicalTask=");
-        builder.append(technicalTask);
+        builder.append(", technicalTaskId=");
+        builder.append(technicalTaskId);
         builder.append(", primarySkill=");
         builder.append(primarySkill);
         return builder.toString();

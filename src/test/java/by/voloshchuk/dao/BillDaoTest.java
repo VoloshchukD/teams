@@ -1,6 +1,5 @@
 package by.voloshchuk.dao;
 
-import by.voloshchuk.dao.pool.CustomConnectionPool;
 import by.voloshchuk.entity.Bill;
 import by.voloshchuk.exception.DaoException;
 import org.junit.Assert;

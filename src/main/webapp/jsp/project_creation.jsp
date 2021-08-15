@@ -45,7 +45,7 @@
                 <input type="hidden" class="technical-task-id" name="technical-task-id"
                        value="${technicalTask.id}"/>
                 <input type="hidden" name="customer-id"
-                       value="${technicalTask.customer.id}"/>
+                       value="${technicalTask.customerId}"/>
                 <div class="form-group">
                     <label for="name" class="col-form-label"><fmt:message bundle="${loc}"
                                                                           key="local.project.create-name"/></label>

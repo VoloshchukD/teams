@@ -1,6 +1,7 @@
 package by.voloshchuk.controller.command;
 
 import by.voloshchuk.controller.command.impl.async.*;
+import by.voloshchuk.util.StringFormatter;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -16,15 +17,11 @@ public class AsyncCommandProvider {
 
     private Map<AsyncCommandName, AsyncCommand> asyncCommands = new HashMap<>();
 
-    private static final String COMMAND_SEPARATOR = "-";
-
-    private static final String ENUM_COMMAND_SEPARATOR = "_";
-
     private AsyncCommandProvider() {
         asyncCommands.put(AsyncCommandName.LOAD_AVATAR, new LoadAvatarCommand());
         asyncCommands.put(AsyncCommandName.UPDATE_USER_DETAIL, new UpdateUserDetailCommand());
-        asyncCommands.put(AsyncCommandName.EMPLOYEE_REQUIREMENTS, new EmployeeRequirementsCommand());
-        asyncCommands.put(AsyncCommandName.SEEK_EMPLOYEES, new SeekEmployeesCommand());
+        asyncCommands.put(AsyncCommandName.EMPLOYEE_REQUIREMENTS, new LoadRequirementsCommand());
+        asyncCommands.put(AsyncCommandName.SEEK_EMPLOYEES, new SeekEmployeesByRequirementCommand());
         asyncCommands.put(AsyncCommandName.ADD_EMPLOYEE, new AddEmployeeCommand());
         asyncCommands.put(AsyncCommandName.DELETE_EMPLOYEE, new DeleteEmployeeCommand());
         asyncCommands.put(AsyncCommandName.ADD_REQUIREMENT, new AddRequirementCommand());
@@ -36,8 +33,8 @@ public class AsyncCommandProvider {
         asyncCommands.put(AsyncCommandName.LOAD_PROJECT_REQUIREMENTS, new LoadProjectRequirementsCommand());
         asyncCommands.put(AsyncCommandName.ACCEPT_PAYMENT, new AcceptPaymentCommand());
         asyncCommands.put(AsyncCommandName.UPDATE_USER_STATUS, new UpdateUserStatusCommand());
-        asyncCommands.put(AsyncCommandName.DELETE_REQUIREMENT, new DeleteEmployeeRequirement());
-        asyncCommands.put(AsyncCommandName.SEARCH_EMPLOYEES, new SearchEmployeesCommand());
+        asyncCommands.put(AsyncCommandName.DELETE_REQUIREMENT, new DeleteRequirementCommand());
+        asyncCommands.put(AsyncCommandName.SEARCH_EMPLOYEES, new SeekEmployeesBySkillCommand());
     }
 
     public static AsyncCommandProvider getInstance() {
@@ -56,8 +53,7 @@ public class AsyncCommandProvider {
     }
 
     public AsyncCommandName parseCommand(String commandName) {
-        String formattedName = commandName.toUpperCase().replaceAll(
-                COMMAND_SEPARATOR, ENUM_COMMAND_SEPARATOR);
+        String formattedName = StringFormatter.parseCommand(commandName);
         AsyncCommandName asyncCommandName = AsyncCommandName.valueOf(formattedName);
         return asyncCommandName;
     }

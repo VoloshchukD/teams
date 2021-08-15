@@ -1,4 +1,4 @@
-package by.voloshchuk.controller.command.impl;
+package by.voloshchuk.controller.command.impl.transition;
 
 import by.voloshchuk.exception.ServiceException;
 import by.voloshchuk.service.ServiceProvider;
@@ -21,7 +21,7 @@ import java.util.Map;
  *
  * @author Daniil Voloshchuk
  */
-public class MainCommand implements Command {
+public class ToMainPageCommand implements Command {
 
     private static final Logger logger = LogManager.getLogger();
 
@@ -36,10 +36,14 @@ public class MainCommand implements Command {
         } catch (ServiceException e) {
             logger.log(Level.ERROR, e);
         }
-        request.setAttribute(CommandAttribute.CUSTOMERS_AMOUNT, resultData.get(CommandAttribute.CUSTOMERS_AMOUNT));
-        request.setAttribute(CommandAttribute.YEARS_ON_MARKET, resultData.get(CommandAttribute.YEARS_ON_MARKET));
-        request.setAttribute(CommandAttribute.PROJECTS_AMOUNT, resultData.get(CommandAttribute.PROJECTS_AMOUNT));
-        request.setAttribute(CommandAttribute.PROJECTS_PRODUCTIVITY, resultData.get(CommandAttribute.PROJECTS_PRODUCTIVITY));
+        request.setAttribute(CommandAttribute.CUSTOMERS_AMOUNT, resultData.get(
+                CommandAttribute.CUSTOMERS_AMOUNT));
+        request.setAttribute(CommandAttribute.YEARS_ON_MARKET, resultData.get(
+                CommandAttribute.YEARS_ON_MARKET));
+        request.setAttribute(CommandAttribute.PROJECTS_AMOUNT, resultData.get(
+                CommandAttribute.PROJECTS_AMOUNT));
+        request.setAttribute(CommandAttribute.PROJECTS_PRODUCTIVITY, resultData.get(
+                CommandAttribute.PROJECTS_PRODUCTIVITY));
         CommandRouter router = new CommandRouter(CommandRouter.RouterType.FORWARD, CommandPath.MAIN_JSP);
         return router;
     }

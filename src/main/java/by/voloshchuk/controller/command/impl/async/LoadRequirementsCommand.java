@@ -23,7 +23,7 @@ import java.util.List;
  *
  * @author Daniil Voloshchuk
  */
-public class EmployeeRequirementsCommand implements AsyncCommand {
+public class LoadRequirementsCommand implements AsyncCommand {
 
     private static final Logger logger = LogManager.getLogger();
 

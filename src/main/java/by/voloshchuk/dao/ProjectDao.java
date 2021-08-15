@@ -45,9 +45,9 @@ public interface ProjectDao {
     /**
      * Project data deletion.
      *
-     * @param id - project id to delete
+     * @param projectId - project id to delete
      * @return boolean result of removing
      */
-    boolean removeProject(Long id) throws DaoException;
+    boolean removeProject(Long projectId, Long technicalTaskId) throws DaoException;
 
 }

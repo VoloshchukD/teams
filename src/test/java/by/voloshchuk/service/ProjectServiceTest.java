@@ -1,8 +1,6 @@
 package by.voloshchuk.service;
 
-import by.voloshchuk.dao.pool.CustomConnectionPool;
 import by.voloshchuk.entity.Project;
-import by.voloshchuk.entity.TechnicalTask;
 import by.voloshchuk.entity.dto.ProjectDto;
 import by.voloshchuk.exception.ServiceException;
 import org.junit.Assert;
@@ -36,9 +34,7 @@ public class ProjectServiceTest {
         java.util.Date currentDate = new java.util.Date(System.currentTimeMillis());
         java.sql.Date databaseValue = new java.sql.Date(currentDate.getTime());
         project.setStartDate(databaseValue);
-        TechnicalTask technicalTask = new TechnicalTask();
-        technicalTask.setId(DATABASE_TECHNICAL_TASK_ID);
-        project.setTechnicalTask(technicalTask);
+        project.setTechnicalTaskId(DATABASE_TECHNICAL_TASK_ID);
         project.setState(Project.ProjectStatus.IN_PROGRESS);
         projectDto.setProject(project);
         projectDto.setManagerId(DATABASE_USER_ID);

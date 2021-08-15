@@ -164,6 +164,8 @@
                                             <form action="controller" method="post">
                                                 <input type="hidden" name="command" value="delete-project"/>
                                                 <input type="hidden" name="project-id" value="${project.id}"/>
+                                                <input type="hidden" name="technical-task-id"
+                                                       value="${project.technicalTask.id}"/>
                                                 <button type="submit" class="btn btn-danger">
                                                     <i class="fa fa-trash" aria-hidden="true"></i>
                                                 </button>

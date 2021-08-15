@@ -1,7 +1,5 @@
 package by.voloshchuk.dao;
 
-import by.voloshchuk.dao.pool.CustomConnectionPool;
-import by.voloshchuk.entity.Project;
 import by.voloshchuk.entity.Task;
 import by.voloshchuk.entity.User;
 import by.voloshchuk.exception.DaoException;
@@ -32,9 +30,7 @@ public class TaskDaoTest {
         task.setDetails("Fix bug at UserService");
         task.setPlannedTime(2);
         task.setStatus(Task.TaskStatus.TO_DO);
-        Project project = new Project();
-        project.setId(DATABASE_PROJECT_ID);
-        task.setProject(project);
+        task.setProjectId(DATABASE_PROJECT_ID);
         User developer = new User();
         developer.setId(DATABASE_USER_ID);
         task.setDeveloper(developer);

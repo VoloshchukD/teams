@@ -107,15 +107,18 @@
                                             <input type="hidden" class="command" name="command"
                                                    value="to-create-project"/>
                                             <input type="hidden" name="customer-id"
-                                                   value="${task.customer.id}"/>
-                                            <button type="submit" class="btn btn-primary"><fmt:message bundle="${loc}"
-                                                                                                       key="local.technical-tasks.create"/></button>
+                                                   value="${task.customerId}"/>
+                                            <button type="submit" class="btn btn-primary">
+                                                <fmt:message bundle="${loc}" key="local.technical-tasks.create"/>
+                                            </button>
                                         </c:if>
                                         <c:if test="${ role == 'CUSTOMER' }">
                                             <input type="hidden" class="command" name="command"
                                                    value="to-create-requirement"/>
-                                            <button type="submit" class="btn btn-primary"><fmt:message bundle="${loc}"
-                                                                                                       key="local.technical-tasks.add-requirements"/></button>
+                                            <button type="submit" class="btn btn-primary">
+                                                <fmt:message bundle="${loc}"
+                                                             key="local.technical-tasks.add-requirements"/>
+                                            </button>
                                         </c:if>
                                     </form>
                                 </div>
