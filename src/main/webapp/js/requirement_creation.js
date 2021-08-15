@@ -73,8 +73,6 @@ function loadRequirements() {
                                     element.remove();
                                 })
                         });
-
-
                 }
             })
     }
@@ -152,3 +150,30 @@ $('.requirement').each(function () {
     });
 
 });
+
+var requirementUpdationInputs;
+var requirementUpdationPatterns;
+
+window.addEventListener("load", function (event) {
+
+    requirementUpdationInputs = document.querySelectorAll('.update-form');
+
+    requirementUpdationPatterns = {
+        updateExperience: experienceRegex,
+        updateSalary: salaryRegex,
+        updateQualification: commentRegex,
+        updatePrimary: qualificationRegex,
+        updateComment: primaryRegex
+    };
+
+    requirementUpdationInputs.forEach((input) => {
+        input.addEventListener('keyup', (e) => {
+            validate(e.target, requirementUpdationPatterns[e.target.attributes.id.value]);
+        });
+    });
+
+});
+
+function validateRequirementForm() {
+    return validateInputs(requirementUpdationInputs, requirementUpdationPatterns);
+}

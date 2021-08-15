@@ -21,10 +21,10 @@
             crossorigin="anonymous"></script>
     <script src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/css/validation.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-
 </head>
 <body>
 <div class="container-xxl">
@@ -171,64 +171,6 @@
                                         </c:if>
                                     </c:if>
                                 </div>
-
-                                <div class="modal fade" id="modal" tabindex="-1" role="dialog"
-                                     aria-labelledby="exampleModalLabel"
-                                     aria-hidden="true">
-                                    <div class="modal-dialog" role="document">
-                                        <div class="modal-content">
-                                            <div class="modal-header">
-                                                <h5 class="modal-title" id="exampleModalLabel"><fmt:message
-                                                        bundle="${loc}"
-                                                        key="local.projects.update-header"/></h5>
-                                            </div>
-                                            <form action="controller" method="post">
-                                                <input type="hidden" name="command"
-                                                       value="update-project"/>
-                                                <input type="hidden" name="project-id" id="updateProjectId"/>
-                                                <div class="modal-body">
-                                                    <div class="form-group">
-                                                        <label for="name" class="col-form-label"><fmt:message
-                                                                bundle="${loc}"
-                                                                key="local.projects.update-name"/></label>
-                                                        <input type="text" class="form-control" name="name" id="name">
-                                                        <label for="description" class="col-form-label"><fmt:message
-                                                                bundle="${loc}"
-                                                                key="local.projects.update-description"/></label>
-                                                        <small id="name-help" class="form-text">
-                                                            <fmt:message bundle="${loc}"
-                                                                         key="local.form.project.name-help"/>
-                                                        </small>
-                                                    </div>
-                                                    <div class="form-group">
-                                                        <div id="regex-name"
-                                                             class="hidden-regex">${regexProjectName}</div>
-                                                        <textarea class="form-control" name="description"
-                                                                  id="description"></textarea>
-                                                        <small id="description-help" class="form-text">
-                                                            <fmt:message bundle="${loc}"
-                                                                         key="local.form.project.description-help"/>
-                                                        </small>
-                                                        <div id="regex-description"
-                                                             class="hidden-regex">${regexProjectDescription}</div>
-                                                    </div>
-                                                </div>
-                                                <div class="modal-footer">
-                                                    <button type="button" class="btn btn-secondary"
-                                                            data-dismiss="modal">
-                                                        <fmt:message bundle="${loc}"
-                                                                     key="local.projects.update-cancel"/></button>
-                                                    <button type="submit" class="btn btn-primary"
-                                                            id="create-task-button">
-                                                        <fmt:message bundle="${loc}"
-                                                                     key="local.projects.update-submit"/>
-                                                    </button>
-                                                </div>
-                                            </form>
-                                        </div>
-                                    </div>
-                                </div>
-
                             </div>
                         </div>
                     </div>
@@ -251,11 +193,70 @@
                                                                          key="local.pagination.last"/></a>
         </div>
     </div>
+
+    <div class="modal fade" id="modal" tabindex="-1" role="dialog"
+         aria-labelledby="exampleModalLabel"
+         aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel"><fmt:message
+                            bundle="${loc}"
+                            key="local.projects.update-header"/></h5>
+                </div>
+                <form action="controller" method="post"
+                      onSubmit="return validateProjectForm()" novalidate >
+                    <input type="hidden" name="command"
+                           value="update-project"/>
+                    <input type="hidden" name="project-id" id="updateProjectId"/>
+                    <div class="modal-body">
+                        <div class="form-group">
+                            <label for="name" class="col-form-label"><fmt:message
+                                    bundle="${loc}"
+                                    key="local.projects.update-name"/></label>
+                            <input type="text" class="form-control" name="name" id="name">
+                            <small id="name-help" class="form-text">
+                                <fmt:message bundle="${loc}"
+                                             key="local.form.project.name-help"/>
+                            </small>
+                            <div id="regex-name"
+                                 class="hidden-regex">${regexProjectName}</div>
+                        </div>
+                        <div class="form-group">
+                            <label for="description" class="col-form-label"><fmt:message
+                                    bundle="${loc}"
+                                    key="local.projects.update-description"/></label>
+                            <textarea class="form-control" name="description"
+                                      id="description"></textarea>
+                            <small id="description-help" class="form-text">
+                                <fmt:message bundle="${loc}"
+                                             key="local.form.project.description-help"/>
+                            </small>
+                            <div id="regex-description"
+                                 class="hidden-regex">${regexProjectDescription}</div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary"
+                                data-dismiss="modal">
+                            <fmt:message bundle="${loc}"
+                                         key="local.projects.update-cancel"/></button>
+                        <button type="submit" class="btn btn-primary"
+                                id="create-task-button">
+                            <fmt:message bundle="${loc}"
+                                         key="local.projects.update-submit"/>
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
 </div>
 <%@ include file="../WEB-INF/jspf/footer.jspf" %>
 <script type="text/javascript" src="/js/validation.js"></script>
+<script type="text/javascript" src="/js/project_creation.js"></script>
 <script type="text/javascript" src="/js/projects.js"></script>
-<link rel="stylesheet" href="/css/validation.css">
 <script type="text/javascript" src="/js/pagging.js"></script>
 </body>
 </html>

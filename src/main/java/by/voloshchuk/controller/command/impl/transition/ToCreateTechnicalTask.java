@@ -25,7 +25,6 @@ public class ToCreateTechnicalTask implements Command {
                 RegexProperty.PROPERTY_TECHNICAL_TASK_OVERVIEW_REGEX);
         request.setAttribute(CommandAttribute.TECHNICAL_TASK_DEADLINE_REGEX,
                 RegexProperty.PROPERTY_TECHNICAL_TASK_DEADLINE_REGEX);
-
         CommandRouter router = new CommandRouter(CommandRouter.RouterType.FORWARD, CommandPath.CREATE_TECHNICAL_TASKS_JSP);
         return router;
     }

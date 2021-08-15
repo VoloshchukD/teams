@@ -13,13 +13,16 @@
     <div class="title h1 text-center mt-3"><fmt:message bundle="${loc}" key="local.requirement.create-header"/></div>
     <div class="row m-2">
         <div class="col-3 d-flex align-items-start">
-        <a href="?command=technical-tasks">
-            <button type="button" class="btn btn-secondary"><fmt:message bundle="${loc}" key="local.requirement.back"/></button>
-        </a>
+            <a href="?command=technical-tasks">
+                <button type="button" class="btn btn-secondary"><fmt:message bundle="${loc}"
+                                                                             key="local.requirement.back"/></button>
+            </a>
         </div>
         <div class="col-6">
             <select class="form-select" aria-label="Default select example" id="task">
-                <option value="null" selected><fmt:message bundle="${loc}" key="local.requirement.create-select"/></option>
+                <option value="null" selected>
+                    <fmt:message bundle="${loc}" key="local.requirement.create-select"/>
+                </option>
                 <c:forEach items="${technicalTasks}" var="task">
                     <option value="${task.id}"><c:out value="${task.name}"/></option>
                 </c:forEach>
@@ -32,8 +35,10 @@
                 <table class="table my-2">
                     <thead>
                     <tr>
-                        <th class="align" scope="col"><fmt:message bundle="${loc}" key="local.requirement.create-experience"/></th>
-                        <th class="align" scope="col"><fmt:message bundle="${loc}" key="local.requirement.create-salary"/></th>
+                        <th class="align" scope="col"><fmt:message bundle="${loc}"
+                                                                   key="local.requirement.create-experience"/></th>
+                        <th class="align" scope="col"><fmt:message bundle="${loc}"
+                                                                   key="local.requirement.create-salary"/></th>
                         <th scope="col"><fmt:message bundle="${loc}" key="local.requirement.create-qualification"/></th>
                         <th scope="col"><fmt:message bundle="${loc}" key="local.requirement.create-primary"/></th>
                         <th scope="col"><fmt:message bundle="${loc}" key="local.requirement.create-comment"/></th>
@@ -42,7 +47,7 @@
                     </tr>
                     </thead>
                     <tbody>
-                        <tr></tr>
+                    <tr></tr>
                     </tbody>
                 </table>
             </div>
@@ -53,7 +58,8 @@
             <div id="regex-primary" class="hidden-regex">${regexPrimary}</div>
         </div>
         <div class="d-flex justify-content-center">
-            <button type="submit" class="add btn btn-secondary mt-3" id="add"><fmt:message bundle="${loc}" key="local.requirement.create-button"/></button>
+            <button type="submit" class="add btn btn-secondary mt-3" id="add"><fmt:message bundle="${loc}"
+                                                                                           key="local.requirement.create-button"/></button>
         </div>
     </div>
 </div>
@@ -68,27 +74,47 @@
                     <fmt:message bundle="${loc}" key="local.requirement.update-header"/>
                 </h5>
             </div>
-            <form action="controller" method="post">
+            <form action="controller" method="post"
+                  onSubmit="return validateRequirementForm()" novalidate>
                 <input type="hidden" name="command" value="update-requirement"/>
                 <input type="hidden" name="id" id="updateRequirementId"/>
                 <input type="hidden" name="technical-task-id" id="forUpdateTechnicalTaskId"/>
                 <div class="modal-body">
-                    <label for="updateExperience" class="col-form-label"><fmt:message
-                            bundle="${loc}" key="local.requirement.update-experience"/></label>
-                    <input type="text" class="form-control" name="experience" id="updateExperience">
-                    <label for="updateSalary" class="col-form-label"><fmt:message
-                            bundle="${loc}" key="local.requirement.update-salary"/></label>
-                    <input type="text" class="form-control" name="salary" id="updateSalary">
-                    <label for="updateQualification" class="col-form-label"><fmt:message
-                            bundle="${loc}" key="local.requirement.update-qualification"/></label>
-                    <input type="text" class="form-control" name="qualification" id="updateQualification">
-                    <label for="updatePrimary" class="col-form-label"><fmt:message
-                            bundle="${loc}" key="local.requirement.update-primary"/></label>
-                    <input type="text" class="form-control" name="primary" id="updatePrimary">
-                    <label for="updateComment" class="col-form-label"><fmt:message
-                            bundle="${loc}" key="local.requirement.update-comment"/></label>
-                    <textarea class="form-control" name="comment"
-                              id="updateComment"></textarea>
+                    <label for="updateExperience" class="col-form-label">
+                        <fmt:message bundle="${loc}" key="local.requirement.update-experience"/>
+                    </label>
+                    <input type="text" class="form-control update-form" name="experience" id="updateExperience">
+                    <small id="experience-help" class="form-text">
+                        <fmt:message bundle="${loc}" key="local.form.project.experience-help"/>
+                    </small>
+                    <label for="updateSalary" class="col-form-label">
+                        <fmt:message bundle="${loc}" key="local.requirement.update-salary"/>
+                    </label>
+                    <input type="text" class="form-control update-form" name="salary" id="updateSalary">
+                    <small id="salary-help" class="form-text">
+                        <fmt:message bundle="${loc}" key="local.form.project.salary-help"/>
+                    </small>
+                    <label for="updateQualification" class="col-form-label">
+                        <fmt:message bundle="${loc}" key="local.requirement.update-qualification"/>
+                    </label>
+                    <input type="text" class="form-control update-form" name="qualification" id="updateQualification">
+                    <small id="qualification-help" class="form-text">
+                        <fmt:message bundle="${loc}" key="local.form.project.qualification-help"/>
+                    </small>
+                    <label for="updatePrimary" class="col-form-label">
+                        <fmt:message bundle="${loc}" key="local.requirement.update-primary"/>
+                    </label>
+                    <input type="text" class="form-control update-form" name="primary" id="updatePrimary">
+                    <small id="primary-help" class="form-text">
+                        <fmt:message bundle="${loc}" key="local.form.project.primary-help"/>
+                    </small>
+                    <label for="updateComment" class="col-form-label">
+                        <fmt:message bundle="${loc}" key="local.requirement.update-comment"/>
+                    </label>
+                    <textarea class="form-control update-form" name="comment" id="updateComment"></textarea>
+                    <small id="comment-help" class="form-text">
+                        <fmt:message bundle="${loc}" key="local.form.project.comment-help"/>
+                    </small>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">
@@ -115,6 +141,7 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+<script type="text/javascript" src="/js/validation.js"></script>
 <script type="text/javascript" src="/js/requirement_creation.js"></script>
 </body>
 </html>

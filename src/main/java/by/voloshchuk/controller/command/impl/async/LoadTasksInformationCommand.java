@@ -32,7 +32,8 @@ public class LoadTasksInformationCommand implements AsyncCommand {
     private static ServiceProvider serviceProvider = ServiceProvider.getInstance();
 
     @Override
-    public void execute(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
+    public void execute(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
         Long projectId = Long.parseLong(request.getParameter(AsyncCommandParameter.PROJECT_ID));
         List<Task> tasks = null;
         TaskService taskService = serviceProvider.getTaskService();

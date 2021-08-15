@@ -58,6 +58,6 @@ window.addEventListener("load", function (event) {
 
 });
 
-function validateCreationForm() {
+function validateBillForm() {
     return validateInputs(billCreationInputs, billCreationPatterns);
 }

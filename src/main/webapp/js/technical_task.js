@@ -57,3 +57,33 @@ $('.element').each(function () {
     });
 
 })
+
+var technicalTaskUpdationInputs;
+
+var technicalTaskUpdationPatterns;
+
+window.addEventListener("load", function (event) {
+
+    const nameRegex = new RegExp(document.getElementById('regex-name').textContent);
+
+    const overviewRegex = new RegExp(document.getElementById('regex-overview').textContent);
+
+    technicalTaskUpdationInputs = document.querySelectorAll('.form-control');
+
+    technicalTaskUpdationPatterns = {
+        name: nameRegex,
+        overview: overviewRegex
+    };
+
+    technicalTaskUpdationInputs.forEach((input) => {
+        input.addEventListener('keyup', (e) => {
+            validate(e.target, technicalTaskUpdationPatterns[e.target.attributes.id.value]);
+        });
+    });
+
+
+});
+
+function validateTaskForm() {
+    return validateInputs(technicalTaskUpdationInputs, technicalTaskUpdationPatterns);
+}

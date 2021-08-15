@@ -23,6 +23,6 @@ window.addEventListener("load", function (event) {
 
 });
 
-function validateCreateForm() {
+function validateProjectForm() {
     return validateInputs(projectCreationInputs, projectPatterns);
 }

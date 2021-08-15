@@ -21,7 +21,7 @@
     <div class="title h1 text-center mt-3"><fmt:message bundle="${loc}" key="local.bills.create-header"/></div>
     <div class="row justify-content-center mt-3">
         <div class="col-5">
-            <form action="controller" method="post"  onSubmit="return validateCreationForm()" novalidate>
+            <form action="controller" method="post" onSubmit="return validateBillForm()" novalidate>
                 <input type="hidden" class="command" name="command" value="create-bill"/>
                 <select class="form-select" name="project-id" id="project">
                     <option value="null" selected><fmt:message bundle="${loc}"

@@ -7,6 +7,7 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css" rel="stylesheet"
           integrity="sha384-+0n0xVW2eSR5OomGNYDnhzAbDsOXxcvSN1TPprVMTNDbiYZCxYbOOl7+AMvyTG2x" crossorigin="anonymous">
     <link rel="stylesheet" href="/css/base.css">
+    <link rel="stylesheet" href="/css/validation.css">
 </head>
 <body>
 <div class="container-xxl">
@@ -145,39 +146,6 @@
                                 </c:if>
                             </div>
 
-                            <div class="modal fade" id="modal" tabindex="-1" role="dialog"
-                                 aria-labelledby="exampleModalLabel"
-                                 aria-hidden="true">
-                                <div class="modal-dialog" role="document">
-                                    <div class="modal-content">
-                                        <div class="modal-header">
-                                            <h5 class="modal-title" id="exampleModalLabel"><fmt:message bundle="${loc}"
-                                                                                                        key="local.technical-tasks.update-header"/></h5>
-                                        </div>
-                                        <form action="controller" method="post" >
-                                            <input type="hidden" name="command"
-                                                   value="update-technical-task"/>
-                                            <input type="hidden" name="technical-task-id" id="updateTaskId" />
-                                            <div class="modal-body">
-                                                <label for="name" class="col-form-label"><fmt:message bundle="${loc}"
-                                                                                                      key="local.technical-tasks.update-name"/></label>
-                                                <input type="text" class="form-control" name="name" id="name">
-                                                <label for="name" class="col-form-label"><fmt:message bundle="${loc}"
-                                                                                                         key="local.technical-tasks.update-overview"/></label>
-                                                <textarea class="form-control" name="overview" id="overview"></textarea>
-                                            </div>
-                                            <div class="modal-footer">
-                                                <button type="button" class="btn btn-secondary" data-dismiss="modal">
-                                                    <fmt:message bundle="${loc}"
-                                                                 key="local.technical-tasks.update-cancel"/></button>
-                                                <button type="submit" class="btn btn-primary" id="create-task-button">
-                                                    <fmt:message bundle="${loc}" key="local.technical-tasks.update-submit"/></button>
-                                            </div>
-                                        </form>
-                                    </div>
-                                </div>
-                            </div>
-
                         </div>
                     </div>
                 </div>
@@ -199,6 +167,49 @@
                                                                          key="local.pagination.last"/></a>
         </div>
     </div>
+
+    <div class="modal fade" id="modal" tabindex="-1" role="dialog"
+         aria-labelledby="exampleModalLabel"
+         aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel"><fmt:message bundle="${loc}"
+                                                                                key="local.technical-tasks.update-header"/></h5>
+                </div>
+                <form action="controller" method="post"
+                      onSubmit="return validateTaskForm()" novalidate>
+                    <input type="hidden" name="command"
+                           value="update-technical-task"/>
+                    <input type="hidden" name="technical-task-id" id="updateTaskId" />
+                    <div class="modal-body">
+                        <label for="name" class="col-form-label"><fmt:message bundle="${loc}"
+                                                                              key="local.technical-tasks.update-name"/></label>
+                        <input type="text" class="form-control" name="name" id="name">
+                        <small id="name-help" class="form-text">
+                            <fmt:message bundle="${loc}" key="local.form.technical-task.name-help"/>
+                        </small>
+                        <div id="regex-name" class="hidden-regex">${regexTechnicalTaskName}</div>
+                        <label for="name" class="col-form-label"><fmt:message bundle="${loc}"
+                                                                              key="local.technical-tasks.update-overview"/></label>
+                        <textarea class="form-control" name="overview" id="overview"></textarea>
+                        <small id="overview-help" class="form-text">
+                            <fmt:message bundle="${loc}" key="local.form.technical-task.description-help"/>
+                        </small>
+                        <div id="regex-overview" class="hidden-regex">${regexTechnicalTaskOverview}</div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">
+                            <fmt:message bundle="${loc}"
+                                         key="local.technical-tasks.update-cancel"/></button>
+                        <button type="submit" class="btn btn-primary" id="create-task-button">
+                            <fmt:message bundle="${loc}" key="local.technical-tasks.update-submit"/></button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
 </div>
 <%@ include file="../WEB-INF/jspf/footer.jspf" %>
 <script src="https://use.fontawesome.com/6d201ab77c.js"></script>
@@ -211,6 +222,7 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+<script type="text/javascript" src="/js/validation.js"></script>
 <script type="text/javascript" src="/js/technical_task.js"></script>
 <script type="text/javascript" src="/js/pagging.js"></script>
 </body>

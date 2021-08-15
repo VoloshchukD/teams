@@ -8,6 +8,7 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css" rel="stylesheet"
           integrity="sha384-+0n0xVW2eSR5OomGNYDnhzAbDsOXxcvSN1TPprVMTNDbiYZCxYbOOl7+AMvyTG2x" crossorigin="anonymous">
     <link rel="stylesheet" href="/css/base.css">
+    <link rel="stylesheet" href="/css/validation.css">
 </head>
 <body>
 <div class="container-xxl">
@@ -106,39 +107,6 @@
                             </div>
                         </div>
                     </c:if>
-
-                    <div class="modal fade" id="modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
-                         aria-hidden="true">
-                        <div class="modal-dialog" role="document">
-                            <div class="modal-content">
-                                <div class="modal-header">
-                                    <h5 class="modal-title" id="exampleModalLabel"><fmt:message bundle="${loc}"
-                                                                                                key="local.bills.update-header"/></h5>
-                                </div>
-                                <form action="controller" method="post">
-                                    <input type="hidden" name="command" value="update-bill"/>
-                                    <input type="hidden" name="bill-id" id="updateBillId"/>
-                                    <input type="hidden" name="project-id" id="forUpdateProjectId"/>
-                                    <div class="modal-body">
-                                        <label for="amount" class="col-form-label"><fmt:message bundle="${loc}"
-                                                                                                key="local.bills.update-amount"/></label>
-                                        <input type="text" class="form-control" name="amount" id="amount"
-                                               style="width: 120px;">
-                                        <label for="information" class="col-form-label"><fmt:message bundle="${loc}"
-                                                                                                     key="local.bills.update-information"/></label>
-                                        <textarea class="form-control" name="information" id="information"></textarea>
-                                    </div>
-                                    <div class="modal-footer">
-                                        <button type="button" class="btn btn-secondary" data-dismiss="modal">
-                                            <fmt:message bundle="${loc}" key="local.bills.update-cancel"/></button>
-                                        <button type="submit" class="btn btn-primary" id="create-task-button">
-                                            <fmt:message bundle="${loc}" key="local.bills.update-submit"/></button>
-                                    </div>
-                                </form>
-                            </div>
-                        </div>
-                    </div>
-
                 </div>
             </c:forEach>
         </div>
@@ -158,6 +126,48 @@
                                                                          key="local.pagination.last"/></a>
         </div>
     </div>
+
+    <div class="modal fade" id="modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+         aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel"><fmt:message bundle="${loc}"
+                                                                                key="local.bills.update-header"/></h5>
+                </div>
+                <form action="controller" method="post" onSubmit="return validateBillForm()" novalidate>
+                    <input type="hidden" name="command" value="update-bill"/>
+                    <input type="hidden" name="bill-id" id="updateBillId"/>
+                    <input type="hidden" name="project-id" id="forUpdateProjectId"/>
+                    <div class="modal-body">
+                        <label for="amount" class="col-form-label"><fmt:message bundle="${loc}"
+                                                                                key="local.bills.update-amount"/></label>
+                        <input type="text" class="form-control" name="amount" id="amount"
+                               style="width: 120px;">
+                        <small id="amount-help" class="form-text">
+                            <fmt:message bundle="${loc}" key="local.form.bill.amount-help"/>
+                        </small>
+                        <div id="regex-amount" class="hidden-regex">${regexAmount}</div>
+                        <label for="information" class="col-form-label">
+                            <fmt:message bundle="${loc}" key="local.bills.update-information"/>
+                        </label>
+                        <textarea class="form-control" name="information" id="information"></textarea>
+                        <small id="information-help" class="form-text">
+                            <fmt:message bundle="${loc}" key="local.form.bill.information-help"/>
+                        </small>
+                        <div id="regex-information" class="hidden-regex">${regexInformation}</div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">
+                            <fmt:message bundle="${loc}" key="local.bills.update-cancel"/></button>
+                        <button type="submit" class="btn btn-primary" id="create-task-button">
+                            <fmt:message bundle="${loc}" key="local.bills.update-submit"/></button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
 </div>
 <%@ include file="../WEB-INF/jspf/footer.jspf" %>
 <script src="https://use.fontawesome.com/6d201ab77c.js"></script>
@@ -170,6 +180,8 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+<script type="text/javascript" src="/js/validation.js"></script>
+<script type="text/javascript" src="/js/bill_creation.js"></script>
 <script type="text/javascript" src="/js/bills.js"></script>
 <script type="text/javascript" src="/js/pagging.js"></script>
 </body>

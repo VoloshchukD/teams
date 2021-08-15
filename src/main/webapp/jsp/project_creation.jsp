@@ -65,8 +65,9 @@
                     </small>
                     <div id="regex-description" class="hidden-regex">${regexProjectDescription}</div>
                 </div>
-                <button type="submit" class="btn btn-primary mt-3" id="create"><fmt:message bundle="${loc}"
-                                                                                            key="local.project.create-button"/></button>
+                <button type="submit" class="btn btn-primary mt-3" id="create"><
+                    fmt:message bundle="${loc}" key="local.project.create-button"/>
+                </button>
             </form>
         </div>
 
