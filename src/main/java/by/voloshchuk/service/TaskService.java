@@ -1,6 +1,7 @@
 package by.voloshchuk.service;
 
 import by.voloshchuk.entity.Task;
+import by.voloshchuk.entity.dto.TaskDto;
 import by.voloshchuk.exception.ServiceException;
 
 import java.util.List;
@@ -13,7 +14,7 @@ public interface TaskService {
      * @param task - entity with required data for adding
      * @return boolean result of adding
      */
-    boolean addTask(Task task) throws ServiceException;
+    boolean addTask(TaskDto task) throws ServiceException;
 
     /**
      * Project tasks finding logics.
@@ -57,7 +58,7 @@ public interface TaskService {
      * @param task - data for task updating
      * @return {@link Task}
      */
-    Task updateTask(Task task) throws ServiceException;
+    Task updateTask(TaskDto task) throws ServiceException;
 
     /**
      * Task removing logics.

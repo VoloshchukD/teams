@@ -3,11 +3,16 @@ package by.voloshchuk.service.impl;
 import by.voloshchuk.dao.DaoProvider;
 import by.voloshchuk.dao.TaskDao;
 import by.voloshchuk.dao.TechnicalTaskDao;
+import by.voloshchuk.entity.Project;
 import by.voloshchuk.entity.Task;
 import by.voloshchuk.entity.TechnicalTask;
+import by.voloshchuk.entity.User;
+import by.voloshchuk.entity.dto.TaskDto;
 import by.voloshchuk.exception.DaoException;
 import by.voloshchuk.exception.ServiceException;
 import by.voloshchuk.service.TaskService;
+import by.voloshchuk.service.validator.Validator;
+import by.voloshchuk.service.validator.ValidatorProvider;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -19,15 +24,35 @@ public class TaskServiceImpl implements TaskService {
     private static DaoProvider daoProvider = DaoProvider.getInstance();
 
     @Override
-    public boolean addTask(Task task) throws ServiceException {
+    public boolean addTask(TaskDto taskDto) throws ServiceException {
         boolean result = false;
         TaskDao taskDao = daoProvider.getTaskDao();
-        try {
-            result = taskDao.addTask(task);
-        } catch (DaoException e) {
-            throw new ServiceException(e);
+        Validator<TaskDto> taskValidator = ValidatorProvider.getInstance().getTaskValidator();
+        if (taskValidator.validateCreateData(taskDto)) {
+            try {
+                Task task = buildTaskEntity(taskDto);
+                Project project = new Project();
+                Long projectId = Long.parseLong(taskDto.getProjectId());
+                project.setId(projectId);
+                task.setProject(project);
+                task.setStatus(Task.TaskStatus.TO_DO);
+                result = taskDao.addTask(task);
+            } catch (DaoException e) {
+                throw new ServiceException(e);
+            }
         }
         return result;
+    }
+
+    private Task buildTaskEntity(TaskDto taskDto) {
+        Task task = new Task();
+        User user = new User();
+        user.setId(Long.parseLong(taskDto.getUserId()));
+        task.setDeveloper(user);
+        task.setName(taskDto.getName());
+        task.setDetails(taskDto.getDetails());
+        task.setPlannedTime(Integer.parseInt(taskDto.getPlannedTime()));
+        return task;
     }
 
     @Override
@@ -79,13 +104,18 @@ public class TaskServiceImpl implements TaskService {
     }
 
     @Override
-    public Task updateTask(Task task) throws ServiceException {
+    public Task updateTask(TaskDto taskDto) throws ServiceException {
         Task updatedTask = null;
         TaskDao taskDao = daoProvider.getTaskDao();
-        try {
-            updatedTask = taskDao.updateTask(task);
-        } catch (DaoException e) {
-            throw new ServiceException(e);
+        Validator<TaskDto> taskValidator = ValidatorProvider.getInstance().getTaskValidator();
+        if (taskValidator.validateUpdateData(taskDto)) {
+            try {
+                Task task = buildTaskEntity(taskDto);
+                task.setId(taskDto.getTaskId());
+                updatedTask = taskDao.updateTask(task);
+            } catch (DaoException e) {
+                throw new ServiceException(e);
+            }
         }
         return updatedTask;
     }

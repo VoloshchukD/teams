@@ -25,7 +25,6 @@ public class TaskDaoTest {
 
     @BeforeClass
     public static void initializeTestData() {
-        CustomConnectionPool pool = CustomConnectionPool.getInstance();
         taskDao = DaoProvider.getInstance().getTaskDao();
         task = new Task();
         task.setId(DATABASE_TASK_ID);

@@ -78,6 +78,12 @@ public final class CommandAttribute {
 
     public static final String REQUIREMENT_PRIMARY_REGEX = "regexPrimary";
 
+    public static final String TASK_NAME_REGEX = "regexName";
+
+    public static final String TASK_DETAILS_REGEX = "regexDetails";
+
+    public static final String TASK_HOURS_REGEX = "regexHours";
+
     public static final String YEARS_ON_MARKET = "yearsOnMarket";
 
     public static final String PROJECTS_PRODUCTIVITY = "projectsProductivity";

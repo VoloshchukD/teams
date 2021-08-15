@@ -22,7 +22,6 @@ public class TechnicalTaskDaoTest {
 
     @BeforeClass
     public static void initializeTestData() {
-        CustomConnectionPool pool = CustomConnectionPool.getInstance();
         technicalTaskDao = DaoProvider.getInstance().getTechnicalTaskDao();
         technicalTask = new TechnicalTask();
         technicalTask.setId(DATABASE_TECHNICAL_TASK_ID);

@@ -25,7 +25,6 @@ public class UserDaoTest {
 
     @BeforeClass
     public static void initializeTestData() {
-        CustomConnectionPool pool = CustomConnectionPool.getInstance();
         userDao = DaoProvider.getInstance().getUserDao();
         user = new User();
         user.setId(DATABASE_USER_ID);

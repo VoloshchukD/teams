@@ -4,6 +4,7 @@ import by.voloshchuk.dao.pool.CustomConnectionPool;
 import by.voloshchuk.entity.Project;
 import by.voloshchuk.entity.Task;
 import by.voloshchuk.entity.User;
+import by.voloshchuk.entity.dto.TaskDto;
 import by.voloshchuk.exception.ServiceException;
 import org.junit.Assert;
 import org.junit.BeforeClass;
@@ -15,7 +16,7 @@ public class TaskServiceTest {
 
     private static TaskService taskService;
 
-    private static Task task;
+    private static TaskDto task;
 
     private static final Long DATABASE_TASK_ID = 1L;
 
@@ -25,20 +26,15 @@ public class TaskServiceTest {
 
     @BeforeClass
     public static void initializeTestData() {
-        CustomConnectionPool pool = CustomConnectionPool.getInstance();
         taskService = ServiceProvider.getInstance().getTaskService();
-        task = new Task();
-        task.setId(DATABASE_TASK_ID);
+        task = new TaskDto();
+        task.setTaskId(DATABASE_TASK_ID);
         task.setName("Bug fix");
         task.setDetails("Fix bug at UserService");
-        task.setPlannedTime(2);
-        task.setStatus(Task.TaskStatus.TO_DO);
-        Project project = new Project();
-        project.setId(DATABASE_PROJECT_ID);
-        task.setProject(project);
-        User developer = new User();
-        developer.setId(DATABASE_USER_ID);
-        task.setDeveloper(developer);
+        task.setPlannedTime("2");
+        task.setStatus(Task.TaskStatus.TO_DO.toString());
+        task.setProjectId(DATABASE_PROJECT_ID.toString());
+        task.setUserId(DATABASE_USER_ID.toString());
     }
 
     @Test
@@ -49,7 +45,8 @@ public class TaskServiceTest {
 
     @Test
     public void testFindTasksByProjectIdAndUserId() throws ServiceException {
-        List<Task> founded = taskService.findTasksByProjectIdAndUserId(DATABASE_PROJECT_ID, DATABASE_USER_ID);
+        List<Task> founded = taskService.findTasksByProjectIdAndUserId(DATABASE_PROJECT_ID,
+                DATABASE_USER_ID);
         Assert.assertNotNull(founded);
     }
 

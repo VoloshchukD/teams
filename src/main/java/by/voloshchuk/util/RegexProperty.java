@@ -66,6 +66,12 @@ public class RegexProperty {
 
     private static final String REGEX_PAYMENT_CVC = "regex.payment.cvc";
 
+    private static final String REGEX_TASK_NAME = "regex.task.name";
+
+    private static final String REGEX_TASK_DETAILS = "regex.task.details";
+
+    private static final String REGEX_TASK_HOURS = "regex.task.hours";
+
     private static final String RESOURCE_NAME = "regex";
 
     private static final ResourceBundle resourceBundle = ResourceBundle.getBundle(RESOURCE_NAME, Locale.getDefault());
@@ -140,5 +146,14 @@ public class RegexProperty {
 
     public static final String PROPERTY_PAYMENT_CVC_REGEX = resourceBundle.getString(
             REGEX_PAYMENT_CVC);
+
+    public static final String PROPERTY_TASK_NAME_REGEX = resourceBundle.getString(
+            REGEX_TASK_NAME);
+
+    public static final String PROPERTY_TASK_DETAILS_REGEX = resourceBundle.getString(
+            REGEX_TASK_DETAILS);
+
+    public static final String PROPERTY_TASK_HOURS_REGEX = resourceBundle.getString(
+            REGEX_TASK_HOURS);
 
 }

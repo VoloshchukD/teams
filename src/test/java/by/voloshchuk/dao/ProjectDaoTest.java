@@ -27,7 +27,6 @@ public class ProjectDaoTest {
 
     @BeforeClass
     public static void initializeTestData() {
-        CustomConnectionPool pool = CustomConnectionPool.getInstance();
         projectDao = DaoProvider.getInstance().getProjectDao();
         projectDto = new ProjectDto();
         project = new Project();

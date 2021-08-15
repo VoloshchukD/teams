@@ -22,7 +22,6 @@ public class TechnicalTaskServiceTest {
 
     @BeforeClass
     public static void initializeTestData() {
-        CustomConnectionPool pool = CustomConnectionPool.getInstance();
         technicalTaskService = ServiceProvider.getInstance().getTechnicalTaskService();
         technicalTaskDto = new TechnicalTaskDto();
         technicalTaskDto.setCustomerId(DATABASE_CUSTOMER_ID);

@@ -27,7 +27,6 @@ public class ProjectServiceTest {
 
     @BeforeClass
     public static void initializeTestData() {
-        CustomConnectionPool pool = CustomConnectionPool.getInstance();
         projectService = ServiceProvider.getInstance().getProjectService();
         projectDto = new ProjectDto();
         project = new Project();

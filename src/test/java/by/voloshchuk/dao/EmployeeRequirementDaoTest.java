@@ -24,7 +24,6 @@ public class EmployeeRequirementDaoTest {
 
     @BeforeClass
     public static void initializeTestData() {
-        CustomConnectionPool pool = CustomConnectionPool.getInstance();
         employeeRequirementDao = DaoProvider.getInstance().getEmployeeRequirementDao();
         employeeRequirement = new EmployeeRequirement();
         employeeRequirement.setId(DATABASE_EMPLOYEE_REQUIREMENT_ID);

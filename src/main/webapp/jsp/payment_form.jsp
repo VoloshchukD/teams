@@ -42,7 +42,7 @@
                                    placeholder="<fmt:message bundle="${loc}" key="local.payment.holder"/>"
                                    aria-label="Card Holder" aria-describedby="basic-addon1">
                             <small id="holder-help" class="form-text"><fmt:message bundle="${loc}"
-                                                                                  key="local.form.email-help"/></small>
+                                                                                  key="local.payment.holder-help"/></small>
                             <div id="regex-holder" class="hidden-regex">${regexHolder}</div>
                         </div>
                         <div class="form-group col-sm-5">
@@ -52,13 +52,13 @@
                                        placeholder="<fmt:message bundle="${loc}" key="local.payment.mm"/>" aria-label="MM"
                                        aria-describedby="basic-addon1">
                                 <small id="mm-help" class="form-text"><fmt:message bundle="${loc}"
-                                                                                       key="local.form.email-help"/></small>
+                                                                                       key="local.payment.mm-help"/></small>
                                 <div id="regex-mm" class="hidden-regex">${regexMm}</div>
                                 <input id="yy" type="text" name="yy" class="form-control"
                                        placeholder="<fmt:message bundle="${loc}" key="local.payment.yy"/>" aria-label="YY"
                                        aria-describedby="basic-addon1">
                                 <small id="yy-help" class="form-text"><fmt:message bundle="${loc}"
-                                                                                       key="local.form.email-help"/></small>
+                                                                                       key="local.payment.yy-help"/></small>
                                 <div id="regex-yy" class="hidden-regex">${regexYy}</div>
                             </div>
                         </div>
@@ -68,7 +68,7 @@
                                    placeholder="<fmt:message bundle="${loc}" key="local.payment.card-number"/>"
                                    aria-label="Card Holder" aria-describedby="basic-addon1">
                             <small id="number-help" class="form-text"><fmt:message bundle="${loc}"
-                                                                               key="local.form.email-help"/></small>
+                                                                               key="local.payment.number-help"/></small>
                             <div id="regex-number" class="hidden-regex">${regexNumber}</div>
                         </div>
                         <div class="form-group col-sm-4">
@@ -77,7 +77,7 @@
                                    placeholder="<fmt:message bundle="${loc}" key="local.payment.cvc"/>" aria-label="Card Holder"
                                    aria-describedby="basic-addon1">
                             <small id="cvc-help" class="form-text"><fmt:message bundle="${loc}"
-                                                                                   key="local.form.email-help"/></small>
+                                                                                   key="local.payment.cvc-help"/></small>
                             <div id="regex-cvc" class="hidden-regex">${regexCvc}</div>
                         </div>
                         <div class="form-group col-sm-12">

@@ -11,9 +11,11 @@
           integrity="sha384-lZN37f5QGtY3VHgisS14W3ExzMWZxybE1SJSEsQp9S+oqd12jhcu+A56Ebc1zFSJ" crossorigin="anonymous">
     <link rel="stylesheet" href="/css/base.css">
     <link rel="stylesheet" href="http://cdn.webix.com/edge/webix.css" type="text/css">
+    <link rel="stylesheet" href="/css/validation.css">
 </head>
 <body>
 <div class="container-xxl">
+
     <div class="modal fade" id="modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
          aria-hidden="true">
         <div class="modal-dialog" role="document">
@@ -23,16 +25,25 @@
                                                                                 key="local.tasks.create-header"/></h5>
                 </div>
                 <div class="modal-body">
-                    <form>
-                        <label for="name" class="col-form-label"><fmt:message bundle="${loc}"
+                    <form novalidate>
+                        <label for="createName" class="col-form-label"><fmt:message bundle="${loc}"
                                                                               key="local.tasks.create-name"/></label>
-                        <input type="text" class="form-control" name="name" id="name">
-                        <label for="details" class="col-form-label"><fmt:message bundle="${loc}"
+                        <input type="text" class="form-control create-form" name="name" id="createName">
+                        <small id="createName-help" class="form-text">
+                            <fmt:message bundle="${loc}" key="local.tasks.name-help"/>
+                        </small>
+                        <label for="createDetails" class="col-form-label"><fmt:message bundle="${loc}"
                                                                                  key="local.tasks.create-description"/></label>
-                        <textarea class="form-control" name="details" id="details"></textarea>
-                        <label for="hours" class="col-form-label"><fmt:message bundle="${loc}"
+                        <textarea class="form-control create-form" name="details" id="createDetails"></textarea>
+                        <small id="createDetails-help" class="form-text">
+                            <fmt:message bundle="${loc}" key="local.tasks.details-help"/>
+                        </small>
+                        <label for="createHours" class="col-form-label"><fmt:message bundle="${loc}"
                                                                                key="local.tasks.create-hours"/></label>
-                        <input type="text" class="form-control" name="hours" id="hours">
+                        <input type="text" class="form-control create-form" name="hours" id="createHours">
+                        <small id="createHours-help" class="form-text">
+                            <fmt:message bundle="${loc}" key="local.tasks.hours-help"/>
+                        </small>
                         <label for="developer" class="col-form-label"><fmt:message bundle="${loc}"
                                                                                    key="local.tasks.create-executor"/></label>
                         <select class="form-select" aria-label="Default select example" name="developer" id="developer">
@@ -56,9 +67,9 @@
             <div class="col-4  text-center">
                 <div class="card">
                     <div class="card-body">
-                        <button type="button" class="btn btn-primary mt-1 save" data-toggle="modal" data-target="#modal"
-                                id="create-task-modal-button"><fmt:message bundle="${loc}"
-                                                                           key="local.tasks.button-modal"/>
+                        <button type="button" class="btn btn-primary mt-1" data-toggle="modal"
+                                data-target="#modal" id="create-task-modal-button">
+                            <fmt:message bundle="${loc}" key="local.tasks.button-modal"/>
                         </button>
                     </div>
                 </div>
@@ -66,9 +77,9 @@
             <div class="col-4 text-center">
                 <div class="card">
                     <div class="card-body">
-                        <button type="button" class="btn btn-primary mt-1 save" data-toggle="modal"
-                                data-target="#finishModal"
-                                id="finish-project-modal-button">Finish project
+                        <button type="button" class="btn btn-primary mt-1" data-toggle="modal"
+                                data-target="#finishModal" id="finish-project-modal-button">
+                            <fmt:message bundle="${loc}" key="local.tasks.finish-project"/>
                         </button>
                     </div>
                 </div>
@@ -116,9 +127,11 @@
 
                             <div class="d-flex justify-content-between my-auto">
                                 <div>
+                                <c:if test="${ role == 'DEVELOPER' }">
                                     <button type="button" class="btn btn-primary track">
                                         <fmt:message bundle="${loc}" key="local.tasks.track-button"/>
                                     </button>
+                                </c:if>
                                 </div>
                                 <div>
                                     <button type="button" class="btn btn-outline-dark hours" disabled><small
@@ -195,9 +208,11 @@
 
                             <div class="d-flex justify-content-between my-auto">
                                 <div>
-                                    <button type="button" class="btn btn-primary track">
-                                        <fmt:message bundle="${loc}" key="local.tasks.track-button"/>
-                                    </button>
+                                    <c:if test="${ role == 'DEVELOPER' }">
+                                        <button type="button" class="btn btn-primary track">
+                                            <fmt:message bundle="${loc}" key="local.tasks.track-button"/>
+                                        </button>
+                                    </c:if>
                                 </div>
                                 <div>
                                     <button type="button" class="btn btn-outline-dark hours" disabled><small
@@ -274,9 +289,11 @@
 
                             <div class="d-flex justify-content-between my-auto">
                                 <div>
-                                    <button type="button" class="btn btn-primary track">
-                                        <fmt:message bundle="${loc}" key="local.tasks.track-button"/>
-                                    </button>
+                                    <c:if test="${ role == 'DEVELOPER' }">
+                                        <button type="button" class="btn btn-primary track">
+                                            <fmt:message bundle="${loc}" key="local.tasks.track-button"/>
+                                        </button>
+                                    </c:if>
                                 </div>
                                 <div>
                                     <button type="button" class="btn btn-outline-dark hours" disabled><small
@@ -352,26 +369,41 @@
                         <fmt:message bundle="${loc}" key="local.tasks.update-header"/>
                     </h5>
                 </div>
-                <form action="controller" method="post">
+
+                <form action="controller" method="post"
+                      onSubmit="return validateUpdateTaskForm()" novalidate>
                     <input type="hidden" name="command" value="update-task"/>
                     <input type="hidden" name="task-id" id="updateTaskId"/>
                     <input type="hidden" name="project-id" id="forUpdateProjectId"/>
                     <div class="modal-body">
                         <label for="updateName" class="col-form-label"><fmt:message
                                 bundle="${loc}" key="local.tasks.update-name"/></label>
-                        <input type="text" class="form-control" name="name" id="updateName">
+                        <input type="text" class="form-control update-form" name="name" id="updateName">
+                        <small id="name-help" class="form-text"><fmt:message bundle="${loc}"
+                                                                              key="local.tasks.name-help"/></small>
+                        <div id="regex-name" class="hidden-regex">${regexName}</div>
                         <label for="updateDetails" class="col-form-label"><fmt:message
                                 bundle="${loc}" key="local.tasks.update-description"/></label>
-                        <textarea class="form-control" name="details"
-                                  id="updateDetails"></textarea>
-                        <label for="updateHours" class="col-form-label"><fmt:message
-                                bundle="${loc}" key="local.tasks.update-hours"/></label>
-                        <input type="text" class="form-control" name="hours" id="updateHours">
-                        <label for="updateDeveloper" class="col-form-label"><fmt:message
-                                bundle="${loc}" key="local.tasks.update-executor"/></label>
-                        <select class="form-select" name="user-id" id="updateDeveloper">
-                            <option value="null" selected><fmt:message bundle="${loc}"
-                                                                       key="local.tasks.update-assign"/></option>
+                        <textarea class="form-control update-form" name="details" id="updateDetails"></textarea>
+                        <small id="details-help" class="form-text">
+                            <fmt:message bundle="${loc}" key="local.tasks.details-help"/>
+                        </small>
+                        <div id="regex-details" class="hidden-regex">${regexDetails}</div>
+                        <label for="updateHours" class="col-form-label">
+                            <fmt:message bundle="${loc}" key="local.tasks.update-hours"/>
+                        </label>
+                        <input type="text" class="form-control update-form" name="hours" id="updateHours">
+                        <small id="hours-help" class="form-text">
+                            <fmt:message bundle="${loc}" key="local.tasks.hours-help"/>
+                        </small>
+                        <label for="updateDeveloper" class="col-form-label">
+                            <fmt:message bundle="${loc}" key="local.tasks.update-executor"/>
+                        </label>
+                        <div id="regex-hours" class="hidden-regex">${regexHours}</div>
+                        <select class="form-select" name="id" id="updateDeveloper">
+                            <option value="null" selected>
+                                <fmt:message bundle="${loc}" key="local.tasks.update-assign"/>
+                            </option>
                         </select>
                     </div>
                     <div class="modal-footer">
@@ -445,6 +477,7 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+<script type="text/javascript" src="/js/validation.js"></script>
 <script type="text/javascript" src="/js/tasks.js"></script>
 </body>
 </html>

@@ -23,7 +23,6 @@ public class BillDaoTest {
 
     @BeforeClass
     public static void initializeTestData() {
-        CustomConnectionPool pool = CustomConnectionPool.getInstance();
         billDao = DaoProvider.getInstance().getBillDao();
         bill = new Bill();
         bill.setId(DATABASE_BILL_ID);

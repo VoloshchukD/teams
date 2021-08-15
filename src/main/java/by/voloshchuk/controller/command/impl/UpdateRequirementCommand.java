@@ -31,7 +31,6 @@ public class UpdateRequirementCommand implements Command {
         EmployeeRequirementService requirementService = serviceProvider.getEmployeeRequirementService();
         EmployeeRequirementDto requirementDto = DtoBuilder.buildEmployeeRequirementDto(request);
         requirementDto.setRequirementId(Long.parseLong(request.getParameter(RequestParameter.REQUIREMENT_ID)));
-        System.out.println(requirementDto);
         try {
             requirementService.updateEmployeeRequirement(requirementDto);
         } catch (ServiceException e) {

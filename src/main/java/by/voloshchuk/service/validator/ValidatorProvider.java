@@ -18,6 +18,8 @@ public class ValidatorProvider {
 
     private final Validator<EmployeeRequirementDto> requirementValidator = new EmployeeRequirementValidator();
 
+    private final Validator<TaskDto> taskValidator = new TaskValidator();
+
     private ValidatorProvider() {
     }
 
@@ -51,6 +53,10 @@ public class ValidatorProvider {
 
     public Validator<EmployeeRequirementDto> getEmployeeRequirementValidator() {
         return requirementValidator;
+    }
+
+    public Validator<TaskDto> getTaskValidator() {
+        return taskValidator;
     }
 
 }

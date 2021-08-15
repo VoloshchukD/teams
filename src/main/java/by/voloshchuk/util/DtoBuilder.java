@@ -1,9 +1,11 @@
 package by.voloshchuk.util;
 
+import by.voloshchuk.controller.command.AsyncCommandParameter;
 import by.voloshchuk.controller.command.RequestParameter;
 import by.voloshchuk.entity.User;
 import by.voloshchuk.entity.UserDetail;
 import by.voloshchuk.entity.dto.EmployeeRequirementDto;
+import by.voloshchuk.entity.dto.TaskDto;
 import by.voloshchuk.entity.dto.UserDto;
 
 import javax.servlet.http.HttpServletRequest;
@@ -41,6 +43,15 @@ public class DtoBuilder {
         employeeRequirementDto.setQualification(request.getParameter(RequestParameter.QUALIFICATION));
         employeeRequirementDto.setComment(request.getParameter(RequestParameter.COMMENT));
         return employeeRequirementDto;
+    }
+
+    public static TaskDto buildTaskDto(HttpServletRequest request) {
+        TaskDto taskDto = new TaskDto();
+        taskDto.setUserId(request.getParameter(AsyncCommandParameter.USER_ID));
+        taskDto.setName(request.getParameter(AsyncCommandParameter.TASK_NAME));
+        taskDto.setDetails(request.getParameter(AsyncCommandParameter.TASK_DETAILS));
+        taskDto.setPlannedTime(request.getParameter(AsyncCommandParameter.TASK_HOURS));
+        return taskDto;
     }
 
 }

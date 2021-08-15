@@ -24,7 +24,6 @@ public class BillServiceTest {
 
     @BeforeClass
     public static void initializeTestData() {
-        CustomConnectionPool pool = CustomConnectionPool.getInstance();
         billService = ServiceProvider.getInstance().getBillService();
         bill = new Bill();
         bill.setId(DATABASE_BILL_ID);

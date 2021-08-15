@@ -17,7 +17,6 @@ public class UserDetailServiceTest {
 
     @BeforeClass
     public static void initializeTestData() {
-        CustomConnectionPool pool = CustomConnectionPool.getInstance();
         userDetailService = ServiceProvider.getInstance().getUserDetailService();
         userDetail = new UserDetail();
         userDetail.setId(DATABASE_USER_DETAIL_ID);
