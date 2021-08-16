@@ -17,6 +17,7 @@ public class UserDetailDaoImpl implements UserDetailDao {
         executor = new DaoExecutor<>(builder);
     }
 
+    @Override
     public UserDetail findUserDetailByUserId(Long userId) throws DaoException {
         Object[] parameters = {userId};
         UserDetail userDetail = executor.executeQuery(
@@ -24,6 +25,7 @@ public class UserDetailDaoImpl implements UserDetailDao {
         return userDetail;
     }
 
+    @Override
     public UserDetail updateUserDetail(UserDetail userDetail) throws DaoException {
         UserDetail resultUserDetail = null;
         Object[] parameters = {userDetail.getFirstName(), userDetail.getLastName(),
@@ -39,6 +41,7 @@ public class UserDetailDaoImpl implements UserDetailDao {
         return resultUserDetail;
     }
 
+    @Override
     public String updateUserDetailStatus(Long id, String status) throws DaoException {
         String resultStatus = null;
         Object[] parameters = {status, id};
@@ -47,9 +50,10 @@ public class UserDetailDaoImpl implements UserDetailDao {
         if (result) {
             resultStatus = status;
         }
-        return status;
+        return resultStatus;
     }
 
+    @Override
     public String updateUserDetailImage(Long userDetailId, String imagePath)
             throws DaoException {
         String resultImagePath = null;

@@ -1,10 +1,10 @@
 package by.voloshchuk.controller.command.impl.transition;
 
+import by.voloshchuk.controller.command.*;
 import by.voloshchuk.entity.Project;
 import by.voloshchuk.exception.ServiceException;
 import by.voloshchuk.service.ProjectService;
 import by.voloshchuk.service.ServiceProvider;
-import by.voloshchuk.controller.command.*;
 import by.voloshchuk.util.RegexProperty;
 import org.apache.logging.log4j.Level;
 import org.apache.logging.log4j.LogManager;
@@ -27,7 +27,8 @@ public class ToUserProjectsCommand implements Command {
     private static ServiceProvider serviceProvider = ServiceProvider.getInstance();
 
     @Override
-    public CommandRouter execute(HttpServletRequest request, HttpServletResponse response) throws ServletException {
+    public CommandRouter execute(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException {
         String state = request.getParameter(RequestParameter.PROJECT_STATE);
         Long userId = (Long) request.getSession().getAttribute(CommandAttribute.USER_ID);
         List<Project> projects = null;
@@ -55,7 +56,9 @@ public class ToUserProjectsCommand implements Command {
         request.setAttribute(CommandAttribute.PROJECT_DESCRIPTION_REGEX,
                 RegexProperty.PROPERTY_PROJECT_DESCRIPTION_REGEX);
 
-        CommandRouter router = new CommandRouter(CommandRouter.RouterType.FORWARD, CommandPath.PROJECTS_JSP);
+        CommandRouter router =
+                new CommandRouter(CommandRouter.RouterType.FORWARD,
+                        CommandPath.PROJECTS_JSP);
         return router;
     }
 

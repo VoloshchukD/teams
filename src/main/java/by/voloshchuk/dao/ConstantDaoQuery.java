@@ -184,7 +184,8 @@ public final class ConstantDaoQuery {
             "WHERE user_detail_id = ?";
 
     public static final String FIND_USER_DETAIL_BY_USER_ID_QUERY = "SELECT * FROM user_details " +
-            "INNER JOIN users ON user_details.user_detail_id = users.user_detail_id WHERE users.user_id = ?";
+            "INNER JOIN users ON user_details.user_detail_id = users.user_detail_id " +
+            "WHERE users.user_id = ?";
 
     public static final String UPDATE_USER_DETAIL_QUERY = "UPDATE user_details SET first_name = ?, " +
             "last_name = ?, company = ?, position = ?, experience = ?, salary = ?, primary_skill = ?, " +
@@ -196,6 +197,27 @@ public final class ConstantDaoQuery {
     public static final String UPDATE_USER_DETAIL_IMAGE_QUERY = "UPDATE user_details " +
             "SET user_image_path = ? " +
             "WHERE user_detail_id = ?";
+
+    public static final String ADD_EMPLOYEE_REQUIREMENT_QUERY = "INSERT INTO employee_requirements " +
+            "(experience, salary, qualification, primary_skill, " +
+            "comment, technical_task_id) VALUES (?, ?, ?, ?, ?, ?)";
+
+    public static final String FIND_ALL_BY_TECHNICAL_TASK_ID_QUERY = "SELECT * FROM employee_requirements " +
+            "WHERE employee_requirements.technical_task_id = ?";
+
+    public static final String FIND_ALL_BY_PROJECT_ID_QUERY = "SELECT * FROM employee_requirements " +
+            "INNER JOIN technical_tasks " +
+            "ON employee_requirements.technical_task_id = technical_tasks.technical_task_id " +
+            "INNER JOIN projects " +
+            "ON projects.technical_task_id = technical_tasks.technical_task_id " +
+            "WHERE projects.project_id = ?";
+
+    public static final String UPDATE_EMPLOYEE_REQUIREMENT_QUERY = "UPDATE employee_requirements " +
+            "SET experience = ?, salary = ?, qualification = ?, primary_skill = ?, comment = ? " +
+            "WHERE employee_requirement_id = ?";
+
+    public static final String DELETE_EMPLOYEE_REQUIREMENT_QUERY = "DELETE FROM employee_requirements " +
+            "WHERE employee_requirement_id = ?";
 
     private ConstantDaoQuery() {
     }

@@ -19,7 +19,7 @@ import java.util.Map;
 
 public class UserDaoImpl implements UserDao {
 
-    private CustomConnectionPool connectionPool = CustomConnectionPool.getInstance();
+    private final CustomConnectionPool connectionPool = CustomConnectionPool.getInstance();
 
     private final DaoExecutor<User> executor;
 
@@ -28,6 +28,7 @@ public class UserDaoImpl implements UserDao {
         executor = new DaoExecutor<>(builder);
     }
 
+    @Override
     public boolean addUser(User user) throws DaoException {
         boolean added = false;
         Connection connection = connectionPool.getConnection();
@@ -68,20 +69,21 @@ public class UserDaoImpl implements UserDao {
             try {
                 connection.rollback();
             } catch (SQLException exception) {
-                throw new DaoException(exception);
-            } finally {
-                try {
-                    connection.setAutoCommit(true);
-                    connection.close();
-                } catch (SQLException exception) {
-                    throw new DaoException(exception);
-                }
+                throw new DaoException("Exception while add user rollback ", e);
             }
-            throw new DaoException(e);
+            throw new DaoException("Exception while add user ", e);
+        } finally {
+            try {
+                connection.setAutoCommit(true);
+                connection.close();
+            } catch (SQLException e) {
+                throw new DaoException("Exception while connection close ", e);
+            }
         }
         return added;
     }
 
+    @Override
     public Map<String, Integer> findBasicData() throws DaoException {
         Map<String, Integer> resultData = new HashMap<>();
         try (Connection connection = connectionPool.getConnection();
@@ -99,11 +101,12 @@ public class UserDaoImpl implements UserDao {
                         resultSet.getInt(ConstantColumnName.BASIC_DATA_PROJECTS));
             }
         } catch (SQLException e) {
-            throw new DaoException(e);
+            throw new DaoException("Exception while find basic data ", e);
         }
         return resultData;
     }
 
+    @Override
     public User findUserById(Long id) throws DaoException {
         Object[] parameters = {id};
         User user = executor.executeQuery(
@@ -111,6 +114,7 @@ public class UserDaoImpl implements UserDao {
         return user;
     }
 
+    @Override
     public List<User> findUsersByProjectId(Long projectId) throws DaoException {
         Object[] parameters = {projectId};
         List<User> users = executor.executeQueryMultipleResult(
@@ -118,6 +122,7 @@ public class UserDaoImpl implements UserDao {
         return users;
     }
 
+    @Override
     public User findUserByEmail(String email) throws DaoException {
         Object[] parameters = {email};
         User user = executor.executeQuery(
@@ -125,6 +130,7 @@ public class UserDaoImpl implements UserDao {
         return user;
     }
 
+    @Override
     public List<User> findUsersByPrimarySkill(String primarySkill) throws DaoException {
         Object[] parameters = {ConstantDaoQuery.PERCENT
                 + primarySkill
@@ -134,6 +140,7 @@ public class UserDaoImpl implements UserDao {
         return users;
     }
 
+    @Override
     public User updateUser(User user) throws DaoException {
         User resultUser = null;
         Object[] parameters = {user.getEmail(), user.getPassword(), user.getId()};
@@ -145,6 +152,7 @@ public class UserDaoImpl implements UserDao {
         return resultUser;
     }
 
+    @Override
     public boolean removeUserById(Long userId, Long userDetailId) throws DaoException {
         String[] queries = {ConstantDaoQuery.DELETE_USER_QUERY,
                 ConstantDaoQuery.DELETE_USER_DETAIL_QUERY};
@@ -153,6 +161,7 @@ public class UserDaoImpl implements UserDao {
         return removed;
     }
 
+    @Override
     public List<User> findAllByEmployeeRequirement(EmployeeRequirement requirements)
             throws DaoException {
         Object[] parameters = {requirements.getExperience(), requirements.getSalary(),
@@ -162,6 +171,7 @@ public class UserDaoImpl implements UserDao {
         return users;
     }
 
+    @Override
     public boolean addUserToProject(Long userId, Long projectId) throws DaoException {
         Object[] parameters = {projectId, userId};
         boolean added = executor.executeUpdate(
@@ -169,6 +179,7 @@ public class UserDaoImpl implements UserDao {
         return added;
     }
 
+    @Override
     public boolean removeUserFromProject(Long userId, Long projectId) throws DaoException {
         Object[] parameters = {projectId, userId};
         boolean removed = executor.executeUpdate(

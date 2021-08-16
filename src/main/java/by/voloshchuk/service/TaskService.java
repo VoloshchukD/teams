@@ -20,7 +20,7 @@ public interface TaskService {
      * Project tasks finding logics.
      *
      * @param projectId - id of project with tasks
-     * @param userId - id of user on project
+     * @param userId    - id of user on project
      * @return list of {@link Task}
      */
     List<Task> findTasksByProjectIdAndUserId(Long projectId, Long userId) throws ServiceException;

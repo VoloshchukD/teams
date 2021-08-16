@@ -45,17 +45,26 @@ public class UpdateUserDetailCommand implements AsyncCommand {
         String jsonString = request.getParameter(AsyncCommandParameter.JSON_STRING);
         JSONObject jsonObject = new JSONObject(jsonString);
         UserDto userDto = new UserDto();
-        Long userDetailId = (Long) request.getSession().getAttribute(CommandAttribute.USER_DETAIL_ID);
+        Long userDetailId = (Long) request.getSession().getAttribute(
+                CommandAttribute.USER_DETAIL_ID);
         userDto.setUserDetailId(userDetailId);
-        userDto.setFirstName(jsonObject.getString(AsyncCommandParameter.USER_DETAIL_FIRST_NAME));
-        userDto.setLastName(jsonObject.getString(AsyncCommandParameter.USER_DETAIL_LAST_NAME));
-        userDto.setCompany(jsonObject.getString(AsyncCommandParameter.USER_DETAIL_COMPANY));
-        userDto.setPosition(jsonObject.getString(AsyncCommandParameter.USER_DETAIL_POSITION));
-        userDto.setExperience(jsonObject.getString(AsyncCommandParameter.USER_DETAIL_EXPERIENCE));
-        userDto.setSalary(jsonObject.getString(AsyncCommandParameter.USER_DETAIL_SALARY));
-        userDto.setPrimarySkill(jsonObject.getString(AsyncCommandParameter.USER_DETAIL_PRIMARY_SKILL));
+        userDto.setFirstName(jsonObject.getString(
+                AsyncCommandParameter.USER_DETAIL_FIRST_NAME));
+        userDto.setLastName(jsonObject.getString(
+                AsyncCommandParameter.USER_DETAIL_LAST_NAME));
+        userDto.setCompany(jsonObject.getString(
+                AsyncCommandParameter.USER_DETAIL_COMPANY));
+        userDto.setPosition(jsonObject.getString(
+                AsyncCommandParameter.USER_DETAIL_POSITION));
+        userDto.setExperience(jsonObject.getString(
+                AsyncCommandParameter.USER_DETAIL_EXPERIENCE));
+        userDto.setSalary(jsonObject.getString(
+                AsyncCommandParameter.USER_DETAIL_SALARY));
+        userDto.setPrimarySkill(jsonObject.getString(
+                AsyncCommandParameter.USER_DETAIL_PRIMARY_SKILL));
         userDto.setSkillsDescription(
-                jsonObject.getString(AsyncCommandParameter.USER_DETAIL_SKILLS_DESCRIPTION));
+                jsonObject.getString(
+                        AsyncCommandParameter.USER_DETAIL_SKILLS_DESCRIPTION));
         return userDto;
     }
 

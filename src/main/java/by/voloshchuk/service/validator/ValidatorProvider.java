@@ -16,7 +16,8 @@ public class ValidatorProvider {
 
     private final PaymentValidator<PaymentDto> paymentValidator = new PaymentValidatorImpl();
 
-    private final Validator<EmployeeRequirementDto> requirementValidator = new EmployeeRequirementValidator();
+    private final Validator<EmployeeRequirementDto> requirementValidator =
+            new EmployeeRequirementValidator();
 
     private final Validator<TaskDto> taskValidator = new TaskValidator();
 

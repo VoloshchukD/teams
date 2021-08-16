@@ -1,11 +1,11 @@
 package by.voloshchuk.controller.command.impl.async;
 
-import by.voloshchuk.exception.ServiceException;
-import by.voloshchuk.service.ServiceProvider;
-import by.voloshchuk.service.UserDetailService;
 import by.voloshchuk.controller.command.AsyncCommand;
 import by.voloshchuk.controller.command.AsyncCommandParameter;
 import by.voloshchuk.controller.command.CommandAttribute;
+import by.voloshchuk.exception.ServiceException;
+import by.voloshchuk.service.ServiceProvider;
+import by.voloshchuk.service.UserDetailService;
 import org.apache.logging.log4j.Level;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -29,8 +29,10 @@ public class UpdateUserStatusCommand implements AsyncCommand {
     @Override
     public void execute(HttpServletRequest request, HttpServletResponse response)
             throws IOException, ServletException {
-        String status = request.getParameter(AsyncCommandParameter.USER_DETAIL_STATUS);
-        Long userDetailId = (Long) request.getSession().getAttribute(CommandAttribute.USER_DETAIL_ID);
+        String status = request.getParameter(
+                AsyncCommandParameter.USER_DETAIL_STATUS);
+        Long userDetailId = (Long) request.getSession().getAttribute(
+                CommandAttribute.USER_DETAIL_ID);
 
         UserDetailService userDetailService = serviceProvider.getUserDetailService();
         try {

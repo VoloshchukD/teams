@@ -26,7 +26,8 @@ public class AcceptPaymentCommand implements AsyncCommand {
     private static ServiceProvider serviceProvider = ServiceProvider.getInstance();
 
     @Override
-    public void execute(HttpServletRequest request, HttpServletResponse response) throws ServletException {
+    public void execute(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException {
         Long billId = Long.parseLong(request.getParameter(RequestParameter.BILL_ID));
         BillService billService = serviceProvider.getBillService();
         try {

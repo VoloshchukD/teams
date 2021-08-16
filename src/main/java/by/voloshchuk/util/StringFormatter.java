@@ -6,7 +6,7 @@ import java.util.Date;
 
 public class StringFormatter {
 
-    public static final String DATE_FORMAT = "yyyy-MM-dd HH:mm:ss";
+    private static final String DATE_FORMAT = "yyyy-MM-dd HH:mm:ss";
 
     private static final String COMMAND_SEPARATOR = "-";
 

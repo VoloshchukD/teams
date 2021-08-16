@@ -1,6 +1,9 @@
 package by.voloshchuk.controller.command.impl;
 
-import by.voloshchuk.controller.command.*;
+import by.voloshchuk.controller.command.Command;
+import by.voloshchuk.controller.command.CommandPath;
+import by.voloshchuk.controller.command.CommandRouter;
+import by.voloshchuk.controller.command.RequestParameter;
 import by.voloshchuk.entity.Project;
 import by.voloshchuk.exception.ServiceException;
 import by.voloshchuk.service.ProjectService;
@@ -25,7 +28,8 @@ public class FinishProjectCommand implements Command {
     private static ServiceProvider serviceProvider = ServiceProvider.getInstance();
 
     @Override
-    public CommandRouter execute(HttpServletRequest request, HttpServletResponse response) throws ServletException {
+    public CommandRouter execute(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException {
         String state = Project.ProjectStatus.FINISHED.toString();
         Long projectId = Long.parseLong(request.getParameter(RequestParameter.PROJECT_ID));
         ProjectService projectService = serviceProvider.getProjectService();
@@ -35,7 +39,8 @@ public class FinishProjectCommand implements Command {
             logger.log(Level.ERROR, e.getMessage());
         }
 
-        CommandRouter router = new CommandRouter(CommandRouter.RouterType.REDIRECT, CommandPath.TO_PROJECTS);
+        CommandRouter router = new CommandRouter(CommandRouter.RouterType.REDIRECT,
+                CommandPath.TO_PROJECTS);
         return router;
     }
 

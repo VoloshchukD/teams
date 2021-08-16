@@ -2,6 +2,7 @@ package by.voloshchuk.service;
 
 import by.voloshchuk.entity.Task;
 import by.voloshchuk.entity.dto.TaskDto;
+import by.voloshchuk.exception.DaoException;
 import by.voloshchuk.exception.ServiceException;
 import org.junit.Assert;
 import org.junit.BeforeClass;
@@ -52,6 +53,21 @@ public class TaskServiceTest {
         List<Task> founded = taskService.findTaskByProjectIdAndStatus(
                 DATABASE_PROJECT_ID, Task.TaskStatus.DONE.toString());
         Assert.assertNotNull(founded);
+    }
+
+    @Test
+    public void testUpdateTaskStatus() throws ServiceException {
+        String updateData = Task.TaskStatus.DONE.toString();
+        task.setName(updateData);
+        String updated = taskService.updateTaskStatus(DATABASE_TASK_ID, updateData);
+        Assert.assertEquals(updated, updateData);
+    }
+
+    @Test
+    public void testUpdateTaskHours() throws ServiceException {
+        Integer updateData = 4;
+        Integer updated = taskService.updateTaskHours(DATABASE_TASK_ID, updateData);
+        Assert.assertEquals(updateData, updated);
     }
 
     @Test

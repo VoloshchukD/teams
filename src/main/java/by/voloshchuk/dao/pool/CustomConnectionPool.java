@@ -131,8 +131,8 @@ public class CustomConnectionPool {
             } catch (InterruptedException e) {
                 logger.log(Level.ERROR, "Waiting interrupted " + e.getMessage());
             } catch (SQLException e) {
-                logger.log(Level.ERROR, "SQLException while closing connections in method destroyPool "
-                        + e.getMessage());
+                logger.log(Level.ERROR, "SQLException while closing " +
+                        "connections in method destroyPool " + e.getMessage());
             }
         }
         deregisterDrivers();

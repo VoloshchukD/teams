@@ -7,9 +7,6 @@ package by.voloshchuk.controller.command;
  */
 public final class RequestParameter {
 
-    private RequestParameter() {
-    }
-
     public static final String REFER_HEADER = "Referer";
 
     public static final String COMMAND = "command";
@@ -59,6 +56,8 @@ public final class RequestParameter {
     public static final String TECHNICAL_TASKS_NAME = "name";
 
     public static final String TECHNICAL_TASKS_OVERVIEW = "overview";
+
+    public static final String TECHNICAL_TASKS_DEADLINE = "deadline";
 
     public static final String PROJECTS = "projects";
 
@@ -127,4 +126,8 @@ public final class RequestParameter {
     public static final String CARD_NUMBER = "card-number";
 
     public static final String CARD_CVC = "cvc";
+
+    private RequestParameter() {
+    }
+
 }

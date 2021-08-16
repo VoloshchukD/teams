@@ -27,7 +27,8 @@ public class ToBillCreationCommand implements Command {
     private static ServiceProvider serviceProvider = ServiceProvider.getInstance();
 
     @Override
-    public CommandRouter execute(HttpServletRequest request, HttpServletResponse response) throws ServletException {
+    public CommandRouter execute(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException {
         Long userId = (Long) request.getSession().getAttribute(CommandAttribute.USER_ID);
         List<Project> projects = null;
         ProjectService projectService = serviceProvider.getProjectService();
@@ -39,10 +40,13 @@ public class ToBillCreationCommand implements Command {
         }
 
         request.setAttribute(RequestParameter.PROJECTS, projects);
-        request.setAttribute(CommandAttribute.BILL_AMOUNT_REGEX, RegexProperty.PROPERTY_BILL_AMOUNT_REGEX);
-        request.setAttribute(CommandAttribute.BILL_INFORMATION_REGEX, RegexProperty.PROPERTY_BILL_INFORMATION_REGEX);
+        request.setAttribute(CommandAttribute.BILL_AMOUNT_REGEX,
+                RegexProperty.PROPERTY_BILL_AMOUNT_REGEX);
+        request.setAttribute(CommandAttribute.BILL_INFORMATION_REGEX,
+                RegexProperty.PROPERTY_BILL_INFORMATION_REGEX);
 
-        CommandRouter router = new CommandRouter(CommandRouter.RouterType.FORWARD, CommandPath.BILL_CREATION_JSP);
+        CommandRouter router = new CommandRouter(CommandRouter.RouterType.FORWARD,
+                CommandPath.BILL_CREATION_JSP);
         return router;
     }
 

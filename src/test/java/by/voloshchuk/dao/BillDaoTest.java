@@ -63,4 +63,11 @@ public class BillDaoTest {
         Assert.assertEquals(updateData, updated.getInformation());
     }
 
+    @Test
+    public void testUpdateBillStatus() throws DaoException {
+        String updated = billDao.updateBillStatus(DATABASE_BILL_ID,
+                Bill.BillStatus.ACCEPTED.toString());
+        Assert.assertNotNull(updated);
+    }
+
 }

@@ -56,6 +56,21 @@ public class TaskDaoTest {
     }
 
     @Test
+    public void testUpdateTaskStatus() throws DaoException {
+        String updateData = Task.TaskStatus.DONE.toString();
+        task.setName(updateData);
+        String updated = taskDao.updateTaskStatus(DATABASE_TASK_ID, updateData);
+        Assert.assertEquals(updated, updateData);
+    }
+
+    @Test
+    public void testUpdateTaskHours() throws DaoException {
+        Integer updateData = 4;
+        Integer updated = taskDao.updateTaskHours(DATABASE_TASK_ID, updateData);
+        Assert.assertEquals(updateData, updated);
+    }
+
+    @Test
     public void testUpdateTask() throws DaoException {
         String updateData = "Logics patching";
         task.setName(updateData);

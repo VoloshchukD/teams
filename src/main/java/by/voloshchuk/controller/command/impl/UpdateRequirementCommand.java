@@ -1,12 +1,14 @@
 package by.voloshchuk.controller.command.impl;
 
-import by.voloshchuk.entity.EmployeeRequirement;
+import by.voloshchuk.controller.command.Command;
+import by.voloshchuk.controller.command.CommandPath;
+import by.voloshchuk.controller.command.CommandRouter;
+import by.voloshchuk.controller.command.RequestParameter;
 import by.voloshchuk.entity.dto.EmployeeRequirementDto;
 import by.voloshchuk.exception.ServiceException;
 import by.voloshchuk.service.EmployeeRequirementService;
 import by.voloshchuk.service.ServiceProvider;
-import by.voloshchuk.controller.command.*;
-import by.voloshchuk.util.DtoBuilder;
+import by.voloshchuk.util.RequestParser;
 import org.apache.logging.log4j.Level;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -27,10 +29,14 @@ public class UpdateRequirementCommand implements Command {
     private static ServiceProvider serviceProvider = ServiceProvider.getInstance();
 
     @Override
-    public CommandRouter execute(HttpServletRequest request, HttpServletResponse response) throws ServletException {
-        EmployeeRequirementService requirementService = serviceProvider.getEmployeeRequirementService();
-        EmployeeRequirementDto requirementDto = DtoBuilder.buildEmployeeRequirementDto(request);
-        requirementDto.setRequirementId(Long.parseLong(request.getParameter(RequestParameter.REQUIREMENT_ID)));
+    public CommandRouter execute(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException {
+        EmployeeRequirementService requirementService =
+                serviceProvider.getEmployeeRequirementService();
+        EmployeeRequirementDto requirementDto =
+                RequestParser.buildEmployeeRequirementDto(request);
+        requirementDto.setRequirementId(
+                Long.parseLong(request.getParameter(RequestParameter.REQUIREMENT_ID)));
         try {
             requirementService.updateEmployeeRequirement(requirementDto);
         } catch (ServiceException e) {
@@ -38,7 +44,8 @@ public class UpdateRequirementCommand implements Command {
         }
 
         CommandRouter router = new CommandRouter(CommandRouter.RouterType.REDIRECT,
-                CommandPath.REQUIREMENTS + request.getParameter(RequestParameter.TECHNICAL_TASK_ID));
+                CommandPath.REQUIREMENTS
+                        + request.getParameter(RequestParameter.TECHNICAL_TASK_ID));
         return router;
     }
 

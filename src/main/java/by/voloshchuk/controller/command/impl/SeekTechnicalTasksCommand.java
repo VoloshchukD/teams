@@ -1,10 +1,10 @@
 package by.voloshchuk.controller.command.impl;
 
+import by.voloshchuk.controller.command.*;
 import by.voloshchuk.entity.TechnicalTask;
 import by.voloshchuk.exception.ServiceException;
 import by.voloshchuk.service.ServiceProvider;
 import by.voloshchuk.service.TechnicalTaskService;
-import by.voloshchuk.controller.command.*;
 import by.voloshchuk.util.RegexProperty;
 import org.apache.logging.log4j.Level;
 import org.apache.logging.log4j.LogManager;
@@ -26,7 +26,8 @@ public class SeekTechnicalTasksCommand implements Command {
     private static ServiceProvider serviceProvider = ServiceProvider.getInstance();
 
     @Override
-    public CommandRouter execute(HttpServletRequest request, HttpServletResponse response) throws ServletException {
+    public CommandRouter execute(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException {
         String status = request.getParameter(RequestParameter.TECHNICAL_TASKS_STATUS);
         List<TechnicalTask> technicalTasks = null;
         TechnicalTaskService technicalTaskService = serviceProvider.getTechnicalTaskService();
@@ -44,7 +45,8 @@ public class SeekTechnicalTasksCommand implements Command {
                 RegexProperty.PROPERTY_TECHNICAL_TASK_DEADLINE_REGEX);
 
         request.setAttribute(RequestParameter.TECHNICAL_TASKS, technicalTasks);
-        CommandRouter router = new CommandRouter(CommandRouter.RouterType.FORWARD, CommandPath.TECHNICAL_TASKS_JSP);
+        CommandRouter router = new CommandRouter(CommandRouter.RouterType.FORWARD,
+                CommandPath.TECHNICAL_TASKS_JSP);
         return router;
     }
 

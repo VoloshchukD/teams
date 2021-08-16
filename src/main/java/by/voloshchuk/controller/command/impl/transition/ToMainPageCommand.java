@@ -1,12 +1,12 @@
 package by.voloshchuk.controller.command.impl.transition;
 
-import by.voloshchuk.exception.ServiceException;
-import by.voloshchuk.service.ServiceProvider;
-import by.voloshchuk.service.UserService;
 import by.voloshchuk.controller.command.Command;
 import by.voloshchuk.controller.command.CommandAttribute;
 import by.voloshchuk.controller.command.CommandPath;
 import by.voloshchuk.controller.command.CommandRouter;
+import by.voloshchuk.exception.ServiceException;
+import by.voloshchuk.service.ServiceProvider;
+import by.voloshchuk.service.UserService;
 import org.apache.logging.log4j.Level;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -28,7 +28,8 @@ public class ToMainPageCommand implements Command {
     private static ServiceProvider serviceProvider = ServiceProvider.getInstance();
 
     @Override
-    public CommandRouter execute(HttpServletRequest request, HttpServletResponse response) throws ServletException {
+    public CommandRouter execute(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException {
         Map<String, Integer> resultData = null;
         UserService userService = serviceProvider.getUserService();
         try {

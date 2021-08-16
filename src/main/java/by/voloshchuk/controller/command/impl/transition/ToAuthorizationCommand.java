@@ -18,10 +18,14 @@ import javax.servlet.http.HttpServletResponse;
 public class ToAuthorizationCommand implements Command {
 
     @Override
-    public CommandRouter execute(HttpServletRequest request, HttpServletResponse response) throws ServletException {
-        request.setAttribute(CommandAttribute.EMAIL_REGEX, RegexProperty.PROPERTY_EMAIL_REGEX);
-        request.setAttribute(CommandAttribute.PASSWORD_REGEX, RegexProperty.PROPERTY_PASSWORD_REGEX);
-        CommandRouter router = new CommandRouter(CommandRouter.RouterType.FORWARD, CommandPath.AUTHORIZATION_JSP);
+    public CommandRouter execute(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException {
+        request.setAttribute(CommandAttribute.EMAIL_REGEX,
+                RegexProperty.PROPERTY_EMAIL_REGEX);
+        request.setAttribute(CommandAttribute.PASSWORD_REGEX,
+                RegexProperty.PROPERTY_PASSWORD_REGEX);
+        CommandRouter router = new CommandRouter(CommandRouter.RouterType.FORWARD,
+                CommandPath.AUTHORIZATION_JSP);
         return router;
     }
 

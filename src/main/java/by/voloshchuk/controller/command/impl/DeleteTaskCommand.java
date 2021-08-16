@@ -1,12 +1,12 @@
 package by.voloshchuk.controller.command.impl;
 
-import by.voloshchuk.exception.ServiceException;
-import by.voloshchuk.service.ServiceProvider;
-import by.voloshchuk.service.TaskService;
 import by.voloshchuk.controller.command.Command;
 import by.voloshchuk.controller.command.CommandPath;
 import by.voloshchuk.controller.command.CommandRouter;
 import by.voloshchuk.controller.command.RequestParameter;
+import by.voloshchuk.exception.ServiceException;
+import by.voloshchuk.service.ServiceProvider;
+import by.voloshchuk.service.TaskService;
 import org.apache.logging.log4j.Level;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -27,7 +27,8 @@ public class DeleteTaskCommand implements Command {
     private static ServiceProvider serviceProvider = ServiceProvider.getInstance();
 
     @Override
-    public CommandRouter execute(HttpServletRequest request, HttpServletResponse response) throws ServletException {
+    public CommandRouter execute(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException {
         TaskService taskService = serviceProvider.getTaskService();
         Long taskId = Long.parseLong(request.getParameter(RequestParameter.TASK_ID));
         try {

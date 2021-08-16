@@ -1,10 +1,10 @@
 package by.voloshchuk.controller.command.impl.transition;
 
+import by.voloshchuk.controller.command.*;
 import by.voloshchuk.entity.TechnicalTask;
 import by.voloshchuk.exception.ServiceException;
 import by.voloshchuk.service.ServiceProvider;
 import by.voloshchuk.service.TechnicalTaskService;
-import by.voloshchuk.controller.command.*;
 import by.voloshchuk.util.RegexProperty;
 import org.apache.logging.log4j.Level;
 import org.apache.logging.log4j.LogManager;
@@ -27,7 +27,8 @@ public class ToCreateRequirementCommand implements Command {
     private static ServiceProvider serviceProvider = ServiceProvider.getInstance();
 
     @Override
-    public CommandRouter execute(HttpServletRequest request, HttpServletResponse response) throws ServletException {
+    public CommandRouter execute(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException {
         Long userId = (Long) request.getSession().getAttribute(CommandAttribute.USER_ID);
         List<TechnicalTask> technicalTasks = null;
         TechnicalTaskService technicalTaskService = serviceProvider.getTechnicalTaskService();
@@ -49,7 +50,8 @@ public class ToCreateRequirementCommand implements Command {
                 RegexProperty.PROPERTY_REQUIREMENT_PRIMARY_REGEX);
 
         request.setAttribute(RequestParameter.TECHNICAL_TASKS, technicalTasks);
-        CommandRouter router = new CommandRouter(CommandRouter.RouterType.FORWARD, CommandPath.REQUIREMENT_CREATION_JSP);
+        CommandRouter router = new CommandRouter(CommandRouter.RouterType.FORWARD,
+                CommandPath.REQUIREMENT_CREATION_JSP);
         return router;
     }
 

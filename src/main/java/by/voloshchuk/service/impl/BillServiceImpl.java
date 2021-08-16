@@ -3,7 +3,6 @@ package by.voloshchuk.service.impl;
 import by.voloshchuk.dao.BillDao;
 import by.voloshchuk.dao.DaoProvider;
 import by.voloshchuk.entity.Bill;
-import by.voloshchuk.entity.Project;
 import by.voloshchuk.entity.dto.BillDto;
 import by.voloshchuk.entity.dto.PaymentDto;
 import by.voloshchuk.exception.DaoException;
@@ -12,6 +11,7 @@ import by.voloshchuk.service.BillService;
 import by.voloshchuk.service.validator.PaymentValidator;
 import by.voloshchuk.service.validator.Validator;
 import by.voloshchuk.service.validator.ValidatorProvider;
+import by.voloshchuk.util.DtoEntityConverter;
 
 import java.util.List;
 
@@ -26,7 +26,7 @@ public class BillServiceImpl implements BillService {
         try {
             bill = billDao.findBillByIdAndUserId(id, userId);
         } catch (DaoException e) {
-            throw new ServiceException(e);
+            throw new ServiceException("Exception while find bill ", e);
         }
         return bill;
     }
@@ -37,23 +37,14 @@ public class BillServiceImpl implements BillService {
         BillDao billDao = daoProvider.getBillDao();
         Validator<BillDto> billValidator = ValidatorProvider.getInstance().getBillValidator();
         if (billValidator.validateCreateData(billDto)) {
-            Bill bill = buildBill(billDto);
+            Bill bill = DtoEntityConverter.buildBill(billDto);
             try {
                 result = billDao.addBill(bill);
             } catch (DaoException e) {
-                throw new ServiceException(e);
+                throw new ServiceException("Exception while add bill ", e);
             }
         }
         return result;
-    }
-
-    private Bill buildBill(BillDto billDto) {
-        Bill bill = new Bill();
-        bill.setAmountDue(Integer.parseInt(billDto.getAmountDue()));
-        bill.setInformation(billDto.getInformation());
-        bill.setStatus(Bill.BillStatus.NOT_PAID);
-        bill.setProjectId(Long.parseLong(billDto.getProjectId()));
-        return bill;
     }
 
     @Override
@@ -63,7 +54,7 @@ public class BillServiceImpl implements BillService {
         try {
             bills = billDao.findBillsByUserId(userId);
         } catch (DaoException e) {
-            throw new ServiceException(e);
+            throw new ServiceException("Exception while find bill ", e);
         }
         return bills;
     }
@@ -75,7 +66,7 @@ public class BillServiceImpl implements BillService {
         try {
             bills = billDao.findBillsByProjectId(projectId);
         } catch (DaoException e) {
-            throw new ServiceException(e);
+            throw new ServiceException("Exception while find bill ", e);
         }
         return bills;
     }
@@ -87,7 +78,7 @@ public class BillServiceImpl implements BillService {
         try {
             resultStatus = billDao.updateBillStatus(billId, status);
         } catch (DaoException e) {
-            throw new ServiceException(e);
+            throw new ServiceException("Exception while update bill status ", e);
         }
         return resultStatus;
     }
@@ -95,9 +86,11 @@ public class BillServiceImpl implements BillService {
     @Override
     public String payForBill(PaymentDto paymentDto) throws ServiceException {
         String resultStatus = null;
-        PaymentValidator<PaymentDto> paymentValidator = ValidatorProvider.getInstance().getPaymentValidator();
+        PaymentValidator<PaymentDto> paymentValidator =
+                ValidatorProvider.getInstance().getPaymentValidator();
         if (paymentValidator.validatePayment(paymentDto)) {
-            resultStatus = updateBillStatus(paymentDto.getBillId(), Bill.BillStatus.PAID.toString());
+            resultStatus = updateBillStatus(paymentDto.getBillId(),
+                    Bill.BillStatus.PAID.toString());
         }
         return resultStatus;
     }
@@ -109,7 +102,7 @@ public class BillServiceImpl implements BillService {
         try {
             updatedBill = billDao.updateBill(bill);
         } catch (DaoException e) {
-            throw new ServiceException(e);
+            throw new ServiceException("Exception while update bill ", e);
         }
         return updatedBill;
     }
@@ -121,7 +114,7 @@ public class BillServiceImpl implements BillService {
         try {
             deleted = billDao.removeBill(id);
         } catch (DaoException e) {
-            throw new ServiceException(e);
+            throw new ServiceException("Exception while remove bill ", e);
         }
         return deleted;
     }

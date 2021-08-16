@@ -74,7 +74,8 @@ public class RegexProperty {
 
     private static final String RESOURCE_NAME = "regex";
 
-    private static final ResourceBundle resourceBundle = ResourceBundle.getBundle(RESOURCE_NAME, Locale.getDefault());
+    private static final ResourceBundle resourceBundle =
+            ResourceBundle.getBundle(RESOURCE_NAME, Locale.getDefault());
 
     public static final String PROPERTY_EMAIL_REGEX = resourceBundle.getString(REGEX_EMAIL);
 
@@ -112,7 +113,8 @@ public class RegexProperty {
 
     public static final String PROPERTY_BILL_AMOUNT_REGEX = resourceBundle.getString(REGEX_BILL_AMOUNT);
 
-    public static final String PROPERTY_BILL_INFORMATION_REGEX = resourceBundle.getString(REGEX_BILL_INFORMATION);
+    public static final String PROPERTY_BILL_INFORMATION_REGEX =
+            resourceBundle.getString(REGEX_BILL_INFORMATION);
 
     public static final String PROPERTY_NUMBER_REGEX = resourceBundle.getString(NUMBER);
 

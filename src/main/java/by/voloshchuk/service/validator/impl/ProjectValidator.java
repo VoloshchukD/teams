@@ -14,7 +14,8 @@ public class ProjectValidator implements Validator<Project> {
     @Override
     public boolean validateUpdateData(Project project) {
         return validateString(project.getName(), RegexProperty.PROPERTY_PROJECT_NAME_REGEX)
-                && validateString(project.getDescription(), RegexProperty.PROPERTY_PROJECT_DESCRIPTION_REGEX);
+                && validateString(project.getDescription(),
+                RegexProperty.PROPERTY_PROJECT_DESCRIPTION_REGEX);
     }
 
 }

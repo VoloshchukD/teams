@@ -18,14 +18,16 @@ import javax.servlet.http.HttpServletResponse;
 public class ToCreateTechnicalTask implements Command {
 
     @Override
-    public CommandRouter execute(HttpServletRequest request, HttpServletResponse response) throws ServletException {
+    public CommandRouter execute(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException {
         request.setAttribute(CommandAttribute.TECHNICAL_TASK_NAME_REGEX,
                 RegexProperty.PROPERTY_TECHNICAL_TASK_NAME_REGEX);
         request.setAttribute(CommandAttribute.TECHNICAL_TASK_OVERVIEW_REGEX,
                 RegexProperty.PROPERTY_TECHNICAL_TASK_OVERVIEW_REGEX);
         request.setAttribute(CommandAttribute.TECHNICAL_TASK_DEADLINE_REGEX,
                 RegexProperty.PROPERTY_TECHNICAL_TASK_DEADLINE_REGEX);
-        CommandRouter router = new CommandRouter(CommandRouter.RouterType.FORWARD, CommandPath.CREATE_TECHNICAL_TASKS_JSP);
+        CommandRouter router = new CommandRouter(CommandRouter.RouterType.FORWARD,
+                CommandPath.CREATE_TECHNICAL_TASKS_JSP);
         return router;
     }
 

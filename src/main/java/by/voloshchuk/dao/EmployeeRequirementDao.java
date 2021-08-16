@@ -1,7 +1,6 @@
 package by.voloshchuk.dao;
 
 import by.voloshchuk.entity.EmployeeRequirement;
-import by.voloshchuk.entity.TechnicalTask;
 import by.voloshchuk.exception.DaoException;
 
 import java.util.List;

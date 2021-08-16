@@ -16,8 +16,10 @@ import javax.servlet.http.HttpServletResponse;
 public class ToAboutCommand implements Command {
 
     @Override
-    public CommandRouter execute(HttpServletRequest request, HttpServletResponse response) throws ServletException {
-        CommandRouter router = new CommandRouter(CommandRouter.RouterType.FORWARD, CommandPath.ABOUT_JSP);
+    public CommandRouter execute(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException {
+        CommandRouter router = new CommandRouter(CommandRouter.RouterType.FORWARD,
+                CommandPath.ABOUT_JSP);
         return router;
     }
 

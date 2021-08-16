@@ -1,11 +1,11 @@
 package by.voloshchuk.controller.command.impl.async;
 
+import by.voloshchuk.controller.command.AsyncCommand;
+import by.voloshchuk.controller.command.AsyncCommandParameter;
 import by.voloshchuk.entity.EmployeeRequirement;
 import by.voloshchuk.exception.ServiceException;
 import by.voloshchuk.service.EmployeeRequirementService;
 import by.voloshchuk.service.ServiceProvider;
-import by.voloshchuk.controller.command.AsyncCommand;
-import by.voloshchuk.controller.command.AsyncCommandParameter;
 import org.apache.logging.log4j.Level;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -30,10 +30,12 @@ public class LoadProjectRequirementsCommand implements AsyncCommand {
     private static ServiceProvider serviceProvider = ServiceProvider.getInstance();
 
     @Override
-    public void execute(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
+    public void execute(HttpServletRequest request, HttpServletResponse response)
+            throws IOException, ServletException {
         Long projectId = Long.parseLong(request.getParameter(AsyncCommandParameter.PROJECT_ID));
         List<EmployeeRequirement> employeeRequirements = null;
-        EmployeeRequirementService employeeRequirementService = serviceProvider.getEmployeeRequirementService();
+        EmployeeRequirementService employeeRequirementService =
+                serviceProvider.getEmployeeRequirementService();
         try {
             employeeRequirements = employeeRequirementService.findAllByProjectId(projectId);
         } catch (ServiceException e) {
@@ -43,11 +45,16 @@ public class LoadProjectRequirementsCommand implements AsyncCommand {
         JSONArray data = new JSONArray();
         for (EmployeeRequirement employeeRequirement : employeeRequirements) {
             JSONObject currentData = new JSONObject();
-            currentData.put(AsyncCommandParameter.REQUIREMENT_EXPERIENCE, employeeRequirement.getExperience());
-            currentData.put(AsyncCommandParameter.REQUIREMENT_SALARY, employeeRequirement.getSalary());
-            currentData.put(AsyncCommandParameter.REQUIREMENT_QUALIFICATION, employeeRequirement.getQualification());
-            currentData.put(AsyncCommandParameter.REQUIREMENT_PRIMARY_SKILL, employeeRequirement.getPrimarySkill());
-            currentData.put(AsyncCommandParameter.REQUIREMENT_COMMENT, employeeRequirement.getComment());
+            currentData.put(AsyncCommandParameter.REQUIREMENT_EXPERIENCE,
+                    employeeRequirement.getExperience());
+            currentData.put(AsyncCommandParameter.REQUIREMENT_SALARY,
+                    employeeRequirement.getSalary());
+            currentData.put(AsyncCommandParameter.REQUIREMENT_QUALIFICATION,
+                    employeeRequirement.getQualification());
+            currentData.put(AsyncCommandParameter.REQUIREMENT_PRIMARY_SKILL,
+                    employeeRequirement.getPrimarySkill());
+            currentData.put(AsyncCommandParameter.REQUIREMENT_COMMENT,
+                    employeeRequirement.getComment());
             data.put(currentData);
         }
         response.getWriter().write(data.toString());

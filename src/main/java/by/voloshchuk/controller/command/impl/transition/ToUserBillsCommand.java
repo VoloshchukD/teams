@@ -1,10 +1,10 @@
 package by.voloshchuk.controller.command.impl.transition;
 
+import by.voloshchuk.controller.command.*;
 import by.voloshchuk.entity.Bill;
 import by.voloshchuk.exception.ServiceException;
 import by.voloshchuk.service.BillService;
 import by.voloshchuk.service.ServiceProvider;
-import by.voloshchuk.controller.command.*;
 import org.apache.logging.log4j.Level;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -26,7 +26,8 @@ public class ToUserBillsCommand implements Command {
     private static ServiceProvider serviceProvider = ServiceProvider.getInstance();
 
     @Override
-    public CommandRouter execute(HttpServletRequest request, HttpServletResponse response) throws ServletException {
+    public CommandRouter execute(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException {
         Long userId = (Long) request.getSession().getAttribute(CommandAttribute.USER_ID);
         List<Bill> bills = null;
         BillService billService = serviceProvider.getBillService();
@@ -37,7 +38,8 @@ public class ToUserBillsCommand implements Command {
         }
 
         request.setAttribute(RequestParameter.BILLS, bills);
-        CommandRouter router = new CommandRouter(CommandRouter.RouterType.FORWARD, CommandPath.BILLS_JSP);
+        CommandRouter router =
+                new CommandRouter(CommandRouter.RouterType.FORWARD, CommandPath.BILLS_JSP);
         return router;
     }
 

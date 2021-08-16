@@ -2,7 +2,6 @@ package by.voloshchuk.controller.command.impl.transition;
 
 import by.voloshchuk.controller.command.*;
 import by.voloshchuk.entity.TechnicalTask;
-import by.voloshchuk.entity.User;
 import by.voloshchuk.exception.ServiceException;
 import by.voloshchuk.service.ServiceProvider;
 import by.voloshchuk.service.TechnicalTaskService;
@@ -27,12 +26,16 @@ public class ToCreateProjectCommand implements Command {
     private static ServiceProvider serviceProvider = ServiceProvider.getInstance();
 
     @Override
-    public CommandRouter execute(HttpServletRequest request, HttpServletResponse response) throws ServletException {
-        Long technicalTaskId = Long.parseLong(request.getParameter(RequestParameter.TECHNICAL_TASK_ID));
-        Long customerId = Long.parseLong(request.getParameter(RequestParameter.CUSTOMER_ID));
+    public CommandRouter execute(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException {
+        Long technicalTaskId = Long.parseLong(
+                request.getParameter(RequestParameter.TECHNICAL_TASK_ID));
+        Long customerId = Long.parseLong(
+                request.getParameter(RequestParameter.CUSTOMER_ID));
 
         TechnicalTask technicalTask = null;
-        TechnicalTaskService technicalTaskService = serviceProvider.getTechnicalTaskService();
+        TechnicalTaskService technicalTaskService =
+                serviceProvider.getTechnicalTaskService();
         try {
             technicalTask = technicalTaskService.findTechnicalTaskById(technicalTaskId);
             if (technicalTask != null) {
@@ -48,7 +51,8 @@ public class ToCreateProjectCommand implements Command {
         request.setAttribute(CommandAttribute.PROJECT_DESCRIPTION_REGEX,
                 RegexProperty.PROPERTY_PROJECT_DESCRIPTION_REGEX);
 
-        CommandRouter router = new CommandRouter(CommandRouter.RouterType.FORWARD, CommandPath.PROJECT_CREATION_JSP);
+        CommandRouter router = new CommandRouter(CommandRouter.RouterType.FORWARD,
+                CommandPath.PROJECT_CREATION_JSP);
         return router;
     }
 

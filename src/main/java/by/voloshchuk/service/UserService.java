@@ -1,9 +1,7 @@
 package by.voloshchuk.service;
 
-import by.voloshchuk.entity.Bill;
 import by.voloshchuk.entity.EmployeeRequirement;
 import by.voloshchuk.entity.User;
-import by.voloshchuk.entity.UserDetail;
 import by.voloshchuk.entity.dto.UserDto;
 import by.voloshchuk.exception.ServiceException;
 

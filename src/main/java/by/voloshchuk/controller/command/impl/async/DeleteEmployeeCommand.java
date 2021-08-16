@@ -26,7 +26,8 @@ public class DeleteEmployeeCommand implements AsyncCommand {
     private static ServiceProvider serviceProvider = ServiceProvider.getInstance();
 
     @Override
-    public void execute(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
+    public void execute(HttpServletRequest request, HttpServletResponse response)
+            throws IOException, ServletException {
         Long userId = Long.parseLong(request.getParameter(RequestParameter.USER_ID));
         Long projectId = Long.parseLong(request.getParameter(RequestParameter.PROJECT_ID));
 

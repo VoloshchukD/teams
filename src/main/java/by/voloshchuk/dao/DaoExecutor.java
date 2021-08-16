@@ -29,7 +29,7 @@ public class DaoExecutor<T extends AbstractEntity> {
             fillStatement(statement, parameters);
             updated = (statement.executeUpdate() == 1);
         } catch (SQLException e) {
-            throw new DaoException(e);
+            throw new DaoException("Exception while execute update ", e);
         }
         return updated;
     }
@@ -44,7 +44,7 @@ public class DaoExecutor<T extends AbstractEntity> {
                 entity = entityBuilder.buildEntity(resultSet);
             }
         } catch (SQLException e) {
-            throw new DaoException(e);
+            throw new DaoException("Exception while executing query ", e);
         }
         return entity;
     }
@@ -59,7 +59,7 @@ public class DaoExecutor<T extends AbstractEntity> {
                 entities.add(entityBuilder.buildEntity(resultSet));
             }
         } catch (SQLException e) {
-            throw new DaoException(e);
+            throw new DaoException("Exception while executing query for multiple result ", e);
         }
         return entities;
     }
@@ -82,15 +82,16 @@ public class DaoExecutor<T extends AbstractEntity> {
             try {
                 connection.rollback();
             } catch (SQLException exception) {
-                throw new DaoException(exception);
+                throw new DaoException("Exception while rollback transaction ", e);
             }
-            throw new DaoException(e);
+            throw new DaoException("Exception while executing transaction ", e);
         } finally {
             try {
                 connection.setAutoCommit(true);
                 connection.close();
-            } catch (SQLException exception) {
-                throw new DaoException(exception);
+            } catch (SQLException e) {
+                throw new DaoException("Exception while closing connection ", e);
+
             }
         }
         return result;

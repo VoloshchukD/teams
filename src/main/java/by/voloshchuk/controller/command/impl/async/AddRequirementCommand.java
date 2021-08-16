@@ -6,7 +6,7 @@ import by.voloshchuk.entity.dto.EmployeeRequirementDto;
 import by.voloshchuk.exception.ServiceException;
 import by.voloshchuk.service.EmployeeRequirementService;
 import by.voloshchuk.service.ServiceProvider;
-import by.voloshchuk.util.DtoBuilder;
+import by.voloshchuk.util.RequestParser;
 import org.apache.logging.log4j.Level;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -28,14 +28,16 @@ public class AddRequirementCommand implements AsyncCommand {
     private static ServiceProvider serviceProvider = ServiceProvider.getInstance();
 
     @Override
-    public void execute(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
-        EmployeeRequirementDto employeeRequirementDto = DtoBuilder.buildEmployeeRequirementDto(request);
+    public void execute(HttpServletRequest request, HttpServletResponse response)
+            throws IOException, ServletException {
+        EmployeeRequirementDto employeeRequirementDto =
+                RequestParser.buildEmployeeRequirementDto(request);
         String technicalTaskId = request.getParameter(RequestParameter.TECHNICAL_TASK_ID);
         employeeRequirementDto.setTechnicalTaskId(technicalTaskId);
-        EmployeeRequirementService employeeRequirementService = serviceProvider.getEmployeeRequirementService();
-        boolean result = false;
+        EmployeeRequirementService employeeRequirementService =
+                serviceProvider.getEmployeeRequirementService();
         try {
-            result = employeeRequirementService.addEmployeeRequirement(employeeRequirementDto);
+            employeeRequirementService.addEmployeeRequirement(employeeRequirementDto);
         } catch (ServiceException e) {
             logger.log(Level.ERROR, e);
         }

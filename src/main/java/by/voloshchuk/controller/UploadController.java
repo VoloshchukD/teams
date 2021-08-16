@@ -1,10 +1,9 @@
 package by.voloshchuk.controller;
 
-import by.voloshchuk.controller.command.CommandPath;
+import by.voloshchuk.controller.command.CommandAttribute;
 import by.voloshchuk.exception.ServiceException;
 import by.voloshchuk.service.ServiceProvider;
 import by.voloshchuk.service.UserDetailService;
-import by.voloshchuk.controller.command.CommandAttribute;
 import org.apache.logging.log4j.Level;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;

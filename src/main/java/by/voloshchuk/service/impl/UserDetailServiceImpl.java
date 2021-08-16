@@ -9,19 +9,20 @@ import by.voloshchuk.exception.ServiceException;
 import by.voloshchuk.service.UserDetailService;
 import by.voloshchuk.service.validator.Validator;
 import by.voloshchuk.service.validator.ValidatorProvider;
-import by.voloshchuk.util.DtoBuilder;
+import by.voloshchuk.util.DtoEntityConverter;
 
 public class UserDetailServiceImpl implements UserDetailService {
 
     private static DaoProvider daoProvider = DaoProvider.getInstance();
 
+    @Override
     public UserDetail findUserDetailByUserId(Long userId) throws ServiceException {
         UserDetail userDetail = null;
         UserDetailDao userDetailDao = daoProvider.getUserDetailDao();
         try {
             userDetail = userDetailDao.findUserDetailByUserId(userId);
         } catch (DaoException e) {
-            throw new ServiceException(e);
+            throw new ServiceException("Exception while find user detail ", e);
         }
         return userDetail;
     }
@@ -33,11 +34,11 @@ public class UserDetailServiceImpl implements UserDetailService {
         Validator<UserDto> userValidator = ValidatorProvider.getInstance().getUserValidator();
         if (userValidator.validateUpdateData(userDto)) {
             try {
-                UserDetail userDetail = DtoBuilder.buildUserDetail(userDto);
+                UserDetail userDetail = DtoEntityConverter.buildUserDetail(userDto);
                 userDetail.setId(userDto.getUserDetailId());
                 resultUserDetail = userDetailDao.updateUserDetail(userDetail);
             } catch (DaoException e) {
-                throw new ServiceException(e);
+                throw new ServiceException("Exception while update user detail ", e);
             }
         }
         return resultUserDetail;
@@ -50,7 +51,7 @@ public class UserDetailServiceImpl implements UserDetailService {
         try {
             resultImagePath = userDetailDao.updateUserDetailImage(userDetailId, imagePath);
         } catch (DaoException e) {
-            throw new ServiceException(e);
+            throw new ServiceException("Exception while update user detail ", e);
         }
         return resultImagePath;
     }
@@ -62,7 +63,7 @@ public class UserDetailServiceImpl implements UserDetailService {
         try {
             resultStatus = userDetailDao.updateUserDetailStatus(id, status);
         } catch (DaoException e) {
-            throw new ServiceException(e);
+            throw new ServiceException("Exception while update user detail ", e);
         }
         return resultStatus;
     }

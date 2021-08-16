@@ -1,13 +1,13 @@
 package by.voloshchuk.controller.command.impl;
 
-import by.voloshchuk.entity.TechnicalTask;
-import by.voloshchuk.exception.ServiceException;
-import by.voloshchuk.service.ServiceProvider;
-import by.voloshchuk.service.TechnicalTaskService;
 import by.voloshchuk.controller.command.Command;
 import by.voloshchuk.controller.command.CommandPath;
 import by.voloshchuk.controller.command.CommandRouter;
 import by.voloshchuk.controller.command.RequestParameter;
+import by.voloshchuk.entity.TechnicalTask;
+import by.voloshchuk.exception.ServiceException;
+import by.voloshchuk.service.ServiceProvider;
+import by.voloshchuk.service.TechnicalTaskService;
 import org.apache.logging.log4j.Level;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -28,7 +28,8 @@ public class UpdateTechnicalTaskCommand implements Command {
     private static ServiceProvider serviceProvider = ServiceProvider.getInstance();
 
     @Override
-    public CommandRouter execute(HttpServletRequest request, HttpServletResponse response) throws ServletException {
+    public CommandRouter execute(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException {
         TechnicalTaskService technicalTaskService = serviceProvider.getTechnicalTaskService();
         TechnicalTask technicalTask = createTechnicalTask(request);
         try {
@@ -43,10 +44,13 @@ public class UpdateTechnicalTaskCommand implements Command {
 
     private TechnicalTask createTechnicalTask(HttpServletRequest request) {
         TechnicalTask technicalTask = new TechnicalTask();
-        Long technicalTaskId = Long.parseLong(request.getParameter(RequestParameter.TECHNICAL_TASK_ID));
+        Long technicalTaskId = Long.parseLong(
+                request.getParameter(RequestParameter.TECHNICAL_TASK_ID));
         technicalTask.setId(technicalTaskId);
-        technicalTask.setName(request.getParameter(RequestParameter.TECHNICAL_TASKS_NAME));
-        technicalTask.setOverview(request.getParameter(RequestParameter.TECHNICAL_TASKS_OVERVIEW));
+        technicalTask.setName(
+                request.getParameter(RequestParameter.TECHNICAL_TASKS_NAME));
+        technicalTask.setOverview(
+                request.getParameter(RequestParameter.TECHNICAL_TASKS_OVERVIEW));
         return technicalTask;
     }
 

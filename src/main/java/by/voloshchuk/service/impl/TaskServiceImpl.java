@@ -2,21 +2,15 @@ package by.voloshchuk.service.impl;
 
 import by.voloshchuk.dao.DaoProvider;
 import by.voloshchuk.dao.TaskDao;
-import by.voloshchuk.dao.TechnicalTaskDao;
-import by.voloshchuk.entity.Project;
 import by.voloshchuk.entity.Task;
-import by.voloshchuk.entity.TechnicalTask;
-import by.voloshchuk.entity.User;
 import by.voloshchuk.entity.dto.TaskDto;
 import by.voloshchuk.exception.DaoException;
 import by.voloshchuk.exception.ServiceException;
 import by.voloshchuk.service.TaskService;
 import by.voloshchuk.service.validator.Validator;
 import by.voloshchuk.service.validator.ValidatorProvider;
+import by.voloshchuk.util.DtoEntityConverter;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.SQLException;
 import java.util.List;
 
 public class TaskServiceImpl implements TaskService {
@@ -30,48 +24,39 @@ public class TaskServiceImpl implements TaskService {
         Validator<TaskDto> taskValidator = ValidatorProvider.getInstance().getTaskValidator();
         if (taskValidator.validateCreateData(taskDto)) {
             try {
-                Task task = buildTaskEntity(taskDto);
+                Task task = DtoEntityConverter.buildTaskEntity(taskDto);
                 task.setProjectId(Long.parseLong(taskDto.getProjectId()));
                 task.setStatus(Task.TaskStatus.TO_DO);
                 result = taskDao.addTask(task);
             } catch (DaoException e) {
-                throw new ServiceException(e);
+                throw new ServiceException("Exception while add task ", e);
             }
         }
         return result;
     }
 
-    private Task buildTaskEntity(TaskDto taskDto) {
-        Task task = new Task();
-        User user = new User();
-        user.setId(Long.parseLong(taskDto.getUserId()));
-        task.setDeveloper(user);
-        task.setName(taskDto.getName());
-        task.setDetails(taskDto.getDetails());
-        task.setPlannedTime(Integer.parseInt(taskDto.getPlannedTime()));
-        return task;
-    }
-
     @Override
-    public List<Task> findTasksByProjectIdAndUserId(Long projectId, Long userId) throws ServiceException {
+    public List<Task> findTasksByProjectIdAndUserId(Long projectId, Long userId)
+            throws ServiceException {
         List<Task> tasks = null;
         TaskDao taskDao = daoProvider.getTaskDao();
         try {
             tasks = taskDao.findTasksByProjectIdAndUserId(projectId, userId);
         } catch (DaoException e) {
-            throw new ServiceException(e);
+            throw new ServiceException("Exception while find task ", e);
         }
         return tasks;
     }
 
     @Override
-    public List<Task> findTaskByProjectIdAndStatus(Long projectId, String status) throws ServiceException {
+    public List<Task> findTaskByProjectIdAndStatus(Long projectId, String status)
+            throws ServiceException {
         List<Task> tasks = null;
         TaskDao taskDao = daoProvider.getTaskDao();
         try {
             tasks = taskDao.findTaskByProjectIdAndStatus(projectId, status);
         } catch (DaoException e) {
-            throw new ServiceException(e);
+            throw new ServiceException("Exception while find task ", e);
         }
         return tasks;
     }
@@ -83,7 +68,7 @@ public class TaskServiceImpl implements TaskService {
         try {
             resultStatus = taskDao.updateTaskStatus(taskId, status);
         } catch (DaoException e) {
-            throw new ServiceException(e);
+            throw new ServiceException("Exception while update task ", e);
         }
         return resultStatus;
     }
@@ -95,7 +80,7 @@ public class TaskServiceImpl implements TaskService {
         try {
             resultHours = taskDao.updateTaskHours(taskId, hours);
         } catch (DaoException e) {
-            throw new ServiceException(e);
+            throw new ServiceException("Exception while update task ", e);
         }
         return resultHours;
     }
@@ -107,11 +92,11 @@ public class TaskServiceImpl implements TaskService {
         Validator<TaskDto> taskValidator = ValidatorProvider.getInstance().getTaskValidator();
         if (taskValidator.validateUpdateData(taskDto)) {
             try {
-                Task task = buildTaskEntity(taskDto);
+                Task task = DtoEntityConverter.buildTaskEntity(taskDto);
                 task.setId(taskDto.getTaskId());
                 updatedTask = taskDao.updateTask(task);
             } catch (DaoException e) {
-                throw new ServiceException(e);
+                throw new ServiceException("Exception while update task ", e);
             }
         }
         return updatedTask;
@@ -124,7 +109,7 @@ public class TaskServiceImpl implements TaskService {
         try {
             deleted = taskDao.removeTask(id);
         } catch (DaoException e) {
-            throw new ServiceException(e);
+            throw new ServiceException("Exception while remove task ", e);
         }
         return deleted;
     }

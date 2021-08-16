@@ -58,8 +58,6 @@ public final class ConstantColumnName {
 
     public static final String PROJECT_STATE = "state";
 
-    public static final String PROJECT_PAYMENT = "payment";
-
     public static final String PROJECT_TECHNICAL_TASK_ID = "technical_task_id";
 
     public static final String TECHNICAL_TASK_ID = "technical_task_id";

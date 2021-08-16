@@ -1,7 +1,6 @@
 package by.voloshchuk.entity;
 
 import java.sql.Date;
-import java.util.List;
 import java.util.Objects;
 
 public class Project extends AbstractEntity {
@@ -21,8 +20,6 @@ public class Project extends AbstractEntity {
     }
 
     private Long technicalTaskId;
-
-    private List<User> employees;
 
     public String getName() {
         return name;
@@ -64,14 +61,6 @@ public class Project extends AbstractEntity {
         this.technicalTaskId = technicalTaskId;
     }
 
-    public List<User> getEmployees() {
-        return employees;
-    }
-
-    public void setEmployees(List<User> employees) {
-        this.employees = employees;
-    }
-
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -81,14 +70,13 @@ public class Project extends AbstractEntity {
                 && Objects.equals(description, project.description)
                 && Objects.equals(startDate, project.startDate)
                 && state == project.state
-                && Objects.equals(technicalTaskId, project.technicalTaskId)
-                && Objects.equals(employees, project.employees);
+                && Objects.equals(technicalTaskId, project.technicalTaskId);
     }
 
     @Override
     public int hashCode() {
         return Objects.hash(name, description, startDate,
-                state, technicalTaskId, employees);
+                state, technicalTaskId);
     }
 
     @Override
@@ -106,8 +94,6 @@ public class Project extends AbstractEntity {
         builder.append(state);
         builder.append(", technicalTaskId=");
         builder.append(technicalTaskId);
-        builder.append(", employees=");
-        builder.append(employees);
         return builder.toString();
     }
 

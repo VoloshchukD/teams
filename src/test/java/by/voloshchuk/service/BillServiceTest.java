@@ -2,6 +2,7 @@ package by.voloshchuk.service;
 
 import by.voloshchuk.entity.Bill;
 import by.voloshchuk.entity.dto.BillDto;
+import by.voloshchuk.exception.DaoException;
 import by.voloshchuk.exception.ServiceException;
 import org.junit.Assert;
 import org.junit.BeforeClass;
@@ -59,6 +60,13 @@ public class BillServiceTest {
     public void testFindBillsByUserId() throws ServiceException {
         List<Bill> founded = billService.findBillsByUserId(DATABASE_USER_ID);
         Assert.assertNotNull(founded);
+    }
+
+    @Test
+    public void testUpdateBillStatus() throws ServiceException {
+        String updated = billService.updateBillStatus(DATABASE_BILL_ID,
+                Bill.BillStatus.ACCEPTED.toString());
+        Assert.assertNotNull(updated);
     }
 
     @Test

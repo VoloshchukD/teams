@@ -25,9 +25,12 @@ public class DeleteRequirementCommand implements AsyncCommand {
     private static ServiceProvider serviceProvider = ServiceProvider.getInstance();
 
     @Override
-    public void execute(HttpServletRequest request, HttpServletResponse response) throws ServletException {
-        EmployeeRequirementService requirementService = serviceProvider.getEmployeeRequirementService();
-        Long requirementId = Long.parseLong(request.getParameter(AsyncCommandParameter.REQUIREMENT_ID));
+    public void execute(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException {
+        EmployeeRequirementService requirementService =
+                serviceProvider.getEmployeeRequirementService();
+        Long requirementId = Long.parseLong(
+                request.getParameter(AsyncCommandParameter.REQUIREMENT_ID));
         try {
             requirementService.removeEmployeeRequirement(requirementId);
         } catch (ServiceException e) {

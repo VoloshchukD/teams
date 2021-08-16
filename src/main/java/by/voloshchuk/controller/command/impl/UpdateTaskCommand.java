@@ -8,7 +8,7 @@ import by.voloshchuk.entity.dto.TaskDto;
 import by.voloshchuk.exception.ServiceException;
 import by.voloshchuk.service.ServiceProvider;
 import by.voloshchuk.service.TaskService;
-import by.voloshchuk.util.DtoBuilder;
+import by.voloshchuk.util.RequestParser;
 import org.apache.logging.log4j.Level;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -29,9 +29,10 @@ public class UpdateTaskCommand implements Command {
     private static ServiceProvider serviceProvider = ServiceProvider.getInstance();
 
     @Override
-    public CommandRouter execute(HttpServletRequest request, HttpServletResponse response) throws ServletException {
+    public CommandRouter execute(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException {
         TaskService taskService = serviceProvider.getTaskService();
-        TaskDto taskDto = DtoBuilder.buildTaskDto(request);
+        TaskDto taskDto = RequestParser.buildTaskDto(request);
         Long taskId = Long.parseLong(request.getParameter(RequestParameter.TASK_ID));
         taskDto.setTaskId(taskId);
         try {

@@ -19,7 +19,8 @@ public class ServiceProvider {
 
     private final BillService billService = new BillServiceImpl();
 
-    private final EmployeeRequirementService employeeRequirementService = new EmployeeRequirementServiceImpl();
+    private final EmployeeRequirementService employeeRequirementService =
+            new EmployeeRequirementServiceImpl();
 
     private final TaskService taskService = new TaskServiceImpl();
 

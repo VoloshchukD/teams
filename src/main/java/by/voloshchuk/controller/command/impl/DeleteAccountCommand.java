@@ -1,10 +1,13 @@
 package by.voloshchuk.controller.command.impl;
 
+import by.voloshchuk.controller.command.Command;
+import by.voloshchuk.controller.command.CommandAttribute;
+import by.voloshchuk.controller.command.CommandPath;
+import by.voloshchuk.controller.command.CommandRouter;
 import by.voloshchuk.entity.UserDetail;
 import by.voloshchuk.exception.ServiceException;
 import by.voloshchuk.service.ServiceProvider;
 import by.voloshchuk.service.UserDetailService;
-import by.voloshchuk.controller.command.*;
 import org.apache.logging.log4j.Level;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -25,8 +28,10 @@ public class DeleteAccountCommand implements Command {
     private static ServiceProvider serviceProvider = ServiceProvider.getInstance();
 
     @Override
-    public CommandRouter execute(HttpServletRequest request, HttpServletResponse response) throws ServletException {
-        Long userDetailId = (Long) request.getSession().getAttribute(CommandAttribute.USER_DETAIL_ID);
+    public CommandRouter execute(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException {
+        Long userDetailId = (Long) request.getSession().getAttribute(
+                CommandAttribute.USER_DETAIL_ID);
         String status = UserDetail.Status.DELETED.toString();
 
         UserDetailService userDetailService = serviceProvider.getUserDetailService();
@@ -37,7 +42,8 @@ public class DeleteAccountCommand implements Command {
             logger.log(Level.ERROR, e);
         }
         request.getSession().invalidate();
-        CommandRouter router = new CommandRouter(CommandRouter.RouterType.REDIRECT, CommandPath.MAIN);
+        CommandRouter router = new CommandRouter(CommandRouter.RouterType.REDIRECT,
+                CommandPath.MAIN);
         return router;
     }
 

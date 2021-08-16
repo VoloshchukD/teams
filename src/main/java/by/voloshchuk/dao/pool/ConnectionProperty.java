@@ -35,10 +35,12 @@ class ConnectionProperty {
         Properties properties = new Properties();
         InputStream inputStream = null;
         try {
-            inputStream = ConnectionProperty.class.getClassLoader().getResourceAsStream(PROPERTIES_FILE_NAME);
+            inputStream = ConnectionProperty.class.getClassLoader().getResourceAsStream(
+                    PROPERTIES_FILE_NAME);
             properties.load(inputStream);
         } catch (FileNotFoundException e) {
-            logger.log(Level.FATAL, "File with database properties is not found " + e.getMessage());
+            logger.log(Level.FATAL, "File with database properties is not found "
+                    + e.getMessage());
             throw new WebAppRuntimeException("Properties file is not found");
         } catch (IOException e) {
             logger.log(Level.FATAL, "Properties in file are not found " + e.getMessage());
@@ -48,7 +50,8 @@ class ConnectionProperty {
                 try {
                     inputStream.close();
                 } catch (IOException e) {
-                    logger.log(Level.ERROR, "Error while closing properties input stream " + e.getMessage());
+                    logger.log(Level.ERROR, "Error while closing properties input stream "
+                            + e.getMessage());
                 }
             }
         }
@@ -56,7 +59,8 @@ class ConnectionProperty {
         DATABASE_URL = properties.getProperty(DB_URL_PROPERTY_NAME);
         DATABASE_USERNAME = properties.getProperty(DB_USERNAME_PROPERTY_NAME);
         DATABASE_PASSWORD = properties.getProperty(DB_PASSWORD_PROPERTY_NAME);
-        DEFAULT_POOL_SIZE = Integer.parseInt(properties.getProperty(DEFAULT_POOL_SIZE_PROPERTY_NAME));
+        DEFAULT_POOL_SIZE = Integer.parseInt(properties.getProperty(
+                DEFAULT_POOL_SIZE_PROPERTY_NAME));
     }
 
     public static final String DRIVER_CLASS_NAME;

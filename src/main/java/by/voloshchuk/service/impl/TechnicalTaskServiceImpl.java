@@ -3,18 +3,15 @@ package by.voloshchuk.service.impl;
 import by.voloshchuk.dao.DaoProvider;
 import by.voloshchuk.dao.TechnicalTaskDao;
 import by.voloshchuk.entity.TechnicalTask;
-import by.voloshchuk.entity.User;
 import by.voloshchuk.entity.dto.TechnicalTaskDto;
 import by.voloshchuk.exception.DaoException;
 import by.voloshchuk.exception.ServiceException;
 import by.voloshchuk.service.TechnicalTaskService;
 import by.voloshchuk.service.validator.Validator;
 import by.voloshchuk.service.validator.ValidatorProvider;
-import by.voloshchuk.util.StringFormatter;
+import by.voloshchuk.util.DtoEntityConverter;
 
 import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Date;
 import java.util.List;
 
 public class TechnicalTaskServiceImpl implements TechnicalTaskService {
@@ -29,25 +26,13 @@ public class TechnicalTaskServiceImpl implements TechnicalTaskService {
                 ValidatorProvider.getInstance().getTechnicalTaskValidator();
         if (taskValidator.validateCreateData(technicalTaskDto)) {
             try {
-                TechnicalTask technicalTask = createTechnicalTask(technicalTaskDto);
+                TechnicalTask technicalTask = DtoEntityConverter.buildTechnicalTask(technicalTaskDto);
                 result = technicalTaskDao.addTechnicalTask(technicalTask);
             } catch (DaoException | ParseException e) {
-                throw new ServiceException(e);
+                throw new ServiceException("Exception while add technical task ", e);
             }
         }
         return result;
-    }
-
-    private TechnicalTask createTechnicalTask(TechnicalTaskDto technicalTaskDto)
-            throws ParseException {
-        TechnicalTask technicalTask = new TechnicalTask();
-        technicalTask.setName(technicalTaskDto.getName());
-        technicalTask.setOverview(technicalTaskDto.getOverview());
-        Date deadline = StringFormatter.parseDate(technicalTaskDto.getDeadline());
-        technicalTask.setDeadline(deadline);
-        technicalTask.setStatus(TechnicalTask.TechnicalTaskStatus.WAIT_PROJECT);
-        technicalTask.setCustomerId(technicalTaskDto.getCustomerId());
-        return technicalTask;
     }
 
     @Override
@@ -57,7 +42,7 @@ public class TechnicalTaskServiceImpl implements TechnicalTaskService {
         try {
             technicalTasks = technicalTaskDao.findTechnicalTasksByUserId(useId);
         } catch (DaoException e) {
-            throw new ServiceException(e);
+            throw new ServiceException("Exception while find technical task ", e);
         }
         return technicalTasks;
     }
@@ -69,7 +54,7 @@ public class TechnicalTaskServiceImpl implements TechnicalTaskService {
         try {
             technicalTask = technicalTaskDao.findTechnicalTaskById(technicalTaskId);
         } catch (DaoException e) {
-            throw new ServiceException(e);
+            throw new ServiceException("Exception while find technical task ", e);
         }
         return technicalTask;
     }
@@ -81,7 +66,7 @@ public class TechnicalTaskServiceImpl implements TechnicalTaskService {
         try {
             technicalTasks = technicalTaskDao.findTechnicalTasksByStatus(status);
         } catch (DaoException e) {
-            throw new ServiceException(e);
+            throw new ServiceException("Exception while find technical task ", e);
         }
         return technicalTasks;
     }
@@ -93,7 +78,7 @@ public class TechnicalTaskServiceImpl implements TechnicalTaskService {
         try {
             updatedTechnicalTask = technicalTaskDao.updateTechnicalTask(technicalTask);
         } catch (DaoException e) {
-            throw new ServiceException(e);
+            throw new ServiceException("Exception while update technical task ", e);
         }
         return updatedTechnicalTask;
     }
@@ -105,7 +90,7 @@ public class TechnicalTaskServiceImpl implements TechnicalTaskService {
         try {
             deleted = technicalTaskDao.removeTechnicalTask(id);
         } catch (DaoException e) {
-            throw new ServiceException(e);
+            throw new ServiceException("Exception while remove technical task ", e);
         }
         return deleted;
     }

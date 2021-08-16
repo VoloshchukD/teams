@@ -49,7 +49,10 @@ public class BillDto {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         BillDto billDto = (BillDto) o;
-        return Objects.equals(status, billDto.status) && Objects.equals(information, billDto.information) && Objects.equals(amountDue, billDto.amountDue) && Objects.equals(projectId, billDto.projectId);
+        return Objects.equals(status, billDto.status)
+                && Objects.equals(information, billDto.information)
+                && Objects.equals(amountDue, billDto.amountDue)
+                && Objects.equals(projectId, billDto.projectId);
     }
 
     @Override

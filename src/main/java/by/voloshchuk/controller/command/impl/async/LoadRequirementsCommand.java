@@ -30,12 +30,16 @@ public class LoadRequirementsCommand implements AsyncCommand {
     private static ServiceProvider serviceProvider = ServiceProvider.getInstance();
 
     @Override
-    public void execute(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
-        Long technicalTaskId = Long.parseLong(request.getParameter(AsyncCommandParameter.TECHNICAL_TASK_ID));
+    public void execute(HttpServletRequest request, HttpServletResponse response)
+            throws IOException, ServletException {
+        Long technicalTaskId = Long.parseLong(
+                request.getParameter(AsyncCommandParameter.TECHNICAL_TASK_ID));
+        EmployeeRequirementService requirementService =
+                serviceProvider.getEmployeeRequirementService();
         List<EmployeeRequirement> employeeRequirements = null;
-        EmployeeRequirementService employeeRequirementService = serviceProvider.getEmployeeRequirementService();
         try {
-            employeeRequirements = employeeRequirementService.findAllByTechnicalTaskId(technicalTaskId);
+            employeeRequirements = requirementService.findAllByTechnicalTaskId(
+                    technicalTaskId);
         } catch (ServiceException e) {
             logger.log(Level.ERROR, e);
         }
@@ -43,12 +47,18 @@ public class LoadRequirementsCommand implements AsyncCommand {
         JSONArray data = new JSONArray();
         for (EmployeeRequirement employeeRequirement : employeeRequirements) {
             JSONObject currentData = new JSONObject();
-            currentData.put(AsyncCommandParameter.REQUIREMENT_ID, employeeRequirement.getId());
-            currentData.put(AsyncCommandParameter.REQUIREMENT_EXPERIENCE, employeeRequirement.getExperience());
-            currentData.put(AsyncCommandParameter.REQUIREMENT_SALARY, employeeRequirement.getSalary());
-            currentData.put(AsyncCommandParameter.REQUIREMENT_QUALIFICATION, employeeRequirement.getQualification());
-            currentData.put(AsyncCommandParameter.REQUIREMENT_PRIMARY_SKILL, employeeRequirement.getPrimarySkill());
-            currentData.put(AsyncCommandParameter.REQUIREMENT_COMMENT, employeeRequirement.getComment());
+            currentData.put(AsyncCommandParameter.REQUIREMENT_ID,
+                    employeeRequirement.getId());
+            currentData.put(AsyncCommandParameter.REQUIREMENT_EXPERIENCE,
+                    employeeRequirement.getExperience());
+            currentData.put(AsyncCommandParameter.REQUIREMENT_SALARY,
+                    employeeRequirement.getSalary());
+            currentData.put(AsyncCommandParameter.REQUIREMENT_QUALIFICATION,
+                    employeeRequirement.getQualification());
+            currentData.put(AsyncCommandParameter.REQUIREMENT_PRIMARY_SKILL,
+                    employeeRequirement.getPrimarySkill());
+            currentData.put(AsyncCommandParameter.REQUIREMENT_COMMENT,
+                    employeeRequirement.getComment());
             data.put(currentData);
         }
         response.getWriter().write(data.toString());

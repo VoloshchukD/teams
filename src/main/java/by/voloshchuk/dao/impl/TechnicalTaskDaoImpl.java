@@ -20,6 +20,7 @@ public class TechnicalTaskDaoImpl implements TechnicalTaskDao {
         executor = new DaoExecutor<>(builder);
     }
 
+    @Override
     public boolean addTechnicalTask(TechnicalTask technicalTask) throws DaoException {
         Object[] parameters = {technicalTask.getName(), technicalTask.getOverview(),
                 new Timestamp(technicalTask.getDeadline().getTime()),
@@ -29,6 +30,7 @@ public class TechnicalTaskDaoImpl implements TechnicalTaskDao {
         return added;
     }
 
+    @Override
     public TechnicalTask findTechnicalTaskById(Long id) throws DaoException {
         Object[] parameters = {id};
         TechnicalTask technicalTask = executor.executeQuery(
@@ -36,6 +38,7 @@ public class TechnicalTaskDaoImpl implements TechnicalTaskDao {
         return technicalTask;
     }
 
+    @Override
     public List<TechnicalTask> findTechnicalTasksByStatus(String status) throws DaoException {
         Object[] parameters = {status};
         List<TechnicalTask> technicalTasks = executor.executeQueryMultipleResult(
@@ -43,6 +46,7 @@ public class TechnicalTaskDaoImpl implements TechnicalTaskDao {
         return technicalTasks;
     }
 
+    @Override
     public List<TechnicalTask> findTechnicalTasksByUserId(Long id) throws DaoException {
         Object[] parameters = {id};
         List<TechnicalTask> technicalTasks = executor.executeQueryMultipleResult(
@@ -50,6 +54,7 @@ public class TechnicalTaskDaoImpl implements TechnicalTaskDao {
         return technicalTasks;
     }
 
+    @Override
     public TechnicalTask updateTechnicalTask(TechnicalTask technicalTask) throws DaoException {
         TechnicalTask resultTechnicalTask = null;
         Object[] parameters = {technicalTask.getName(), technicalTask.getOverview(),
@@ -62,6 +67,7 @@ public class TechnicalTaskDaoImpl implements TechnicalTaskDao {
         return resultTechnicalTask;
     }
 
+    @Override
     public boolean removeTechnicalTask(Long id) throws DaoException {
         String[] queries = {ConstantDaoQuery.DELETE_PROJECT_REQUIREMENTS_QUERY,
                 ConstantDaoQuery.DELETE_TECHNICAL_TASK_QUERY};

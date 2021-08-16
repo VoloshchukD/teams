@@ -17,9 +17,11 @@ import java.io.IOException;
 public class LoadAvatarCommand implements AsyncCommand {
 
     @Override
-    public void execute(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
+    public void execute(HttpServletRequest request, HttpServletResponse response)
+            throws IOException, ServletException {
         JSONObject jsonObject = new JSONObject();
-        jsonObject.put(CommandAttribute.USER_IMAGE,  request.getSession().getAttribute(CommandAttribute.USER_IMAGE));
+        jsonObject.put(CommandAttribute.USER_IMAGE,
+                request.getSession().getAttribute(CommandAttribute.USER_IMAGE));
         response.getWriter().write(jsonObject.toString());
     }
 

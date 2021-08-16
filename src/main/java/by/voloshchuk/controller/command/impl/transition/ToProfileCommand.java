@@ -40,15 +40,24 @@ public class ToProfileCommand implements Command {
             logger.log(Level.ERROR, e);
         }
         request.setAttribute(CommandAttribute.USER_DATA, userDetail);
-        request.setAttribute(CommandAttribute.FIRST_REGEX, RegexProperty.PROPERTY_FIRST_REGEX);
-        request.setAttribute(CommandAttribute.LAST_REGEX, RegexProperty.PROPERTY_LAST_REGEX);
-        request.setAttribute(CommandAttribute.COMPANY_REGEX, RegexProperty.PROPERTY_COMPANY_REGEX);
-        request.setAttribute(CommandAttribute.POSITION_REGEX, RegexProperty.PROPERTY_POSITION_REGEX);
-        request.setAttribute(CommandAttribute.EXPERIENCE_REGEX, RegexProperty.PROPERTY_EXPERIENCE_REGEX);
-        request.setAttribute(CommandAttribute.SALARY_REGEX, RegexProperty.PROPERTY_SALARY_REGEX);
-        request.setAttribute(CommandAttribute.PRIMARY_REGEX, RegexProperty.PROPERTY_PRIMARY_REGEX);
-        request.setAttribute(CommandAttribute.SKILLS_REGEX, RegexProperty.PROPERTY_SKILLS_REGEX);
-        CommandRouter router = new CommandRouter(CommandRouter.RouterType.FORWARD, CommandPath.PROFILE_JSP);
+        request.setAttribute(CommandAttribute.FIRST_REGEX,
+                RegexProperty.PROPERTY_FIRST_REGEX);
+        request.setAttribute(CommandAttribute.LAST_REGEX,
+                RegexProperty.PROPERTY_LAST_REGEX);
+        request.setAttribute(CommandAttribute.COMPANY_REGEX,
+                RegexProperty.PROPERTY_COMPANY_REGEX);
+        request.setAttribute(CommandAttribute.POSITION_REGEX,
+                RegexProperty.PROPERTY_POSITION_REGEX);
+        request.setAttribute(CommandAttribute.EXPERIENCE_REGEX,
+                RegexProperty.PROPERTY_EXPERIENCE_REGEX);
+        request.setAttribute(CommandAttribute.SALARY_REGEX,
+                RegexProperty.PROPERTY_SALARY_REGEX);
+        request.setAttribute(CommandAttribute.PRIMARY_REGEX,
+                RegexProperty.PROPERTY_PRIMARY_REGEX);
+        request.setAttribute(CommandAttribute.SKILLS_REGEX,
+                RegexProperty.PROPERTY_SKILLS_REGEX);
+        CommandRouter router = new CommandRouter(CommandRouter.RouterType.FORWARD,
+                CommandPath.PROFILE_JSP);
         return router;
     }
 

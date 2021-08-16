@@ -1,13 +1,13 @@
 package by.voloshchuk.controller.command.impl.async;
 
+import by.voloshchuk.controller.command.AsyncCommand;
+import by.voloshchuk.controller.command.AsyncCommandParameter;
 import by.voloshchuk.entity.Task;
 import by.voloshchuk.entity.User;
 import by.voloshchuk.entity.UserDetail;
 import by.voloshchuk.exception.ServiceException;
 import by.voloshchuk.service.ServiceProvider;
 import by.voloshchuk.service.TaskService;
-import by.voloshchuk.controller.command.AsyncCommand;
-import by.voloshchuk.controller.command.AsyncCommandParameter;
 import org.apache.logging.log4j.Level;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -34,11 +34,13 @@ public class LoadTasksInformationCommand implements AsyncCommand {
     @Override
     public void execute(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        Long projectId = Long.parseLong(request.getParameter(AsyncCommandParameter.PROJECT_ID));
+        Long projectId = Long.parseLong(
+                request.getParameter(AsyncCommandParameter.PROJECT_ID));
         List<Task> tasks = null;
         TaskService taskService = serviceProvider.getTaskService();
         try {
-            tasks = taskService.findTaskByProjectIdAndStatus(projectId, Task.TaskStatus.DONE.toString());
+            tasks = taskService.findTaskByProjectIdAndStatus(
+                    projectId, Task.TaskStatus.DONE.toString());
         } catch (ServiceException e) {
             logger.log(Level.ERROR, e);
         }

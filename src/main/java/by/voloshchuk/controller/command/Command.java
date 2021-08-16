@@ -18,6 +18,7 @@ public interface Command {
      * @param response - data to return to user
      * @return {@link CommandRouter}
      */
-    CommandRouter execute(HttpServletRequest request, HttpServletResponse response) throws ServletException;
+    CommandRouter execute(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException;
 
 }

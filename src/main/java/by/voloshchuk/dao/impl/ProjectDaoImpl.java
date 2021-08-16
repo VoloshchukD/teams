@@ -23,6 +23,7 @@ public class ProjectDaoImpl implements ProjectDao {
         executor = new DaoExecutor<>(builder);
     }
 
+    @Override
     public boolean addProject(ProjectDto projectDto) throws DaoException {
         boolean added = false;
         CustomConnectionPool connectionPool = CustomConnectionPool.getInstance();
@@ -31,11 +32,10 @@ public class ProjectDaoImpl implements ProjectDao {
                 ConstantDaoQuery.ADD_PROJECT_QUERY, Statement.RETURN_GENERATED_KEYS)) {
             connection.setAutoCommit(false);
             Project project = projectDto.getProject();
-            statement.setString(1, project.getName());
-            statement.setString(2, project.getDescription());
-            statement.setTimestamp(3, new Timestamp(project.getStartDate().getTime()));
-            statement.setString(4, project.getState().toString());
-            statement.setLong(5, project.getTechnicalTaskId());
+            Object[] parameters = {project.getName(), project.getDescription(),
+                    new Timestamp(project.getStartDate().getTime()), project.getState().toString(),
+                    project.getTechnicalTaskId()};
+            DaoExecutor.fillStatement(statement, parameters);
             added = (statement.executeUpdate() == 1);
             if (added) {
                 ResultSet resultSet = statement.getGeneratedKeys();
@@ -44,19 +44,20 @@ public class ProjectDaoImpl implements ProjectDao {
                 project.setId(projectId);
                 try (PreparedStatement userStatement = connection.prepareStatement(
                         ConstantDaoQuery.ADD_USER_TO_PROJECT_QUERY)) {
-                    userStatement.setLong(1, projectId);
-                    userStatement.setLong(2, projectDto.getCustomerId());
+                    parameters = new Object[]{projectId, projectDto.getCustomerId()};
+                    DaoExecutor.fillStatement(userStatement, parameters);
                     userStatement.executeUpdate();
-                    userStatement.setLong(1, projectId);
-                    userStatement.setLong(2, projectDto.getManagerId());
+                    parameters = new Object[]{projectId, projectDto.getManagerId()};
+                    DaoExecutor.fillStatement(userStatement, parameters);
                     userStatement.executeUpdate();
                 }
-                try (PreparedStatement userStatement = connection.prepareStatement(
+                try (PreparedStatement taskStatement = connection.prepareStatement(
                         ConstantDaoQuery.UPDATE_TECHNICAL_TASK_STATUS_QUERY)) {
-                    userStatement.setString(1,
-                            TechnicalTask.TechnicalTaskStatus.ON_PROJECT.toString());
-                    userStatement.setLong(2, project.getTechnicalTaskId());
-                    userStatement.executeUpdate();
+                    parameters = new Object[]{
+                            TechnicalTask.TechnicalTaskStatus.ON_PROJECT.toString(),
+                            project.getTechnicalTaskId()};
+                    DaoExecutor.fillStatement(taskStatement, parameters);
+                    taskStatement.executeUpdate();
                 }
                 connection.commit();
             }
@@ -64,20 +65,21 @@ public class ProjectDaoImpl implements ProjectDao {
             try {
                 connection.rollback();
             } catch (SQLException exception) {
-                throw new DaoException(exception);
+                throw new DaoException("Exception while add project rollback ", e);
             }
-            throw new DaoException(e);
+            throw new DaoException("Exception while add project ", e);
         } finally {
             try {
                 connection.setAutoCommit(true);
                 connection.close();
-            } catch (SQLException exception) {
-                throw new DaoException(exception);
+            } catch (SQLException e) {
+                throw new DaoException("Exception while close connection ", e);
             }
         }
         return added;
     }
 
+    @Override
     public List<Project> findProjectsByUserIdAndState(Long userId, String state)
             throws DaoException {
         Object[] parameters = {userId, state};
@@ -86,6 +88,7 @@ public class ProjectDaoImpl implements ProjectDao {
         return projects;
     }
 
+    @Override
     public Project updateProject(Project project) throws DaoException {
         Project resultProject = null;
         Object[] parameters = {project.getName(), project.getDescription(),
@@ -98,6 +101,7 @@ public class ProjectDaoImpl implements ProjectDao {
         return resultProject;
     }
 
+    @Override
     public String updateProjectStatus(Long projectId, String status) throws DaoException {
         String resultStatus = null;
         Object[] parameters = {status, projectId};
@@ -109,6 +113,7 @@ public class ProjectDaoImpl implements ProjectDao {
         return resultStatus;
     }
 
+    @Override
     public boolean removeProject(Long projectId, Long technicalTaskId) throws DaoException {
         String[] queries = {ConstantDaoQuery.DELETE_PROJECT_BILLS_QUERY,
                 ConstantDaoQuery.DELETE_PROJECT_TASKS_QUERY,

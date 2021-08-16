@@ -17,6 +17,7 @@ public class ProjectServiceImpl implements ProjectService {
 
     private static DaoProvider daoProvider = DaoProvider.getInstance();
 
+    @Override
     public boolean addProject(ProjectDto projectDto) throws ServiceException {
         boolean result = false;
         ProjectDao projectDao = daoProvider.getProjectDao();
@@ -28,7 +29,7 @@ public class ProjectServiceImpl implements ProjectService {
                 project.setStartDate(new java.sql.Date(date.getTime()));
                 result = projectDao.addProject(projectDto);
             } catch (DaoException e) {
-                throw new ServiceException(e);
+                throw new ServiceException("Exception while add project ", e);
             }
         }
         return result;
@@ -41,7 +42,7 @@ public class ProjectServiceImpl implements ProjectService {
         try {
             projects = projectDao.findProjectsByUserIdAndState(useId, state);
         } catch (DaoException e) {
-            throw new ServiceException(e);
+            throw new ServiceException("Exception while find project ", e);
         }
         return projects;
     }
@@ -55,7 +56,7 @@ public class ProjectServiceImpl implements ProjectService {
             try {
                 updatedProject = projectDao.updateProject(project);
             } catch (DaoException e) {
-                throw new ServiceException(e);
+                throw new ServiceException("Exception while update project ", e);
             }
         }
         return updatedProject;
@@ -68,7 +69,7 @@ public class ProjectServiceImpl implements ProjectService {
         try {
             resultStatus = projectDao.updateProjectStatus(projectId, status);
         } catch (DaoException e) {
-            throw new ServiceException(e);
+            throw new ServiceException("Exception while update project ", e);
         }
         return resultStatus;
     }
@@ -80,7 +81,7 @@ public class ProjectServiceImpl implements ProjectService {
         try {
             deleted = projectDao.removeProject(projectId, technicalTaskId);
         } catch (DaoException e) {
-            throw new ServiceException(e);
+            throw new ServiceException("Exception while remove project ", e);
         }
         return deleted;
     }

@@ -30,6 +30,7 @@ public class TaskDaoImpl implements TaskDao {
         executor = new DaoExecutor<>(builder);
     }
 
+    @Override
     public boolean addTask(Task task) throws DaoException {
         Object[] parameters = {task.getName(), task.getDetails(), task.getPlannedTime(),
                 task.getStatus().toString(), task.getProjectId(),
@@ -38,6 +39,7 @@ public class TaskDaoImpl implements TaskDao {
         return added;
     }
 
+    @Override
     public List<Task> findTasksByProjectIdAndUserId(Long projectId, Long userId)
             throws DaoException {
         List<Task> tasks = new ArrayList<>();
@@ -63,11 +65,12 @@ public class TaskDaoImpl implements TaskDao {
                 tasks.add(task);
             }
         } catch (SQLException e) {
-            throw new DaoException(e);
+            throw new DaoException("Exception while find task ", e);
         }
         return tasks;
     }
 
+    @Override
     public List<Task> findTaskByProjectIdAndStatus(Long projectId, String status)
             throws DaoException {
         List<Task> tasks = new ArrayList<>();
@@ -89,11 +92,12 @@ public class TaskDaoImpl implements TaskDao {
                 tasks.add(task);
             }
         } catch (SQLException e) {
-            throw new DaoException(e);
+            throw new DaoException("Exception while find task ", e);
         }
         return tasks;
     }
 
+    @Override
     public Task updateTask(Task task) throws DaoException {
         Task resultTask = null;
         Object[] parameters = {task.getName(), task.getDetails(), task.getPlannedTime(),
@@ -105,6 +109,7 @@ public class TaskDaoImpl implements TaskDao {
         return resultTask;
     }
 
+    @Override
     public String updateTaskStatus(Long taskId, String status) throws DaoException {
         String resultStatus = null;
         Object[] parameters = {status, taskId};
@@ -116,6 +121,7 @@ public class TaskDaoImpl implements TaskDao {
         return resultStatus;
     }
 
+    @Override
     public Integer updateTaskHours(Long taskId, Integer hours) throws DaoException {
         Integer resultHours = null;
         Object[] parameters = {hours, taskId};
@@ -127,6 +133,7 @@ public class TaskDaoImpl implements TaskDao {
         return resultHours;
     }
 
+    @Override
     public boolean removeTask(Long id) throws DaoException {
         Object[] parameters = {id};
         boolean removed = executor.executeUpdate(

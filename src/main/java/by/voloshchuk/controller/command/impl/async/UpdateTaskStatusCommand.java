@@ -1,10 +1,10 @@
 package by.voloshchuk.controller.command.impl.async;
 
+import by.voloshchuk.controller.command.AsyncCommand;
+import by.voloshchuk.controller.command.AsyncCommandParameter;
 import by.voloshchuk.exception.ServiceException;
 import by.voloshchuk.service.ServiceProvider;
 import by.voloshchuk.service.TaskService;
-import by.voloshchuk.controller.command.AsyncCommand;
-import by.voloshchuk.controller.command.AsyncCommandParameter;
 import org.apache.logging.log4j.Level;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -26,7 +26,8 @@ public class UpdateTaskStatusCommand implements AsyncCommand {
     private static ServiceProvider serviceProvider = ServiceProvider.getInstance();
 
     @Override
-    public void execute(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
+    public void execute(HttpServletRequest request, HttpServletResponse response)
+            throws IOException, ServletException {
         Long taskId = Long.parseLong(request.getParameter(AsyncCommandParameter.TASK_ID));
         String status = request.getParameter(AsyncCommandParameter.TASK_STATUS);
         TaskService taskService = serviceProvider.getTaskService();

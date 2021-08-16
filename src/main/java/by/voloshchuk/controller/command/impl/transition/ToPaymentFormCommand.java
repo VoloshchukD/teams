@@ -26,7 +26,8 @@ public class ToPaymentFormCommand implements Command {
     private static ServiceProvider serviceProvider = ServiceProvider.getInstance();
 
     @Override
-    public CommandRouter execute(HttpServletRequest request, HttpServletResponse response) throws ServletException {
+    public CommandRouter execute(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException {
         Long billId = Long.parseLong(request.getParameter(RequestParameter.BILL_ID));
         Long userId = (Long) request.getSession().getAttribute(CommandAttribute.USER_ID);
         Bill bill = null;
@@ -53,9 +54,11 @@ public class ToPaymentFormCommand implements Command {
                     RegexProperty.PROPERTY_PAYMENT_CVC_REGEX);
 
 
-            router = new CommandRouter(CommandRouter.RouterType.FORWARD, CommandPath.PAYMENT_FORM_JSP);
+            router = new CommandRouter(CommandRouter.RouterType.FORWARD,
+                    CommandPath.PAYMENT_FORM_JSP);
         } else {
-            router = new CommandRouter(CommandRouter.RouterType.FORWARD, CommandPath.ERROR_500_JSP);
+            router = new CommandRouter(CommandRouter.RouterType.FORWARD,
+                    CommandPath.ERROR_500_JSP);
         }
 
         return router;

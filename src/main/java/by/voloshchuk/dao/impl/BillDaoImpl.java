@@ -5,15 +5,12 @@ import by.voloshchuk.dao.ConstantDaoQuery;
 import by.voloshchuk.dao.DaoExecutor;
 import by.voloshchuk.dao.builder.BillBuilder;
 import by.voloshchuk.dao.builder.Builder;
-import by.voloshchuk.dao.pool.CustomConnectionPool;
 import by.voloshchuk.entity.Bill;
 import by.voloshchuk.exception.DaoException;
 
 import java.util.List;
 
 public class BillDaoImpl implements BillDao {
-
-    private CustomConnectionPool connectionPool = CustomConnectionPool.getInstance();
 
     private final DaoExecutor<Bill> executor;
 
@@ -22,6 +19,7 @@ public class BillDaoImpl implements BillDao {
         executor = new DaoExecutor<>(builder);
     }
 
+    @Override
     public boolean addBill(Bill bill) throws DaoException {
         Object[] parameters = {bill.getStatus().toString(), bill.getInformation(),
                 bill.getAmountDue(), bill.getProjectId()};
@@ -29,6 +27,7 @@ public class BillDaoImpl implements BillDao {
         return added;
     }
 
+    @Override
     public Bill findBillByIdAndUserId(Long id, Long userId) throws DaoException {
         Object[] parameters = {id, userId};
         Bill bill = executor.executeQuery(
@@ -36,6 +35,7 @@ public class BillDaoImpl implements BillDao {
         return bill;
     }
 
+    @Override
     public List<Bill> findBillsByUserId(Long userId) throws DaoException {
         Object[] parameters = {userId};
         List<Bill> bills = executor.executeQueryMultipleResult(
@@ -43,6 +43,7 @@ public class BillDaoImpl implements BillDao {
         return bills;
     }
 
+    @Override
     public List<Bill> findBillsByProjectId(Long projectId) throws DaoException {
         Object[] parameters = {projectId};
         List<Bill> bills = executor.executeQueryMultipleResult(
@@ -50,6 +51,7 @@ public class BillDaoImpl implements BillDao {
         return bills;
     }
 
+    @Override
     public Bill updateBill(Bill bill) throws DaoException {
         Bill resultBill = null;
         Object[] parameters = {bill.getInformation(), bill.getAmountDue(), bill.getId()};
@@ -61,6 +63,7 @@ public class BillDaoImpl implements BillDao {
         return resultBill;
     }
 
+    @Override
     public String updateBillStatus(Long billId, String status) throws DaoException {
         String resultStatus = null;
         Object[] parameters = {status, billId};
@@ -72,6 +75,7 @@ public class BillDaoImpl implements BillDao {
         return resultStatus;
     }
 
+    @Override
     public boolean removeBill(Long id) throws DaoException {
         Object[] parameters = {id};
         boolean removed = executor.executeUpdate(
