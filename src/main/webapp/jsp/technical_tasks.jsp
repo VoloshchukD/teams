@@ -46,9 +46,7 @@
                     <div class="card p-3 mb-2">
                         <div class="d-flex justify-content-between">
                             <div class="d-flex flex-row align-items-center">
-                                <h2 class="mb-0 name">
-                                    <c:out value="${task.name}"/>
-                                </h2>
+                                <h2 class="mb-0 name"><c:out value="${task.name}"/></h2>
                             </div>
                             <c:choose>
                                 <c:when test="${task.status == 'WAIT_PROJECT'}">
@@ -76,9 +74,7 @@
                         </div>
                         <hr>
                         <div class="requirements mt-5 mx-3">
-                            <h6 class="heading overview">
-                                <c:out value="${task.overview}"/>
-                            </h6>
+                            <h6 class="heading overview"><c:out value="${task.overview}"/></h6>
                             <div style="display:none;" class="list">
                                 <table class="table my-5">
                                     <thead>

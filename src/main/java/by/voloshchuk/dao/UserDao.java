@@ -69,17 +69,20 @@ public interface UserDao {
      * Find users that suit requirement data.
      *
      * @param requirements - requirement data to find user
+     * @param projectId - project id to avoid already employed users
      * @return list of {@link User}
      */
-    List<User> findAllByEmployeeRequirement(EmployeeRequirement requirements) throws DaoException;
+    List<User> findAllByEmployeeRequirement(EmployeeRequirement requirements, Long projectId)
+            throws DaoException;
 
     /**
      * Find users with matching primary skill.
      *
      * @param primarySkill - primary skill data to find user
+     * @param projectId - project id to avoid already employed users
      * @return list of {@link User}
      */
-    List<User> findUsersByPrimarySkill(String primarySkill) throws DaoException;
+    List<User> findUsersByPrimarySkill(String primarySkill, Long projectId) throws DaoException;
 
     /**
      * Associate user id with project id.

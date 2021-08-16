@@ -34,10 +34,11 @@ public class SeekEmployeesBySkillCommand implements AsyncCommand {
     public void execute(HttpServletRequest request, HttpServletResponse response)
             throws IOException, ServletException {
         String primarySkill = request.getParameter(AsyncCommandParameter.USER_DETAIL_PRIMARY_SKILL);
+        Long projectId = Long.parseLong(request.getParameter(AsyncCommandParameter.PROJECT_ID));
         List<User> candidates = null;
         UserService userService = serviceProvider.getUserService();
         try {
-            candidates = userService.findUsersByPrimarySkill(primarySkill);
+            candidates = userService.findUsersByPrimarySkill(primarySkill, projectId);
         } catch (ServiceException e) {
             logger.log(Level.ERROR, e);
         }

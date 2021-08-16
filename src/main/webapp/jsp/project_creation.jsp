@@ -68,9 +68,9 @@
                     <label for="description" class="col-form-label">
                         <fmt:message bundle="${loc}" key="local.project.create-description"/>
                     </label>
-                    <textarea class="form-control" name="description" id="description">
-                        <c:out value="${technicalTask.overview}"/>
-                    </textarea>
+                    <textarea class="form-control"
+                              name="description"
+                              id="description"><c:out value="${technicalTask.overview}"/></textarea>
                     <small id="description-help" class="form-text">
                         <fmt:message bundle="${loc}" key="local.form.project.description-help"/>
                     </small>

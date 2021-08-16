@@ -35,10 +35,11 @@ public class SeekEmployeesByRequirementCommand implements AsyncCommand {
     public void execute(HttpServletRequest request, HttpServletResponse response)
             throws IOException, ServletException {
         EmployeeRequirement employeeRequirement = createEmployeeRequirement(request);
+        Long projectId = Long.parseLong(request.getParameter(AsyncCommandParameter.PROJECT_ID));
         List<User> candidates = null;
         UserService userService = serviceProvider.getUserService();
         try {
-            candidates = userService.findAllByEmployeeRequirement(employeeRequirement);
+            candidates = userService.findAllByEmployeeRequirement(employeeRequirement, projectId);
         } catch (ServiceException e) {
             logger.log(Level.ERROR, e);
         }

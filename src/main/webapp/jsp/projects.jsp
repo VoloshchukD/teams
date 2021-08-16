@@ -104,9 +104,7 @@
                     <div class="card p-3 mb-2">
                         <div class="d-flex justify-content-between">
                             <div class="d-flex flex-row align-items-center">
-                                <h2 class="mb-0 name">
-                                    <c:out value="${project.name}"/>
-                                </h2>
+                                <h2 class="mb-0 name"><c:out value="${project.name}"/></h2>
                             </div>
                             <c:choose>
                                 <c:when test="${project.state == 'IN_PROGRESS'}">
@@ -126,9 +124,7 @@
                         </div>
                         <hr>
                         <div class="mt-5">
-                            <h6 class="heading description">
-                                <c:out value="${project.description}"/>
-                            </h6>
+                            <h6 class="heading description"><c:out value="${project.description}"/></h6>
                             <div class="mt-5">
                                 <div class="d-flex justify-content-between mr-3">
                                     <c:if test="${ project.state != 'FINISHED' }">
@@ -225,7 +221,8 @@
             <div class="modal-content">
                 <div class="modal-header">
                     <h5 class="modal-title" id="exampleModalLabel">
-                        <fmt:message bundle="${loc}" key="local.projects.update-header"/></h5>
+                        <fmt:message bundle="${loc}" key="local.projects.update-header"/>
+                    </h5>
                 </div>
                 <form action="controller" method="post"
                       onSubmit="return validateProjectForm()" novalidate>

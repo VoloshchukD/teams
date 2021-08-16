@@ -19,29 +19,29 @@ $("#projects").change(function () {
     loadProjectRequirements();
 });
 
-var cardHeader = '<div class="employee element col-4 card rounded shadow-sm border-0">\n' +
+const cardHeader = '<div class="employee element col-4 card rounded shadow-sm border-0">\n' +
     '<div class="card-body p-0"><div class="bg-primary px-5 py-4 text-center card-img-top"><img src="';
-var cardHeader2 = '" alt="..." width="100" class="rounded-circle mb-2 img-thumbnail d-block mx-auto">\n' +
+const cardHeader2 = '" alt="..." width="100" class="rounded-circle mb-2 img-thumbnail d-block mx-auto">\n' +
     '<h5 class="text-white mb-0 names">';
-var space =  ' ';
-var cardHeader3 = '</h5><p class="small text-white mb-0 primary">'
-var cardHeader4 = '</p></div><div class="p-3 d-flex justify-content-center">\n' +
+const space =  ' ';
+const cardHeader3 = '</h5><p class="small text-white mb-0 primary">'
+const cardHeader4 = '</p></div><div class="p-3 d-flex justify-content-center">\n' +
     '<ul class="list-inline mb-0"><li class="list-inline-item text-center">\n' +
     '<h5 class="font-weight-bold mb-0 d-block experience">'
-var cardHeader5 = '</h5><small class="text-muted"><i class="fa fa-graduation-cap" aria-hidden="true">' +
+const cardHeader5 = '</h5><small class="text-muted"><i class="fa fa-graduation-cap" aria-hidden="true">' +
     '</i></small></li><li class="list-inline-item text-center">' +
     '<h5 class="font-weight-bold mb-0 d-block mr-3 pr-3 salary">';
-var cardHeader6 = '</h5><small class="text-muted"><i class="fa fa-usd" aria-hidden="true"></i></small>\n' +
+const cardHeader6 = '</h5><small class="text-muted"><i class="fa fa-usd" aria-hidden="true"></i></small>\n' +
     '</li></ul></div><div class="pb-1 px-2 d-flex justify-content-center">\n' +
     '<ul class="list-inline mb-0"><li class="text-center"><small class="text-muted skills">';
-var cardFooter = '</small></li></ul></div><hr><div class="d-flex justify-content-center mb-2">'
+const cardFooter = '</small></li></ul></div><hr><div class="d-flex justify-content-center mb-2">'
 
-var deleteButton = '<button type="button" class="delete btn btn-danger">' +
+const deleteButton = '<button type="button" class="delete btn btn-danger">' +
     '<i class="fa fa-ban" aria-hidden="true"></i></button>';
 
-var addButton = '<button type="button" class="add btn btn-primary"><i class="fa fa-plus"></i></button>';
+const addButton = '<button type="button" class="add btn btn-primary"><i class="fa fa-plus"></i></button>';
 
-var closePart ='</div></div></div>';
+const closePart ='</div></div></div>';
 
 function createHtmlCard(data, withDelete) {
     var card = cardHeader + data.avatar + cardHeader2 + cardHeader3
@@ -100,7 +100,8 @@ $("#search").click(function () {
     $('#form3').show();
     ajax.get("http://localhost:8080/async-controller?command=search-employees",
         {
-            "primary": $("#values").val()
+            "primary": $("#values").val(),
+            "project-id": projectId
         })
         .then((response) => response.json())
         .then((data) => {
@@ -131,7 +132,6 @@ $("#search").click(function () {
         })
 
 })
-
 
 function loadProjectRequirements() {
     $('#requirements').find("tr:gt(0)").remove();
@@ -174,7 +174,8 @@ function loadProjectRequirements() {
                             {
                                 "salary": data[i].salary,
                                 "experience": data[i].experience,
-                                "primary": data[i].primary
+                                "primary": data[i].primary,
+                                "project-id": projectId
                             })
                             .then((response) => response.json())
                             .then((data) => {

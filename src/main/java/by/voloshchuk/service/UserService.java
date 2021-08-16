@@ -46,17 +46,20 @@ public interface UserService {
      * Users finding logics by employee requirement.
      *
      * @param requirements - requirement data to find user
+     * @param projectId - project id to avoid already employed users
      * @return list of {@link User}
      */
-    List<User> findAllByEmployeeRequirement(EmployeeRequirement requirements) throws ServiceException;
+    List<User> findAllByEmployeeRequirement(EmployeeRequirement requirements, Long projectId)
+            throws ServiceException;
 
     /**
      * Users finding logics by primary skill.
      *
      * @param primarySkill - primary skill data to find user
+     * @param projectId - id of project to avoid already employed users
      * @return list of {@link User}
      */
-    List<User> findUsersByPrimarySkill(String primarySkill) throws ServiceException;
+    List<User> findUsersByPrimarySkill(String primarySkill, Long projectId) throws ServiceException;
 
     /**
      * User to project adding logics.

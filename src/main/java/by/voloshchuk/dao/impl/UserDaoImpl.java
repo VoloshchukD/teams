@@ -130,8 +130,9 @@ public class UserDaoImpl implements UserDao {
     }
 
     @Override
-    public List<User> findUsersByPrimarySkill(String primarySkill) throws DaoException {
-        Object[] parameters = {ConstantDaoQuery.PERCENT
+    public List<User> findUsersByPrimarySkill(String primarySkill, Long projectId)
+            throws DaoException {
+        Object[] parameters = {projectId, ConstantDaoQuery.PERCENT
                 + primarySkill
                 + ConstantDaoQuery.PERCENT};
         List<User> users = executor.executeQueryMultipleResult(
@@ -161,9 +162,9 @@ public class UserDaoImpl implements UserDao {
     }
 
     @Override
-    public List<User> findAllByEmployeeRequirement(EmployeeRequirement requirements)
+    public List<User> findAllByEmployeeRequirement(EmployeeRequirement requirements, Long projectId)
             throws DaoException {
-        Object[] parameters = {requirements.getExperience(), requirements.getSalary(),
+        Object[] parameters = {projectId, requirements.getExperience(), requirements.getSalary(),
                 requirements.getPrimarySkill()};
         List<User> users = executor.executeQueryMultipleResult(
                 ConstantDaoQuery.FIND_USER_BY_REQUIREMENT_QUERY, parameters);

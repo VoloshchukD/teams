@@ -173,9 +173,8 @@
                             <fmt:message bundle="${loc}" key="local.form.skills"/>
                         </label>
                         <textarea class="form-control" aria-label="With textarea"
-                                  name="skills" id="skills">
-                            <c:out value="${userData.skillsDescription}"/>
-                        </textarea>
+                                  name="skills"
+                                  id="skills"><c:out value="${userData.skillsDescription}"/></textarea>
                         <small id="skills-description-help" class="form-text">
                             <fmt:message bundle="${loc}" key="local.form.skills-help"/>
                         </small>

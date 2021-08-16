@@ -16,7 +16,7 @@
         <fmt:message bundle="${loc}" key="local.employee.seek-header"/>
     </div>
     <div class="row">
-        <div class="col-5">
+        <div class="col-6">
             <select class="form-select" name="project-id" id="projects">
                 <option value="null" selected>
                     <fmt:message bundle="${loc}" key="local.bills.create-project"/>
@@ -28,12 +28,12 @@
                 </c:forEach>
             </select>
         </div>
-        <div class="col-1">
+        <div class="col-2">
             <button class="btn btn-info btn-block" type="button" style="height: 40px;" id="users">
                 <i class="fa fa-users" aria-hidden="true"></i>
             </button>
         </div>
-        <div class="col-5">
+        <div class="col-4">
             <div class="input-group">
                 <input type="text" class="form-control" placeholder="Search this blog" id="values">
                 <div class="input-group-append">

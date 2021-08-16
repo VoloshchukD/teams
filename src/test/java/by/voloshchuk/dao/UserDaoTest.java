@@ -77,7 +77,7 @@ public class UserDaoTest {
 
     @Test
     public void testFindUsersByEmployeeRequirement() throws DaoException {
-        List<User> foundedUsers = userDao.findAllByEmployeeRequirement(requirement);
+        List<User> foundedUsers = userDao.findAllByEmployeeRequirement(requirement, DATABASE_PROJECT_ID);
         Assert.assertNotNull(foundedUsers);
     }
 

@@ -163,15 +163,25 @@ public final class ConstantDaoQuery {
             "WHERE email = ?";
 
     public static final String FIND_USER_BY_REQUIREMENT_QUERY = "SELECT * FROM users " +
-            "INNER JOIN user_details ON users.user_id = user_details.user_detail_id " +
-            "WHERE users.role = 'DEVELOPER' " +
+            "LEFT JOIN user_project_maps " +
+            "ON users.user_id = user_project_maps.user_id " +
+            "INNER JOIN user_details " +
+            "ON users.user_detail_id = user_details.user_detail_id " +
+            "WHERE (user_project_maps.project_id IS NULL OR user_project_maps.project_id != ?) " +
+            "AND users.role = 'DEVELOPER' " +
             "AND user_details.experience >= ? AND user_details.salary <= ? " +
             "AND user_details.primary_skill = ? " +
             "AND user_details.status = 'NOT_BUSY'";
 
-    public static final String FIND_USER_BY_PRIMARY_SKILL_QUERY = "SELECT * FROM user_details " +
-            "INNER JOIN users ON users.user_detail_id = user_details.user_detail_id " +
-            "WHERE user_details.primary_skill LIKE ?";
+    public static final String FIND_USER_BY_PRIMARY_SKILL_QUERY = "SELECT * FROM users " +
+            "LEFT JOIN user_project_maps " +
+            "ON users.user_id = user_project_maps.user_id " +
+            "INNER JOIN user_details " +
+            "ON users.user_detail_id = user_details.user_detail_id " +
+            "WHERE (user_project_maps.project_id IS NULL OR user_project_maps.project_id != ?) " +
+            "AND user_details.primary_skill LIKE ? " +
+            "AND user_details.status = 'NOT_BUSY' " +
+            "GROUP BY users.user_id";
 
     public static final String PERCENT = "%";
 

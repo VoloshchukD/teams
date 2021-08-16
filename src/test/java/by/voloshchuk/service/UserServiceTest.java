@@ -64,7 +64,7 @@ public class UserServiceTest {
 
     @Test
     public void testFindUsersByEmployeeRequirement() throws ServiceException {
-        List<User> foundedUsers = userService.findAllByEmployeeRequirement(requirement);
+        List<User> foundedUsers = userService.findAllByEmployeeRequirement(requirement, DATABASE_PROJECT_ID);
         Assert.assertNotNull(foundedUsers);
     }
 

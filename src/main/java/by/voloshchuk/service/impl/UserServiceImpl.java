@@ -92,12 +92,12 @@ public class UserServiceImpl implements UserService {
         return resultUser;
     }
 
-    public List<User> findAllByEmployeeRequirement(EmployeeRequirement requirements)
+    public List<User> findAllByEmployeeRequirement(EmployeeRequirement requirements, Long projectId)
             throws ServiceException {
         List<User> users = null;
         UserDao userDao = daoProvider.getUserDao();
         try {
-            users = userDao.findAllByEmployeeRequirement(requirements);
+            users = userDao.findAllByEmployeeRequirement(requirements, projectId);
         } catch (DaoException e) {
             throw new ServiceException("Exception while find user ", e);
         }
@@ -105,11 +105,12 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public List<User> findUsersByPrimarySkill(String primarySkill) throws ServiceException {
+    public List<User> findUsersByPrimarySkill(String primarySkill, Long projectId)
+            throws ServiceException {
         List<User> users = null;
         UserDao userDao = daoProvider.getUserDao();
         try {
-            users = userDao.findUsersByPrimarySkill(primarySkill);
+            users = userDao.findUsersByPrimarySkill(primarySkill, projectId);
         } catch (DaoException e) {
             throw new ServiceException("Exception while find user ", e);
         }
