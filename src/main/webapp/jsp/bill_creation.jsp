@@ -24,23 +24,27 @@
             <form action="controller" method="post" onSubmit="return validateBillForm()" novalidate>
                 <input type="hidden" class="command" name="command" value="create-bill"/>
                 <select class="form-select" name="project-id" id="project">
-                    <option value="null" selected><fmt:message bundle="${loc}"
-                                                               key="local.bills.create-project"/></option>
+                    <option value="null" selected>
+                        <fmt:message bundle="${loc}" key="local.bills.create-project"/>
+                    </option>
                     <c:forEach items="${projects}" var="project">
                     <option value="${project.id}">
                             <c:out value="${project.name}"/>
                         </c:forEach>
                 </select>
-                <label for="amount" class="col-form-label"><fmt:message bundle="${loc}"
-                                                                        key="local.bills.create-amount"/></label>
-                <input type="text" class="form-control" style="width: 120px;" name="amount" id="amount"/>
+                <label for="amount" class="col-form-label">
+                    <fmt:message bundle="${loc}" key="local.bills.create-amount"/>
+                </label>
+                <input type="text" class="form-control"
+                       style="width: 120px;" name="amount" id="amount"/>
                 <small id="amount-help" class="form-text">
                     <fmt:message bundle="${loc}" key="local.form.bill.amount-help"/>
                 </small>
                 <div id="regex-amount" class="hidden-regex">${regexAmount}</div>
                 <div class="form-group">
-                    <label for="information" class="col-form-label"><fmt:message bundle="${loc}"
-                                                                                 key="local.bills.create-information"/></label>
+                    <label for="information" class="col-form-label">
+                        <fmt:message bundle="${loc}" key="local.bills.create-information"/>
+                    </label>
                     <textarea class="form-control" name="information" id="information"
                               style="height: 200px;"></textarea>
                     <small id="information-help" class="form-text">
@@ -49,8 +53,9 @@
                     <div id="regex-information" class="hidden-regex">${regexInformation}</div>
                 </div>
                 <div class="d-flex justify-content-center">
-                    <button type="submit" class="btn btn-primary mt-3"><fmt:message bundle="${loc}"
-                                                                                    key="local.bills.create-button"/></button>
+                    <button type="submit" class="btn btn-primary mt-3">
+                        <fmt:message bundle="${loc}" key="local.bills.create-button"/>
+                    </button>
                 </div>
             </form>
         </div>

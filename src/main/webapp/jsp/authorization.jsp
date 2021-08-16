@@ -23,14 +23,21 @@
         <div class="col-4 my-auto">
             <div class="py-4 text-center">
                 <p class="frame">
-                    <img class="d-block mx-auto mb-3" src="/images/logo.png" alt="" width="100" height="100">
+                    <img class="d-block mx-auto mb-3" src="/images/logo.png"
+                         alt="" width="100" height="100">
                 </p>
-                <h4><fmt:message bundle="${loc}" key="local.hello"/></h4>
-                <h2><fmt:message bundle="${loc}" key="local.signin.welcome"/></h2>
+                <h4>
+                    <fmt:message bundle="${loc}" key="local.hello"/>
+                </h4>
+                <h2>
+                    <fmt:message bundle="${loc}" key="local.signin.welcome"/>
+                </h2>
             </div>
             <c:if test="${error}">
                 <div class="alert alert-danger alert-dismissible" role="alert" id="error">
-                    <strong><fmt:message bundle="${loc}" key="local.message.error.header"/></strong>
+                    <strong>
+                        <fmt:message bundle="${loc}" key="local.message.error.header"/>
+                    </strong>
                     <fmt:message bundle="${loc}" key="local.message.authorization.error"/>
                     <button type="button" class="close" data-dismiss="alert">
                         <span aria-hidden="true">&times;</span>
@@ -40,34 +47,40 @@
             <form method="POST" action="controller" onSubmit="return validateSignInForm()" novalidate>
                 <input type="hidden" name="command" value="authorize" id="command"/>
                 <div class="mb-3">
-                    <label for="email"><fmt:message bundle="${loc}" key="local.form.email"/></label>
+                    <label for="email">
+                        <fmt:message bundle="${loc}" key="local.form.email"/>
+                    </label>
                     <input type="email" class="form-control" name="email" id="email">
-                    <small id="email-help" class="form-text"><fmt:message bundle="${loc}"
-                                                                          key="local.form.email-help"/></small>
+                    <small id="email-help" class="form-text">
+                        <fmt:message bundle="${loc}" key="local.form.email-help"/>
+                    </small>
                     <div id="regex-email" class="hidden-regex">${regexEmail}</div>
                 </div>
-
                 <div class="mb-3">
-                    <label for="password"><fmt:message bundle="${loc}" key="local.form.password"/> </label>
+                    <label for="password">
+                        <fmt:message bundle="${loc}" key="local.form.password"/>
+                    </label>
                     <input type="password" class="form-control" name="password" id="password">
-                    <small id="password-help" class="form-text"><fmt:message bundle="${loc}"
-                                                                             key="local.form.password-help"/></small>
+                    <small id="password-help" class="form-text">
+                        <fmt:message bundle="${loc}" key="local.form.password-help"/>
+                    </small>
                     <div id="regex-password" class="hidden-regex">${regexPassword}</div>
                 </div>
-
                 <div class="d-flex justify-content-center">
-                    <button type="submit" class="btn btn-lg btn-primary"><fmt:message bundle="${loc}"
-                                                                                      key="local.signin"/></button>
+                    <button type="submit" class="btn btn-lg btn-primary">
+                        <fmt:message bundle="${loc}" key="local.signin"/>
+                    </button>
                 </div>
                 <div class="mt-3 text-center">
-                    <fmt:message bundle="${loc}" key="local.signin.new"/> <a href="?command=registration"><fmt:message
-                        bundle="${loc}" key="local.create"/></a>
+                    <fmt:message bundle="${loc}" key="local.signin.new"/>
+                    <a href="?command=registration">
+                        <fmt:message bundle="${loc}" key="local.create"/>
+                    </a>
                 </div>
             </form>
         </div>
     </div>
 </div>
-
 <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"
         integrity="sha384-IQsoLXl5PILFhosVNubq5LC7Qb9DXgDA9i+tQ8Zj3iwWAwPtgFTxbJ8NT4GN1R8p"
         crossorigin="anonymous"></script>

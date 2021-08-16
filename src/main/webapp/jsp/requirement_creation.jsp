@@ -4,18 +4,23 @@
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <%@ include file="../WEB-INF/jspf/header.jspf" %>
     <title><fmt:message bundle="${loc}" key="local.requirement.creation"/></title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css" rel="stylesheet"
-          integrity="sha384-+0n0xVW2eSR5OomGNYDnhzAbDsOXxcvSN1TPprVMTNDbiYZCxYbOOl7+AMvyTG2x" crossorigin="anonymous">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css"
+          rel="stylesheet"
+          integrity="sha384-+0n0xVW2eSR5OomGNYDnhzAbDsOXxcvSN1TPprVMTNDbiYZCxYbOOl7+AMvyTG2x"
+          crossorigin="anonymous">
     <link rel="stylesheet" href="/css/validation.css">
 </head>
 <body>
 <div class="container-xxl">
-    <div class="title h1 text-center mt-3"><fmt:message bundle="${loc}" key="local.requirement.create-header"/></div>
+    <div class="title h1 text-center mt-3">
+        <fmt:message bundle="${loc}" key="local.requirement.create-header"/>
+    </div>
     <div class="row m-2">
         <div class="col-3 d-flex align-items-start">
             <a href="?command=technical-tasks">
-                <button type="button" class="btn btn-secondary"><fmt:message bundle="${loc}"
-                                                                             key="local.requirement.back"/></button>
+                <button type="button" class="btn btn-secondary">
+                    <fmt:message bundle="${loc}" key="local.requirement.back"/>
+                </button>
             </a>
         </div>
         <div class="col-6">
@@ -24,24 +29,32 @@
                     <fmt:message bundle="${loc}" key="local.requirement.create-select"/>
                 </option>
                 <c:forEach items="${technicalTasks}" var="task">
-                    <option value="${task.id}"><c:out value="${task.name}"/></option>
+                    <option value="${task.id}">
+                        <c:out value="${task.name}"/>
+                    </option>
                 </c:forEach>
             </select>
         </div>
-
         <div class="row justify-content-center">
             <div class="col-12">
-
                 <table class="table my-2">
                     <thead>
                     <tr>
-                        <th class="align" scope="col"><fmt:message bundle="${loc}"
-                                                                   key="local.requirement.create-experience"/></th>
-                        <th class="align" scope="col"><fmt:message bundle="${loc}"
-                                                                   key="local.requirement.create-salary"/></th>
-                        <th scope="col"><fmt:message bundle="${loc}" key="local.requirement.create-qualification"/></th>
-                        <th scope="col"><fmt:message bundle="${loc}" key="local.requirement.create-primary"/></th>
-                        <th scope="col"><fmt:message bundle="${loc}" key="local.requirement.create-comment"/></th>
+                        <th class="align" scope="col">
+                            <fmt:message bundle="${loc}" key="local.requirement.create-experience"/>
+                        </th>
+                        <th class="align" scope="col">
+                            <fmt:message bundle="${loc}" key="local.requirement.create-salary"/>
+                        </th>
+                        <th scope="col">
+                            <fmt:message bundle="${loc}" key="local.requirement.create-qualification"/>
+                        </th>
+                        <th scope="col">
+                            <fmt:message bundle="${loc}" key="local.requirement.create-primary"/>
+                        </th>
+                        <th scope="col">
+                            <fmt:message bundle="${loc}" key="local.requirement.create-comment"/>
+                        </th>
                         <th scope="col"></th>
                         <th scope="col"></th>
                     </tr>
@@ -58,12 +71,12 @@
             <div id="regex-primary" class="hidden-regex">${regexPrimary}</div>
         </div>
         <div class="d-flex justify-content-center">
-            <button type="submit" class="add btn btn-secondary mt-3" id="add"><fmt:message bundle="${loc}"
-                                                                                           key="local.requirement.create-button"/></button>
+            <button type="submit" class="add btn btn-secondary mt-3" id="add">
+                <fmt:message bundle="${loc}" key="local.requirement.create-button"/>
+            </button>
         </div>
     </div>
 </div>
-
 <div class="modal fade" id="updateModal" tabindex="-1" role="dialog"
      aria-labelledby="exampleModalLabel"
      aria-hidden="true">
@@ -83,52 +96,56 @@
                     <label for="updateExperience" class="col-form-label">
                         <fmt:message bundle="${loc}" key="local.requirement.update-experience"/>
                     </label>
-                    <input type="text" class="form-control update-form" name="experience" id="updateExperience">
+                    <input type="text" class="form-control update-form"
+                           name="experience" id="updateExperience">
                     <small id="experience-help" class="form-text">
                         <fmt:message bundle="${loc}" key="local.form.project.experience-help"/>
                     </small>
                     <label for="updateSalary" class="col-form-label">
                         <fmt:message bundle="${loc}" key="local.requirement.update-salary"/>
                     </label>
-                    <input type="text" class="form-control update-form" name="salary" id="updateSalary">
+                    <input type="text" class="form-control update-form"
+                           name="salary" id="updateSalary">
                     <small id="salary-help" class="form-text">
                         <fmt:message bundle="${loc}" key="local.form.project.salary-help"/>
                     </small>
                     <label for="updateQualification" class="col-form-label">
                         <fmt:message bundle="${loc}" key="local.requirement.update-qualification"/>
                     </label>
-                    <input type="text" class="form-control update-form" name="qualification" id="updateQualification">
+                    <input type="text" class="form-control update-form"
+                           name="qualification" id="updateQualification">
                     <small id="qualification-help" class="form-text">
                         <fmt:message bundle="${loc}" key="local.form.project.qualification-help"/>
                     </small>
                     <label for="updatePrimary" class="col-form-label">
                         <fmt:message bundle="${loc}" key="local.requirement.update-primary"/>
                     </label>
-                    <input type="text" class="form-control update-form" name="primary" id="updatePrimary">
+                    <input type="text" class="form-control update-form"
+                           name="primary" id="updatePrimary">
                     <small id="primary-help" class="form-text">
                         <fmt:message bundle="${loc}" key="local.form.project.primary-help"/>
                     </small>
                     <label for="updateComment" class="col-form-label">
                         <fmt:message bundle="${loc}" key="local.requirement.update-comment"/>
                     </label>
-                    <textarea class="form-control update-form" name="comment" id="updateComment"></textarea>
+                    <textarea class="form-control update-form"
+                              name="comment" id="updateComment"></textarea>
                     <small id="comment-help" class="form-text">
                         <fmt:message bundle="${loc}" key="local.form.project.comment-help"/>
                     </small>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">
-                        <fmt:message bundle="${loc}"
-                                     key="local.requirement.update-cancel"/></button>
+                        <fmt:message bundle="${loc}" key="local.requirement.update-cancel"/>
+                    </button>
                     <button type="submit" class="btn btn-primary" id="update-task-button">
-                        <fmt:message bundle="${loc}"
-                                     key="local.requirement.update-submit"/></button>
+                        <fmt:message bundle="${loc}" key="local.requirement.update-submit"/>
+                    </button>
                 </div>
             </form>
         </div>
     </div>
 </div>
-
 </div>
 <%@ include file="../WEB-INF/jspf/footer.jspf" %>
 <script src="https://use.fontawesome.com/6d201ab77c.js"></script>

@@ -6,12 +6,15 @@
     <title><fmt:message bundle="${loc}" key="local.project.creation"/></title>
     <%@ taglib prefix="ctg" uri="custom-tags" %>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css" rel="stylesheet"
-          integrity="sha384-+0n0xVW2eSR5OomGNYDnhzAbDsOXxcvSN1TPprVMTNDbiYZCxYbOOl7+AMvyTG2x" crossorigin="anonymous">
+          integrity="sha384-+0n0xVW2eSR5OomGNYDnhzAbDsOXxcvSN1TPprVMTNDbiYZCxYbOOl7+AMvyTG2x"
+          crossorigin="anonymous">
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.0/css/all.css"
-          integrity="sha384-lZN37f5QGtY3VHgisS14W3ExzMWZxybE1SJSEsQp9S+oqd12jhcu+A56Ebc1zFSJ" crossorigin="anonymous">
+          integrity="sha384-lZN37f5QGtY3VHgisS14W3ExzMWZxybE1SJSEsQp9S+oqd12jhcu+A56Ebc1zFSJ"
+          crossorigin="anonymous">
     <link rel="icon" type="image/x-icon" href="assets/favicon.ico"/>
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.0/css/all.css"
-          integrity="sha384-lZN37f5QGtY3VHgisS14W3ExzMWZxybE1SJSEsQp9S+oqd12jhcu+A56Ebc1zFSJ" crossorigin="anonymous">
+          integrity="sha384-lZN37f5QGtY3VHgisS14W3ExzMWZxybE1SJSEsQp9S+oqd12jhcu+A56Ebc1zFSJ"
+          crossorigin="anonymous">
     <link rel="stylesheet" href="/css/base.css">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
@@ -23,12 +26,16 @@
 </head>
 <body>
 <div class="container-xxl">
-    <div class="title h1 text-center mt-3"><fmt:message bundle="${loc}" key="local.project.create-header"/></div>
+    <div class="title h1 text-center mt-3">
+        <fmt:message bundle="${loc}" key="local.project.create-header"/>
+    </div>
     <c:if test="${error}">
         <div class="row justify-content-center">
             <div class="col-6">
                 <div class="alert alert-danger alert-dismissible" role="alert" id="error">
-                    <strong><fmt:message bundle="${loc}" key="local.message.error.header"/></strong>
+                    <strong>
+                        <fmt:message bundle="${loc}" key="local.message.error.header"/>
+                    </strong>
                     <fmt:message bundle="${loc}" key="local.message.project.error"/>
                     <button type="button" class="close" data-dismiss="alert">
                         <span aria-hidden="true">&times;</span>
@@ -47,8 +54,9 @@
                 <input type="hidden" name="customer-id"
                        value="${technicalTask.customerId}"/>
                 <div class="form-group">
-                    <label for="name" class="col-form-label"><fmt:message bundle="${loc}"
-                                                                          key="local.project.create-name"/></label>
+                    <label for="name" class="col-form-label">
+                        <fmt:message bundle="${loc}" key="local.project.create-name"/>
+                    </label>
                     <input type="text" class="form-control" name="name"
                            value="<c:out value="${technicalTask.name}"/>" id="name">
                     <small id="name-help" class="form-text">
@@ -57,20 +65,22 @@
                     <div id="regex-name" class="hidden-regex">${regexProjectName}</div>
                 </div>
                 <div class="form-group">
-                    <label for="description" class="col-form-label"><fmt:message bundle="${loc}"
-                                                                                 key="local.project.create-description"/></label>
-                    <textarea class="form-control" name="description" id="description"><c:out value="${technicalTask.overview}"/></textarea>
+                    <label for="description" class="col-form-label">
+                        <fmt:message bundle="${loc}" key="local.project.create-description"/>
+                    </label>
+                    <textarea class="form-control" name="description" id="description">
+                        <c:out value="${technicalTask.overview}"/>
+                    </textarea>
                     <small id="description-help" class="form-text">
                         <fmt:message bundle="${loc}" key="local.form.project.description-help"/>
                     </small>
                     <div id="regex-description" class="hidden-regex">${regexProjectDescription}</div>
                 </div>
-                <button type="submit" class="btn btn-primary mt-3" id="create"><
-                    fmt:message bundle="${loc}" key="local.project.create-button"/>
+                <button type="submit" class="btn btn-primary mt-3" id="create">
+                    <fmt:message bundle="${loc}" key="local.project.create-button"/>
                 </button>
             </form>
         </div>
-
     </div>
 </div>
 <%@ include file="../WEB-INF/jspf/footer.jspf" %>

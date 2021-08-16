@@ -32,35 +32,34 @@ public class UserDaoImpl implements UserDao {
     public boolean addUser(User user) throws DaoException {
         boolean added = false;
         Connection connection = connectionPool.getConnection();
-        try (PreparedStatement statement = connection.prepareStatement(
-                ConstantDaoQuery.ADD_USER_QUERY,
+        try (PreparedStatement userDetailStatement = connection.prepareStatement(
+                ConstantDaoQuery.ADD_USER_DETAIL_QUERY,
                 Statement.RETURN_GENERATED_KEYS)) {
             connection.setAutoCommit(false);
-            Object[] userParameters = {user.getEmail(), user.getPassword(),
-                    user.getRole().toString(), user.getUserDetail().getId()};
-            DaoExecutor.fillStatement(statement, userParameters);
-            added = (statement.executeUpdate() == 1);
+            UserDetail userDetail = user.getUserDetail();
+            Object[] userDetailParameters = {userDetail.getFirstName(),
+                    userDetail.getLastName(), userDetail.getCompany(),
+                    userDetail.getPosition(), userDetail.getExperience(),
+                    userDetail.getSalary(), userDetail.getPrimarySkill(),
+                    userDetail.getSkillsDescription(), userDetail.getStatus().toString()};
+            DaoExecutor.fillStatement(userDetailStatement, userDetailParameters);
+            added = (userDetailStatement.executeUpdate() == 1);
             if (added) {
-                ResultSet resultSet = statement.getGeneratedKeys();
+                ResultSet resultSet = userDetailStatement.getGeneratedKeys();
                 resultSet.next();
-                long userId = resultSet.getInt(1);
-                user.setId(userId);
-                UserDetail userDetail = user.getUserDetail();
-                try (PreparedStatement userDetailStatement = connection.prepareStatement(
-                        ConstantDaoQuery.ADD_USER_DETAIL_QUERY,
-                        Statement.RETURN_GENERATED_KEYS)) {
-                    Object[] userDetailParameters = {userDetail.getFirstName(),
-                            userDetail.getLastName(), userDetail.getCompany(),
-                            userDetail.getPosition(), userDetail.getExperience(),
-                            userDetail.getSalary(), userDetail.getPrimarySkill(),
-                            userDetail.getSkillsDescription(), userDetail.getStatus().toString()};
-                    DaoExecutor.fillStatement(userDetailStatement, userDetailParameters);
-                    added = (userDetailStatement.executeUpdate() == 1);
+                long userDetailsId = resultSet.getLong(1);
+                userDetail.setId(userDetailsId);
+                try (PreparedStatement userStatement = connection.prepareStatement(
+                        ConstantDaoQuery.ADD_USER_QUERY , Statement.RETURN_GENERATED_KEYS)) {
+                    Object[] userParameters = {user.getEmail(), user.getPassword(),
+                            user.getRole().toString(), user.getUserDetail().getId()};
+                    DaoExecutor.fillStatement(userStatement, userParameters);
+                    added = (userStatement.executeUpdate() == 1);
                     if (added) {
-                        resultSet = statement.getGeneratedKeys();
+                        resultSet = userStatement.getGeneratedKeys();
                         resultSet.next();
-                        long userDetailsId = resultSet.getLong(1);
-                        userDetail.setId(userDetailsId);
+                        long userId = resultSet.getInt(1);
+                        user.setId(userId);
                         connection.commit();
                     }
                 }

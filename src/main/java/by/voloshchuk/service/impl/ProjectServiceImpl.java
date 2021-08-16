@@ -36,11 +36,11 @@ public class ProjectServiceImpl implements ProjectService {
     }
 
     @Override
-    public List<Project> findProjectsByUserIdAndState(Long useId, String state) throws ServiceException {
+    public List<Project> findProjectsByUserIdAndState(Long userId, String state) throws ServiceException {
         List<Project> projects = null;
         ProjectDao projectDao = daoProvider.getProjectDao();
         try {
-            projects = projectDao.findProjectsByUserIdAndState(useId, state);
+            projects = projectDao.findProjectsByUserIdAndState(userId, state);
         } catch (DaoException e) {
             throw new ServiceException("Exception while find project ", e);
         }
