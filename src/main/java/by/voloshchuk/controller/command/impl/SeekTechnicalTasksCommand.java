@@ -6,6 +6,7 @@ import by.voloshchuk.exception.ServiceException;
 import by.voloshchuk.service.ServiceProvider;
 import by.voloshchuk.service.TechnicalTaskService;
 import by.voloshchuk.util.RegexProperty;
+import by.voloshchuk.util.StringFormatter;
 import org.apache.logging.log4j.Level;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -29,6 +30,7 @@ public class SeekTechnicalTasksCommand implements Command {
     public CommandRouter execute(HttpServletRequest request, HttpServletResponse response)
             throws ServletException {
         String status = request.getParameter(RequestParameter.TECHNICAL_TASKS_STATUS);
+        status = StringFormatter.parseEnumStringValue(status);
         List<TechnicalTask> technicalTasks = null;
         TechnicalTaskService technicalTaskService = serviceProvider.getTechnicalTaskService();
         try {

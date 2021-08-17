@@ -2,6 +2,11 @@ var ajax = webix.ajax().headers({
     'Content-type': 'application/json'
 })
 
+const requirementRowHeader = '<tr class="requirement" ><th scope="row">';
+
+const requirementRowBody = '</th><td class="experience" ></td><td class="salary" ></td>' +
+    '<td class="qualification" ></td><td class="primary" ></td><td class="comment" ></td></tr>';
+
 $('.requirements').each(function () {
 
     var details = $(this).find('.details');
@@ -19,10 +24,8 @@ $('.requirements').each(function () {
             .then((response) => response.json())
             .then((data) => {
                 for (let i = 0; i < data.length; i++) {
-                    var html = '';
-                    html += '<tr class="requirement" ><th scope="row">' + (i + 1)
-                        + '</th><td class="experience" ></td><td class="salary" ></td><td class="qualification" >'
-                    html += '</td><td class="primary" ></td><td class="comment" ></td></tr>';
+                    var html = requirementRowHeader + (i + 1);
+                    html += requirementRowBody;
                     $(table).append(html);
 
                     var element = $('.table').find('.requirement:last');

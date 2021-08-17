@@ -33,8 +33,7 @@ function submitCreationForm() {
                 "name": document.getElementById("name").value,
                 "overview": document.getElementById("overview").value
             })
-            .then((response) => response.json())
-            .then((data) => {
+            .then((response) => {
                 window.location.href = "http://localhost:8080/controller?command=to-create-requirement";
             })
     }

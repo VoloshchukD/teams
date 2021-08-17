@@ -53,7 +53,7 @@ public class AsyncCommandProvider {
     }
 
     public AsyncCommandName parseCommand(String commandName) {
-        String formattedName = StringFormatter.parseCommand(commandName);
+        String formattedName = StringFormatter.parseEnumStringValue(commandName);
         AsyncCommandName asyncCommandName = AsyncCommandName.valueOf(formattedName);
         return asyncCommandName;
     }

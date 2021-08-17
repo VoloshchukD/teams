@@ -1,6 +1,7 @@
 package by.voloshchuk.controller.command.impl;
 
 import by.voloshchuk.controller.command.Command;
+import by.voloshchuk.controller.command.CommandAttribute;
 import by.voloshchuk.controller.command.CommandPath;
 import by.voloshchuk.controller.command.CommandRouter;
 import by.voloshchuk.entity.dto.BillDto;
@@ -32,13 +33,21 @@ public class CreateBillCommand implements Command {
             throws ServletException {
         BillDto billDto = RequestParser.buildBillDto(request);
         BillService billService = serviceProvider.getBillService();
+        boolean created = false;
         try {
-            billService.addBill(billDto);
+            created = billService.addBill(billDto);
         } catch (ServiceException e) {
             logger.log(Level.ERROR, e.getMessage());
         }
-        CommandRouter router = new CommandRouter(CommandRouter.RouterType.REDIRECT,
-                CommandPath.TO_CREATE_REQUIREMENT);
+        CommandRouter router;
+        if (created) {
+            router = new CommandRouter(CommandRouter.RouterType.REDIRECT,
+                    CommandPath.TO_PROJECT_BILLS + billDto.getProjectId());
+        } else {
+            router = new CommandRouter(CommandRouter.RouterType.FORWARD,
+                    CommandPath.BILL_CREATION);
+            request.setAttribute(CommandAttribute.ERROR, true);
+        }
         return router;
     }
 

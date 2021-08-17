@@ -65,7 +65,7 @@
                         </a>
                     </p>
                     <p>
-                        <a class="text-reset" href="?command=projects&state=IN_PROGRESS">
+                        <a class="text-reset" href="?command=projects&state=in-progress">
                             <fmt:message bundle="${loc}" key="local.projects"/>
                         </a>
                     </p>

@@ -74,7 +74,7 @@ public class CommandProvider {
     }
 
     public CommandName parseCommand(String commandName) {
-        String formattedName = StringFormatter.parseCommand(commandName);
+        String formattedName = StringFormatter.parseEnumStringValue(commandName);
         CommandName resultName = CommandName.valueOf(formattedName);
         return resultName;
     }

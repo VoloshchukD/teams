@@ -22,6 +22,21 @@ $("#task").change(function () {
     loadRequirements();
 });
 
+const savedRequirementRow = '<tr class="saved table-primary">' +
+    '<td class="experience" ></td>' +
+    '<td class="salary" ></td>' +
+    '<td class="qualification" ></td>' +
+    '<td class="primary" ></td>' +
+    '<td class="comment" ></td>' +
+    '<td>' +
+    '<button type="button" class="edit btn btn-secondary" data-toggle="modal" data-target="#updateModal" >' +
+    '<i class="fa fa-pencil-square-o" aria-hidden="true"></i></i></button>' +
+    '</td>' +
+    '<td>' +
+    '<button type="button" class="delete btn btn-danger"><i class="fa fa-trash" aria-hidden="true"></i></button>' +
+    '</td>' +
+    '</tr>';
+
 function loadRequirements() {
     var taskId = $("#task").val();
     $('#updateModal').find('#forUpdateTechnicalTaskId').val(taskId);
@@ -32,20 +47,7 @@ function loadRequirements() {
             .then((response) => response.json())
             .then((data) => {
                 for (let i = 0; i < data.length; i++) {
-                    var html = '<tr class="saved table-primary">' +
-                        '<td class="experience" ></td>' +
-                        '<td class="salary" ></td>' +
-                        '<td class="qualification" ></td>' +
-                        '<td class="primary" ></td>' +
-                        '<td class="comment" ></td>' +
-                        '<td>' +
-                        '<button type="button" class="edit btn btn-secondary" data-toggle="modal" data-target="#updateModal" ><i class="fa fa-pencil-square-o" aria-hidden="true"></i></i></button>' +
-                        '</td>' +
-                        '<td>' +
-                        '<button type="button" class="delete btn btn-danger"><i class="fa fa-trash" aria-hidden="true"></i></button>' +
-                        '</td>' +
-                        '</tr>';
-                    $('.table tr:eq(' + (i + 1) + ')').before(html);
+                    $('.table tr:eq(' + (i + 1) + ')').before(savedRequirementRow);
 
                     var element = $('.table').find('.saved:last');
                     element.find('.qualification').text(data[i].qualification);
@@ -68,9 +70,8 @@ function loadRequirements() {
                                 {
                                     "id": data[i].id
                                 })
-                                .then((response) => response.json())
-                                .then((data) => {
-                                    element.remove();
+                                .then((response) => {
+                                    loadRequirements();
                                 })
                         });
                 }
@@ -79,21 +80,26 @@ function loadRequirements() {
 
 }
 
+const newRequirementRow = '<tr class="requirement">' +
+    '<td class="experience" ><input type="text" class="input1 align form-control" /></td>' +
+    '<td class="salary" ><input type="text" class="input2 align form-control" /></td>' +
+    '<td class="qualification" ><input type="text" class="input3 form-control" /></td>' +
+    '<td class="primary" ><input type="text" class="input4 form-control" /></td>' +
+    '<td class="comment" > ' +
+    '<textarea class="input5 form-control" aria-label="With textarea" style="height: 10px;" >' +
+    '</textarea></td>' +
+    '<td>' +
+    '<button type="button" class="save btn btn-primary">' +
+    '<i class="fa fa-floppy-o" aria-hidden="true"></i></button>' +
+    '</td>' +
+    '<td>' +
+    '<button type="button" class="drop btn btn-danger">' +
+    '<i class="fa fa-minus-square" aria-hidden="true"></i></button>' +
+    '</td>' +
+    '</tr>';
+
 $('#add').click(function () {
-    var html = '<tr class="requirement">' +
-        '<td class="experience" ><input type="text" class="input1 align form-control" /></td>' +
-        '<td class="salary" ><input type="text" class="input2 align form-control" /></td>' +
-        '<td class="qualification" ><input type="text" class="input3 form-control" /></td>' +
-        '<td class="primary" ><input type="text" class="input4 form-control" /></td>' +
-        '<td class="comment" > <textarea class="input5 form-control" aria-label="With textarea" style="height: 10px;" ></textarea></td>' +
-        '<td>' +
-        '<button type="button" class="save btn btn-primary"><i class="fa fa-floppy-o" aria-hidden="true"></i></button>' +
-        '</td>' +
-        '<td>' +
-        '<button type="button" class="drop btn btn-danger"><i class="fa fa-minus-square" aria-hidden="true"></i></button>' +
-        '</td>' +
-        '</tr>';
-    $('.table').append(html);
+    $('.table').append(newRequirementRow);
 
     var addedRequirement = $('.table').find('.requirement:last');
     addedRequirement.find('.save').click(function () {
@@ -118,8 +124,7 @@ $('#add').click(function () {
                     "comment": comment,
                     "technical-task-id": $("#task").val()
                 })
-                .then((response) => response.json())
-                .then((data) => {
+                .then((response) => {
                     loadRequirements();
                 })
             addedRequirement.remove();

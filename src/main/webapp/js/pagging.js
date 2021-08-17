@@ -91,32 +91,39 @@ function paginate() {
             pagging.children('.num3').hide();
             pagging.children('.first').hide();
             pagging.children('.last').hide();
+            pagging.children('.prev').hide();
+            pagging.children('.next').hide();
+            $('#radio').hide();
 
-            if (pagging.find('.num1').html() >= 1) {
-                pagging.children('.num1').show();
-            }
-            if (pagging.find('.num2').html() == currentPage && totalPages != 0) {
-                pagging.children('.num2').show();
-            }
-            if (pagging.find('num3').html() <= totalPages) {
-                pagging.children('.num3').show();
+            if (totalPages > 1) {
+                $('#radio').show();
+                if (pagging.find('.num1').html() >= 1) {
+                    pagging.children('.num1').show();
+                }
+                if (pagging.find('.num2').html() == currentPage && totalPages != 0) {
+                    pagging.children('.num2').show();
+                }
+                if (pagging.find('num3').html() <= totalPages) {
+                    pagging.children('.num3').show();
+                }
+
+                if ($(el).find('.elements').children('.element').first().is(':visible')) {
+                    pagging.find('.prev').hide();
+                    pagging.find('.first').hide();
+                } else {
+                    pagging.find('.prev').show();
+                    pagging.find('.first').show();
+                }
+
+                if ($(el).find('.elements').children('.element').last().is(':visible')) {
+                    pagging.find('.next').hide();
+                    pagging.find('.last').hide();
+                } else {
+                    pagging.find('.next').show();
+                    pagging.find('.last').show();
+                }
             }
 
-            if ($(el).find('.elements').children('.element').first().is(':visible')) {
-                pagging.find('.prev').hide();
-                pagging.find('.first').hide();
-            } else {
-                pagging.find('.prev').show();
-                pagging.find('.first').show();
-            }
-
-            if ($(el).find('.elements').children('.element').last().is(':visible')) {
-                pagging.find('.next').hide();
-                pagging.find('.last').hide();
-            } else {
-                pagging.find('.next').show();
-                pagging.find('.last').show();
-            }
         }
 
     });

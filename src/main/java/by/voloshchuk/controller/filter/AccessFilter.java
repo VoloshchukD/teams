@@ -141,7 +141,7 @@ public class AccessFilter implements Filter {
 
     private Set<String> makeStringSet(List<?> list) {
         return list.stream()
-                .map(value -> StringFormatter.transformCommand(String.valueOf(value)))
+                .map(value -> StringFormatter.transformEnumString(String.valueOf(value)))
                 .collect(Collectors.toSet());
     }
 

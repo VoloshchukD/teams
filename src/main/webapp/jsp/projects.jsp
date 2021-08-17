@@ -56,25 +56,25 @@
                 <c:choose>
                     <c:when test="${state == 'IN_PROGRESS'}">
                         <li class="nav-item">
-                            <a class="nav-link active" href="?command=projects&state=IN_PROGRESS">
+                            <a class="nav-link active" href="?command=projects&state=in-progress">
                                 <fmt:message bundle="${loc}" key="local.projects.active"/>
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="?command=projects&state=FINISHED">
+                            <a class="nav-link" href="?command=projects&state=finished">
                                 <fmt:message bundle="${loc}" key="local.projects.finished"/>
                             </a>
                         </li>
                     </c:when>
                     <c:when test="${state == 'FINISHED'}">
                         <li class="nav-item">
-                            <a class="nav-link" href="?command=projects&state=IN_PROGRESS">
+                            <a class="nav-link" href="?command=projects&state=in-progress">
                                 <fmt:message bundle="${loc}" key="local.projects.active"/>
                             </a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link active"
-                               href="?command=projects1&state=FINISHED">
+                               href="?command=projects1&state=finished">
                                 <fmt:message bundle="${loc}" key="local.projects.finished"/>
                             </a>
                         </li>
@@ -99,6 +99,11 @@
     </div>
     <div class="frame row justify-content-center">
         <div class="elements row mt-3">
+            <c:if test="${projects.size() == 0}">
+                <p class="text-center mt-1">
+                    <fmt:message bundle="${loc}" key="local.projects.no-yet"/>
+                </p>
+            </c:if>
             <c:forEach items="${projects}" var="project">
                 <div class="element col-6">
                     <div class="card p-3 mb-2">

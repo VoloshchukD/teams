@@ -15,15 +15,17 @@ window.addEventListener("load", function (event) {
 });
 
 $("#projects").change(function () {
-    projectId = $("#projects").val();
-    loadProjectRequirements();
+    if ($("#projects").val() != "null") {
+        projectId = $("#projects").val();
+        loadProjectRequirements();
+    }
 });
 
 const cardHeader = '<div class="employee element col-4 card rounded shadow-sm border-0">\n' +
     '<div class="card-body p-0"><div class="bg-primary px-5 py-4 text-center card-img-top"><img src="';
 const cardHeader2 = '" alt="..." width="100" class="rounded-circle mb-2 img-thumbnail d-block mx-auto">\n' +
     '<h5 class="text-white mb-0 names">';
-const space =  ' ';
+const space = ' ';
 const cardHeader3 = '</h5><p class="small text-white mb-0 primary">'
 const cardHeader4 = '</p></div><div class="p-3 d-flex justify-content-center">\n' +
     '<ul class="list-inline mb-0"><li class="list-inline-item text-center">\n' +
@@ -41,7 +43,7 @@ const deleteButton = '<button type="button" class="delete btn btn-danger">' +
 
 const addButton = '<button type="button" class="add btn btn-primary"><i class="fa fa-plus"></i></button>';
 
-const closePart ='</div></div></div>';
+const closePart = '</div></div></div>';
 
 function createHtmlCard(data, withDelete) {
     var card = cardHeader + data.avatar + cardHeader2 + cardHeader3
@@ -133,6 +135,20 @@ $("#search").click(function () {
 
 })
 
+const requirementHeader = '<tr class="requirement"><th scope="row">';
+
+const requirementBody = '</th>' +
+    '<td class="experience" ></td>' +
+    '<td class="salary" ></td>' +
+    '<td class="qualification" ></td>' +
+    '<td class="primary" ></td>' +
+    '<td class="comment" ></td>' +
+    '<td>' +
+    '<button type="button" class="seek btn btn-primary">' +
+    '<i class="fa fa-search" aria-hidden="true"></i></button>' +
+    '</td>'
+'</tr>';
+
 function loadProjectRequirements() {
     $('#requirements').find("tr:gt(0)").remove();
     ajax.get(
@@ -143,18 +159,7 @@ function loadProjectRequirements() {
         .then((response) => response.json())
         .then((data) => {
                 for (let i = 0; i < data.length; i++) {
-                    var html = '<tr class="requirement">' +
-                        '<th scope="row">' + (i + 1) + '</th>' +
-                        '<td class="experience" ></td>' +
-                        '<td class="salary" ></td>' +
-                        '<td class="qualification" ></td>' +
-                        '<td class="primary" ></td>' +
-                        '<td class="comment" ></td>' +
-                        '<td>' +
-                        '<button type="button" class="seek btn btn-primary">' +
-                        '<i class="fa fa-search" aria-hidden="true"></i></button>' +
-                        '</td>'
-                    '</tr>';
+                    var html = requirementHeader + (i + 1) + requirementBody;
                     $('#requirements').append(html);
 
                     var requirement = $('#requirements').find('.requirement:last');

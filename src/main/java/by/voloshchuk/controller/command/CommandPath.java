@@ -54,7 +54,7 @@ public final class CommandPath {
 
     public static final String TO_CREATE_PROJECT = "/controller?command=to-create-project";
 
-    public static final String TO_PROJECTS = "/controller?command=projects&state=IN_PROGRESS";
+    public static final String TO_PROJECTS = "/controller?command=projects&state=in-progress";
 
     public static final String TO_BILLS = "/controller?command=bills";
 
@@ -65,5 +65,9 @@ public final class CommandPath {
     public static final String TASKS = "?command=to-tasks&project-id=";
 
     public static final String REQUIREMENTS = "?command=to-create-requirement&technical-task-id=";
+
+    public static final String TO_PROJECT_BILLS = "?command=to-project-bills&project-id=";
+
+    public static final String BILL_CREATION = "?command=to-bill-creation";
 
 }

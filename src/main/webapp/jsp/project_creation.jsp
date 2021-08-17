@@ -47,7 +47,7 @@
     <div class="row justify-content-center">
         <div class="col-4">
             <jsp:useBean id="technicalTask" class="by.voloshchuk.entity.TechnicalTask" scope="request"/>
-            <form action="controller" onSubmit="return validateCreateForm()" novalidate>
+            <form action="controller" onSubmit="return validateProjectForm()" novalidate>
                 <input type="hidden" class="command" name="command" value="create-project"/>
                 <input type="hidden" class="technical-task-id" name="technical-task-id"
                        value="${technicalTask.id}"/>

@@ -17,12 +17,12 @@ public class StringFormatter {
         return dateFormat.parse(stringDate);
     }
 
-    public static String parseCommand(String command) {
-        return command.toUpperCase().replaceAll(
+    public static String parseEnumStringValue(String value) {
+        return value.toUpperCase().replaceAll(
                 COMMAND_SEPARATOR, ENUM_COMMAND_SEPARATOR);
     }
 
-    public static String transformCommand(String command) {
+    public static String transformEnumString(String command) {
         return command.toLowerCase().replaceAll(
                 ENUM_COMMAND_SEPARATOR, COMMAND_SEPARATOR);
     }

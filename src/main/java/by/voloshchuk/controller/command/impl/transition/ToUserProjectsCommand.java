@@ -6,6 +6,7 @@ import by.voloshchuk.exception.ServiceException;
 import by.voloshchuk.service.ProjectService;
 import by.voloshchuk.service.ServiceProvider;
 import by.voloshchuk.util.RegexProperty;
+import by.voloshchuk.util.StringFormatter;
 import org.apache.logging.log4j.Level;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -30,6 +31,7 @@ public class ToUserProjectsCommand implements Command {
     public CommandRouter execute(HttpServletRequest request, HttpServletResponse response)
             throws ServletException {
         String state = request.getParameter(RequestParameter.PROJECT_STATE);
+        state = StringFormatter.parseEnumStringValue(state);
         Long userId = (Long) request.getSession().getAttribute(CommandAttribute.USER_ID);
         List<Project> projects = null;
         ProjectService projectService = serviceProvider.getProjectService();

@@ -32,7 +32,7 @@
                 <div id="box" class="justify-content-center"></div>
             </div>
             <div class="row d-flex justify-content-center mt-3">
-                <div class="form-check form-switch col-3 mr-2">
+                <div class="form-check form-switch col-3 mr-5">
                     <c:choose>
                         <c:when test="${userData.status == 'BUSY'}">
                             <input class="form-check-input" type="checkbox" id="status-checker">

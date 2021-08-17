@@ -65,7 +65,7 @@
                 <c:if test="${ not empty role }">
                     <li class="nav-item active">
                         <a class="nav-link custom-link"
-                           href="?command=projects&state=IN_PROGRESS">
+                           href="?command=projects&state=in-progress">
                             <fmt:message bundle="${loc}" key="local.projects"/>
                             <span class="sr-only"></span>
                         </a>
@@ -73,7 +73,7 @@
                     <c:if test="${ role == 'MANAGER' }">
                         <li class="nav-item active">
                             <a class="nav-link custom-link"
-                               href="?command=find-technical-tasks&status=WAIT_PROJECT">
+                               href="?command=find-technical-tasks&status=wait-project">
                                 <fmt:message bundle="${loc}" key="local.technical-tasks"/>
                                 <span class="sr-only"></span>
                             </a>

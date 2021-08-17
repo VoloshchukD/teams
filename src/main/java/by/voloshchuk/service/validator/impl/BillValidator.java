@@ -14,8 +14,8 @@ public class BillValidator implements Validator<BillDto> {
 
     @Override
     public boolean validateUpdateData(BillDto bill) {
-        return validateString(bill.getAmountDue(), RegexProperty.PROPERTY_PROJECT_NAME_REGEX)
-                && validateString(bill.getInformation(), RegexProperty.PROPERTY_PROJECT_DESCRIPTION_REGEX);
+        return validateString(bill.getAmountDue(), RegexProperty.PROPERTY_BILL_AMOUNT_REGEX)
+                && validateString(bill.getInformation(), RegexProperty.PROPERTY_BILL_INFORMATION_REGEX);
     }
 
 }
