@@ -79,6 +79,9 @@
             </div>
         </div>
         <div class="col-6 frame" id="form3" style="display:none;">
+            <p class="row mt-1 text-center" style="display:none;" id="none">
+                <fmt:message bundle="${loc}" key="local.seek-employees.none"/>
+            </p>
             <div class="employees elements row">
             </div>
             <div class="pagging row" aria-label="...">

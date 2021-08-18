@@ -73,6 +73,7 @@ $("#users").click(function () {
     ajax.get("http://localhost:8080/async-controller?command=load-project-users",
         {"project-id": projectId}).then((response) => response.json())
         .then((data) => {
+            configNoneLabel(data);
             for (let i = 0; i < data.length; i++) {
                 var html = createHtmlCard(data[i], true);
                 $('.employees').append(html);
@@ -85,8 +86,7 @@ $("#users").click(function () {
                             "user-id": data[i].id,
                             "project-id": projectId
                         })
-                        .then((response) => response.json())
-                        .then((responseData) => {
+                        .then((response) => {
                             employee.remove();
                         });
                 });
@@ -107,6 +107,8 @@ $("#search").click(function () {
         })
         .then((response) => response.json())
         .then((data) => {
+
+            configNoneLabel(data);
 
             for (let i = 0; i < data.length; i++) {
                 var html = createHtmlCard(data[i], false);
@@ -184,6 +186,7 @@ function loadProjectRequirements() {
                             })
                             .then((response) => response.json())
                             .then((data) => {
+                                configNoneLabel(data);
                                 for (let i = 0; i < data.length; i++) {
                                     var html = createHtmlCard(data[i], false);
                                     $('.employees').append(html);
@@ -209,4 +212,12 @@ function loadProjectRequirements() {
                 }
             }
         )
+}
+
+function configNoneLabel(data) {
+    if (data.length == 0) {
+        $('#none').show();
+    } else {
+        $('#none').hide();
+    }
 }
