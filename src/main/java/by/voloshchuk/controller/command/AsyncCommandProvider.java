@@ -1,6 +1,22 @@
 package by.voloshchuk.controller.command;
 
-import by.voloshchuk.controller.command.impl.async.*;
+import by.voloshchuk.controller.command.impl.async.LoadAvatarCommand;
+import by.voloshchuk.controller.command.impl.async.UpdateUserDetailCommand;
+import by.voloshchuk.controller.command.impl.async.LoadRequirementsCommand;
+import by.voloshchuk.controller.command.impl.async.SeekEmployeesByRequirementCommand;
+import by.voloshchuk.controller.command.impl.async.AddEmployeeCommand;
+import by.voloshchuk.controller.command.impl.async.DeleteEmployeeCommand;
+import by.voloshchuk.controller.command.impl.async.AddRequirementCommand;
+import by.voloshchuk.controller.command.impl.async.LoadProjectUsersCommand;
+import by.voloshchuk.controller.command.impl.async.AddTaskCommand;
+import by.voloshchuk.controller.command.impl.async.UpdateTaskHoursCommand;
+import by.voloshchuk.controller.command.impl.async.UpdateTaskStatusCommand;
+import by.voloshchuk.controller.command.impl.async.LoadTasksInformationCommand;
+import by.voloshchuk.controller.command.impl.async.LoadProjectRequirementsCommand;
+import by.voloshchuk.controller.command.impl.async.AcceptPaymentCommand;
+import by.voloshchuk.controller.command.impl.async.UpdateUserStatusCommand;
+import by.voloshchuk.controller.command.impl.async.DeleteRequirementCommand;
+import by.voloshchuk.controller.command.impl.async.SeekEmployeesBySkillCommand;
 import by.voloshchuk.util.StringFormatter;
 
 import java.util.HashMap;

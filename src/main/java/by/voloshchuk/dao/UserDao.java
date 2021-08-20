@@ -36,9 +36,10 @@ public interface UserDao {
      * Find all users associated with project.
      *
      * @param projectId - id of project with required users
+     * @param role      - required users role
      * @return list of {@link User}
      */
-    List<User> findUsersByProjectId(Long projectId) throws DaoException;
+    List<User> findUsersByProjectIdAndRole(Long projectId, String role) throws DaoException;
 
     /**
      * Find user with unique email.

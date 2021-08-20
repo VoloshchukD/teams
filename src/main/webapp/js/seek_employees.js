@@ -70,7 +70,7 @@ $("#users").click(function () {
     $('.employee').each(function () {
         $(this).remove();
     })
-    ajax.get("http://localhost:8080/async-controller?command=load-project-users",
+    ajax.get("http://localhost:8080/async-controller?command=load-project-users&user-role=all",
         {"project-id": projectId}).then((response) => response.json())
         .then((data) => {
             configNoneLabel(data);

@@ -14,6 +14,7 @@ import by.voloshchuk.service.UserService;
 import by.voloshchuk.service.validator.Validator;
 import by.voloshchuk.service.validator.ValidatorProvider;
 import by.voloshchuk.util.DtoEntityConverter;
+import by.voloshchuk.util.StringFormatter;
 import org.mindrot.jbcrypt.BCrypt;
 
 import java.util.HashMap;
@@ -66,11 +67,13 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public List<User> findUsersByProjectId(Long projectId) throws ServiceException {
+    public List<User> findUsersByProjectIdAndRole(Long projectId, String role)
+            throws ServiceException {
         List<User> users = null;
         UserDao userDao = daoProvider.getUserDao();
         try {
-            users = userDao.findUsersByProjectId(projectId);
+            users = userDao.findUsersByProjectIdAndRole(projectId,
+                    StringFormatter.parseEnumStringValue(role));
         } catch (DaoException e) {
             throw new ServiceException("Exception while find user ", e);
         }

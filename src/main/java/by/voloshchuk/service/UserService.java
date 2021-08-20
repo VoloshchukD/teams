@@ -31,9 +31,10 @@ public interface UserService {
      * Project users finding logics.
      *
      * @param projectId - id of project with users
+     * @param role      - required users role
      * @return list of {@link User}
      */
-    List<User> findUsersByProjectId(Long projectId) throws ServiceException;
+    List<User> findUsersByProjectIdAndRole(Long projectId, String role) throws ServiceException;
 
     /**
      * Basic data finding logics.

@@ -114,8 +114,8 @@ public class UserDaoImpl implements UserDao {
     }
 
     @Override
-    public List<User> findUsersByProjectId(Long projectId) throws DaoException {
-        Object[] parameters = {projectId};
+    public List<User> findUsersByProjectIdAndRole(Long projectId, String role) throws DaoException {
+        Object[] parameters = {projectId, role, role};
         List<User> users = executor.executeQueryMultipleResult(
                 ConstantDaoQuery.FIND_USERS_BY_PROJECT_ID, parameters);
         return users;

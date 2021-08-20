@@ -59,4 +59,6 @@ public final class AsyncCommandParameter {
 
     public static final String REQUIREMENT_ID = "id";
 
+    public static final String USER_ROLE = "user-role";
+
 }

@@ -22,8 +22,8 @@ public class StringFormatter {
                 COMMAND_SEPARATOR, ENUM_COMMAND_SEPARATOR);
     }
 
-    public static String transformEnumString(String command) {
-        return command.toLowerCase().replaceAll(
+    public static String transformEnumString(String value) {
+        return value.toLowerCase().replaceAll(
                 ENUM_COMMAND_SEPARATOR, COMMAND_SEPARATOR);
     }
 

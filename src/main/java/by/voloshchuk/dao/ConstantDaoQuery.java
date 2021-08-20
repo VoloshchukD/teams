@@ -156,7 +156,8 @@ public final class ConstantDaoQuery {
             "INNER JOIN user_project_maps " +
             "ON users.user_id = user_project_maps.user_id " +
             "INNER JOIN user_details ON users.user_id = user_details.user_detail_id " +
-            "WHERE user_project_maps.project_id = ? AND users.role = 'DEVELOPER'";
+            "WHERE user_project_maps.project_id = ? AND users.role = IF (? = 'ALL', role, ?) " +
+            "AND user_details.status != 'DELETED' ";
 
     public static final String FIND_USER_BY_EMAIL_QUERY = "SELECT * FROM users " +
             "INNER JOIN user_details ON users.user_detail_id = user_details.user_detail_id " +

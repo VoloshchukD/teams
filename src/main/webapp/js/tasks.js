@@ -45,7 +45,7 @@ $('#finish-project-modal-button').click(function () {
 })
 
 function loadProjectUsers() {
-    ajax.get("http://localhost:8080/async-controller?command=load-project-users",
+    ajax.get("http://localhost:8080/async-controller?command=load-project-users&user-role=developer",
         {"project-id": projectId}).then((response) => response.json())
         .then((data) => {
             $('#developer').empty();

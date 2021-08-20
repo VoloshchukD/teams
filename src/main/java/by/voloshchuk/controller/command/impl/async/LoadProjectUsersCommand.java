@@ -34,10 +34,11 @@ public class LoadProjectUsersCommand implements AsyncCommand {
     public void execute(HttpServletRequest request, HttpServletResponse response)
             throws IOException, ServletException {
         Long projectId = Long.parseLong(request.getParameter(AsyncCommandParameter.PROJECT_ID));
+        String role = request.getParameter(AsyncCommandParameter.USER_ROLE);
         List<User> users = null;
         UserService userService = serviceProvider.getUserService();
         try {
-            users = userService.findUsersByProjectId(projectId);
+            users = userService.findUsersByProjectIdAndRole(projectId, role);
         } catch (ServiceException e) {
             logger.log(Level.ERROR, e);
         }

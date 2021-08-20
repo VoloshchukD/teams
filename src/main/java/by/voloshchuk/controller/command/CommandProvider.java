@@ -1,7 +1,41 @@
 package by.voloshchuk.controller.command;
 
-import by.voloshchuk.controller.command.impl.*;
-import by.voloshchuk.controller.command.impl.transition.*;
+import by.voloshchuk.controller.command.impl.CreateProjectCommand;
+import by.voloshchuk.controller.command.impl.CreateTechnicalTaskCommand;
+import by.voloshchuk.controller.command.impl.CreateBillCommand;
+import by.voloshchuk.controller.command.impl.UpdateTechnicalTaskCommand;
+import by.voloshchuk.controller.command.impl.DeleteTechnicalTaskCommand;
+import by.voloshchuk.controller.command.impl.UpdateProjectCommand;
+import by.voloshchuk.controller.command.impl.DeleteProjectCommand;
+import by.voloshchuk.controller.command.impl.SeekTechnicalTasksCommand;
+import by.voloshchuk.controller.command.impl.MakePaymentCommand;
+import by.voloshchuk.controller.command.impl.ChangeLocaleCommand;
+import by.voloshchuk.controller.command.impl.RegistrationCommand;
+import by.voloshchuk.controller.command.impl.AuthorizationCommand;
+import by.voloshchuk.controller.command.impl.LogOutCommand;
+import by.voloshchuk.controller.command.impl.DeleteAccountCommand;
+import by.voloshchuk.controller.command.impl.UpdateBillCommand;
+import by.voloshchuk.controller.command.impl.DeleteBillCommand;
+import by.voloshchuk.controller.command.impl.UpdateTaskCommand;
+import by.voloshchuk.controller.command.impl.DeleteTaskCommand;
+import by.voloshchuk.controller.command.impl.UpdateRequirementCommand;
+import by.voloshchuk.controller.command.impl.FinishProjectCommand;
+import by.voloshchuk.controller.command.impl.transition.ToMainPageCommand;
+import by.voloshchuk.controller.command.impl.transition.ToAboutCommand;
+import by.voloshchuk.controller.command.impl.transition.ToUserProjectsCommand;
+import by.voloshchuk.controller.command.impl.transition.ToCreateProjectCommand;
+import by.voloshchuk.controller.command.impl.transition.ToCreateRequirementCommand;
+import by.voloshchuk.controller.command.impl.transition.ToSeekEmployeesCommand;
+import by.voloshchuk.controller.command.impl.transition.ToUserTechnicalTasksCommand;
+import by.voloshchuk.controller.command.impl.transition.ToCreateTechnicalTask;
+import by.voloshchuk.controller.command.impl.transition.ToTasksCommand;
+import by.voloshchuk.controller.command.impl.transition.ToProjectBillsCommand;
+import by.voloshchuk.controller.command.impl.transition.ToBillCreationCommand;
+import by.voloshchuk.controller.command.impl.transition.ToPaymentFormCommand;
+import by.voloshchuk.controller.command.impl.transition.ToUserBillsCommand;
+import by.voloshchuk.controller.command.impl.transition.ToRegistrationCommand;
+import by.voloshchuk.controller.command.impl.transition.ToAuthorizationCommand;
+import by.voloshchuk.controller.command.impl.transition.ToProfileCommand;
 import by.voloshchuk.util.StringFormatter;
 
 import java.util.HashMap;
@@ -19,7 +53,6 @@ public class CommandProvider {
     private Map<CommandName, Command> commands = new HashMap<>();
 
     private CommandProvider() {
-        commands.put(CommandName.ERROR, new ToMainPageCommand());
         commands.put(CommandName.MAIN, new ToMainPageCommand());
         commands.put(CommandName.ABOUT, new ToAboutCommand());
         commands.put(CommandName.PROJECTS, new ToUserProjectsCommand());
