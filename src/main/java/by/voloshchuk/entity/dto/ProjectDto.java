@@ -1,6 +1,7 @@
 package by.voloshchuk.entity.dto;
 
 import by.voloshchuk.entity.Project;
+import by.voloshchuk.entity.TechnicalTask;
 
 import java.util.Objects;
 
@@ -11,6 +12,8 @@ public class ProjectDto {
     private Long managerId;
 
     private Long customerId;
+
+    private TechnicalTask.TechnicalTaskStatus technicalTaskStatus;
 
     public Project getProject() {
         return project;
@@ -36,6 +39,14 @@ public class ProjectDto {
         this.customerId = customerId;
     }
 
+    public TechnicalTask.TechnicalTaskStatus getTechnicalTaskStatus() {
+        return technicalTaskStatus;
+    }
+
+    public void setTechnicalTaskStatus(TechnicalTask.TechnicalTaskStatus technicalTaskStatus) {
+        this.technicalTaskStatus = technicalTaskStatus;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -43,12 +54,13 @@ public class ProjectDto {
         ProjectDto that = (ProjectDto) o;
         return Objects.equals(project, that.project)
                 && Objects.equals(managerId, that.managerId)
-                && Objects.equals(customerId, that.customerId);
+                && Objects.equals(customerId, that.customerId)
+                && Objects.equals(technicalTaskStatus, that.technicalTaskStatus);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(project, managerId, customerId);
+        return Objects.hash(project, managerId, customerId, technicalTaskStatus);
     }
 
     @Override
@@ -60,6 +72,8 @@ public class ProjectDto {
         builder.append(managerId);
         builder.append(", customerId=");
         builder.append(customerId);
+        builder.append(", technicalTaskStatus=");
+        builder.append(technicalTaskStatus);
         return builder.toString();
     }
 

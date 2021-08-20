@@ -47,7 +47,7 @@ public final class ConstantDaoQuery {
             "SET project_name = ?, description = ? " +
             "WHERE project_id = ?";
 
-    public static final String UPDATE_PROJECT_STATUS_QUERY = "UPDATE projects SET state = ? " +
+    public static final String UPDATE_PROJECT_STATE_QUERY = "UPDATE projects SET state = ? " +
             "WHERE project_id = ?";
 
     public static final String DELETE_PROJECT_BILLS_QUERY = "DELETE FROM bills " +
@@ -156,7 +156,7 @@ public final class ConstantDaoQuery {
             "INNER JOIN user_project_maps " +
             "ON users.user_id = user_project_maps.user_id " +
             "INNER JOIN user_details ON users.user_id = user_details.user_detail_id " +
-            "WHERE user_project_maps.project_id = ?";
+            "WHERE user_project_maps.project_id = ? AND users.role = 'DEVELOPER'";
 
     public static final String FIND_USER_BY_EMAIL_QUERY = "SELECT * FROM users " +
             "INNER JOIN user_details ON users.user_detail_id = user_details.user_detail_id " +

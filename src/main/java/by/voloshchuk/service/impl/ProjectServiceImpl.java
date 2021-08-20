@@ -3,6 +3,7 @@ package by.voloshchuk.service.impl;
 import by.voloshchuk.dao.DaoProvider;
 import by.voloshchuk.dao.ProjectDao;
 import by.voloshchuk.entity.Project;
+import by.voloshchuk.entity.TechnicalTask;
 import by.voloshchuk.entity.dto.ProjectDto;
 import by.voloshchuk.exception.DaoException;
 import by.voloshchuk.exception.ServiceException;
@@ -63,11 +64,18 @@ public class ProjectServiceImpl implements ProjectService {
     }
 
     @Override
-    public String updateProjectStatus(Long projectId, String status) throws ServiceException {
+    public String finishProject(Long projectId, Long technicalTaskId) throws ServiceException {
         String resultStatus = null;
         ProjectDao projectDao = daoProvider.getProjectDao();
         try {
-            resultStatus = projectDao.updateProjectStatus(projectId, status);
+            Project project = new Project();
+            project.setId(projectId);
+            project.setTechnicalTaskId(technicalTaskId);
+            project.setState(Project.ProjectStatus.FINISHED);
+            ProjectDto projectDto = new ProjectDto();
+            projectDto.setProject(project);
+            projectDto.setTechnicalTaskStatus(TechnicalTask.TechnicalTaskStatus.COMPLETED);
+            resultStatus = projectDao.updateProjectState(projectDto);
         } catch (DaoException e) {
             throw new ServiceException("Exception while update project ", e);
         }

@@ -1,14 +1,17 @@
 var projectId;
+var technicalTaskId;
 
 window.addEventListener("load", function (event){
     var url_string = window.location.href;
     var url = new URL(url_string);
     projectId = url.searchParams.get("project-id");
+    technicalTaskId = url.searchParams.get("technical-task-id");
 
     $('.card').each(function () {
-    var editForm = $(this).find('.editing');
-    editForm.find('.forDeleteProjectId').val(projectId)
+        var editForm = $(this).find('.editing');
+        editForm.find('.forDeleteProjectId').val(projectId);
     });
+    loadProjectUsers();
 });
 
 var ajax = webix.ajax().headers({
@@ -38,21 +41,28 @@ $('#create-task-button').click(function () {
 
 $('#finish-project-modal-button').click(function () {
     $('#updateProjectId').val(projectId);
+    $('#updateTechnicalTaskId').val(technicalTaskId);
 })
 
-$('#create-task-modal-button').click(function () {
+function loadProjectUsers() {
     ajax.get("http://localhost:8080/async-controller?command=load-project-users",
         {"project-id": projectId}).then((response) => response.json())
         .then((data) => {
             $('#developer').empty();
+            $('#updateDeveloper').empty();
             for (let i = 0; i < data.length; i++) {
-                $('#developer').append($('<option>', {
-                    value: data[i].id,
-                    text: data[i].forename + ' ' + data[i].surname
-                }));
+                fill($('#developer'), data, i);
+                fill($('#updateDeveloper'), data, i);
             }
         })
-})
+}
+
+function fill(holder, data, i) {
+    holder.append($('<option>', {
+        value: data[i].id,
+        text: data[i].forename + ' ' + data[i].surname
+    }));
+}
 
 $('.card').each(function () {
     initCardButtons($(this));
@@ -151,20 +161,6 @@ function initCardButtons(card){
     }
 
 }
-
-$('#updateModal').click(function () {
-    ajax.get("http://localhost:8080/async-controller?command=load-project-users",
-        {"project-id": projectId}).then((response) => response.json())
-        .then((data) => {
-            $('#updateDeveloper').empty();
-            for (let i = 0; i < data.length; i++) {
-                $('#updateDeveloper').append($('<option>', {
-                    value: data[i].id,
-                    text: data[i].forename + ' ' + data[i].surname
-                }));
-            }
-        })
-})
 
 $('.card').each(function () {
     var card = $(this);

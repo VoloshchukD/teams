@@ -4,7 +4,6 @@ import by.voloshchuk.controller.command.Command;
 import by.voloshchuk.controller.command.CommandPath;
 import by.voloshchuk.controller.command.CommandRouter;
 import by.voloshchuk.controller.command.RequestParameter;
-import by.voloshchuk.entity.Project;
 import by.voloshchuk.exception.ServiceException;
 import by.voloshchuk.service.ProjectService;
 import by.voloshchuk.service.ServiceProvider;
@@ -30,11 +29,11 @@ public class FinishProjectCommand implements Command {
     @Override
     public CommandRouter execute(HttpServletRequest request, HttpServletResponse response)
             throws ServletException {
-        String state = Project.ProjectStatus.FINISHED.toString();
         Long projectId = Long.parseLong(request.getParameter(RequestParameter.PROJECT_ID));
+        Long technicalTaskId = Long.parseLong(request.getParameter(RequestParameter.TECHNICAL_TASK_ID));
         ProjectService projectService = serviceProvider.getProjectService();
         try {
-            projectService.updateProjectStatus(projectId, state);
+            projectService.finishProject(projectId, technicalTaskId);
         } catch (ServiceException e) {
             logger.log(Level.ERROR, e.getMessage());
         }

@@ -102,15 +102,18 @@ public class ProjectDaoImpl implements ProjectDao {
     }
 
     @Override
-    public String updateProjectStatus(Long projectId, String status) throws DaoException {
-        String resultStatus = null;
-        Object[] parameters = {status, projectId};
-        boolean result = executor.executeUpdate(
-                ConstantDaoQuery.UPDATE_PROJECT_STATUS_QUERY, parameters);
+    public String updateProjectState(ProjectDto projectDto) throws DaoException {
+        String resultState = null;
+        Project project = projectDto.getProject();
+        Object[][] parameters = {{project.getState().toString(), project.getId()},
+                {projectDto.getTechnicalTaskStatus().toString(), project.getTechnicalTaskId()}};
+        String[] queries = {ConstantDaoQuery.UPDATE_PROJECT_STATE_QUERY,
+                ConstantDaoQuery.UPDATE_TECHNICAL_TASK_STATUS_QUERY};
+        boolean result = executor.executeUpdateTransactionMultiple(queries, parameters);
         if (result) {
-            resultStatus = status;
+            resultState = project.getState().toString();
         }
-        return resultStatus;
+        return resultState;
     }
 
     @Override

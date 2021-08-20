@@ -34,13 +34,12 @@ public interface ProjectDao {
     Project updateProject(Project project) throws DaoException;
 
     /**
-     * Project status reset.
+     * Project state reset.
      *
-     * @param projectId - project id for update
-     * @param status    - status for update
+     * @param projectDto - project data required for state update
      * @return updated status
      */
-    String updateProjectStatus(Long projectId, String status) throws DaoException;
+    String updateProjectState(ProjectDto projectDto) throws DaoException;
 
     /**
      * Project data deletion.

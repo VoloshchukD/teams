@@ -34,13 +34,13 @@ public interface ProjectService {
     Project updateProject(Project project) throws ServiceException;
 
     /**
-     * Project status updating logics.
+     * Project finishing logics.
      *
-     * @param projectId - project id for update
-     * @param status    - status for update
-     * @return updated status
+     * @param projectId       - project id for operation
+     * @param technicalTaskId - related to project technical task id for operation
+     * @return updated project status
      */
-    String updateProjectStatus(Long projectId, String status) throws ServiceException;
+    String finishProject(Long projectId, Long technicalTaskId) throws ServiceException;
 
     /**
      * Project removing logics.

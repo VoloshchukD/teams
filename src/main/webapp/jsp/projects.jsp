@@ -134,7 +134,8 @@
                                 <div class="d-flex justify-content-between mr-3">
                                     <c:if test="${ project.state != 'FINISHED' }">
                                         <div class="d-flex flex-row align-items-center">
-                                            <a href="?command=to-tasks&project-id=${project.id}">
+                                            <a href="?command=to-tasks&project-id=${
+                                            project.id}&technical-task-id=${project.technicalTaskId}">
                                                 <button type="submit" class="btn btn-primary">
                                                     <fmt:message bundle="${loc}"
                                                                  key="local.projects.open"/>

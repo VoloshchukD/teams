@@ -73,6 +73,70 @@
             </div>
         </div>
     </div>
+
+    <div class="modal fade" id="updateModal" tabindex="-1" role="dialog"
+         aria-labelledby="exampleModalLabel"
+         aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">
+                        <fmt:message bundle="${loc}" key="local.tasks.update-header"/>
+                    </h5>
+                </div>
+                <form action="controller" method="post"
+                      onSubmit="return validateUpdateTaskForm()" novalidate>
+                    <input type="hidden" name="command" value="update-task"/>
+                    <input type="hidden" name="task-id" id="updateTaskId"/>
+                    <input type="hidden" name="project-id" id="forUpdateProjectId"/>
+                    <div class="modal-body">
+                        <label for="updateName" class="col-form-label">
+                            <fmt:message bundle="${loc}" key="local.tasks.update-name"/>
+                        </label>
+                        <input type="text" class="form-control update-form" name="name" id="updateName">
+                        <small id="name-help" class="form-text">
+                            <fmt:message bundle="${loc}" key="local.tasks.name-help"/>
+                        </small>
+                        <div id="regex-name" class="hidden-regex">${regexName}</div>
+                        <label for="updateDetails" class="col-form-label">
+                            <fmt:message bundle="${loc}" key="local.tasks.update-description"/>
+                        </label>
+                        <textarea class="form-control update-form"
+                                  name="details" id="updateDetails"></textarea>
+                        <small id="details-help" class="form-text">
+                            <fmt:message bundle="${loc}" key="local.tasks.details-help"/>
+                        </small>
+                        <div id="regex-details" class="hidden-regex">${regexDetails}</div>
+                        <label for="updateHours" class="col-form-label">
+                            <fmt:message bundle="${loc}" key="local.tasks.update-hours"/>
+                        </label>
+                        <input type="text" class="form-control update-form" name="hours" id="updateHours">
+                        <small id="hours-help" class="form-text">
+                            <fmt:message bundle="${loc}" key="local.tasks.hours-help"/>
+                        </small>
+                        <label for="updateDeveloper" class="col-form-label">
+                            <fmt:message bundle="${loc}" key="local.tasks.update-executor"/>
+                        </label>
+                        <div id="regex-hours" class="hidden-regex">${regexHours}</div>
+                        <select class="form-select" name="id" id="updateDeveloper">
+                            <option value="null" selected>
+                                <fmt:message bundle="${loc}" key="local.tasks.update-assign"/>
+                            </option>
+                        </select>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">
+                            <fmt:message bundle="${loc}" key="local.tasks.update-cancel"/>
+                        </button>
+                        <button type="submit" class="btn btn-primary" id="update-task-button">
+                            <fmt:message bundle="${loc}" key="local.tasks.update-submit"/>
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
     <c:if test="${ role == 'MANAGER' }">
         <div class="row d-flex justify-content-center m-3">
             <div class="col-4  text-center">
@@ -149,68 +213,6 @@
             </c:forEach>
         </div>
     </div>
-    <div class="modal fade" id="updateModal" tabindex="-1" role="dialog"
-         aria-labelledby="exampleModalLabel"
-         aria-hidden="true">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title">
-                        <fmt:message bundle="${loc}" key="local.tasks.update-header"/>
-                    </h5>
-                </div>
-                <form action="controller" method="post"
-                      onSubmit="return validateUpdateTaskForm()" novalidate>
-                    <input type="hidden" name="command" value="update-task"/>
-                    <input type="hidden" name="task-id" id="updateTaskId"/>
-                    <input type="hidden" name="project-id" id="forUpdateProjectId"/>
-                    <div class="modal-body">
-                        <label for="updateName" class="col-form-label">
-                            <fmt:message bundle="${loc}" key="local.tasks.update-name"/>
-                        </label>
-                        <input type="text" class="form-control update-form" name="name" id="updateName">
-                        <small id="name-help" class="form-text">
-                            <fmt:message bundle="${loc}" key="local.tasks.name-help"/>
-                        </small>
-                        <div id="regex-name" class="hidden-regex">${regexName}</div>
-                        <label for="updateDetails" class="col-form-label">
-                            <fmt:message bundle="${loc}" key="local.tasks.update-description"/>
-                        </label>
-                        <textarea class="form-control update-form"
-                                  name="details" id="updateDetails"></textarea>
-                        <small id="details-help" class="form-text">
-                            <fmt:message bundle="${loc}" key="local.tasks.details-help"/>
-                        </small>
-                        <div id="regex-details" class="hidden-regex">${regexDetails}</div>
-                        <label for="updateHours" class="col-form-label">
-                            <fmt:message bundle="${loc}" key="local.tasks.update-hours"/>
-                        </label>
-                        <input type="text" class="form-control update-form" name="hours" id="updateHours">
-                        <small id="hours-help" class="form-text">
-                            <fmt:message bundle="${loc}" key="local.tasks.hours-help"/>
-                        </small>
-                        <label for="updateDeveloper" class="col-form-label">
-                            <fmt:message bundle="${loc}" key="local.tasks.update-executor"/>
-                        </label>
-                        <div id="regex-hours" class="hidden-regex">${regexHours}</div>
-                        <select class="form-select" name="id" id="updateDeveloper">
-                            <option value="null" selected>
-                                <fmt:message bundle="${loc}" key="local.tasks.update-assign"/>
-                            </option>
-                        </select>
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal">
-                            <fmt:message bundle="${loc}" key="local.tasks.update-cancel"/>
-                        </button>
-                        <button type="submit" class="btn btn-primary" id="update-task-button">
-                            <fmt:message bundle="${loc}" key="local.tasks.update-submit"/>
-                        </button>
-                    </div>
-                </form>
-            </div>
-        </div>
-    </div>
 
     <div class="modal fade" id="finishModal" tabindex="-1" role="dialog"
          aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -223,6 +225,7 @@
                 <form action="controller" method="post">
                     <input type="hidden" name="command" value="finish-project"/>
                     <input type="hidden" name="project-id" id="updateProjectId"/>
+                    <input type="hidden" name="technical-task-id" id="updateTechnicalTaskId"/>
                     <div class="modal-body">
                         <div class="form-group">
                             <div>

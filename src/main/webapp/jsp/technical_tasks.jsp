@@ -159,7 +159,7 @@
                                             <i class="fa fa-pencil-square" aria-hidden="true"></i>
                                         </button>
                                     </c:if>
-                                    <c:if test="${ task.status != 'ON_PROJECT' }">
+                                    <c:if test="${ task.status == 'WAIT_PROJECT' }">
                                         <form action="controller" method="post">
                                             <input type="hidden" name="command" value="delete-technical-task"/>
                                             <input type="hidden" name="technical-task-id" value="${task.id}"/>
