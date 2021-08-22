@@ -28,10 +28,8 @@ $('#create-task-button').click(function () {
                 "project-id": projectId,
                 "id": $("#developer").val()
             })
-            .then((response) => response.json())
-            .then((data) => {
-                var adress = "http://localhost:8080/controller?command=to-tasks&project-id=" + projectId;
-                window.location.href = adress;
+            .then(()  => {
+                redirectBack();
             })
         $('#modal').hide();
         $('body').removeClass('modal-open');
@@ -88,10 +86,8 @@ $('.card').each(function () {
                 "hours": hoursInput.val(),
                 "task-id": taskId
             })
-            .then((response) => response.json())
-            .then((data) => {
-                var adress = "http://localhost:8080/controller?command=to-tasks&project-id=" + projectId;
-                window.location.href = adress;
+            .then(() => {
+                redirectBack();
             })
         hours.show();
         panel.hide();
@@ -171,14 +167,32 @@ $('.card').each(function () {
         var updateTaskId =  card.find('.identifier').val();
         var plannedTime = card.find('.planned').html();
 
-        $('#updateModal').find('#updateTaskId').val(updateTaskId)
+        $('#updateModal').find('#updateTaskId').val(updateTaskId);
         $('#updateModal').find('#updateName').val(nameValue);
         $('#updateModal').find('#updateDetails').val(detailsValue);
         $('#updateModal').find('#updateHours').val(plannedTime);
-        $('#updateModal').find('#forUpdateProjectId').val(projectId)
+        $('#updateModal').find('#forUpdateProjectId').val(projectId);
+        $('#updateModal').find('#forUpdateTechnicalTaskId').val(technicalTaskId);
+    });
+
+    $(this).find('.delete').click(function () {
+        var deleteTaskId =  card.find('.identifier').val();
+        webix.ajax().post("http://localhost:8080/async-controller?command=delete-task",
+            {
+                "task-id": deleteTaskId
+            })
+            .then(()  => {
+                redirectBack();
+            })
     });
 
 })
+
+function redirectBack(){
+    var adress = "http://localhost:8080/controller?command=to-tasks&project-id=" + projectId
+        + "&technical-task-id=" + technicalTaskId;
+    window.location.href = adress;
+}
 
 var createInputs;
 var updateInputs;

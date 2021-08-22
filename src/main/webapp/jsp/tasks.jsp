@@ -89,6 +89,7 @@
                     <input type="hidden" name="command" value="update-task"/>
                     <input type="hidden" name="task-id" id="updateTaskId"/>
                     <input type="hidden" name="project-id" id="forUpdateProjectId"/>
+                    <input type="hidden" name="technical-task-id" id="forUpdateTechnicalTaskId"/>
                     <div class="modal-body">
                         <label for="updateName" class="col-form-label">
                             <fmt:message bundle="${loc}" key="local.tasks.update-name"/>

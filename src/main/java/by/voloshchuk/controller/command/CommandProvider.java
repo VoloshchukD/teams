@@ -17,7 +17,6 @@ import by.voloshchuk.controller.command.impl.DeleteAccountCommand;
 import by.voloshchuk.controller.command.impl.UpdateBillCommand;
 import by.voloshchuk.controller.command.impl.DeleteBillCommand;
 import by.voloshchuk.controller.command.impl.UpdateTaskCommand;
-import by.voloshchuk.controller.command.impl.DeleteTaskCommand;
 import by.voloshchuk.controller.command.impl.UpdateRequirementCommand;
 import by.voloshchuk.controller.command.impl.FinishProjectCommand;
 import by.voloshchuk.controller.command.impl.transition.ToMainPageCommand;
@@ -86,7 +85,6 @@ public class CommandProvider {
         commands.put(CommandName.UPDATE_BILL, new UpdateBillCommand());
         commands.put(CommandName.DELETE_BILL, new DeleteBillCommand());
         commands.put(CommandName.UPDATE_TASK, new UpdateTaskCommand());
-        commands.put(CommandName.DELETE_TASK, new DeleteTaskCommand());
         commands.put(CommandName.UPDATE_REQUIREMENT, new UpdateRequirementCommand());
         commands.put(CommandName.FINISH_PROJECT, new FinishProjectCommand());
     }

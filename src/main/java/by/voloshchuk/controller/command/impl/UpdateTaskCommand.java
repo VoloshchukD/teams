@@ -41,7 +41,9 @@ public class UpdateTaskCommand implements Command {
             logger.log(Level.ERROR, e.getMessage());
         }
         CommandRouter router = new CommandRouter(CommandRouter.RouterType.REDIRECT,
-                CommandPath.TASKS + request.getParameter(RequestParameter.PROJECT_ID));
+                CommandPath.TASKS + request.getParameter(RequestParameter.PROJECT_ID)
+                        + CommandPath.TECHNICAL_TASK_ID_PARAMETER
+                        + request.getParameter(RequestParameter.TECHNICAL_TASK_ID));
         return router;
     }
 

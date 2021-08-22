@@ -64,6 +64,8 @@ public final class CommandPath {
 
     public static final String TASKS = "?command=to-tasks&project-id=";
 
+    public static final String TECHNICAL_TASK_ID_PARAMETER = "&technical-task-id=";
+
     public static final String REQUIREMENTS = "?command=to-create-requirement&technical-task-id=";
 
     public static final String TO_PROJECT_BILLS = "?command=to-project-bills&project-id=";

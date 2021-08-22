@@ -17,6 +17,7 @@ import by.voloshchuk.controller.command.impl.async.AcceptPaymentCommand;
 import by.voloshchuk.controller.command.impl.async.UpdateUserStatusCommand;
 import by.voloshchuk.controller.command.impl.async.DeleteRequirementCommand;
 import by.voloshchuk.controller.command.impl.async.SeekEmployeesBySkillCommand;
+import by.voloshchuk.controller.command.impl.async.DeleteTaskCommand;
 import by.voloshchuk.util.StringFormatter;
 
 import java.util.HashMap;
@@ -51,6 +52,7 @@ public class AsyncCommandProvider {
         asyncCommands.put(AsyncCommandName.UPDATE_USER_STATUS, new UpdateUserStatusCommand());
         asyncCommands.put(AsyncCommandName.DELETE_REQUIREMENT, new DeleteRequirementCommand());
         asyncCommands.put(AsyncCommandName.SEARCH_EMPLOYEES, new SeekEmployeesBySkillCommand());
+        asyncCommands.put(AsyncCommandName.DELETE_TASK, new DeleteTaskCommand());
     }
 
     public static AsyncCommandProvider getInstance() {

@@ -53,20 +53,13 @@
         <c:if test="${ role == 'MANAGER' }">
             <div class="editing d-flex justify-content-center mt-3">
                 <div class="mr-3">
-                    <input type="hidden" class="taskId"
-                           name="task-id" value="${task.id}"/>
                     <button type="button" class="edit btn btn-secondary"
                             data-toggle="modal" data-target="#updateModal">
                         <i class="fa fa-pencil-square" aria-hidden="true"></i>
                     </button>
                 </div>
                 <div>
-                    <form class="delete" action="controller" method="post">
-                        <input type="hidden" name="command" value="delete-task"/>
-                        <input type="hidden" name="task-id" value="${task.id}"/>
-                        <input type="hidden" class="forDeleteProjectId"
-                               name="project-id"/>
-                        <button type="submit" class="btn btn-danger">
+                        <button type="button" class="delete btn btn-danger">
                             <i class="fa fa-minus-circle" aria-hidden="true"></i>
                         </button>
                     </form>
