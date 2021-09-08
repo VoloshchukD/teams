@@ -37,7 +37,7 @@ public class DeleteBillCommand implements Command {
             logger.log(Level.ERROR, e.getMessage());
         }
         CommandRouter router = new CommandRouter(CommandRouter.RouterType.REDIRECT,
-                CommandPath.PROJECT_BILLS + request.getParameter(RequestParameter.PROJECT_ID));
+                CommandPath.TO_PROJECT_BILLS + request.getParameter(RequestParameter.PROJECT_ID));
         return router;
     }
 

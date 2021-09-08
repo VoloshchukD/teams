@@ -20,6 +20,8 @@ public class User extends AbstractEntity {
 
     private UserDetail userDetail;
 
+    private static final long serialVersionUID = 6522725130389440590L;
+
     public String getEmail() {
         return email;
     }

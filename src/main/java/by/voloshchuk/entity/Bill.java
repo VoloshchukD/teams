@@ -18,6 +18,8 @@ public class Bill extends AbstractEntity {
 
     private Long projectId;
 
+    private static final long serialVersionUID = -2215120140632513551L;
+
     public BillStatus getStatus() {
         return status;
     }

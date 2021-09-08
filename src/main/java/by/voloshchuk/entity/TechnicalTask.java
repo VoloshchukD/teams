@@ -21,6 +21,8 @@ public class TechnicalTask extends AbstractEntity {
 
     private Long customerId;
 
+    private static final long serialVersionUID = 333894676624008189L;
+
     public String getName() {
         return name;
     }

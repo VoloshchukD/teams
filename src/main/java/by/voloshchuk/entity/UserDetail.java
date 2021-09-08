@@ -30,6 +30,8 @@ public class UserDetail extends AbstractEntity {
         DELETED
     }
 
+    private static final long serialVersionUID = 1106991494272214864L;
+
     public String getImagePath() {
         return imagePath;
     }

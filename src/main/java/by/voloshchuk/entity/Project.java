@@ -21,6 +21,8 @@ public class Project extends AbstractEntity {
 
     private Long technicalTaskId;
 
+    private static final long serialVersionUID = -4025680398403414214L;
+
     public String getName() {
         return name;
     }

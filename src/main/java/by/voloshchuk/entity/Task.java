@@ -24,6 +24,8 @@ public class Task extends AbstractEntity {
 
     private User developer;
 
+    private static final long serialVersionUID = 2089395688822660901L;
+
     public String getName() {
         return name;
     }

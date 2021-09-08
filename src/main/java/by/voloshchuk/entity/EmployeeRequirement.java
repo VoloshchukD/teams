@@ -16,6 +16,8 @@ public class EmployeeRequirement extends AbstractEntity {
 
     private String primarySkill;
 
+    private static final long serialVersionUID = 92144745125437748L;
+
     public Integer getExperience() {
         return experience;
     }

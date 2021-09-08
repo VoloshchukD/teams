@@ -40,7 +40,7 @@ public class UpdateBillCommand implements Command {
 
         CommandRouter router =
                 new CommandRouter(CommandRouter.RouterType.REDIRECT,
-                        CommandPath.PROJECT_BILLS
+                        CommandPath.TO_PROJECT_BILLS
                                 + request.getParameter(RequestParameter.PROJECT_ID));
         return router;
     }
