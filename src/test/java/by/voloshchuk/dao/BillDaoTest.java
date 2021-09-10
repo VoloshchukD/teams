@@ -5,6 +5,7 @@ import by.voloshchuk.exception.DaoException;
 import org.junit.Assert;
 import org.junit.BeforeClass;
 import org.junit.Test;
+import org.mockito.Mockito;
 
 import java.util.List;
 
@@ -20,15 +21,19 @@ public class BillDaoTest {
 
     private static final Long DATABASE_USER_ID = 1L;
 
+    private static final Integer TEST_INTEGER = 1;
+
+    private static final String TEST_STRING = "test data";
+
     @BeforeClass
     public static void initializeTestData() {
         billDao = DaoProvider.getInstance().getBillDao();
-        bill = new Bill();
-        bill.setId(DATABASE_BILL_ID);
-        bill.setProjectId(DATABASE_PROJECT_ID);
-        bill.setStatus(Bill.BillStatus.PAID);
-        bill.setInformation("bill info");
-        bill.setAmountDue(999);
+        bill = Mockito.mock(Bill.class);
+        Mockito.when(bill.getId()).thenReturn(DATABASE_BILL_ID);
+        Mockito.when(bill.getInformation()).thenReturn(TEST_STRING);
+        Mockito.when(bill.getProjectId()).thenReturn(DATABASE_PROJECT_ID);
+        Mockito.when(bill.getAmountDue()).thenReturn(TEST_INTEGER);
+        Mockito.when(bill.getStatus()).thenReturn(Bill.BillStatus.PAID);
     }
 
     @Test
@@ -57,10 +62,9 @@ public class BillDaoTest {
 
     @Test
     public void testUpdateBill() throws DaoException {
-        String updateData = "updated bill data";
-        bill.setInformation(updateData);
+        bill.setInformation(TEST_STRING);
         Bill updated = billDao.updateBill(bill);
-        Assert.assertEquals(updateData, updated.getInformation());
+        Assert.assertNotNull(updated);
     }
 
     @Test

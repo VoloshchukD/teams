@@ -54,9 +54,9 @@ public class BillDaoImpl implements BillDao {
     @Override
     public Bill updateBill(Bill bill) throws DaoException {
         Bill resultBill = null;
-        Object[] parameters = {bill.getInformation(), bill.getAmountDue(), bill.getId()};
-        boolean result = executor.executeUpdate(
-                ConstantDaoQuery.UPDATE_BILL_QUERY, parameters);
+        Object[][] parameters = {{bill.getInformation(), bill.getAmountDue(), bill.getId()}};
+        boolean result = executor.executeUpdateTransactionMultiple(
+                new String[]{ConstantDaoQuery.UPDATE_BILL_QUERY}, parameters);
         if (result) {
             resultBill = bill;
         }

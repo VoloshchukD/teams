@@ -20,9 +20,7 @@ public class AccessFilter implements Filter {
 
     private final Map<User.UserRole, Set<String>> accessMap = new HashMap<>();
 
-    @Override
-    public void init(FilterConfig filterConfig) {
-
+    private void initGuestCommands() {
         Set<String> guestCommands = makeStringSet(Arrays.asList(
                 CommandName.AUTHORIZATION,
                 CommandName.AUTHORIZE,
@@ -32,8 +30,10 @@ public class AccessFilter implements Filter {
                 CommandName.MAIN,
                 CommandName.ERROR));
         accessMap.put(User.UserRole.GUEST, guestCommands);
+    }
 
-        Set<String> commonCommands = makeStringSet(Arrays.asList(
+    private Set<String> initCommonCommands() {
+        return makeStringSet(Arrays.asList(
                 CommandName.LOGOUT,
                 CommandName.DELETE_ACCOUNT,
                 CommandName.LOCALE,
@@ -47,7 +47,9 @@ public class AccessFilter implements Filter {
                 AsyncCommandName.LOAD_AVATAR,
                 AsyncCommandName.UPDATE_USER_DETAIL,
                 AsyncCommandName.UPDATE_USER_STATUS));
+    }
 
+    private void initManagerCommands(Set<String> commonCommands) {
         Set<String> managerCommands = makeStringSet(Arrays.asList(
                 CommandName.BILLS,
                 CommandName.FIND_TECHNICAL_TASKS,
@@ -76,13 +78,17 @@ public class AccessFilter implements Filter {
                 AsyncCommandName.SEARCH_EMPLOYEES));
         managerCommands.addAll(commonCommands);
         accessMap.put(User.UserRole.MANAGER, managerCommands);
+    }
 
+    private void initDeveloperCommands(Set<String> commonCommands) {
         Set<String> developerCommands = makeStringSet(Arrays.asList(
                 AsyncCommandName.UPDATE_TASK_HOURS,
                 AsyncCommandName.UPDATE_TASK_STATUS));
         developerCommands.addAll(commonCommands);
         accessMap.put(User.UserRole.DEVELOPER, developerCommands);
+    }
 
+    private void initCustomerCommands(Set<String> commonCommands) {
         Set<String> customerCommands = makeStringSet(Arrays.asList(
                 CommandName.BILLS,
                 CommandName.MAKE_PAYMENT,
@@ -101,10 +107,22 @@ public class AccessFilter implements Filter {
                 AsyncCommandName.DELETE_REQUIREMENT));
         customerCommands.addAll(commonCommands);
         accessMap.put(User.UserRole.CUSTOMER, customerCommands);
+    }
 
+    private void initAdminCommands(Set<String> commonCommands) {
         Set<String> adminCommands = new HashSet<>();
         adminCommands.addAll(commonCommands);
         accessMap.put(User.UserRole.ADMIN, adminCommands);
+    }
+
+    @Override
+    public void init(FilterConfig filterConfig) {
+        initGuestCommands();
+        Set<String> commonCommands = initCommonCommands();
+        initManagerCommands(commonCommands);
+        initDeveloperCommands(commonCommands);
+        initCustomerCommands(commonCommands);
+        initAdminCommands(commonCommands);
     }
 
     @Override
@@ -131,12 +149,8 @@ public class AccessFilter implements Filter {
     }
 
     private boolean containsCommand(String command) {
-        for (Map.Entry<User.UserRole, Set<String>> entry : accessMap.entrySet()) {
-            if (entry.getValue().contains(command)) {
-                return true;
-            }
-        }
-        return false;
+        return accessMap.entrySet().stream()
+                .anyMatch(entry -> entry.getValue().contains(command));
     }
 
     private Set<String> makeStringSet(List<?> list) {
